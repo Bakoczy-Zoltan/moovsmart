@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import { PropertyDetailsModel } from '../models/propertyDetails.model';
 import {PropertyListItemModel} from "../models/propertyListItem.model";
 import {PropertyFormDataModel} from "../models/propertyFormData.model";
 
@@ -22,6 +23,8 @@ export class PropertyService {
     return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl);
   }
 
-
+  getpropertyDetails(id: string): Observable<PropertyDetailsModel> {
+    return this.httpClient.get<PropertyDetailsModel>(this.baseUrl + '/' + id);
+  }
 
 }
