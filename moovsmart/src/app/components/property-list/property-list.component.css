@@ -11,6 +11,7 @@
 #emptydbmessage {
     position: absolute;
     font-size: 20px;
+    font-weight: bold;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
