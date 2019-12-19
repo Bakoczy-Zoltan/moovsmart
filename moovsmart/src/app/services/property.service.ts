@@ -22,4 +22,6 @@ export class PropertyService {
     return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl);
   }
 
+
+
 }
