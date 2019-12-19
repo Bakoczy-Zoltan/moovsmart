@@ -4,6 +4,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 public class PropertyForm {
 
@@ -17,7 +18,7 @@ public class PropertyForm {
 
     private int price;
     private String description;
-    private String imageUrl;
+    private List<String> imageUrl;
 
     PropertyForm() {
 
@@ -55,11 +56,11 @@ public class PropertyForm {
         this.description = description;
     }
 
-    public String getImageUrl() {
+    public List<String> getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(List<String> imageUrl) {
         this.imageUrl = imageUrl;
     }
 }

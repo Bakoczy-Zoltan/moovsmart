@@ -11,6 +11,7 @@ import {PropertyListItemModel} from "../../models/propertyListItem.model";
 export class PropertyListComponent implements OnInit {
 
   propertyListItemModels: Array<PropertyListItemModel>;
+  defaultPicture = "https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg";
 
   constructor(private propertyService: PropertyService,
               private router: Router) {

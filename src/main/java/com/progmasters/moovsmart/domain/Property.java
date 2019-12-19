@@ -7,6 +7,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Property {
@@ -14,6 +16,7 @@ public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
 
     @NotNull
     @Size(min = 1, max = 200)
@@ -28,7 +31,8 @@ public class Property {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    private String imageUrl;
+    @OneToMany(mappedBy = "property")
+    private List<ImageProperty> imageUrls = new ArrayList<>();
 
     public Property() {
     }
@@ -38,7 +42,7 @@ public class Property {
         this.numberOfRooms = propertyForm.getNumberOfRooms();
         this.price = propertyForm.getPrice();
         this.description = propertyForm.getDescription();
-        this.imageUrl = propertyForm.getImageUrl();
+        this.imageUrls = makeImageList(propertyForm.getImageUrl());
     }
 
     public Long getId() {
@@ -81,11 +85,19 @@ public class Property {
         this.description = description;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public List<ImageProperty> getImageUrls() {
+        return imageUrls;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageUrls(List<ImageProperty> imageUrls) {
+        this.imageUrls = imageUrls;
+    }
+
+    public List<ImageProperty> makeImageList(List<String>urls){
+        List<ImageProperty>imgUrls = new ArrayList<>();
+        for(String url : urls){
+            imgUrls.add(new ImageProperty(url));
+        }
+        return imgUrls;
     }
 }
