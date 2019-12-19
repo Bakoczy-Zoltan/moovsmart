@@ -15,39 +15,42 @@ export class PropertyDetailsComponent implements OnInit {
 
 
     propertyImage: any[];
-    propertyDetails: Observable<PropertyDetailsModel>;
+    propertyDetails: PropertyDetailsModel;
 
     constructor(private propertyService: PropertyService, private activatedRoute: ActivatedRoute,
                 private router: Router) {
-      this.activatedRoute.paramMap.subscribe(
-          paramMap => {
-            const idParam: number = +paramMap.get('id');
-            if (isNaN(idParam) || idParam < 1 || isNull(this.propertyService.getPropertyDetails(idParam)))
-             {
-              this.router.navigate(['property-list']);
-            } else {
-              this.propertyDetails = this.propertyService.getPropertyDetails(idParam);
-            }
-          });
+        this.activatedRoute.paramMap.subscribe(
+            paramMap => {
+                const idParam: number = +paramMap.get('id');
+                if (isNaN(idParam)) {
+                    this.router.navigate(['property-list']);
+                } else {
+                    this.propertyService
+                        .getPropertyDetails(idParam)
+                        .subscribe(
+                            proDetails => this.propertyDetails = proDetails,
+                            () => this.router.navigate(['property-list']),
+                        );
+                }
+            });
     }
 
-      ngOnInit(): void {
-        throw new Error("Method not implemented.");
+    ngOnInit(): void {
+
     }
 
 
-        openModal()
-        {
+    openModal() {
 
-        }
-
-        currentSlide(i: number){
-        }
-
-        closeModal() {
-        }
-
-        plusSlides(number: number){
-        }
     }
+
+    currentSlide(i: number) {
+    }
+
+    closeModal() {
+    }
+
+    plusSlides(number: number) {
+    }
+}
 
