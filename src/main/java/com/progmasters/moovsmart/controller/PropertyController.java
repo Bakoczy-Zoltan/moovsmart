@@ -5,6 +5,8 @@ import com.progmasters.moovsmart.dto.PropertyForm;
 import com.progmasters.moovsmart.dto.PropertyListItem;
 import com.progmasters.moovsmart.service.PropertyService;
 import com.progmasters.moovsmart.validation.PropertyFormValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,7 @@ public class PropertyController {
 
     private PropertyService propertyService;
     private PropertyFormValidator propertyFormValidator;
+    private Logger logger = LoggerFactory.getLogger(PropertyController.class);
 
     @Autowired
     public PropertyController(PropertyService propertyService, PropertyFormValidator propertyFormValidator) {
@@ -34,6 +37,7 @@ public class PropertyController {
 
     @GetMapping
     public ResponseEntity<List<PropertyListItem>> getAllProperties() {
+        logger.info("Get properties-list");
         return new ResponseEntity<>(propertyService.getProperties(), HttpStatus.OK);
     }
 
