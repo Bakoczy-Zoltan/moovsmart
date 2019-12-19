@@ -1,5 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { isNull } from 'util';
+import { PropertyDetailsModel } from '../../models/propertyDetails.model';
+import { PropertyService } from '../../services/property.service';
 
 @Component({
   selector: 'app-property-details',
@@ -8,30 +14,44 @@ import { Router } from '@angular/router';
 })
 
 export class PropertyDetailsComponent implements OnInit {
-  propertyImage : any[];
 
-  constructor(private router: Router) {
-    const img1 = "https://q-cf.bstatic.com/images/hotel/max1024x768/195/195846764.jpg";
-    const img2 =  "https://r-cf.bstatic.com/images/hotel/max1024x768/151/151787518.jpg";
 
-    this.propertyImage = [img1, img2, img1];
-  }
+    propertyImage: any[];
+    propertyDetails: Observable<PropertyDetailsModel>;
 
-  ngOnInit() {
-  }
+    constructor(private propertyService: PropertyService, private activatedRoute: ActivatedRoute,
+                private router: Router) {
+      this.activatedRoute.paramMap.subscribe(
+          paramMap => {
+            const idParam: number = +paramMap.get('id');
+            if (isNaN(idParam) || idParam < 1 || isNull(this.propertyService.getPropertyDetails(idParam)))
+             {
+              this.router.navigate(['property-list']);
+            } else {
+              this.propertyDetails = this.propertyService.getPropertyDetails(idParam);
+            }
+          });
+    }
 
-  openModal() {
+      ngOnInit(): void {
+        throw new Error("Method not implemented.");
+    }
 
-  }
 
-  currentSlide(i: number) {
+        openModal()
+        {
 
-  }
+        }
 
-  closeModal() {
+        currentSlide(i: number){
+        }
 
-  }
+        closeModal() {
+        }
 
+        plusSlides(number: number){
+        }
+    }
   plusSlides(number: number) {
 
   }
@@ -40,3 +60,4 @@ export class PropertyDetailsComponent implements OnInit {
     this.router.navigate(['property-list']);
   }
 }
+
