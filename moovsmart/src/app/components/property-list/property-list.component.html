@@ -1,16 +1,4 @@
 <div class="container">
-        <!--  <div *ngFor="let property of propertyListItemModels">-->
-        <!--    <div class="row">-->
-        <!--      <div class="col-auto">-->
-        <!--        <img (click)="details(property.id)" alt="Room" class="room-list-item__image" src="{{property.imageUrl}}"/>-->
-        <!--      </div>-->
-        <!--      <div class="col text-left">-->
-        <!--        <h3>{{property.name}}</h3>-->
-        <!--        <p><strong>Number of beds: </strong> {{property.numberOfRooms}}</p>-->
-        <!--        <p><strong>Price per night: </strong> {{property.price}}</p>-->
-        <!--      </div>-->
-        <!--    </div>-->
-        <!--  </div>-->
     <div *ngIf="propertyListItemModels.length === 0" id="emptydb">
         <img
             src="https://previews.123rf.com/images/tcareob72/tcareob721801/tcareob72180100003/94128283-beautiful-atmosphere-empty-field-in-thailand-.jpg"
@@ -18,26 +6,26 @@
         <div id="emptydbmessage">Sajnáljuk, jelenleg nincs ingatlan az adatbázisunkban.</div>
     </div>
 
-      <table  *ngIf="propertyListItemModels.length !== 0" id="list-table" class="table table-borderless">
-          <thead>
-              <tr>
-                  <th colspan="3"><h1>Eladó ingatlanok</h1></th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let property of propertyListItemModels">
-                  <td><img (click)="details(property.id)" alt="ingatlan" class="room-list-item__image" width="200"
-                           src="{{property.imageUrl}}"/></td>
-                  <td>
-                      <h3>{{property.name}}</h3>
-                      <p><strong>Szobák száma: </strong> {{property.numberOfRooms}}</p>
-                      <p><strong>Ár: </strong> {{property.price}}</p></td>
-                  <td>
-                      <div class="btn-group">
-                          <button class="btn btn-primary" (click)="details(property.id)">Részletek</button>
-                      </div>
-                  </td>
-              </tr>
-          </tbody>
-      </table>
+    <table  *ngIf="propertyListItemModels.length !== 0" id="list-table" class="table table-borderless">
+      <thead>
+          <tr>
+              <th colspan="3"><h1>Eladó ingatlanok</h1></th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let property of propertyListItemModels">
+              <td><img (click)="details(property.id)" alt="ingatlan" class="room-list-item__image" width="200"
+                       src="{{property.imageUrl}}"/></td>
+              <td>
+                  <h3>{{property.name}}</h3>
+                  <p><strong>Szobák száma: </strong> {{property.numberOfRooms}}</p>
+                  <p><strong>Ár: </strong> {{property.price}}</p></td>
+              <td>
+                  <div class="btn-group">
+                      <button class="btn" (click)="details(property.id)">Részletek</button>
+                  </div>
+              </td>
+          </tr>
+      </tbody>
+    </table>
 </div>

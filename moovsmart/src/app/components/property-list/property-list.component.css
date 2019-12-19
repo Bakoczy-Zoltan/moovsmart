@@ -1,3 +1,8 @@
+
+.table {
+    background-color: white;
+}
+
 #emptydb {
     position: fixed;
     top: 0;
@@ -15,4 +20,9 @@
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.btn {
+    background-color: #7E685A;
+    color: white;
 }
