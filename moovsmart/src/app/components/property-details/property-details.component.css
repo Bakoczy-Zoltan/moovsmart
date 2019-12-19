@@ -1,0 +1,24 @@
+#img-holder-row {
+    background-color: #7E685A;
+    max-height: 100px;
+    width: auto;
+    text-align: center;
+}
+
+.small-img {
+    max-height: 100px;
+    width: auto;
+}
+
+#img-bonder {
+    display: inline;
+}
+
+#main-img {
+
+}
+
+/*#carouselExampleControls {*/
+/*    max-height: 200px;*/
+/*    width: auto;*/
+/*}*/
