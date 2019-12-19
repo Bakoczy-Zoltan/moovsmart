@@ -9,6 +9,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {PropertyFormComponent} from './components/property-form/property-form.component';
 import {PropertyDetailsComponent} from './components/property-details/property-details.component';
 import {PropertyListComponent} from './components/property-list/property-list.component';
+import { PropertyService } from './services/property.service';
 
 @NgModule({
   declarations: [
@@ -22,9 +23,10 @@ import {PropertyListComponent} from './components/property-list/property-list.co
     HttpClientModule,
     ReactiveFormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -76,6 +76,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, status);
     }
 
+
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<ApiError> defaultErrorHandler(Throwable t) {
         logger.error("An unexpected error occurred: ", t);
