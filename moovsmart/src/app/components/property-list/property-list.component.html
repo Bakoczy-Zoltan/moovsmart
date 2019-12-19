@@ -1,17 +1,19 @@
 <div class="container">
-
-  <div *ngFor="let property of propertyListItemModels">
-    <div class="row">
-      <div class="col-auto">
-        <img (click)="details(property.id)" alt="Room" class="room-list-item__image" src="{{property.imageUrl}}"/>
-      </div>
-      <div class="col text-left">
-        <h3>{{property.name}}</h3>
-        <p><strong>Number of beds: </strong> {{property.numberOfRooms}}</p>
-        <p><strong>Price per night: </strong> {{property.price}}</p>
-      </div>
+    <div *ngIf="propertyListItemModels.length === 0" id="emptydb">
+      <img src="https://previews.123rf.com/images/tcareob72/tcareob721801/tcareob72180100003/94128283-beautiful-atmosphere-empty-field-in-thailand-.jpg" alt="empty database">
+      <div id="emptydbmessage">Sorry, we don't have any properties right now</div>
     </div>
-  </div>
-
-
+    <div *ngFor="let property of propertyListItemModels">
+        <div class="row">
+            <div class="col-auto">
+                <img (click)="details(property.id)" alt="Room" class="room-list-item__image"
+                     src="{{property.imageUrl}}"/>
+            </div>
+            <div class="col text-left">
+                <h3>{{property.name}}</h3>
+                <p><strong>Number of beds: </strong> {{property.numberOfRooms}}</p>
+                <p><strong>Price per night: </strong> {{property.price}}</p>
+            </div>
+        </div>
+    </div>
 </div>
