@@ -1,8 +1,14 @@
+
+.table {
+    background-color: white;
+}
+
 #emptydb {
     position: fixed;
     top: 0;
     left: 0;
 
+    /* Preserve aspet ratio */
     min-width: 100%;
     min-height: 100%;
 }
@@ -21,4 +27,9 @@
     max-width: 200px;
     height: 100%;
     max-height: 150px;
+}
+
+.btn {
+    background-color: #7E685A;
+    color: white;
 }
