@@ -22,7 +22,7 @@ import {PropertyListComponent} from './components/property-list/property-list.co
     HttpClientModule,
     ReactiveFormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
