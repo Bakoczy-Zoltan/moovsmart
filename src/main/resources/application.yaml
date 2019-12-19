@@ -18,6 +18,8 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
+  security:
+    admin:
 
 logging:
   level:
