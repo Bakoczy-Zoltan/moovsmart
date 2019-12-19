@@ -3,7 +3,6 @@ package com.progmasters.moovsmart.dto;
 import com.progmasters.moovsmart.domain.ImageProperty;
 import com.progmasters.moovsmart.domain.Property;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PropertyListItem {
@@ -12,7 +11,7 @@ public class PropertyListItem {
     private String name;
     private int numberOfRooms;
     private int price;
-    private List<String> imageUrl;
+    private String imageUrl;
 
     public PropertyListItem() {
     }
@@ -22,7 +21,7 @@ public class PropertyListItem {
         this.name = property.getName();
         this.numberOfRooms = property.getNumberOfRooms();
         this.price = property.getPrice();
-        this.imageUrl = makeImageUrls(property.getImageUrls());
+        this.imageUrl = makeImageUrl(property.getImageUrls());
     }
 
     public long getId() {
@@ -57,19 +56,19 @@ public class PropertyListItem {
         this.price = price;
     }
 
-    public List<String> getImageUrl() {
+    public String getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(List<String> imageUrl) {
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
-    public List<String> makeImageUrls(List<ImageProperty> urls) {
-        List<String> urlsStrings = new ArrayList<>();
-        for (ImageProperty img : urls) {
-            urlsStrings.add(img.getUrl());
-        }
-        return urlsStrings;
+    public String makeImageUrl(List<ImageProperty> urls) {
+       String url = null;
+       if(urls != null && !urls.isEmpty()){
+           url = urls.get(0).getUrl();
+       }
+        return url;
     }
 }
