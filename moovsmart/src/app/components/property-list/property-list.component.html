@@ -1,12 +1,12 @@
 <div class="container">
-    <div *ngIf="propertyListItemModels.length === 0" id="emptydb">
+    <div *ngIf="propertyListItemModels === undefined || propertyListItemModels.length === 0" id="emptydb">
         <img
             src="https://previews.123rf.com/images/tcareob72/tcareob721801/tcareob72180100003/94128283-beautiful-atmosphere-empty-field-in-thailand-.jpg"
             alt="empty database">
         <div id="emptydbmessage">Sajnáljuk, jelenleg nincs ingatlan az adatbázisunkban.</div>
     </div>
 
-      <table  *ngIf="propertyListItemModels.length !== 0" id="list-table" class="table table-borderless">
+      <table *ngIf="propertyListItemModels?.length !== 0" id="list-table" class="table table-borderless">
           <thead>
               <tr>
                   <th colspan="3"><h1>Eladó ingatlanok</h1></th>

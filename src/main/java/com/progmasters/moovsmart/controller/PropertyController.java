@@ -43,6 +43,7 @@ public class PropertyController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PropertyDetails> getPropertyDetails(@PathVariable("id") Long id) {
+        logger.info("property-details requested");
         return new ResponseEntity<>(propertyService.getPropertyDetails(id), HttpStatus.OK);
     }
 
