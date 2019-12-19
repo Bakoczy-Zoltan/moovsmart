@@ -1,29 +1,57 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { isNull } from 'util';
+import { PropertyDetailsModel } from '../../models/propertyDetails.model';
+import { PropertyService } from '../../services/property.service';
 
 @Component({
-    selector: 'app-property-details',
-    templateUrl: './property-details.component.html',
-    styleUrls: ['./property-details.component.css'],
+  selector: 'app-property-details',
+  templateUrl: './property-details.component.html',
+  styleUrls: ['./property-details.component.css']
 })
 
 export class PropertyDetailsComponent implements OnInit {
 
-    imagesBasic: any[];
 
-    constructor() {
-        this.imagesBasic = [    { img: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(117).jpg", thumb: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(117).jpg", description: "Image 1" },
-            { img: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(98).jpg", thumb: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(98).jpg", description: "Image 2" },
-            { img: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(131).jpg", thumb: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(131).jpg", description: "Image 3" },
-            { img: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(123).jpg", thumb: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(123).jpg", description: "Image 4" },
-            { img: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(118).jpg", thumb: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(118).jpg", description: 'Image 5' },
-            { img: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(128).jpg", thumb: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(128).jpg", description: 'Image 6' },
-            { img: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(132).jpg", thumb: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(132).jpg", description: 'Image 7' },
-            { img: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(115).jpg", thumb: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(115).jpg", description: 'Image 8' },
-            { img: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(133).jpg", thumb: "https://mdbootstrap.com/img/Photos/Horizontal/Nature/12-col/img%20(133).jpg", description: 'Image 9' }];
+    propertyImage: any[];
+    propertyDetails: PropertyDetailsModel;
+
+    constructor(private propertyService: PropertyService, private activatedRoute: ActivatedRoute,
+                private router: Router) {
+        this.activatedRoute.paramMap.subscribe(
+            paramMap => {
+                const idParam: number = +paramMap.get('id');
+                if (isNaN(idParam)) {
+                    this.router.navigate(['property-list']);
+                } else {
+                    this.propertyService
+                        .getPropertyDetails(idParam)
+                        .subscribe(
+                            proDetails => this.propertyDetails = proDetails,
+                            () => this.router.navigate(['property-list']),
+                        );
+                }
+            });
     }
 
-    ngOnInit() {
-    }
+  ngOnInit() {
+  }
 
+  openModal() {
 
+  }
+
+  currentSlide(i: number) {
+
+  }
+
+  closeModal() {
+
+  }
+
+  plusSlides(number: number) {
+
+  }
 }
+

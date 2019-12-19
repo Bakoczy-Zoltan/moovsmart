@@ -1,15 +1,15 @@
 <div class="container">
-  <h2>Register New Room</h2>
+  <h2>Új ingatlan regisztrálása</h2>
   <hr/>
   <form (ngSubmit)="submit()" [formGroup]="propertyForm">
     <div class="form-group">
-      <label for="from">Property Name</label>
+      <label for="from">Ingatlan neve</label>
       <input
         class="form-control"
         formControlName="name"
         id="from"
         name="from"
-        placeholder="Enter name for the property"
+        placeholder="Kérjük, írja be az ingatlan nevét!"
       />
       <small *ngIf="propertyForm.get('name').errors?.serverError" class="text-danger">
         {{propertyForm.get('name').errors['serverError']}}
@@ -18,12 +18,12 @@
 
     <div class="form-group">
       <label
-        for="numberOfRooms">Number of rooms</label>
+        for="numberOfRooms">Szobák száma</label>
       <input
         class="form-control"
         formControlName="numberOfRooms"
         id="numberOfRooms"
-        placeholder="Enter the number of rooms"
+        placeholder="írja be a szobák számát!"
         type="number"
       />
       <small *ngIf="propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
@@ -33,12 +33,12 @@
 
     <div class="form-group">
       <label
-        for="price">Price</label>
+        for="price">Kikiáltási ár</label>
       <input
         class="form-control"
         formControlName="price"
         id="price"
-        placeholder="Enter the price"
+        placeholder="írja be az árat!"
         type="number"
       />
       <small *ngIf="propertyForm.get('price').errors?.serverError" class="text-danger">
@@ -48,13 +48,12 @@
 
     <div class="form-group">
       <label
-        for="description">Description</label>
+        for="description">Ingatlan leírása</label>
       <textarea
         aria-multiline="true"
         class="form-control"
         formControlName="description"
         id="description"
-        placeholder="Enter description"
         rows="3"
       ></textarea>
       <small *ngIf="propertyForm.get('description').errors?.serverError" class="text-danger">
@@ -64,12 +63,12 @@
 
     <div class="form-group">
       <label
-        for="imageUrl">Image</label>
+        for="imageUrl">Kép</label>
       <input
         class="form-control"
         formControlName="imageUrl"
         id="imageUrl"
-        placeholder="Enter an url for the image"
+        placeholder="írja be az ingatlanról készült kép URL-ét!"
       />
       <small *ngIf="propertyForm.get('imageUrl').errors?.serverError" class="text-danger">
         {{propertyForm.get('imageUrl').errors['serverError']}}
@@ -77,6 +76,6 @@
     </div>
 
     <br/>
-    <button class="btn btn-primary my-buttons">Save Property</button>
+    <button class="btn btn-primary my-buttons">Mentés</button>
   </form>
 </div>
