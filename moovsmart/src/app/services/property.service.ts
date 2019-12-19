@@ -23,7 +23,7 @@ export class PropertyService {
     return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl);
   }
 
-  getpropertyDetails(id: string): Observable<PropertyDetailsModel> {
+  getPropertyDetails(id: number): Observable<PropertyDetailsModel> {
     return this.httpClient.get<PropertyDetailsModel>(this.baseUrl + '/' + id);
   }
 
