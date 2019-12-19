@@ -6,8 +6,13 @@
     <div *ngFor="let property of propertyListItemModels">
         <div class="row">
             <div class="col-auto">
+                <div *ngIf="!property.imageUrl">
+                    <img [src]="defaultPicture" class="defaultPicture">
+                </div>
+                <div *ngIf="property.imageUrl">
                 <img (click)="details(property.id)" alt="Room" class="room-list-item__image"
                      src="{{property.imageUrl}}"/>
+                </div>
             </div>
             <div class="col text-left">
                 <h3>{{property.name}}</h3>
