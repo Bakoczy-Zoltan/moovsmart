@@ -2,26 +2,26 @@
     <div class="row">
         <div class="column">
             <img *ngFor="let image of propertyImage, let i = index" src="{{image}}" alt="picture"
-                 style="width:100%" onclick="openModal();currentSlide(i)" class="hover-shadow cursor">
+                 style="width:100%" (click)="openModal();currentSlide(i)" class="hover-shadow cursor">
         </div>
 
         <div id="myModal" class="modal">
-            <span class="close cursor" onclick="closeModal()">&times;</span>
+            <span class="close cursor" (click)="closeModal()">&times;</span>
             <div class="modal-content">
 
                 <div class="mySlides" *ngFor="let image of propertyImage">
                     <div class="numbertext">1 / 4</div>
                     <img src="{{image}}" style="width:100%" alt="picture">
                 </div>
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+                <a class="next" (click)="plusSlides(1)">&#10095;</a>
 
                 <div class="caption-container">
                     <p id="caption"></p>
                 </div>
 
                 <div class="column" *ngFor="let image of propertyImage ,let i = index">
-                    <img class="demo cursor" src="{{image}}" style="width:100%" onclick="currentSlide(i)" alt="picture">
+                    <img class="demo cursor" src="{{image}}" style="width:100%" (click)="currentSlide(i)" alt="picture">
                 </div>
 
             </div>
