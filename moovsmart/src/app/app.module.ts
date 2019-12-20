@@ -25,8 +25,7 @@ import { PropertyService } from './services/property.service';
     BrowserModule,
     AppRoutingModule,
   ],
-  providers: [
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
