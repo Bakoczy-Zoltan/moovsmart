@@ -1,11 +1,12 @@
-<div class="container">
+<div class="container" id="cont">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img [src]="defaultPicture" class="d-block w-100" alt="picture">
             </div>
             <div class="carousel-item" *ngFor="let image of images">
-                <img src="{{image}}" class="d-block w-100" alt="picture" id="main-img" (click)="changeDefaultImg(image)">
+                <img src="{{image}}" class="d-block w-100" alt="picture" id="main-img"
+                     (click)="changeDefaultImg(image)">
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -22,4 +23,24 @@
             <img [src]="image" class="small-img" alt="picture" (click)="changeDefaultImg(image)">
         </div>
     </div>
+</div>
+<div class="container" id="text-container">
+    <h3><strong>Ingatlan bemutatása</strong></h3>
+
+    <div class="row" id="description-div">
+        <div class="col">
+            <strong>Ingatlan:</strong> {{propertyDetails?.name + " "}}
+        </div>
+        <div class="col">
+            <strong>Szobák száma:</strong> {{propertyDetails?.numberOfRooms}}
+        </div>
+        <div class="col">
+            <strong>Ár:</strong> {{propertyDetails?.price}}
+        </div>
+    </div>
+
+    <p></p>
+    <p><strong>Részletes leírás:</strong></p>
+    <p>{{propertyDetails?.description}}</p>
+
 </div>

@@ -11,6 +11,10 @@
         name="from"
         placeholder="Kérjük, írja be az ingatlan nevét!"
       />
+      <small *ngIf="propertyForm.get('name').invalid && propertyForm.get('name').touched
+       && !propertyForm.get('name').errors?.serverError" class="text-danger">
+        Az ingatlan neve minimum 1, de maximum 60 karakter lehet.
+      </small>
       <small *ngIf="propertyForm.get('name').errors?.serverError" class="text-danger">
         {{propertyForm.get('name').errors['serverError']}}
       </small>
@@ -26,6 +30,10 @@
         placeholder="írja be a szobák számát!"
         type="number"
       />
+      <small *ngIf="propertyForm.get('numberOfRooms').invalid && propertyForm.get('numberOfRooms').touched
+      && !propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
+        A szobák száma csak nullánál nagyobb lehet!
+      </small>
       <small *ngIf="propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
         {{propertyForm.get('numberOfRooms').errors['serverError']}}
       </small>
@@ -41,6 +49,10 @@
         placeholder="írja be az árat!"
         type="number"
       />
+      <small *ngIf="propertyForm.get('price').invalid && propertyForm.get('price').touched
+      && !propertyForm.get('price').errors?.serverError" class="text-danger">
+        Kérjük, adjon az ingatlannak nullánál nagyobb kikiáltási árat!
+      </small>
       <small *ngIf="propertyForm.get('price').errors?.serverError" class="text-danger">
         {{propertyForm.get('price').errors['serverError']}}
       </small>
@@ -76,6 +88,6 @@
     </div>
 
     <br/>
-    <button class="btn btn-primary my-buttons">Mentés</button>
+    <button class="btn btn-primary my-buttons" [disabled]="propertyForm.invalid">Mentés</button>
   </form>
 </div>
