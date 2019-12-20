@@ -4,9 +4,9 @@ import { PropertyDetailsModel } from '../../models/propertyDetails.model';
 import { PropertyService } from '../../services/property.service';
 
 @Component({
-    selector: 'app-property-details',
-    templateUrl: './property-details.component.html',
-    styleUrls: ['./property-details.component.css'],
+  selector: 'app-property-details',
+  templateUrl: './property-details.component.html',
+  styleUrls: ['./property-details.component.css']
 })
 
 export class PropertyDetailsComponent implements OnInit {
