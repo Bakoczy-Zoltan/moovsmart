@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
+import { FormBuilder, Validators } from '@angular/forms';
 import {PropertyService} from "../../services/property.service";
 import {Router} from "@angular/router";
 import {validationHandler} from "../../utils/validationHandler";
@@ -13,8 +13,8 @@ export class PropertyFormComponent implements OnInit {
 
   propertyForm = this.formBuilder.group({
     "name": ['',],
-    "numberOfRooms": [0],
-    "price": [0],
+    "numberOfRooms": [0, Validators.min(1)],
+    "price": [0, Validators.min(1)],
     "description": [''],
     "imageUrl": ['']
   });
