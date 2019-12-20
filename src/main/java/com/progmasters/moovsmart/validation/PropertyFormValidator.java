@@ -29,6 +29,10 @@ public class PropertyFormValidator implements Validator {
             errors.rejectValue("name", "property.name.empty");
         }
 
+        if (property.getName().length() < 1 || property.getName().length() > 60) {
+            errors.rejectValue("name", "property.name.notproperlength");
+        }
+
         if (property.getPrice() < 1) {
             errors.rejectValue("price", "property.price.notpositive");
         }

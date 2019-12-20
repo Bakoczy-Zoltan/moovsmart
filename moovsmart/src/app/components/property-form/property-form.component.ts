@@ -12,7 +12,7 @@ import {validationHandler} from "../../utils/validationHandler";
 export class PropertyFormComponent implements OnInit {
 
   propertyForm = this.formBuilder.group({
-    "name": ['',],
+    "name": ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(60)])],
     "numberOfRooms": [0, Validators.min(1)],
     "price": [0, Validators.min(1)],
     "description": [''],
