@@ -31,6 +31,8 @@ public class Property {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    private boolean isValid;
+
     @OneToMany(mappedBy = "property")
     private List<ImageProperty> imageUrls = new ArrayList<>();
 
@@ -42,6 +44,7 @@ public class Property {
         this.numberOfRooms = propertyForm.getNumberOfRooms();
         this.price = propertyForm.getPrice();
         this.description = propertyForm.getDescription();
+        this.isValid = true;
         this.imageUrls = makeImageList(propertyForm.getImageUrl());
     }
 
@@ -85,6 +88,14 @@ public class Property {
         this.description = description;
     }
 
+    public boolean isValid() {
+        return isValid;
+    }
+
+    public void setValid(boolean valid) {
+        isValid = valid;
+    }
+
     public List<ImageProperty> getImageUrls() {
         return imageUrls;
     }
@@ -100,4 +111,5 @@ public class Property {
         }
         return imgUrls;
     }
+
 }

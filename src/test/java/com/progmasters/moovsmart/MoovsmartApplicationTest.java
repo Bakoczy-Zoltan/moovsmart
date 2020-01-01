@@ -1,27 +1,27 @@
 package com.progmasters.moovsmart;
 
+import com.progmasters.moovsmart.dto.PropertyListItem;
 import com.progmasters.moovsmart.service.PropertyService;
-import com.progmasters.moovsmart.controller.PropertyController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = MoovsmartApplication.class)
 public class MoovsmartApplicationTest {
 
-    @Mock
+    @Autowired
     private PropertyService propertyService;
-
-    @InjectMocks
-    private PropertyController propertyController;
 
     @Test
     public void testAddProperty() {
-        when(propertyService.getProperties()).thenReturn(new );
+        List<PropertyListItem> propertyList = propertyService.getProperties();
 
     }
 }

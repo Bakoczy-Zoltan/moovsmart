@@ -28,7 +28,9 @@ export class PropertyFormComponent implements OnInit {
   }
 
   submit = () => {
-    this.propertyService.createProperty(this.propertyForm.value).subscribe(
+    const data = {...this.propertyForm.value};
+    data.isValid = true;
+    this.propertyService.createProperty(data).subscribe(
       () => this.router.navigate(["property-list"]),
       error => validationHandler(error, this.propertyForm),
     );

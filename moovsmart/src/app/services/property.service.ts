@@ -27,4 +27,7 @@ export class PropertyService {
         return this.httpClient.get<PropertyDetailsModel>(this.baseUrl + '/' + id);
     };
 
+    deleteProperty(id: number): Observable<any> {
+        return this.httpClient.delete(this.baseUrl + '/' + id);
+    }
 }

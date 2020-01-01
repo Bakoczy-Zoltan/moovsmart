@@ -26,4 +26,8 @@
     background-color: antiquewhite;
 }
 
-
+.btn {
+    background-color: #7E685A;
+    color: white;
+    margin-left: 5%;
+}

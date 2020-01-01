@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PropertyDetailsModel } from '../../models/propertyDetails.model';
+import { PropertyListItemModel } from '../../models/propertyListItem.model';
 import { PropertyService } from '../../services/property.service';
 
 @Component({
@@ -50,6 +51,22 @@ export class PropertyDetailsComponent implements OnInit {
 
     goBack() {
         this.router.navigate(['property-list']);
+    }
+
+    delete(id: number) {
+        this.propertyService.deleteProperty(id).subscribe(
+            () => {
+                this.router.navigate(['property-list']);
+            },
+            error => console.warn(error),
+        );
+
+
+
+    }
+
+    edit(id: number) {
+        this.router.navigate(['property-form', id]);
     }
 }
 
