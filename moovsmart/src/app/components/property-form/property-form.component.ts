@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { PropertyFormDataModel } from '../../models/propertyFormData.model';
 import {PropertyService} from "../../services/property.service";
-import {Router} from "@angular/router";
+import { ActivatedRoute, Router } from '@angular/router';
 import {validationHandler} from "../../utils/validationHandler";
 
 @Component({
@@ -10,6 +11,8 @@ import {validationHandler} from "../../utils/validationHandler";
   styleUrls: ['./property-form.component.css']
 })
 export class PropertyFormComponent implements OnInit {
+
+  private propertyId: number;
 
   propertyForm = this.formBuilder.group({
     "name": ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(60)])],
@@ -21,21 +24,56 @@ export class PropertyFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private propertyService: PropertyService,
+              private route: ActivatedRoute,
               private router: Router) {
   }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(
+        paramMap => {
+          const editablePropertyId = paramMap.get('id');
+          if (editablePropertyId) {
+            this.propertyId = +editablePropertyId;
+            this.getPropertyData(editablePropertyId);
+          }
+        },
+        error => console.warn(error),
+    );
   }
+
+
+  getPropertyData = (id: string) => {
+    this.propertyService.fetchPropertyData(id).subscribe(
+        (response: PropertyFormDataModel) => {
+          this.propertyForm.patchValue({
+            name: response.name,
+            numberOfRooms: response.numberOfRooms,
+            price: response.price,
+            description: response.description,
+            imageUrl: response.imageUrl
+          });
+        },
+    );
+  };
 
   submit = () => {
     const data = {...this.propertyForm.value};
     data.isValid = true;
-    this.propertyService.createProperty(data).subscribe(
-      () => this.router.navigate(["property-list"]),
-      error => validationHandler(error, this.propertyForm),
-    );
-
+    this.propertyId ? this.updateProperty(data) : this.createProperty(data);
   };
 
+  private updateProperty(data: PropertyFormDataModel) {
+    this.propertyService.updateProperty(data, this.propertyId).subscribe(
+        () => this.router.navigate(['/']),
+        error => validationHandler(error, this.propertyForm),
+    );
+  }
+
+  private createProperty(data: PropertyFormDataModel) {
+    this.propertyService.createProperty(data).subscribe(
+        () => this.router.navigate(["property-list"]),
+        error => validationHandler(error, this.propertyForm),
+    );
+  }
 
 }

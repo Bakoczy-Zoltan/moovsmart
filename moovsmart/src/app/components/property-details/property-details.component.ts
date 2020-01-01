@@ -15,7 +15,8 @@ export class PropertyDetailsComponent implements OnInit {
     propertyDetails: PropertyDetailsModel;
     images: string[];
 
-    constructor(private propertyService: PropertyService, private activatedRoute: ActivatedRoute,
+    constructor(private propertyService: PropertyService,
+                private activatedRoute: ActivatedRoute,
                 private router: Router) {
 
         this.activatedRoute.paramMap.subscribe(
@@ -66,7 +67,7 @@ export class PropertyDetailsComponent implements OnInit {
     }
 
     edit(id: number) {
-        this.router.navigate(['property-form', id]);
+        this.router.navigate(['property-form/', id]);
     }
 }
 

@@ -8,6 +8,7 @@ const routes: Routes = [
   {path: "", component: PropertyListComponent},
   {path: "property-list", component: PropertyListComponent},
   {path: "property-form", component: PropertyFormComponent},
+  {path: 'property-form/:id', component: PropertyFormComponent},
   {path: "property-details/:id", component: PropertyDetailsComponent},
 ];
 
