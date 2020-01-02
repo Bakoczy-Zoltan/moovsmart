@@ -77,7 +77,6 @@ public class PropertyController {
         } else {
             result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         return result;
     }
 

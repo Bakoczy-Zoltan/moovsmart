@@ -92,9 +92,6 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
             },
             error => console.warn(error),
         );
-
-
-
     }
 
     edit(id: number) {
