@@ -26,8 +26,16 @@
     background-color: antiquewhite;
 }
 
-.btn {
-    background-color: #7E685A;
-    color: white;
-    margin-left: 5%;
+#map{
+    height: 400px;
+    width: 100%;
 }
+
+a{
+    color: darkblue;
+}
+a:hover{
+    color: magenta;
+}
+
+

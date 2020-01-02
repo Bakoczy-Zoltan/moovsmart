@@ -34,7 +34,7 @@ export class PropertyService {
     }
 
     deleteProperty(id: number): Observable<any> {
-        return this.httpClient.delete(this.baseUrl + '/' + id);
+        return this.httpClient.delete<any>(this.baseUrl + '/' + id);
     }
 
     fetchPropertyData(id: string): Observable<PropertyFormDataModel> {
