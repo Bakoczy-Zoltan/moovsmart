@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PropertyFormDataModel } from '../../models/propertyFormData.model';
-import {PropertyService} from "../../services/property.service";
+import { PropertyService } from '../../services/property.service';
+import { validationHandler } from '../../utils/validationHandler';
 import { ActivatedRoute, Router } from '@angular/router';
-import {validationHandler} from "../../utils/validationHandler";
 
 @Component({
   selector: 'app-property-form',
@@ -59,8 +59,16 @@ export class PropertyFormComponent implements OnInit {
   submit = () => {
     const data = {...this.propertyForm.value};
     data.isValid = true;
-    this.propertyId ? this.updateProperty(data) : this.createProperty(data);
-  };
+    this.propertyId ? this.updateProperty(data) : this.createNewProperty(data);
+
+   };
+
+  createNewProperty(data: PropertyFormDataModel) {
+    this.propertyService.createProperty(data).subscribe(
+        () => this.router.navigate(['property-list']),
+        error => validationHandler(error, this.propertyForm),
+    );
+  }
 
   private updateProperty(data: PropertyFormDataModel) {
     this.propertyService.updateProperty(data, this.propertyId).subscribe(
@@ -69,11 +77,6 @@ export class PropertyFormComponent implements OnInit {
     );
   }
 
-  private createProperty(data: PropertyFormDataModel) {
-    this.propertyService.createProperty(data).subscribe(
-        () => this.router.navigate(["property-list"]),
-        error => validationHandler(error, this.propertyForm),
-    );
-  }
+
 
 }

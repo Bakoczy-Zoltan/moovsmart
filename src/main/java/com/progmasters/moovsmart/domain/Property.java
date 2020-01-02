@@ -33,8 +33,9 @@ public class Property {
 
     private boolean isValid;
 
-    @OneToMany(mappedBy = "property")
-    private List<ImageProperty> imageUrls = new ArrayList<>();
+    @Column(name = "imagesUrl")
+    @ElementCollection(targetClass = String.class)
+    private List<String>imageUrls = new ArrayList<>();
 
     public Property() {
     }
@@ -45,7 +46,7 @@ public class Property {
         this.price = propertyForm.getPrice();
         this.description = propertyForm.getDescription();
         this.isValid = true;
-        this.imageUrls = makeImageList(propertyForm.getImageUrl());
+        this.imageUrls = propertyForm.getImageUrl();
     }
 
     public Long getId() {
@@ -96,20 +97,12 @@ public class Property {
         isValid = valid;
     }
 
-    public List<ImageProperty> getImageUrls() {
+    public List<String> getImageUrls() {
         return imageUrls;
     }
 
-    public void setImageUrls(List<ImageProperty> imageUrls) {
+    public void setImageUrls(List<String> imageUrls) {
         this.imageUrls = imageUrls;
-    }
-
-    public List<ImageProperty> makeImageList(List<String>urls){
-        List<ImageProperty>imgUrls = new ArrayList<>();
-        for(String url : urls){
-            imgUrls.add(new ImageProperty(url));
-        }
-        return imgUrls;
     }
 
 }

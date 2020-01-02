@@ -19,8 +19,8 @@ spring:
       enabled: true
       force: true
   security:
-    admin:
-
+    user:
+      name: zoli
 logging:
   level:
     com.progmasters: debug

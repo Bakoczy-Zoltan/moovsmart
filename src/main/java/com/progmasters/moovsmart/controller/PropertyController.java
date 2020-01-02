@@ -31,7 +31,7 @@ public class PropertyController {
         this.propertyFormValidator = propertyFormValidator;
     }
 
-    @InitBinder("propertyDetails")
+    @InitBinder("propertyForm")
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(propertyFormValidator);
     }
@@ -51,6 +51,7 @@ public class PropertyController {
     @PostMapping
     public ResponseEntity createProperty(@RequestBody @Valid PropertyForm propertyForm) {
         propertyService.createProperty(propertyForm);
+        this.logger.info("New Property created");
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

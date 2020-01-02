@@ -8,12 +8,9 @@ import java.util.List;
 
 public class PropertyForm {
 
-    @NotNull(message = "Property name cannot be empty!")
     @Size(min = 1, max = 200, message = "Property name must be between 1 and 200 characters!")
     private String name;
 
-    @Min(value = 1, message = "Number of rooms must be between 1 and 12!")
-    @Max(value = 12, message = "Number of rooms must be between 1 and 12!")
     private int numberOfRooms;
 
     private int price;
