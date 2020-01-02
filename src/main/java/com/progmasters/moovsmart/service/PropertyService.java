@@ -35,7 +35,10 @@ public class PropertyService {
     }
 
     public void createProperty(PropertyForm propertyForm) {
-        propertyRepository.save(new Property(propertyForm));
+        System.out.println("URLS List: => " + propertyForm.getImageUrl());
+
+        Property property = new Property(propertyForm);
+        propertyRepository.save(property);
     }
 
     private Property findById(Long id) {

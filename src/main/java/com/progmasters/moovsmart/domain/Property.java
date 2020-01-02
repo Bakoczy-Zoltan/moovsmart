@@ -31,18 +31,24 @@ public class Property {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @OneToMany(mappedBy = "property")
-    private List<ImageProperty> imageUrls = new ArrayList<>();
+//    @OneToMany(mappedBy = "property", fetch = FetchType.EAGER)
+//    private List<ImageProperty> imageUrls = new ArrayList<>();
+
+    @Column(name = "imagesUrl")
+    @ElementCollection(targetClass = String.class)
+    private List<String>imageUrls = new ArrayList<>();
 
     public Property() {
     }
+
+
 
     public Property(PropertyForm propertyForm) {
         this.name = propertyForm.getName();
         this.numberOfRooms = propertyForm.getNumberOfRooms();
         this.price = propertyForm.getPrice();
         this.description = propertyForm.getDescription();
-        this.imageUrls = makeImageList(propertyForm.getImageUrl());
+        this.imageUrls = propertyForm.getImageUrl();
     }
 
     public Long getId() {
@@ -85,19 +91,13 @@ public class Property {
         this.description = description;
     }
 
-    public List<ImageProperty> getImageUrls() {
+    public List<String> getImageUrls() {
         return imageUrls;
     }
 
-    public void setImageUrls(List<ImageProperty> imageUrls) {
+    public void setImageUrls(List<String> imageUrls) {
         this.imageUrls = imageUrls;
     }
 
-    public List<ImageProperty> makeImageList(List<String>urls){
-        List<ImageProperty>imgUrls = new ArrayList<>();
-        for(String url : urls){
-            imgUrls.add(new ImageProperty(url));
-        }
-        return imgUrls;
-    }
+
 }

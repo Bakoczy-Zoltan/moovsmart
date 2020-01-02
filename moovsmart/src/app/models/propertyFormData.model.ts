@@ -3,5 +3,5 @@ export interface PropertyFormDataModel {
   numberOfRooms: number;
   price: number;
   description: string;
-  imageUrl: string;
+  imageUrl: string[];
 }
