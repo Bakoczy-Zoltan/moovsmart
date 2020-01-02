@@ -31,17 +31,12 @@ public class Property {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-//    @OneToMany(mappedBy = "property", fetch = FetchType.EAGER)
-//    private List<ImageProperty> imageUrls = new ArrayList<>();
-
     @Column(name = "imagesUrl")
     @ElementCollection(targetClass = String.class)
     private List<String>imageUrls = new ArrayList<>();
 
     public Property() {
     }
-
-
 
     public Property(PropertyForm propertyForm) {
         this.name = propertyForm.getName();
