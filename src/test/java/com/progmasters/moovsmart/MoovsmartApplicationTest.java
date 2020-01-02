@@ -13,16 +13,4 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MoovsmartApplicationTest {
-
-    @Mock
-    private PropertyService propertyService;
-
-    @Test
-    public void testAddProperty() {
-        List<PropertyListItem> propertyList = propertyService.getProperties();
-    @InjectMocks
-    private PropertyController propertyController;
-
-
-    }
 }

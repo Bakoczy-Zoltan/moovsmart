@@ -47,11 +47,20 @@ public class PropertyService {
         Optional<Property> propertyOptional = propertyRepository.findById(id);
         if (propertyOptional.isPresent()) {
             Property property = propertyOptional.get();
+            updateValues(propertyForm, property);
             propertyRepository.save(property);
             return property;
         } else {
             return null;
         }
+    }
+
+    private void updateValues(PropertyForm propertyForm, Property property) {
+        property.setName(propertyForm.getName());
+        property.setNumberOfRooms(propertyForm.getNumberOfRooms());
+        property.setPrice(propertyForm.getPrice());
+        property.setDescription(propertyForm.getDescription());
+        property.setImageUrls(propertyForm.getImageUrl());
     }
 
     public boolean deleteProperty(Long id) {
