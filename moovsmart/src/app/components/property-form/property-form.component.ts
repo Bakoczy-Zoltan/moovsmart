@@ -1,46 +1,82 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { PropertyFormDataModel } from '../../models/propertyFormData.model';
 import { PropertyService } from '../../services/property.service';
 import { validationHandler } from '../../utils/validationHandler';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-    selector: 'app-property-form',
-    templateUrl: './property-form.component.html',
-    styleUrls: ['./property-form.component.css'],
+  selector: 'app-property-form',
+  templateUrl: './property-form.component.html',
+  styleUrls: ['./property-form.component.css']
 })
 export class PropertyFormComponent implements OnInit {
 
-    propertyForm = this.formBuilder.group({
-        'name': ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(60)])],
-        'numberOfRooms': [0, Validators.min(1)],
-        'price': [0, Validators.min(1)],
-        'description': [''],
-        'imageUrl': [''],
-    });
+  private propertyId: number;
 
-    constructor(private formBuilder: FormBuilder,
-                private propertyService: PropertyService,
-                private router: Router) {
-    }
+  propertyForm = this.formBuilder.group({
+    "name": ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(60)])],
+    "numberOfRooms": [0, Validators.min(1)],
+    "price": [0, Validators.min(1)],
+    "description": [''],
+    "imageUrl": ['']
+  });
 
-    ngOnInit() {
-    }
+  constructor(private formBuilder: FormBuilder,
+              private propertyService: PropertyService,
+              private route: ActivatedRoute,
+              private router: Router) {
+  }
 
-    submit = () => {
-        const data = this.propertyForm.value;
-        const img: string = this.propertyForm.value.imageUrl;
-        data.imageUrl = [img];
-        this.createNewProperty(data);
-    };
+  ngOnInit() {
+    this.route.paramMap.subscribe(
+        paramMap => {
+          const editablePropertyId = paramMap.get('id');
+          if (editablePropertyId) {
+            this.propertyId = +editablePropertyId;
+            this.getPropertyData(editablePropertyId);
+          }
+        },
+        error => console.warn(error),
+    );
+  }
 
-    createNewProperty(data: PropertyFormDataModel) {
-        this.propertyService.createProperty(data).subscribe(
-            () => this.router.navigate(['property-list']),
-            error => validationHandler(error, this.propertyForm),
-        );
-    }
+
+  getPropertyData = (id: string) => {
+    this.propertyService.fetchPropertyData(id).subscribe(
+        (response: PropertyFormDataModel) => {
+          this.propertyForm.patchValue({
+            name: response.name,
+            numberOfRooms: response.numberOfRooms,
+            price: response.price,
+            description: response.description,
+            imageUrl: response.imageUrl
+          });
+        },
+    );
+  };
+
+  submit = () => {
+    const data = {...this.propertyForm.value};
+    data.isValid = true;
+    this.propertyId ? this.updateProperty(data) : this.createNewProperty(data);
+
+   };
+
+  createNewProperty(data: PropertyFormDataModel) {
+    this.propertyService.createProperty(data).subscribe(
+        () => this.router.navigate(['property-list']),
+        error => validationHandler(error, this.propertyForm),
+    );
+  }
+
+  private updateProperty(data: PropertyFormDataModel) {
+    this.propertyService.updateProperty(data, this.propertyId).subscribe(
+        () => this.router.navigate(['/']),
+        error => validationHandler(error, this.propertyForm),
+    );
+  }
+
 
 
 }

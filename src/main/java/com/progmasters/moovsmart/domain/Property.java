@@ -31,6 +31,8 @@ public class Property {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    private boolean isValid;
+
     @Column(name = "imagesUrl")
     @ElementCollection(targetClass = String.class)
     private List<String>imageUrls = new ArrayList<>();
@@ -43,6 +45,7 @@ public class Property {
         this.numberOfRooms = propertyForm.getNumberOfRooms();
         this.price = propertyForm.getPrice();
         this.description = propertyForm.getDescription();
+        this.isValid = true;
         this.imageUrls = propertyForm.getImageUrl();
     }
 
@@ -86,6 +89,14 @@ public class Property {
         this.description = description;
     }
 
+    public boolean isValid() {
+        return isValid;
+    }
+
+    public void setValid(boolean valid) {
+        isValid = valid;
+    }
+
     public List<String> getImageUrls() {
         return imageUrls;
     }
@@ -93,6 +104,5 @@ public class Property {
     public void setImageUrls(List<String> imageUrls) {
         this.imageUrls = imageUrls;
     }
-
 
 }

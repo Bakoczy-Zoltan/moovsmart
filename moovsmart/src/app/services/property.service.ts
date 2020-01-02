@@ -27,4 +27,17 @@ export class PropertyService {
         return this.httpClient.get<PropertyDetailsModel>(this.baseUrl + '/' + id);
     };
 
+
+    updateProperty(data: PropertyFormDataModel, propertyId: number): Observable<any> {
+        data.id = propertyId;
+        return this.httpClient.put(this.baseUrl + '/' + propertyId, data);
+    }
+
+    deleteProperty(id: number): Observable<any> {
+        return this.httpClient.delete(this.baseUrl + '/' + id);
+    }
+
+    fetchPropertyData(id: string): Observable<PropertyFormDataModel> {
+        return this.httpClient.get<PropertyFormDataModel>(this.baseUrl + '/' + id);
+    }
 }

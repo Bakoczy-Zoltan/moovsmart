@@ -1,12 +1,13 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PropertyDetailsModel } from '../../models/propertyDetails.model';
+import { PropertyListItemModel } from '../../models/propertyListItem.model';
 import { PropertyService } from '../../services/property.service';
 
 @Component({
-    selector: 'app-property-details',
-    templateUrl: './property-details.component.html',
-    styleUrls: ['./property-details.component.css'],
+  selector: 'app-property-details',
+  templateUrl: './property-details.component.html',
+  styleUrls: ['./property-details.component.css']
 })
 
 export class PropertyDetailsComponent implements OnInit, AfterViewInit {
@@ -21,7 +22,8 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     mapOptions: google.maps.MapOptions;
     marker: google.maps.Marker;
 
-    constructor(private propertyService: PropertyService, private activatedRoute: ActivatedRoute,
+    constructor(private propertyService: PropertyService,
+                private activatedRoute: ActivatedRoute,
                 private router: Router) {
 
         this.coordinates = new google.maps.LatLng(this.lat, this.lng);
@@ -83,5 +85,20 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
         this.router.navigate(['property-list']);
     }
 
+    delete(id: number) {
+        this.propertyService.deleteProperty(id).subscribe(
+            () => {
+                this.router.navigate(['property-list']);
+            },
+            error => console.warn(error),
+        );
+
+
+
+    }
+
+    edit(id: number) {
+        this.router.navigate(['property-form/', id]);
+    }
 }
 
