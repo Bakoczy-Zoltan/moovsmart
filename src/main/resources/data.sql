@@ -19,16 +19,19 @@ VALUES (
     2,
     500);
 
-INSERT INTO img (url, property_id)
+INSERT INTO property_image_urls (property_id, images_url)
 VALUES (
-    'https://www.simedarbyproperty.com/sites/default/files/2018-04/rimbun-sanctuary-apartment-fb.jpg',
-    1);
+        1,
+        'https://www.simedarbyproperty.com/sites/default/files/2018-04/rimbun-sanctuary-apartment-fb.jpg'
+    );
 
-INSERT INTO img (url, property_id)
+INSERT INTO property_image_urls (property_id, images_url)
 VALUES (
-           'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hbz-ariana-grande-pete-davidson-apartment-01-1529527439.jpg?crop=1xw:1xh;center,top&resize=480:*',
-           2);
-INSERT INTO img (url, property_id)
+            2,
+           'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hbz-ariana-grande-pete-davidson-apartment-01-1529527439.jpg?crop=1xw:1xh;center,top&resize=480:*'
+       );
+INSERT INTO property_image_urls (property_id, images_url)
 VALUES (
-           'http://www.trimarkproperties.com/gainesville/sabal-palms/luxury-apartments/og.jpg',
-           3);
+            3,
+           'http://www.trimarkproperties.com/gainesville/sabal-palms/luxury-apartments/og.jpg'
+       );
