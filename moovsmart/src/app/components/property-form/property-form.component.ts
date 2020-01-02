@@ -58,7 +58,9 @@ export class PropertyFormComponent implements OnInit {
 
   submit = () => {
     const data = {...this.propertyForm.value};
+    const img : string[] = [this.propertyForm.value.imageUrl];
     data.isValid = true;
+    data.imageUrl = img;
     this.propertyId ? this.updateProperty(data) : this.createNewProperty(data);
 
    };
