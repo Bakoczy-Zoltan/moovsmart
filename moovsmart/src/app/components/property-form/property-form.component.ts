@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ImageService } from '../../services/image.service';
 import {PropertyService} from "../../services/property.service";
 import {Router} from "@angular/router";
 import {validationHandler} from "../../utils/validationHandler";
+
 
 @Component({
   selector: 'app-property-form',
@@ -34,6 +36,5 @@ export class PropertyFormComponent implements OnInit {
     );
 
   };
-
-
 }
+
