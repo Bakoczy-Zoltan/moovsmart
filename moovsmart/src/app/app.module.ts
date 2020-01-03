@@ -9,6 +9,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { PropertyDetailsComponent } from './components/property-details/property-details.component';
 import { PropertyFormComponent } from './components/property-form/property-form.component';
 import { PropertyListComponent } from './components/property-list/property-list.component';
+import { CloudinaryModule } from '@cloudinary/angular-5.x';
+import * as  Cloudinary from 'cloudinary-core';
 
 @NgModule({
     declarations: [
@@ -23,6 +25,7 @@ import { PropertyListComponent } from './components/property-list/property-list.
         ReactiveFormsModule,
         BrowserModule,
         AppRoutingModule,
+        CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'moovsmart'})
     ],
     providers: [],
     bootstrap: [AppComponent],
