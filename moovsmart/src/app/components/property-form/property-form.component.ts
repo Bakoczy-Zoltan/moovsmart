@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PropertyFormDataModel } from '../../models/propertyFormData.model';
+import { ImageService } from '../../services/image.service';
 import { PropertyService } from '../../services/property.service';
 import { validationHandler } from '../../utils/validationHandler';
-import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-property-form',
@@ -13,6 +15,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PropertyFormComponent implements OnInit {
 
   private propertyId: number;
+  selectedFiles: File[];
+
 
   propertyForm = this.formBuilder.group({
     "name": ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(60)])],
@@ -22,10 +26,12 @@ export class PropertyFormComponent implements OnInit {
     "imageUrl": ['']
   });
 
+
   constructor(private formBuilder: FormBuilder,
               private propertyService: PropertyService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private imageService: ImageService) {
   }
 
   ngOnInit() {
@@ -50,20 +56,24 @@ export class PropertyFormComponent implements OnInit {
             numberOfRooms: response.numberOfRooms,
             price: response.price,
             description: response.description,
-            imageUrl: response.imageUrl[0]
+            imageUrl: response.imageUrl.join(';')
           });
         },
     );
   };
 
   submit = () => {
-    const data = {...this.propertyForm.value};
-    const img : string[] = [this.propertyForm.value.imageUrl];
-    data.isValid = true;
-    data.imageUrl = img;
-    this.propertyId ? this.updateProperty(data) : this.createNewProperty(data);
+    this.imageService.uploadImage(this.selectedFiles).subscribe(
+        (data) => {
+          const formData = {...this.propertyForm.value};
+          formData.isValid = true;
+          formData.imageUrl = data;
+          this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+        },
+        () => {}
+    ) ;
 
-   };
+  };
 
   createNewProperty(data: PropertyFormDataModel) {
     this.propertyService.createProperty(data).subscribe(
@@ -74,11 +84,12 @@ export class PropertyFormComponent implements OnInit {
 
   private updateProperty(data: PropertyFormDataModel) {
     this.propertyService.updateProperty(data, this.propertyId).subscribe(
-        () => this.router.navigate(['/']),
+        () => this.router.navigate(['']),
         error => validationHandler(error, this.propertyForm),
     );
   }
 
-
-
+  processFile(imageInput: any) {
+    this.selectedFiles = imageInput.files;
+  }
 }

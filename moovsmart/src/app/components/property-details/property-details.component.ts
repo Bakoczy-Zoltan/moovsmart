@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PropertyDetailsModel } from '../../models/propertyDetails.model';
-import { PropertyListItemModel } from '../../models/propertyListItem.model';
 import { PropertyService } from '../../services/property.service';
 
 @Component({

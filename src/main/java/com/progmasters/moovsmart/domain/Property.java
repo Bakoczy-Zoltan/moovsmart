@@ -26,6 +26,7 @@ public class Property {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column(columnDefinition = "boolean default true")
     private boolean isValid;
 
     @ManyToOne

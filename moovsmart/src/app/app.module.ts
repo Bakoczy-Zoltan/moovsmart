@@ -9,6 +9,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { PropertyDetailsComponent } from './components/property-details/property-details.component';
 import { PropertyFormComponent } from './components/property-form/property-form.component';
 import { PropertyListComponent } from './components/property-list/property-list.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { PropertyListComponent } from './components/property-list/property-list.
         PropertyFormComponent,
         PropertyDetailsComponent,
         PropertyListComponent,
+        RegistrationComponent,
     ],
     imports: [
         HttpClientModule,
