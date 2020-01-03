@@ -4,6 +4,7 @@ import {PropertyListComponent} from "./components/property-list/property-list.co
 import {PropertyFormComponent} from "./components/property-form/property-form.component";
 import {PropertyDetailsComponent} from "./components/property-details/property-details.component";
 import { RegistrationComponent } from './components/registration/registration.component';
+import { SigninComponent } from './components/signin/signin.component';
 
 const routes: Routes = [
   {path: "", component: PropertyListComponent},
@@ -11,7 +12,8 @@ const routes: Routes = [
   {path: "property-form", component: PropertyFormComponent},
   {path: 'property-form/:id', component: PropertyFormComponent},
   {path: "property-details/:id", component: PropertyDetailsComponent},
-  {path: "registration", component: RegistrationComponent}
+  {path: "registration", component: RegistrationComponent},
+  {path: "signin", component: SigninComponent}
 ];
 
 @NgModule({

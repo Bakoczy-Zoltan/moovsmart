@@ -10,6 +10,7 @@ import { PropertyDetailsComponent } from './components/property-details/property
 import { PropertyFormComponent } from './components/property-form/property-form.component';
 import { PropertyListComponent } from './components/property-list/property-list.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { SigninComponent } from './components/signin/signin.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { RegistrationComponent } from './components/registration/registration.co
         PropertyDetailsComponent,
         PropertyListComponent,
         RegistrationComponent,
+        SigninComponent,
     ],
     imports: [
         HttpClientModule,

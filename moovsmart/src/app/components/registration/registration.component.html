@@ -3,7 +3,7 @@
     <hr/>
     <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
         <div class="form-group">
-            <label for="userName">Felhasználói név</label>
+            <label for="userName">Név</label>
             <input
                 class="form-control"
                 formControlName="userName"
@@ -13,7 +13,7 @@
             />
             <small *ngIf="registrationForm.get('userName').invalid && registrationForm.get('userName').touched
        && !registrationForm.get('userName').errors?.serverError" class="text-danger">
-                A felhasználói név minimum 2, de maximum 20 karakter lehet.
+                A név minimum 2, de maximum 20 karakter lehet.
             </small>
             <small *ngIf="registrationForm.get('userName').errors?.serverError" class="text-danger">
                 {{registrationForm.get('userName').errors['serverError']}}
@@ -53,7 +53,7 @@
             />
             <small *ngIf="registrationForm.get('password').invalid && registrationForm.get('password').touched
        && !registrationForm.get('password').errors?.serverError" class="text-danger">
-                A jelszó minimum 6 karakter legyen.
+                A jelszó tartalmazzon legalább egy nagybetűt, egy kisbetűt, egy számot és minimum 6 karakter legyen.
             </small>
             <small *ngIf="registrationForm.get('password').errors?.serverError" class="text-danger">
                 {{registrationForm.get('password').errors['serverError']}}
@@ -61,7 +61,7 @@
         </div>
 
         <br/>
-        <button class="btn btn-primary my-buttons" [disabled]="registrationForm.invalid">Mentés</button>
+        <button class="btn" [disabled]="registrationForm.invalid">Mentés</button>
     </form>
 </div>
 
@@ -78,7 +78,7 @@
                 <p>A regisztrációt megerősítő email-t elküldtük a megadott email-címre.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModalDialog()">Close</button>
+                <button type="button" class="btn" data-dismiss="modal" (click)="closeModalDialog()">Close</button>
             </div>
         </div>
     </div>

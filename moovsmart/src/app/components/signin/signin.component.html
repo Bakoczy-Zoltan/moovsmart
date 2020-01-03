@@ -1,0 +1,49 @@
+<div class="container">
+    <h2>Bejelentkezés</h2>
+    <hr/>
+    <form (ngSubmit)="onSubmit()" [formGroup]="signInForm">
+        <div class="form-group">
+            <label for="mail">Email</label>
+            <input
+                type="email"
+                class="form-control"
+                formControlName="mail"
+                id="mail"
+                name="mail"
+                placeholder="Kérjük, adja meg az email-címét!"
+                required
+            />
+            <small *ngIf="signInForm.get('mail').invalid && signInForm.get('mail').touched
+       && !signInForm.get('mail').errors?.serverError" class="text-danger">
+                Érvénytelen email-cím.
+            </small>
+            <small *ngIf="signInForm.get('mail').errors?.serverError" class="text-danger">
+                {{signInForm.get('mail').errors['serverError']}}
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Jelszó</label>
+            <input
+                type="password"
+                class="form-control"
+                formControlName="password"
+                id="password"
+                name="password"
+                placeholder="Kérjük, adjon meg egy jelszót!"
+                required
+            />
+            <small *ngIf="signInForm.get('password').invalid && signInForm.get('password').touched
+       && !signInForm.get('password').errors?.serverError" class="text-danger">
+                A jelszó tartalmazzon legalább egy nagybetűt, egy kisbetűt, egy számot és minimum 6 karakter legyen.
+            </small>
+            <small *ngIf="signInForm.get('password').errors?.serverError" class="text-danger">
+                {{signInForm.get('password').errors['serverError']}}
+            </small>
+        </div>
+
+        <br/>
+        <button class="btn" [disabled]="signInForm.invalid">Bejelentkezés</button>
+    </form>
+</div>
+

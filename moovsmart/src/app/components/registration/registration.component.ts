@@ -13,17 +13,19 @@ import { validationHandler } from '../../utils/validationHandler';
 })
 export class RegistrationComponent implements OnInit {
 
-  display='none'; //default Variable
+  display='none';
 
   registrationForm = this.formBuilder.group({
-    "userName": ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
-    "mail": ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-    "password": ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+    "userName": ['', Validators.compose([Validators.required,
+      Validators.minLength(2), Validators.maxLength(20)])],
+    "mail": ['', Validators.compose([Validators.required,
+      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")])],
+    "password": ['', Validators.compose([Validators.required,
+      Validators.pattern("(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}")])]
   });
 
   constructor(private formBuilder: FormBuilder,
-              private propertyService: PropertyService,
-              private router: Router) { }
+              private propertyService: PropertyService) { }
 
   ngOnInit() {
   }
