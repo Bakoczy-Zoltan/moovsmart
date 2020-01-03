@@ -5,6 +5,7 @@ import { PropertyFormDataModel } from '../../models/propertyFormData.model';
 import { ImageService } from '../../services/image.service';
 import { PropertyService } from '../../services/property.service';
 import { validationHandler } from '../../utils/validationHandler';
+import { Cloudinary } from '@cloudinary/angular-5.x';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { validationHandler } from '../../utils/validationHandler';
 export class PropertyFormComponent implements OnInit {
 
   private propertyId: number;
-  selectedFiles: File[];
+  selectedFile: File;
 
 
   propertyForm = this.formBuilder.group({
@@ -31,7 +32,8 @@ export class PropertyFormComponent implements OnInit {
               private propertyService: PropertyService,
               private route: ActivatedRoute,
               private router: Router,
-              private imageService: ImageService) {
+              private imageService: ImageService,
+              private cloudinary: Cloudinary) {
   }
 
   ngOnInit() {
@@ -63,7 +65,7 @@ export class PropertyFormComponent implements OnInit {
   };
 
   submit = () => {
-    this.imageService.uploadImage(this.selectedFiles).subscribe(
+    this.imageService.uploadImage(this.selectedFile).subscribe(
         (data) => {
           const formData = {...this.propertyForm.value};
           formData.isValid = true;
@@ -90,6 +92,6 @@ export class PropertyFormComponent implements OnInit {
   }
 
   processFile(imageInput: any) {
-    this.selectedFiles = imageInput.files;
+    this.selectedFile = imageInput.target.files[0];
   }
 }

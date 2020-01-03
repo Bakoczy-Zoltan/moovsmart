@@ -46,4 +46,8 @@ export class PropertyService {
     registerUser(userFormData: UserFormDataModel): Observable<any> {
         return this.httpClient.post(this.baseUserUrl + '/registration', userFormData);
     }
+
+    validateUser(id: string): Observable<any> {
+        return this.httpClient.get<any>(this.baseUserUrl + '/validuser/' + id);
+    }
 }

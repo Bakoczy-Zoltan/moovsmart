@@ -5,9 +5,11 @@ import {PropertyFormComponent} from "./components/property-form/property-form.co
 import {PropertyDetailsComponent} from "./components/property-details/property-details.component";
 import { RegistrationComponent } from './components/registration/registration.component';
 import { SigninComponent } from './components/signin/signin.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 const routes: Routes = [
-  {path: "", component: PropertyListComponent},
+  {path: "", component: WelcomeComponent},
+  {path: "welcome/:id", component: WelcomeComponent},
   {path: "property-list", component: PropertyListComponent},
   {path: "property-form", component: PropertyFormComponent},
   {path: 'property-form/:id', component: PropertyFormComponent},

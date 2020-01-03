@@ -11,6 +11,7 @@ import { PropertyFormComponent } from './components/property-form/property-form.
 import { PropertyListComponent } from './components/property-list/property-list.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { SigninComponent } from './components/signin/signin.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { SigninComponent } from './components/signin/signin.component';
         PropertyListComponent,
         RegistrationComponent,
         SigninComponent,
+        WelcomeComponent,
     ],
     imports: [
         HttpClientModule,
