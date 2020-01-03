@@ -1,10 +1,13 @@
 package com.progmasters.moovsmart.controller;
 
 import com.progmasters.moovsmart.domain.Property;
+import com.progmasters.moovsmart.dto.CreateUserCommand;
 import com.progmasters.moovsmart.dto.PropertyDetails;
 import com.progmasters.moovsmart.dto.PropertyForm;
 import com.progmasters.moovsmart.dto.PropertyListItem;
+import com.progmasters.moovsmart.service.MailSenderService;
 import com.progmasters.moovsmart.service.PropertyService;
+import com.progmasters.moovsmart.service.UserService;
 import com.progmasters.moovsmart.validation.PropertyFormValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +25,16 @@ import java.util.List;
 public class PropertyController {
 
     private PropertyService propertyService;
+
+
     private PropertyFormValidator propertyFormValidator;
     private Logger logger = LoggerFactory.getLogger(PropertyController.class);
 
     @Autowired
-    public PropertyController(PropertyService propertyService, PropertyFormValidator propertyFormValidator) {
+    public PropertyController(PropertyService propertyService,
+                              PropertyFormValidator propertyFormValidator,
+                              MailSenderService mailSenderService,
+                              UserService userService) {
         this.propertyService = propertyService;
         this.propertyFormValidator = propertyFormValidator;
     }
@@ -79,5 +87,7 @@ public class PropertyController {
         }
         return result;
     }
+
+
 
 }

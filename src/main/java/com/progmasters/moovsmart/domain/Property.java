@@ -17,13 +17,8 @@ public class Property {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @NotNull
-    @Size(min = 1, max = 200)
     private String name;
 
-    @Min(value = 1)
-    @Max(value = 12)
     private Integer numberOfRooms;
 
     private Integer price;
@@ -32,6 +27,9 @@ public class Property {
     private String description;
 
     private boolean isValid;
+
+    @ManyToOne
+    private UserProperty user;
 
     @Column(name = "imagesUrl")
     @ElementCollection(targetClass = String.class)
