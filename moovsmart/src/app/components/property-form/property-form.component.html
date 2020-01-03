@@ -3,12 +3,12 @@
   <hr/>
   <form (ngSubmit)="submit()" [formGroup]="propertyForm">
     <div class="form-group">
-      <label for="from">Ingatlan neve</label>
+      <label for="name">Ingatlan neve</label>
       <input
         class="form-control"
         formControlName="name"
-        id="from"
-        name="from"
+        id="name"
+        name="name"
         placeholder="Kérjük, írja be az ingatlan nevét!"
       />
       <small *ngIf="propertyForm.get('name').invalid && propertyForm.get('name').touched

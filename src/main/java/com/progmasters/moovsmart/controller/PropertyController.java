@@ -58,11 +58,11 @@ public class PropertyController {
     @PutMapping("/{id}")
     public ResponseEntity updateProperty(@Valid @RequestBody PropertyForm propertyForm, @PathVariable Long id) {
         Property updatedProperty = propertyService.updateProperty(propertyForm, id);
-        ResponseEntity<PropertyForm> result;
+        ResponseEntity result;
         if (updatedProperty == null) {
-            result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            result = new ResponseEntity(HttpStatus.NOT_FOUND);
         } else {
-            result = new ResponseEntity<>(HttpStatus.OK);
+            result = new ResponseEntity(HttpStatus.OK);
         }
         return result;
     }

@@ -50,7 +50,7 @@ export class PropertyFormComponent implements OnInit {
             numberOfRooms: response.numberOfRooms,
             price: response.price,
             description: response.description,
-            imageUrl: response.imageUrl
+            imageUrl: response.imageUrl.join(';')
           });
         },
     );
