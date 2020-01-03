@@ -52,7 +52,7 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.mapOptions = {
             center: this.coordinates,
-            zoom: 8,
+            zoom: 15,
         };
     }
 

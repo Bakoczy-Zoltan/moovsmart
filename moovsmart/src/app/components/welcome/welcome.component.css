@@ -1,0 +1,45 @@
+.container {
+}
+
+#main-img-holder{
+    text-align: center;
+}
+
+#main-img {
+    max-width: 80%;
+    height: auto;
+}
+
+#link-holder{
+    text-align: center;
+}
+
+#left-img-holder {
+    display: inline-block;
+    max-width: 45%;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+#right-img-holder {
+    display: inline-block;
+    max-width: 45%;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+#mid-img-holder {
+    display: inline-block;
+    max-width: 45%;
+}
+.img-link-surfing{
+    max-height: 200px;
+    max-width: 90%;
+}
+
+a{
+    color: #7E685A;
+}
+a:hover{
+    color: magenta;
+}

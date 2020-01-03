@@ -35,15 +35,12 @@ public class UserProperty {
         this.userName = command.getUserName();
         this.mail = command.getMail();
         this.isActive = false;
-        this.roleTypes = makeRoles(command.getRole());
+        this.roleTypes = makeRoles();
     }
 
-    private List<RoleType> makeRoles(List<String> useRole) {
+    private List<RoleType> makeRoles() {
         List<RoleType> roles = new ArrayList<>();
         roles.add(RoleType.valueOf("ROLE_USER"));
-//        for (String role : useRole) {
-//            roles.add(RoleType.valueOf(role));
-//        }
         return roles;
     }
 
