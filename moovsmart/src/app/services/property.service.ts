@@ -12,6 +12,7 @@ import { UserFormDataModel } from '../models/userFormData.model';
 export class PropertyService {
 
     baseUrl = 'http://localhost:8080/api/properties';
+    baseUserUrl = 'http://localhost:8080/api/user';
 
     constructor(private httpClient: HttpClient) {
     }
@@ -43,6 +44,6 @@ export class PropertyService {
     }
 
     registerUser(userFormData: UserFormDataModel): Observable<any> {
-        return this.httpClient.post(this.baseUrl + '/registration', userFormData);
+        return this.httpClient.post(this.baseUserUrl + '/registration', userFormData);
     }
 }

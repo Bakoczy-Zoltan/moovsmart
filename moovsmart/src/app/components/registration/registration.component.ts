@@ -13,10 +13,12 @@ import { validationHandler } from '../../utils/validationHandler';
 })
 export class RegistrationComponent implements OnInit {
 
+  display='none'; //default Variable
+
   registrationForm = this.formBuilder.group({
-    "userName": ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(20)])],
-    "mail": ['', Validators.compose([Validators.required, Validators.minLength(1)])],
-    "password": ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(20)])]
+    "userName": ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
+    "mail": ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+    "password": ['', Validators.compose([Validators.required, Validators.minLength(6)])]
   });
 
   constructor(private formBuilder: FormBuilder,
@@ -28,8 +30,8 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit = () => {
     const data = {...this.registrationForm.value};
-    this.createNewUser(data);
-
+//    this.createNewUser(data);
+    this.openModalDialog();
   };
 
   createNewUser(data: UserFormDataModel) {
@@ -37,6 +39,14 @@ export class RegistrationComponent implements OnInit {
         () => this.router.navigate(['/']),
         error => validationHandler(error, this.registrationForm),
     );
+  }
+
+  openModalDialog(){
+    this.display='block'; //Set block css
+  }
+
+  closeModalDialog(){
+    this.display='none'; //set none css after close dialog
   }
 
 }
