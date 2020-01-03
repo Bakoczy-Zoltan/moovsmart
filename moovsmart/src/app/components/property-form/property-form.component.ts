@@ -65,7 +65,7 @@ export class PropertyFormComponent implements OnInit {
   };
 
   submit = () => {
-    this.imageService.uploadImage(this.selectedFiles).subscribe(
+    this.imageService.uploadImage(this.selectedFile).subscribe(
         (data) => {
           const formData = {...this.propertyForm.value};
           formData.isValid = true;
