@@ -30,23 +30,23 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit = () => {
     const data = {...this.registrationForm.value};
-//    this.createNewUser(data);
-    this.openModalDialog();
+    this.createNewUser(data);
+
   };
 
   createNewUser(data: UserFormDataModel) {
     this.propertyService.registerUser(data).subscribe(
-        () => this.router.navigate(['/']),
+        () => this.openModalDialog(),
         error => validationHandler(error, this.registrationForm),
     );
   }
 
   openModalDialog(){
-    this.display='block'; //Set block css
+    this.display='block';
   }
 
   closeModalDialog(){
-    this.display='none'; //set none css after close dialog
+    this.display='none';
   }
 
 }

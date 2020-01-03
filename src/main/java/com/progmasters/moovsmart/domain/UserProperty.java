@@ -40,9 +40,10 @@ public class UserProperty {
 
     private List<RoleType> makeRoles(List<String> useRole) {
         List<RoleType> roles = new ArrayList<>();
-        for (String role : useRole) {
-            roles.add(RoleType.valueOf(role));
-        }
+        roles.add(RoleType.valueOf("ROLE_USER"));
+//        for (String role : useRole) {
+//            roles.add(RoleType.valueOf(role));
+//        }
         return roles;
     }
 
