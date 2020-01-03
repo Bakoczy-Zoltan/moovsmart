@@ -10,6 +10,7 @@ import { PropertyDetailsComponent } from './components/property-details/property
 import { PropertyFormComponent } from './components/property-form/property-form.component';
 import { PropertyListComponent } from './components/property-list/property-list.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { SigninComponent } from './components/signin/signin.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 
 @NgModule({
@@ -20,6 +21,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
         PropertyDetailsComponent,
         PropertyListComponent,
         RegistrationComponent,
+        SigninComponent,
         WelcomeComponent,
     ],
     imports: [
