@@ -32,7 +32,7 @@ public class MailSenderService {
 
         try{
             SimpleMailMessage message = new SimpleMailMessage();
-            String link="http://localhost/4200/"+encodedString;
+            String link="http://localhost:4200/welcome/"+encodedString;
 
 
             message.setSubject("Regisztráció megerősítése");

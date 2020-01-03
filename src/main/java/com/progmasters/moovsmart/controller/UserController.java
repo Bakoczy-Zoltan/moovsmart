@@ -9,8 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -38,9 +38,10 @@ public class UserController {
     }
 
     @GetMapping("/validuser/{id}")
-    public ResponseEntity validateUser(@PathVariable("id") String id) {
+    public ResponseEntity<List<String>> validateUser(@PathVariable("id") String id) {
         byte[] decodedBytes = Base64.getDecoder().decode(id);
-        Long decodedId = Long.valueOf(Arrays.toString(decodedBytes));
+        String realId = new String(decodedBytes);
+        Long decodedId = Long.valueOf(realId);
         return this.userService.validateUser(decodedId);
     }
 }
