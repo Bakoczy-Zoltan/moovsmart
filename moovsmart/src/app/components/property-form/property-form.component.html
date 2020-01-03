@@ -1,91 +1,94 @@
 <div class="container">
-  <h2>Új ingatlan regisztrálása</h2>
-  <hr/>
-  <form (ngSubmit)="submit()" [formGroup]="propertyForm">
-    <div class="form-group">
-      <label for="from">Ingatlan neve</label>
-      <input
-        class="form-control"
-        formControlName="name"
-        id="from"
-        name="from"
-        placeholder="Kérjük, írja be az ingatlan nevét!"
-      />
-      <small *ngIf="propertyForm.get('name').invalid && propertyForm.get('name').touched
+    <h2>Új ingatlan regisztrálása</h2>
+    <hr/>
+    <form (ngSubmit)="submit()" [formGroup]="propertyForm">
+        <div class="form-group">
+            <label for="from">Ingatlan neve</label>
+            <input
+                class="form-control"
+                formControlName="name"
+                id="from"
+                name="from"
+                placeholder="Kérjük, írja be az ingatlan nevét!"
+            />
+            <small *ngIf="propertyForm.get('name').invalid && propertyForm.get('name').touched
        && !propertyForm.get('name').errors?.serverError" class="text-danger">
-        Az ingatlan neve minimum 1, de maximum 60 karakter lehet.
-      </small>
-      <small *ngIf="propertyForm.get('name').errors?.serverError" class="text-danger">
-        {{propertyForm.get('name').errors['serverError']}}
-      </small>
-    </div>
+                Az ingatlan neve minimum 1, de maximum 60 karakter lehet.
+            </small>
+            <small *ngIf="propertyForm.get('name').errors?.serverError" class="text-danger">
+                {{propertyForm.get('name').errors['serverError']}}
+            </small>
+        </div>
 
-    <div class="form-group">
-      <label
-        for="numberOfRooms">Szobák száma</label>
-      <input
-        class="form-control"
-        formControlName="numberOfRooms"
-        id="numberOfRooms"
-        placeholder="írja be a szobák számát!"
-        type="number"
-      />
-      <small *ngIf="propertyForm.get('numberOfRooms').invalid && propertyForm.get('numberOfRooms').touched
+        <div class="form-group">
+            <label
+                for="numberOfRooms">Szobák száma</label>
+            <input
+                class="form-control"
+                formControlName="numberOfRooms"
+                id="numberOfRooms"
+                placeholder="írja be a szobák számát!"
+                type="number"
+            />
+            <small *ngIf="propertyForm.get('numberOfRooms').invalid && propertyForm.get('numberOfRooms').touched
       && !propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
-        A szobák száma csak nullánál nagyobb lehet!
-      </small>
-      <small *ngIf="propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
-        {{propertyForm.get('numberOfRooms').errors['serverError']}}
-      </small>
-    </div>
+                A szobák száma csak nullánál nagyobb lehet!
+            </small>
+            <small *ngIf="propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
+                {{propertyForm.get('numberOfRooms').errors['serverError']}}
+            </small>
+        </div>
 
-    <div class="form-group">
-      <label
-        for="price">Kikiáltási ár</label>
-      <input
-        class="form-control"
-        formControlName="price"
-        id="price"
-        placeholder="írja be az árat!"
-        type="number"
-      />
-      <small *ngIf="propertyForm.get('price').invalid && propertyForm.get('price').touched
+        <div class="form-group">
+            <label
+                for="price">Kikiáltási ár</label>
+            <input
+                class="form-control"
+                formControlName="price"
+                id="price"
+                placeholder="írja be az árat!"
+                type="number"
+            />
+            <small *ngIf="propertyForm.get('price').invalid && propertyForm.get('price').touched
       && !propertyForm.get('price').errors?.serverError" class="text-danger">
-        Kérjük, adjon az ingatlannak nullánál nagyobb kikiáltási árat!
-      </small>
-      <small *ngIf="propertyForm.get('price').errors?.serverError" class="text-danger">
-        {{propertyForm.get('price').errors['serverError']}}
-      </small>
-    </div>
+                Kérjük, adjon az ingatlannak nullánál nagyobb kikiáltási árat!
+            </small>
+            <small *ngIf="propertyForm.get('price').errors?.serverError" class="text-danger">
+                {{propertyForm.get('price').errors['serverError']}}
+            </small>
+        </div>
 
-    <div class="form-group">
-      <label
-        for="description">Ingatlan leírása</label>
-      <textarea
-        aria-multiline="true"
-        class="form-control"
-        formControlName="description"
-        id="description"
-        rows="3"
-      ></textarea>
-      <small *ngIf="propertyForm.get('description').errors?.serverError" class="text-danger">
-        {{propertyForm.get('description').errors['serverError']}}
-      </small>
-    </div>
+        <div class="form-group">
+            <label
+                for="description">Ingatlan leírása</label>
+            <textarea
+                aria-multiline="true"
+                class="form-control"
+                formControlName="description"
+                id="description"
+                rows="3"
+            ></textarea>
+            <small *ngIf="propertyForm.get('description').errors?.serverError" class="text-danger">
+                {{propertyForm.get('description').errors['serverError']}}
+            </small>
+        </div>
 
-    <div class="form-group">
-      <label
-        for="imageUrl">Kép</label>
-      <input
-        class="form-control"
-        formControlName="imageUrl"
-        id="imageUrl"
-        placeholder="írja be az ingatlanról készült kép URL-ét!"
-      />
-      <small *ngIf="propertyForm.get('imageUrl').errors?.serverError" class="text-danger">
-        {{propertyForm.get('imageUrl').errors['serverError']}}
-      </small>
-    </div>
-    <button class="btn btn-primary my-buttons" [disabled]="propertyForm.invalid">Mentés</button>
-  </form>
+        <div class="form-group">
+            <label
+                for="imageUrl"></label>
+            <input
+                   style="display:none"
+                   class="form-control"
+                   accept="image/*"
+                   formControlName="imageUrl"
+                   id="imageUrl"
+                   type="file" (change)="processFile(imageInput)"
+                   #imageInput>
+            <button (click)="imageInput.click()">Kattintson ide kép feltöltéséhez!</button>
+            <small *ngIf="propertyForm.get('imageUrl').errors?.serverError" class="text-danger">
+                {{propertyForm.get('imageUrl').errors['serverError']}}
+            </small>
+        </div>
+        <button class="btn btn-primary my-buttons" [disabled]="propertyForm.invalid">Mentés</button>
+    </form>
 </div>
