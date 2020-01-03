@@ -1,9 +1,7 @@
 package com.progmasters.moovsmart.dto;
 
-import com.progmasters.moovsmart.domain.ImageProperty;
 import com.progmasters.moovsmart.domain.Property;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PropertyDetails {
@@ -24,7 +22,7 @@ public class PropertyDetails {
         this.numberOfRooms = property.getNumberOfRooms();
         this.price = property.getPrice();
         this.description = property.getDescription();
-        this.imageUrl = makeImageUrls(property.getImageUrls());
+        this.imageUrl = property.getImageUrls();
     }
 
 
@@ -76,11 +74,4 @@ public class PropertyDetails {
         this.imageUrl = imageUrl;
     }
 
-    public List<String> makeImageUrls(List<ImageProperty> urls) {
-        List<String> urlsStrings = new ArrayList<>();
-        for (ImageProperty img : urls) {
-            urlsStrings.add(img.getUrl());
-        }
-        return urlsStrings;
-    }
 }

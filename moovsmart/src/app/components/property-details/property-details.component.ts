@@ -1,29 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PropertyDetailsModel } from '../../models/propertyDetails.model';
+import { PropertyListItemModel } from '../../models/propertyListItem.model';
 import { PropertyService } from '../../services/property.service';
 
 @Component({
-    selector: 'app-property-details',
-    templateUrl: './property-details.component.html',
-    styleUrls: ['./property-details.component.css'],
+  selector: 'app-property-details',
+  templateUrl: './property-details.component.html',
+  styleUrls: ['./property-details.component.css']
 })
 
-export class PropertyDetailsComponent implements OnInit {
-
+export class PropertyDetailsComponent implements OnInit, AfterViewInit {
 
     defaultPicture = 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg';
     propertyDetails: PropertyDetailsModel;
+    images: string[];
+    map: google.maps.Map;
+    lat = 47.587030;
+    lng = 19.045820;
+    coordinates: google.maps.LatLng;
+    mapOptions: google.maps.MapOptions;
+    marker: google.maps.Marker;
 
-    images = ['https://www.cartoonnetworkhotel.com/sites/cnhotel.com/files/pcore_tiers/Cartoon%20Network%20Hotel_Room-AdventureTime.jpg',
-        'https://www.danubiushotels.com/w/accomms/0_1000/0/rooms/Palatinus-Economy-Room-midi1775.jpg',
-        'https://www.icehotel.com/sites/cb_icehotel/files/styles/image_column_large/public/Kaamos-Johan-Broberg.jpg?h=3c9275bd&itok=gHToh0qO'];
-
-    constructor(private propertyService: PropertyService, private activatedRoute: ActivatedRoute,
+    constructor(private propertyService: PropertyService,
+                private activatedRoute: ActivatedRoute,
                 private router: Router) {
 
-        this.defaultPicture = this.images[0];
-
+        this.coordinates = new google.maps.LatLng(this.lat, this.lng);
 
         this.activatedRoute.paramMap.subscribe(
             paramMap => {
@@ -34,19 +37,65 @@ export class PropertyDetailsComponent implements OnInit {
                     this.propertyService
                         .getPropertyDetails(idParam)
                         .subscribe(
-                            proDetails => this.propertyDetails = proDetails,
-                            () => this.router.navigate(['property-list']),
-                        );
+                            proDetails => {
+                                this.propertyDetails = proDetails;
+                                this.images = this.propertyDetails.imageUrl;
+                                this.changeDefaultImg(this.images[0]);
+                            },
+                            () =>
+                                this.router.navigate(['property-list']),
+                        )
+                    ;
                 }
             });
     }
 
     ngOnInit() {
+        this.mapOptions = {
+            center: this.coordinates,
+            zoom: 8,
+        };
     }
+
+    ngAfterViewInit() {
+        this.mapInitializer();
+    }
+
+    mapInitializer() {
+        this.map = new google.maps.Map(this.gmap.nativeElement,
+            this.mapOptions);
+
+        this.marker = new google.maps.Marker({
+            position: this.coordinates,
+            map: this.map,
+        });
+        this.marker.setMap(this.map);
+    }
+
+    @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
 
 
     changeDefaultImg(image: string) {
-        this.defaultPicture = image;
+        if (image !== undefined && image !== null) {
+            this.defaultPicture = image;
+        }
+    }
+
+    goBack() {
+        this.router.navigate(['property-list']);
+    }
+
+    delete(id: number) {
+        this.propertyService.deleteProperty(id).subscribe(
+            () => {
+                this.router.navigate(['property-list']);
+            },
+            error => console.warn(error),
+        );
+    }
+
+    edit(id: number) {
+        this.router.navigate(['property-form/', id]);
     }
 }
 

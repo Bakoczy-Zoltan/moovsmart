@@ -1,6 +1,5 @@
 package com.progmasters.moovsmart.dto;
 
-import com.progmasters.moovsmart.domain.ImageProperty;
 import com.progmasters.moovsmart.domain.Property;
 
 import java.util.List;
@@ -11,7 +10,7 @@ public class PropertyListItem {
     private String name;
     private int numberOfRooms;
     private int price;
-    private String imageUrl;
+    private List<String> imageUrl;
 
     public PropertyListItem() {
     }
@@ -21,7 +20,7 @@ public class PropertyListItem {
         this.name = property.getName();
         this.numberOfRooms = property.getNumberOfRooms();
         this.price = property.getPrice();
-        this.imageUrl = makeImageUrl(property.getImageUrls());
+        this.imageUrl = property.getImageUrls();
     }
 
     public long getId() {
@@ -56,19 +55,12 @@ public class PropertyListItem {
         this.price = price;
     }
 
-    public String getImageUrl() {
+    public List<String> getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(List<String> imageUrl) {
         this.imageUrl = imageUrl;
     }
 
-    public String makeImageUrl(List<ImageProperty> urls) {
-       String url = null;
-       if(urls != null && !urls.isEmpty()){
-           url = urls.get(0).getUrl();
-       }
-        return url;
-    }
 }

@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/moovsmart?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    url: jdbc:hsqldb:mem:test
     username: root
     password: test1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.hsqldb.jdbcDriver
   jpa:
     hibernate:
       ddl-auto: update
@@ -19,8 +19,8 @@ spring:
       enabled: true
       force: true
   security:
-    user:
-      name: zoli
+    admin:
+
 logging:
   level:
     com.progmasters: debug

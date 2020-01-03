@@ -1,12 +1,13 @@
 #img-holder-row {
     background-color: #7E685A;
-    max-height: 100px;
+    max-height: 90%;
     width: auto;
     text-align: center;
 }
 
+
 .small-img {
-    max-height: 100px;
+    max-height: 70px;
     width: auto;
 }
 
@@ -14,11 +15,27 @@
     display: inline;
 }
 
-#main-img {
 
+.container{
+    max-width: 50%;
+    margin-bottom: 2%;
+    background-color: antiquewhite;
 }
 
-/*#carouselExampleControls {*/
-/*    max-height: 200px;*/
-/*    width: auto;*/
-/*}*/
+#text-container{
+    background-color: antiquewhite;
+}
+
+#map{
+    height: 400px;
+    width: 100%;
+}
+
+a{
+    color: darkblue;
+}
+a:hover{
+    color: magenta;
+}
+
+

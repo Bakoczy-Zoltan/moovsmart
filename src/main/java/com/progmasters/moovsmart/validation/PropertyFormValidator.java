@@ -29,7 +29,7 @@ public class PropertyFormValidator implements Validator {
             errors.rejectValue("name", "property.name.empty");
         }
 
-        if (property.getName().length() < 1 || property.getName().length() > 60) {
+        if (property.getName().length() < 3 || property.getName().length() > 60) {
             errors.rejectValue("name", "property.name.notproperlength");
         }
 
@@ -37,8 +37,14 @@ public class PropertyFormValidator implements Validator {
             errors.rejectValue("price", "property.price.notpositive");
         }
 
-        if (property.getNumberOfRooms() < 1) {
+        if (property.getNumberOfRooms() < 1 || property.getNumberOfRooms() > 12) {
             errors.rejectValue("numberOfRooms", "property.rooms.notpositive");
         }
+
+        if (property.getDescription() == null || property.getDescription().length() < 10) {
+            errors.rejectValue("description", "property.description.empty");
+        }
+
+
     }
 }

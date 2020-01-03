@@ -1,5 +1,6 @@
 package com.progmasters.moovsmart.controller;
 
+import com.progmasters.moovsmart.domain.Property;
 import com.progmasters.moovsmart.dto.PropertyDetails;
 import com.progmasters.moovsmart.dto.PropertyForm;
 import com.progmasters.moovsmart.dto.PropertyListItem;
@@ -30,7 +31,7 @@ public class PropertyController {
         this.propertyFormValidator = propertyFormValidator;
     }
 
-    @InitBinder("propertyDetails")
+    @InitBinder("propertyForm")
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(propertyFormValidator);
     }
@@ -50,7 +51,33 @@ public class PropertyController {
     @PostMapping
     public ResponseEntity createProperty(@RequestBody @Valid PropertyForm propertyForm) {
         propertyService.createProperty(propertyForm);
+        this.logger.info("New Property created");
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity updateProperty(@Valid @RequestBody PropertyForm propertyForm, @PathVariable Long id) {
+        Property updatedProperty = propertyService.updateProperty(propertyForm, id);
+        ResponseEntity<PropertyForm> result;
+        if (updatedProperty == null) {
+            result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            result = new ResponseEntity<>(HttpStatus.OK);
+        }
+        return result;
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteProperty(@PathVariable Long id) {
+        boolean isDeleteSuccessful = propertyService.deleteProperty(id);
+
+        ResponseEntity result;
+        if (isDeleteSuccessful) {
+            result = new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return result;
     }
 
 }
