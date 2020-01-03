@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PropertyDetailsModel } from '../models/propertyDetails.model';
 import { PropertyListItemModel } from '../models/propertyListItem.model';
 import { PropertyFormDataModel } from '../models/propertyFormData.model';
+import { UserFormDataModel } from '../models/userFormData.model';
 
 @Injectable({
     providedIn: 'root',
@@ -11,6 +12,7 @@ import { PropertyFormDataModel } from '../models/propertyFormData.model';
 export class PropertyService {
 
     baseUrl = 'http://localhost:8080/api/properties';
+    baseUserUrl = 'http://localhost:8080/api/user';
 
     constructor(private httpClient: HttpClient) {
     }
@@ -30,7 +32,7 @@ export class PropertyService {
 
     updateProperty(data: PropertyFormDataModel, propertyId: number): Observable<any> {
         data.id = propertyId;
-        return this.httpClient.put(this.baseUrl + '/' + propertyId, data);
+        return this.httpClient.put<any>(this.baseUrl + '/' + propertyId, data);
     }
 
     deleteProperty(id: number): Observable<any> {
@@ -39,5 +41,13 @@ export class PropertyService {
 
     fetchPropertyData(id: string): Observable<PropertyFormDataModel> {
         return this.httpClient.get<PropertyFormDataModel>(this.baseUrl + '/' + id);
+    }
+
+    registerUser(userFormData: UserFormDataModel): Observable<any> {
+        return this.httpClient.post(this.baseUserUrl + '/registration', userFormData);
+    }
+
+    validateUser(id: string): Observable<any> {
+        return this.httpClient.get<any>(this.baseUserUrl + '/validuser/' + id);
     }
 }

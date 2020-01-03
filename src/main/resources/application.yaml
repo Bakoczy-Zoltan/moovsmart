@@ -21,6 +21,13 @@ spring:
   security:
     user:
       name: zoli
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: moovsmartproject@gmail.com
+    properties.mail.smtp.starttls.enable: true
+    password: Moov2002
+
 logging:
   level:
     com.progmasters: debug
