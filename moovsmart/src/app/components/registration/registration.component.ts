@@ -13,7 +13,8 @@ import { validationHandler } from '../../utils/validationHandler';
 })
 export class RegistrationComponent implements OnInit {
 
-  display='none';
+  display = 'none';
+  displayError = 'none';
 
   registrationForm = this.formBuilder.group({
     "userName": ['', Validators.compose([Validators.required,
@@ -39,7 +40,8 @@ export class RegistrationComponent implements OnInit {
   createNewUser(data: UserFormDataModel) {
     this.propertyService.registerUser(data).subscribe(
         () => this.openModalDialog(),
-        error => validationHandler(error, this.registrationForm),
+        // error => validationHandler(error, this.registrationForm),
+        error => this.openModalDialogError(),
     );
   }
 
@@ -49,6 +51,14 @@ export class RegistrationComponent implements OnInit {
 
   closeModalDialog(){
     this.display='none';
+  }
+
+  openModalDialogError(){
+    this.displayError='block';
+  }
+
+  closeModalDialogError(){
+    this.displayError='none';
   }
 
 }
