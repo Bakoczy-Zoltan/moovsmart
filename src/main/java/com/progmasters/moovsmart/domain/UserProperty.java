@@ -3,6 +3,7 @@ package com.progmasters.moovsmart.domain;
 import com.progmasters.moovsmart.dto.CreateUserCommand;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,9 @@ public class UserProperty {
     private Long id;
 
     private String userName;
+    @Email(message = "Email should be valid")
     private String mail;
+    private String password;
     private boolean isActive;
 
     @OneToMany(mappedBy = "user")
@@ -66,6 +69,14 @@ public class UserProperty {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public boolean isActive() {

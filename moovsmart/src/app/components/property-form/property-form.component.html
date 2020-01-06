@@ -13,7 +13,7 @@
       />
       <small *ngIf="propertyForm.get('name').invalid && propertyForm.get('name').touched
        && !propertyForm.get('name').errors?.serverError" class="text-danger">
-        Az ingatlan neve minimum 1, de maximum 60 karakter lehet.
+        Az ingatlan neve minimum 3, de maximum 60 karakter lehet.
       </small>
       <small *ngIf="propertyForm.get('name').errors?.serverError" class="text-danger">
         {{propertyForm.get('name').errors['serverError']}}
@@ -32,7 +32,7 @@
       />
       <small *ngIf="propertyForm.get('numberOfRooms').invalid && propertyForm.get('numberOfRooms').touched
       && !propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
-        A szobák száma csak nullánál nagyobb lehet!
+        A szobák száma minimum 1 és maximum 12 lehet!
       </small>
       <small *ngIf="propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
         {{propertyForm.get('numberOfRooms').errors['serverError']}}
@@ -68,6 +68,10 @@
         id="description"
         rows="3"
       ></textarea>
+      <small *ngIf="propertyForm.get('description').invalid && propertyForm.get('description').touched
+      && !propertyForm.get('description').errors?.serverError" class="text-danger">
+        A leírásnak legalább 10 karakterből kell állnia.
+      </small>
       <small *ngIf="propertyForm.get('description').errors?.serverError" class="text-danger">
         {{propertyForm.get('description').errors['serverError']}}
       </small>

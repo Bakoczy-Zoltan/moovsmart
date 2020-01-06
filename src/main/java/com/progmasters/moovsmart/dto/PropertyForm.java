@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PropertyForm {
 
-    @Size(min = 1, max = 200, message = "Property name must be between 1 and 200 characters!")
+    @Size(min = 3, max = 200, message = "Property name must be between 3 and 60 characters!")
     private String name;
 
     private int numberOfRooms;

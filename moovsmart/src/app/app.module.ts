@@ -2,6 +2,8 @@ import { HttpClientModule} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { CloudinaryModule } from '@cloudinary/angular-5.x';
+import * as  Cloudinary from 'cloudinary-core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +31,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
         ReactiveFormsModule,
         BrowserModule,
         AppRoutingModule,
+        CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'moovsmart'})
     ],
     providers: [],
     bootstrap: [AppComponent],
