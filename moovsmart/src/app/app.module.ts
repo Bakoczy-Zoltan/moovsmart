@@ -2,6 +2,9 @@ import { HttpClientModule} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { CloudinaryModule } from '@cloudinary/angular-5.x';
+import * as  Cloudinary from 'cloudinary-core';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -11,8 +14,6 @@ import { PropertyListComponent } from './components/property-list/property-list.
 import { RegistrationComponent } from './components/registration/registration.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
-import { CloudinaryModule } from '@cloudinary/angular-5.x';
-import * as  Cloudinary from 'cloudinary-core';
 
 @NgModule({
     declarations: [

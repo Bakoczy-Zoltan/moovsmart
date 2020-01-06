@@ -13,7 +13,7 @@
       />
       <small *ngIf="propertyForm.get('name').invalid && propertyForm.get('name').touched
        && !propertyForm.get('name').errors?.serverError" class="text-danger">
-        Az ingatlan neve minimum 1, de maximum 60 karakter lehet.
+        Az ingatlan neve minimum 3, de maximum 60 karakter lehet.
       </small>
       <small *ngIf="propertyForm.get('name').errors?.serverError" class="text-danger">
         {{propertyForm.get('name').errors['serverError']}}
@@ -32,7 +32,7 @@
       />
       <small *ngIf="propertyForm.get('numberOfRooms').invalid && propertyForm.get('numberOfRooms').touched
       && !propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
-        A szobák száma csak nullánál nagyobb lehet!
+        A szobák száma minimum 1 és maximum 12 lehet!
       </small>
       <small *ngIf="propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
         {{propertyForm.get('numberOfRooms').errors['serverError']}}
@@ -68,6 +68,10 @@
         id="description"
         rows="3"
       ></textarea>
+      <small *ngIf="propertyForm.get('description').invalid && propertyForm.get('description').touched
+      && !propertyForm.get('description').errors?.serverError" class="text-danger">
+        A leírásnak legalább 10 karakterből kell állnia.
+      </small>
       <small *ngIf="propertyForm.get('description').errors?.serverError" class="text-danger">
         {{propertyForm.get('description').errors['serverError']}}
       </small>
@@ -84,11 +88,11 @@
                    id="imageUrl"
                    type="file" (change)="processFile(imageInput)"
                    #imageInput>
-            <button (click)="imageInput.click()">Kattintson ide kép feltöltéséhez!</button>
+            <button type="button" (click)="imageInput.click()">Kattintson ide kép feltöltéséhez!</button>
             <small *ngIf="propertyForm.get('imageUrl').errors?.serverError" class="text-danger">
                 {{propertyForm.get('imageUrl').errors['serverError']}}
             </small>
         </div>
-        <button class="btn btn-primary my-buttons" [disabled]="propertyForm.invalid">Mentés</button>
+        <button type="submit" class="btn btn-primary my-buttons" [disabled]="propertyForm.invalid">Mentés</button>
     </form>
 </div>

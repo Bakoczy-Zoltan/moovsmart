@@ -5,14 +5,15 @@ import { PropertyDetailsModel } from '../models/propertyDetails.model';
 import { PropertyListItemModel } from '../models/propertyListItem.model';
 import { PropertyFormDataModel } from '../models/propertyFormData.model';
 import { UserFormDataModel } from '../models/userFormData.model';
+import {environment} from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root',
 })
 export class PropertyService {
 
-    baseUrl = 'http://localhost:8080/api/properties';
-    baseUserUrl = 'http://localhost:8080/api/user';
+    baseUrl = environment.apiUrl+'/properties';
+    baseUserUrl = environment.apiUrl+'/user';
 
     constructor(private httpClient: HttpClient) {
     }
