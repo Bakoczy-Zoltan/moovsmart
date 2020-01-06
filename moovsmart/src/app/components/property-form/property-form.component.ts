@@ -9,89 +9,112 @@ import { validationHandler } from '../../utils/validationHandler';
 
 
 @Component({
-  selector: 'app-property-form',
-  templateUrl: './property-form.component.html',
-  styleUrls: ['./property-form.component.css']
+    selector: 'app-property-form',
+    templateUrl: './property-form.component.html',
+    styleUrls: ['./property-form.component.css'],
 })
 export class PropertyFormComponent implements OnInit {
 
-  private propertyId: number;
-  selectedFile: File;
+    private propertyId: number;
+    selectedFile: File;
+    searchPosition: string;
+    geocoder: google.maps.Geocoder;
+    addressToDecode: google.maps.GeocoderRequest = {};
+    locationCoordinates: number[] = [null, null];
 
 
-  propertyForm = this.formBuilder.group({
-    "name": ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(60)])],
-    "numberOfRooms": [0, Validators.min(1)],
-    "price": [0, Validators.min(1)],
-    "description": [''],
-    "imageUrl": ['']
-  });
+    propertyForm = this.formBuilder.group({
+        'name': ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(60)])],
+        'numberOfRooms': [0, Validators.min(1)],
+        'price': [0, Validators.min(1)],
+        'description': [''],
+        'imageUrl': [''],
+    });
 
 
-  constructor(private formBuilder: FormBuilder,
-              private propertyService: PropertyService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private imageService: ImageService,
-              private cloudinary: Cloudinary) {
-  }
+    constructor(private formBuilder: FormBuilder,
+                private propertyService: PropertyService,
+                private route: ActivatedRoute,
+                private router: Router,
+                private imageService: ImageService,
+                private cloudinary: Cloudinary) {
 
-  ngOnInit() {
-    this.route.paramMap.subscribe(
-        paramMap => {
-          const editablePropertyId = paramMap.get('id');
-          if (editablePropertyId) {
-            this.propertyId = +editablePropertyId;
-            this.getPropertyData(editablePropertyId);
-          }
-        },
-        error => console.warn(error),
-    );
-  }
+        this.geocoder = new google.maps.Geocoder();
+        this.searchPosition = '1035 Szentendrei ut Budapest 14';
+        this.addressToDecode.address = this.searchPosition;
+    }
 
+    ngOnInit() {
+        this.route.paramMap.subscribe(
+            paramMap => {
+                const editablePropertyId = paramMap.get('id');
+                if (editablePropertyId) {
+                    this.propertyId = +editablePropertyId;
+                    this.getPropertyData(editablePropertyId);
+                }
+            },
+            error => console.warn(error),
+        );
+        this.codeAddress();
+    }
 
-  getPropertyData = (id: string) => {
-    this.propertyService.fetchPropertyData(id).subscribe(
-        (response: PropertyFormDataModel) => {
-          this.propertyForm.patchValue({
-            name: response.name,
-            numberOfRooms: response.numberOfRooms,
-            price: response.price,
-            description: response.description,
-            imageUrl: response.imageUrl.join(';')
-          });
-        },
-    );
-  };
+    getPropertyData = (id: string) => {
+        this.propertyService.fetchPropertyData(id).subscribe(
+            (response: PropertyFormDataModel) => {
+                this.propertyForm.patchValue({
+                    name: response.name,
+                    numberOfRooms: response.numberOfRooms,
+                    price: response.price,
+                    description: response.description,
+                    imageUrl: response.imageUrl.join(';'),
+                });
+            },
+        );
+    };
 
-  submit = () => {
-    this.imageService.uploadImage(this.selectedFile).subscribe(
-        (data) => {
-          const formData = {...this.propertyForm.value};
-          formData.isValid = true;
-          formData.imageUrl = data;
-          this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
-        },
-        () => {}
-    ) ;
+    submit = () => {
+        this.imageService.uploadImage(this.selectedFile).subscribe(
+            (data) => {
+                const formData = {...this.propertyForm.value};
+                formData.isValid = true;
+                formData.imageUrl = data;
+                this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+            },
+            () => {},
+        );
 
-  };
+    };
 
-  createNewProperty(data: PropertyFormDataModel) {
-    this.propertyService.createProperty(data).subscribe(
-        () => this.router.navigate(['property-list']),
-        error => validationHandler(error, this.propertyForm),
-    );
-  }
+    createNewProperty(data: PropertyFormDataModel) {
+        this.propertyService.createProperty(data).subscribe(
+            () => this.router.navigate(['property-list']),
+            error => validationHandler(error, this.propertyForm),
+        );
+    }
 
-  private updateProperty(data: PropertyFormDataModel) {
-    this.propertyService.updateProperty(data, this.propertyId).subscribe(
-        () => this.router.navigate(['']),
-        error => validationHandler(error, this.propertyForm),
-    );
-  }
+    private updateProperty(data: PropertyFormDataModel) {
+        this.propertyService.updateProperty(data, this.propertyId).subscribe(
+            () => this.router.navigate(['']),
+            error => validationHandler(error, this.propertyForm),
+        );
+    }
 
-  processFile(imageInput: any) {
-    this.selectedFile = imageInput.target.files[0];
-  }
+    processFile(imageInput: any) {
+        this.selectedFile = imageInput.target.files[0];
+    }
+
+    codeAddress() {
+        this.geocoder.geocode(this.addressToDecode, (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
+            if (status === google.maps.GeocoderStatus.OK) {
+                this.locationCoordinates[0] = results[0].geometry.location.lat();
+                this.locationCoordinates[1] = results[0].geometry.location.lng();
+            } else {
+                console.log(
+                    'Geocoding service: geocode was not successful for the following reason: '
+                    + status,
+                );
+                console.log(status + ' error');
+            }
+        });
+    }
 }

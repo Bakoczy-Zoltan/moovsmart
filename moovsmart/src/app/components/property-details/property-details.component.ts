@@ -4,9 +4,9 @@ import { PropertyDetailsModel } from '../../models/propertyDetails.model';
 import { PropertyService } from '../../services/property.service';
 
 @Component({
-  selector: 'app-property-details',
-  templateUrl: './property-details.component.html',
-  styleUrls: ['./property-details.component.css']
+    selector: 'app-property-details',
+    templateUrl: './property-details.component.html',
+    styleUrls: ['./property-details.component.css'],
 })
 
 export class PropertyDetailsComponent implements OnInit, AfterViewInit {
@@ -15,8 +15,8 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     propertyDetails: PropertyDetailsModel;
     images: string[];
     map: google.maps.Map;
-    lat = 47.587030;
-    lng = 19.045820;
+    lat = 47.545182;
+    lng = 19.0419057;
     coordinates: google.maps.LatLng;
     mapOptions: google.maps.MapOptions;
     marker: google.maps.Marker;
@@ -63,10 +63,17 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     mapInitializer() {
         this.map = new google.maps.Map(this.gmap.nativeElement,
             this.mapOptions);
-
         this.marker = new google.maps.Marker({
             position: this.coordinates,
             map: this.map,
+            title: 'Ingatlan környéke',
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 55,
+                fillColor: '#F00',
+                fillOpacity: 0.4,
+                strokeWeight: 0.4,
+            },
         });
         this.marker.setMap(this.map);
     }
