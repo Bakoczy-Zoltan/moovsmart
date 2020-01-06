@@ -4,7 +4,10 @@
     width: auto;
     text-align: center;
 }
-
+#main-div-container{
+    margin-top: 1%;
+    padding-top: 1%;
+}
 
 .small-img {
     max-height: 70px;
