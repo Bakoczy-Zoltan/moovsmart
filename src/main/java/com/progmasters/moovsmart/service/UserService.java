@@ -24,11 +24,13 @@ public class UserService {
     }
 
     public Long makeUser(CreateUserCommand command) {
-        this.userRepository.save(new UserProperty(command));
         Long id = null;
-        Optional<UserProperty> user = this.userRepository.findUserPropertiesByMail(command.getMail());
-        if (user.isPresent()) {
-            id = user.get().getId();
+        if (this.userRepository.findUserPropertiesByMail(command.getMail()).isEmpty()) {
+            this.userRepository.save(new UserProperty(command));
+            Optional<UserProperty> user = this.userRepository.findUserPropertiesByMail(command.getMail());
+            if (user.isPresent()) {
+                id = user.get().getId();
+            }
         }
         return id;
     }

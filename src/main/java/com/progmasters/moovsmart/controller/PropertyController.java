@@ -32,9 +32,7 @@ public class PropertyController {
 
     @Autowired
     public PropertyController(PropertyService propertyService,
-                              PropertyFormValidator propertyFormValidator,
-                              MailSenderService mailSenderService,
-                              UserService userService) {
+                              PropertyFormValidator propertyFormValidator) {
         this.propertyService = propertyService;
         this.propertyFormValidator = propertyFormValidator;
     }
@@ -69,8 +67,10 @@ public class PropertyController {
         ResponseEntity result;
         if (updatedProperty == null) {
             result = new ResponseEntity(HttpStatus.NOT_FOUND);
+            this.logger.info("Property (id: " + id + ") not found");
         } else {
             result = new ResponseEntity(HttpStatus.OK);
+            this.logger.info("Property (id: " + id + ") is updated");
         }
         return result;
     }
@@ -82,8 +82,10 @@ public class PropertyController {
         ResponseEntity result;
         if (isDeleteSuccessful) {
             result = new ResponseEntity<>(HttpStatus.OK);
+            this.logger.info("Property (id: " + id + ") deleted");
         } else {
             result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            this.logger.info("Property (id: " + id + ") not found");
         }
         return result;
     }
