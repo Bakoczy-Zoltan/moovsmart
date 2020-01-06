@@ -4,6 +4,7 @@ import com.progmasters.moovsmart.dto.CreateUserCommand;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class UserProperty {
     private String userName;
     @Email(message = "Email should be valid")
     private String mail;
+    @Pattern(regexp="(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}")
     private String password;
     private boolean isActive;
 

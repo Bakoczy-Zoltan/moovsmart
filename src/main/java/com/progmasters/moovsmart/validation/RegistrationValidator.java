@@ -1,10 +1,11 @@
 package com.progmasters.moovsmart.validation;
 
 import com.progmasters.moovsmart.dto.CreateUserCommand;
-import com.progmasters.moovsmart.dto.PropertyForm;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+@Component
 public class RegistrationValidator implements Validator {
 
     @Override
@@ -27,18 +28,17 @@ public class RegistrationValidator implements Validator {
             errors.rejectValue("mail", "newUser.mail.empty");
         }
 
-        if (newUser.getMail().length() < 3 || newUser.getMail().length() > 80) {
-            errors.rejectValue("mail", "newUser.mail.notproperlength");
+        if (!newUser.getMail().matches("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")) {
+            errors.rejectValue("mail", "newUser.mail.notvalid");
         }
 
         if (newUser.getPassword() == null || newUser.getPassword().equals("")) {
             errors.rejectValue("password", "newUser.password.empty");
         }
 
-        if (newUser.getPassword().length() < 6 || newUser.getPassword().length() > 20) {
-            errors.rejectValue("password", "newUser.password.notproperlength");
+        if (!newUser.getPassword().matches("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}")) {
+            errors.rejectValue("password", "newUser.password.notvalid");
         }
-
 
     }
 }
