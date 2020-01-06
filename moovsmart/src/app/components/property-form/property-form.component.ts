@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Cloudinary } from '@cloudinary/angular-5.x';
 import { PropertyFormDataModel } from '../../models/propertyFormData.model';
 import { ImageService } from '../../services/image.service';
 import { PropertyService } from '../../services/property.service';
 import { validationHandler } from '../../utils/validationHandler';
-import { Cloudinary } from '@cloudinary/angular-5.x';
 
 
 @Component({
@@ -20,10 +20,10 @@ export class PropertyFormComponent implements OnInit {
 
 
   propertyForm = this.formBuilder.group({
-    "name": ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(60)])],
-    "numberOfRooms": [0, Validators.min(1)],
+    "name": ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(60)])],
+    "numberOfRooms": [0, Validators.compose([Validators.min(1), Validators.max(12)])],
     "price": [0, Validators.min(1)],
-    "description": [''],
+    "description": ['', Validators.minLength(10)],
     "imageUrl": ['']
   });
 
