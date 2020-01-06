@@ -23,8 +23,8 @@
             <img [src]="image" class="small-img" alt="picture" (click)="changeDefaultImg(image)">
         </div>
     </div>
-</div>
-<div class="container" id="text-container">
+
+    <div>
     <h3><strong>Ingatlan bemutatása</strong></h3>
 
     <div class="row" id="description-div">
@@ -38,7 +38,7 @@
             <strong>Ár:</strong> {{propertyDetails?.price}}
         </div>
     </div>
-
+    </div>
     <p></p>
     <p><strong>Részletes leírás:</strong></p>
     <p>{{propertyDetails?.description}}</p>
@@ -48,7 +48,8 @@
     </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -65,9 +66,11 @@
             </div>
         </div>
     </div>
+    <div id="bottom-div">
+        <button type="button" class="btn btn-secondary" (click)="edit(propertyDetails.id)">
+            Szerkesztés <i class="fas fa-pencil-alt"></i></button>
+        <button type="button" class="btn btn-info" (click)="delete(propertyDetails.id)">
+            Törlés <i class="far fa-trash-alt"></i></button>
+    </div>
+</div>
 
-</div>
-<div class="container" id="buttons">
-    <button class="btn" (click)="edit(propertyDetails.id)">Szerkesztés</button>
-    <button class="btn" (click)="delete(propertyDetails.id)">Törlés</button>
-</div>
