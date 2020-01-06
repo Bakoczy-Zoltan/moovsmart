@@ -92,6 +92,8 @@ export class PropertyFormComponent implements OnInit {
   }
 
   processFile(imageInput: any) {
-    this.selectedFile = imageInput.target.files[0];
+      if(imageInput) {
+          this.selectedFile = imageInput.files[0];
+      }
   }
 }

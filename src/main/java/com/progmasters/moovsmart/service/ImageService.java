@@ -3,10 +3,10 @@ package com.progmasters.moovsmart.service;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.stereotype.Service;
 import com.cloudinary.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.transaction.Transactional;
-import java.io.File;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.Map;
 
 @Service
@@ -19,9 +19,9 @@ public class ImageService {
             "api_secret", "ZyTQRXDv4vTFXIq8SEhQEcE0ebc"));
 
 
-    public void uploadImage(File imageToUpload) throws IOException {
+    public void uploadImage(MultipartFile imageToUpload) throws IOException {
 
-        Map uploadResult = cloudinary.uploader().upload(imageToUpload, ObjectUtils.emptyMap());
+        Map uploadResult = cloudinary.uploader().upload(imageToUpload.getBytes(), ObjectUtils.emptyMap());
         System.out.println(uploadResult);
     }
 }
