@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Cloudinary } from '@cloudinary/angular-5.x';
 import { PropertyFormDataModel } from '../../models/propertyFormData.model';
 import { ImageService } from '../../services/image.service';
 import { PropertyService } from '../../services/property.service';
 import { validationHandler } from '../../utils/validationHandler';
-import { Cloudinary } from '@cloudinary/angular-5.x';
 
 
 @Component({
