@@ -1,13 +1,11 @@
 package com.progmasters.moovsmart.controller;
 
+import com.progmasters.moovsmart.domain.County;
 import com.progmasters.moovsmart.domain.Property;
-import com.progmasters.moovsmart.dto.CreateUserCommand;
-import com.progmasters.moovsmart.dto.PropertyDetails;
-import com.progmasters.moovsmart.dto.PropertyForm;
-import com.progmasters.moovsmart.dto.PropertyListItem;
-import com.progmasters.moovsmart.service.MailSenderService;
+import com.progmasters.moovsmart.domain.PropertyState;
+import com.progmasters.moovsmart.domain.PropertyType;
+import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.service.PropertyService;
-import com.progmasters.moovsmart.service.UserService;
 import com.progmasters.moovsmart.validation.PropertyFormValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -40,6 +39,37 @@ public class PropertyController {
     @InitBinder("propertyForm")
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(propertyFormValidator);
+    }
+
+    @GetMapping("/formData")
+    public ResponseEntity<PropertyInitFormData> getPropertyFormData() {
+        PropertyInitFormData initFormData = new PropertyInitFormData(getCounties(),
+                getPropertyTypes(), getPropertyStates());
+        return new ResponseEntity<>(initFormData, HttpStatus.OK);
+    }
+
+    private List<PropertyTypeOption> getPropertyTypes() {
+        List<PropertyTypeOption> propertyTypeOptions = new ArrayList<>();
+        for (PropertyType propertyType : PropertyType.values()) {
+            propertyTypeOptions.add(new PropertyTypeOption(propertyType));
+        }
+        return propertyTypeOptions;
+    }
+
+    private List<PropertyStateOption> getPropertyStates() {
+        List<PropertyStateOption> propertyStateOptions = new ArrayList<>();
+        for (PropertyState propertyState : PropertyState.values()) {
+            propertyStateOptions.add(new PropertyStateOption(propertyState));
+        }
+        return propertyStateOptions;
+    }
+
+    private List<CountyOption> getCounties() {
+        List<CountyOption> countyOptions = new ArrayList<>();
+        for (County county : County.values()) {
+            countyOptions.add(new CountyOption(county));
+        }
+        return countyOptions;
     }
 
     @GetMapping

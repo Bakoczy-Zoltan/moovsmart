@@ -15,6 +15,10 @@ import { validationHandler } from '../../utils/validationHandler';
 })
 export class PropertyFormComponent implements OnInit {
 
+    counties: CountyOptionModel[];
+    propertyTypes: PropertyTypeOptionModel[];
+    propertyStates: PropertyStateOptionModel[];
+
     private propertyId: number;
     selectedFile: File;
     searchPosition: string;
@@ -24,11 +28,14 @@ export class PropertyFormComponent implements OnInit {
 
 
   propertyForm = this.formBuilder.group({
-    "name": ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(60)])],
-    "numberOfRooms": [0, Validators.compose([Validators.min(1), Validators.max(12)])],
-    "price": [0, Validators.min(1)],
-    "description": ['', Validators.minLength(10)],
-    "imageUrl": ['']
+      "name": ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(60)])],
+      'numberOfRooms': [0, Validators.compose([Validators.min(1), Validators.max(12)])],
+      'price': [0, Validators.min(1)],
+      'county': [''],
+      'propertyType': [''],
+      'propertyState': [''],
+      'description': ['', Validators.minLength(10)],
+      'imageUrl': [''],
   });
 
 
@@ -45,16 +52,23 @@ export class PropertyFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.paramMap.subscribe(
-            paramMap => {
-                const editablePropertyId = paramMap.get('id');
-                if (editablePropertyId) {
-                    this.propertyId = +editablePropertyId;
-                    this.getPropertyData(editablePropertyId);
-                }
-            },
-            error => console.warn(error),
-        );
+        this.propertyService.getInitialFormData().subscribe((formInitData: FormInitDataModel) => {
+            this.counties = formInitData.counties;
+            this.propertyTypes = formInitData.propertyTypes;
+            this.propertyStates = formInitData.propertyStates;
+
+            this.route.paramMap.subscribe(
+                paramMap => {
+                    const editablePropertyId = paramMap.get('id');
+                    if (editablePropertyId) {
+                        this.propertyId = +editablePropertyId;
+                        this.getPropertyData(editablePropertyId);
+                    }
+                },
+                error => console.warn(error),
+            );
+        });
+
         this.codeAddress();
     }
 

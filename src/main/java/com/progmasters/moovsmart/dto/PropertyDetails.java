@@ -1,6 +1,9 @@
 package com.progmasters.moovsmart.dto;
 
+import com.progmasters.moovsmart.domain.County;
 import com.progmasters.moovsmart.domain.Property;
+import com.progmasters.moovsmart.domain.PropertyState;
+import com.progmasters.moovsmart.domain.PropertyType;
 
 import java.util.List;
 
@@ -10,6 +13,13 @@ public class PropertyDetails {
     private String name;
     private int numberOfRooms;
     private int price;
+    private int buildingYear;
+    private double area;
+    private String propertyType;
+    private String propertyState;
+    private String county;
+    private int zipCode;
+    private String street;
     private String description;
     private List<String> imageUrl;
 
@@ -21,6 +31,13 @@ public class PropertyDetails {
         this.name = property.getName();
         this.numberOfRooms = property.getNumberOfRooms();
         this.price = property.getPrice();
+        this.buildingYear = property.getBuildingYear();
+        this.area = property.getArea();
+        this.propertyType = property.getPropertyType().getDisplayName();
+        this.propertyState = property.getPropertyState().getDisplayName();
+        this.county = property.getCounty().getDisplayName();
+        this.zipCode = property.getZipCode();
+        this.street = property.getStreet();
         this.description = property.getDescription();
         this.imageUrl = property.getImageUrls();
     }
@@ -56,6 +73,62 @@ public class PropertyDetails {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getBuildingYear() {
+        return buildingYear;
+    }
+
+    public void setBuildingYear(int buildingYear) {
+        this.buildingYear = buildingYear;
+    }
+
+    public double getArea() {
+        return area;
+    }
+
+    public void setArea(double area) {
+        this.area = area;
+    }
+
+    public String getPropertyType() {
+        return propertyType;
+    }
+
+    public void setPropertyType(String propertyType) {
+        this.propertyType = propertyType;
+    }
+
+    public String getPropertyState() {
+        return propertyState;
+    }
+
+    public void setPropertyState(String propertyState) {
+        this.propertyState = propertyState;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
+    public int getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(int zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getDescription() {
