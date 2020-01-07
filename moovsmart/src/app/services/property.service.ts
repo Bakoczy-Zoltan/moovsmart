@@ -14,6 +14,7 @@ export class PropertyService {
 
     baseUrl = environment.apiUrl+'/properties';
     baseUserUrl = environment.apiUrl+'/user';
+    url = 'localhost:8080/api/properties';
 
     constructor(private httpClient: HttpClient) {
     }
