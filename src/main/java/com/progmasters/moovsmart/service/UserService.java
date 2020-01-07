@@ -6,6 +6,7 @@ import com.progmasters.moovsmart.dto.CreateUserCommand;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,14 +20,22 @@ public class UserService {
 
     private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+
+    private PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Long makeUser(CreateUserCommand command) {
         Long id = null;
         if (this.userRepository.findUserPropertiesByMail(command.getMail()).isEmpty()) {
-            this.userRepository.save(new UserProperty(command));
+            UserProperty newUser = new UserProperty(command);
+            String password = passwordEncoder.encode(command.getPassword());
+            newUser.setPassword(password);
+
+            this.userRepository.save(newUser);
             Optional<UserProperty> user = this.userRepository.findUserPropertiesByMail(command.getMail());
             if (user.isPresent()) {
                 id = user.get().getId();

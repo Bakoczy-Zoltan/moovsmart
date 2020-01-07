@@ -1,4 +1,4 @@
-import { HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,6 +13,7 @@ import { PropertyListComponent } from './components/property-list/property-list.
 import { RegistrationComponent } from './components/registration/registration.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { HttpRequestInterceptor } from './utils/httpRequestInterceptor';
 
 @NgModule({
     declarations: [
@@ -30,9 +31,11 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
         ReactiveFormsModule,
         BrowserModule,
         AppRoutingModule,
-        CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'moovsmart'})
+        CloudinaryModule.forRoot(Cloudinary, {cloud_name: 'moovsmart'}),
     ],
-    providers: [],
+    providers: [
+        [{provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true}],
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {

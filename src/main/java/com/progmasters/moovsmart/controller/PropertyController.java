@@ -47,20 +47,20 @@ public class PropertyController {
         return new ResponseEntity<>(propertyService.getProperties(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/authUser/{id}")
     public ResponseEntity<PropertyDetails> getPropertyDetails(@PathVariable Long id) {
         logger.info("property-details requested");
         return new ResponseEntity<>(propertyService.getPropertyDetails(id), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/authUser")
     public ResponseEntity createProperty(@RequestBody @Valid PropertyForm propertyForm) {
         propertyService.createProperty(propertyForm);
         this.logger.info("New Property created");
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/authUser/{id}")
     public ResponseEntity updateProperty(@Valid @RequestBody PropertyForm propertyForm, @PathVariable Long id) {
         Property updatedProperty = propertyService.updateProperty(propertyForm, id);
         ResponseEntity result;
@@ -74,7 +74,7 @@ public class PropertyController {
         return result;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/authUser/{id}")
     public ResponseEntity deleteProperty(@PathVariable Long id) {
         boolean isDeleteSuccessful = propertyService.deleteProperty(id);
 
