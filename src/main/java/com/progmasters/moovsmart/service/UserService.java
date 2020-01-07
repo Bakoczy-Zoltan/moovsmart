@@ -39,7 +39,7 @@ public class UserService {
         Optional<UserProperty>user = this.userRepository.findById(id);
         if(user.isPresent()){
             UserProperty validUser = user.get();
-            validUser.setActive(true);
+            validUser.setIsActive(true);
             List<String>roleList = makeRoleList(validUser);
             return new ResponseEntity<>(roleList,HttpStatus.CREATED);
         }else{

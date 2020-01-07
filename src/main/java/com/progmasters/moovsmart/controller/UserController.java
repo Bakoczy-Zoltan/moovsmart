@@ -1,6 +1,8 @@
 package com.progmasters.moovsmart.controller;
 
 import com.progmasters.moovsmart.dto.CreateUserCommand;
+import com.progmasters.moovsmart.security.AuthenticatedUser;
+import com.progmasters.moovsmart.security.MyUserDetails;
 import com.progmasters.moovsmart.service.MailSenderService;
 import com.progmasters.moovsmart.service.UserService;
 import com.progmasters.moovsmart.validation.RegistrationValidator;
@@ -8,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,5 +58,12 @@ public class UserController {
         String realId = new String(decodedBytes);
         Long decodedId = Long.valueOf(realId);
         return this.userService.validateUser(decodedId);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity authenticateUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
+        return new ResponseEntity<>(new AuthenticatedUser(user), HttpStatus.OK);
     }
 }

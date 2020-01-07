@@ -26,7 +26,6 @@ public class PropertyController {
 
     private PropertyService propertyService;
 
-
     private PropertyFormValidator propertyFormValidator;
     private Logger logger = LoggerFactory.getLogger(PropertyController.class);
 
@@ -89,7 +88,4 @@ public class PropertyController {
         }
         return result;
     }
-
-
-
 }
