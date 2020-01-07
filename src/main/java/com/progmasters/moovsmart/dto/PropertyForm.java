@@ -1,8 +1,6 @@
 package com.progmasters.moovsmart.dto;
 
-import com.progmasters.moovsmart.domain.County;
-import com.progmasters.moovsmart.domain.PropertyState;
-import com.progmasters.moovsmart.domain.PropertyType;
+import com.progmasters.moovsmart.domain.*;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -18,9 +16,9 @@ public class PropertyForm {
     private int price;
     private int buildingYear;
     private double area;
-    private PropertyType propertyType;
-    private PropertyState propertyState;
-    private County county;
+    private String propertyType;
+    private String propertyState;
+    private String county;
     private int zipCode;
     private String street;
     private String streetNumber;
@@ -28,10 +26,28 @@ public class PropertyForm {
     private String description;
     private List<String> imageUrl;
 
+    private String owner;
+
     private double lngCoord;
     private double latCoord;
 
-    PropertyForm() {
+    PropertyForm(Property property) {
+        this.name = property.getName();
+        this.numberOfRooms = property.getNumberOfRooms();
+        this.price = property.getPrice();
+        this.buildingYear = property.getBuildingYear();
+        this.area = property.getArea();
+        this.propertyType = property.getPropertyType().getDisplayName();
+        this.propertyState = property.getPropertyState().getDisplayName();
+        this.county = property.getCounty().getDisplayName();
+        this.zipCode = property.getZipCode();
+        this.street = property.getStreet();
+        this.streetNumber = property.getStreetNumber();
+        this.description = property.getDescription();
+        this.imageUrl = property.getImageUrls();
+        this.lngCoord = property.getLngCoord();
+        this.latCoord = property.getLatCoord();
+        this.owner = property.getOwner().getMail();
     }
 
     public String getName() {
@@ -90,27 +106,27 @@ public class PropertyForm {
         this.area = area;
     }
 
-    public PropertyType getPropertyType() {
+    public String getPropertyType() {
         return propertyType;
     }
 
-    public void setPropertyType(PropertyType propertyType) {
+    public void setPropertyType(String propertyType) {
         this.propertyType = propertyType;
     }
 
-    public PropertyState getPropertyState() {
+    public String getPropertyState() {
         return propertyState;
     }
 
-    public void setPropertyState(PropertyState propertyState) {
+    public void setPropertyState(String propertyState) {
         this.propertyState = propertyState;
     }
 
-    public County getCounty() {
+    public String getCounty() {
         return county;
     }
 
-    public void setCounty(County county) {
+    public void setCounty(String county) {
         this.county = county;
     }
 
@@ -136,6 +152,14 @@ public class PropertyForm {
 
     public void setStreetNumber(String streetNumber) {
         this.streetNumber = streetNumber;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public double getLngCoord() {

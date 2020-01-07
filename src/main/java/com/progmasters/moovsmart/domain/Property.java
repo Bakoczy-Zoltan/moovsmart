@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
-
 @Entity
 public class Property {
 
@@ -45,15 +44,6 @@ public class Property {
     private List<String>imageUrls = new ArrayList<>();
 
     public Property() {
-    }
-
-    public Property(PropertyForm propertyForm) {
-        this.name = propertyForm.getName();
-        this.numberOfRooms = propertyForm.getNumberOfRooms();
-        this.price = propertyForm.getPrice();
-        this.description = propertyForm.getDescription();
-        this.isValid = true;
-        this.imageUrls = propertyForm.getImageUrl();
     }
 
     public Long getId() {
