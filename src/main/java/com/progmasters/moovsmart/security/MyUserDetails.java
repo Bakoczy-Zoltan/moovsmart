@@ -14,7 +14,6 @@ public class MyUserDetails implements UserDetails {
 
     private String userName;
     private String password;
-    private String mail;
     private List<GrantedAuthority> roleList;
     private boolean isActive;
 
@@ -22,11 +21,10 @@ public class MyUserDetails implements UserDetails {
     }
 
     public MyUserDetails(UserProperty user) {
-        this.userName = user.getUserName();
+        this.userName = user.getMail();
         this.password = user.getPassword();
         this.roleList = makeRoles(user.getRoleTypes());
         this.isActive = user.getIsActive();
-        this.mail = user.getMail();
     }
 
     private List<GrantedAuthority> makeRoles(List<RoleType> roleTypes) {
@@ -49,7 +47,7 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.mail;
+        return this.userName;
     }
 
     @Override

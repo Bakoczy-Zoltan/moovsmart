@@ -19,9 +19,10 @@ public class ImageService {
             "api_secret", "ZyTQRXDv4vTFXIq8SEhQEcE0ebc"));
 
 
-    public void uploadImage(MultipartFile imageToUpload) throws IOException {
+    public String uploadImage(MultipartFile imageToUpload) throws IOException {
 
         Map uploadResult = cloudinary.uploader().upload(imageToUpload.getBytes(), ObjectUtils.emptyMap());
-        System.out.println(uploadResult);
+
+        return  ((String) uploadResult.get("public_id"));
     }
 }

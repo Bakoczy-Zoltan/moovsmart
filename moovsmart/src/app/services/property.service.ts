@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PropertyDetailsModel } from '../models/propertyDetails.model';
 import { PropertyListItemModel } from '../models/propertyListItem.model';
@@ -24,7 +24,7 @@ export class PropertyService {
     }
 
     createProperty(roomFormData: PropertyFormDataModel): Observable<any> {
-        return this.httpClient.post(this.baseUrl, roomFormData);
+        return this.httpClient.post(this.baseUrl + "/authUser", roomFormData);
     }
 
     getPropertyList(): Observable<Array<PropertyListItemModel>> {
@@ -32,21 +32,21 @@ export class PropertyService {
     }
 
     getPropertyDetails = (id: number): Observable<PropertyDetailsModel> => {
-        return this.httpClient.get<PropertyDetailsModel>(this.baseUrl + '/' + id);
+        return this.httpClient.get<PropertyDetailsModel>(this.baseUrl + '/authUser/' + id);
     };
 
 
     updateProperty(data: PropertyFormDataModel, propertyId: number): Observable<any> {
         data.id = propertyId;
-        return this.httpClient.put<any>(this.baseUrl + '/' + propertyId, data);
+        return this.httpClient.put<any>(this.baseUrl + '/authUser/' + propertyId, data);
     }
 
     deleteProperty(id: number): Observable<any> {
-        return this.httpClient.delete<any>(this.baseUrl + '/' + id);
+        return this.httpClient.delete<any>(this.baseUrl + '/authUser/' + id);
     }
 
     fetchPropertyData(id: string): Observable<PropertyFormDataModel> {
-        return this.httpClient.get<PropertyFormDataModel>(this.baseUrl + '/' + id);
+        return this.httpClient.get<PropertyFormDataModel>(this.baseUrl + '/authUser/' + id);
     }
 
     registerUser(userFormData: UserFormDataModel): Observable<any> {
@@ -55,5 +55,12 @@ export class PropertyService {
 
     validateUser(id: string): Observable<any> {
         return this.httpClient.get<any>(this.baseUserUrl + '/validuser/' + id);
+    }
+
+    signIn(credentials: any):Observable<any> {
+        const headers = new HttpHeaders( credentials? {
+            authorization: 'Basic ' + btoa(credentials.userName + ':' + credentials.password),
+        } : {});
+        return this.httpClient.get<any>(this.baseUserUrl + '/me', {headers:headers})
     }
 }

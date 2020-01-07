@@ -50,6 +50,7 @@ export class PropertyFormComponent implements OnInit {
         this.geocoder = new google.maps.Geocoder();
         this.searchPosition = '1035 Szentendrei ut Budapest 14';
         this.addressToDecode.address = this.searchPosition;
+        this.selectedFile = new File([''], "https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg");
     }
 
     ngOnInit() {
@@ -92,7 +93,7 @@ export class PropertyFormComponent implements OnInit {
         (data) => {
           const formData = {...this.propertyForm.value};
           formData.isValid = true;
-          formData.imageUrl = data;
+          formData.imageUrl.push('https://res.cloudinary.com/demo/image/upload/' + data + '.jpg');
           this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
         },
         () => {}
