@@ -33,9 +33,15 @@ public class PropertyDetails {
         this.price = property.getPrice();
         this.buildingYear = property.getBuildingYear();
         this.area = property.getArea();
-        this.propertyType = property.getPropertyType().getDisplayName();
-        this.propertyState = property.getPropertyState().getDisplayName();
-        this.county = property.getCounty().getDisplayName();
+        if (property.getPropertyType() != null) {
+            this.propertyType = property.getPropertyType().getDisplayName();
+        }
+        if (property.getPropertyState() != null) {
+            this.propertyState = property.getPropertyState().getDisplayName();
+        }
+        if (property.getCounty() != null) {
+            this.county = property.getCounty().getDisplayName();
+        }
         this.zipCode = property.getZipCode();
         this.street = property.getStreet();
         this.description = property.getDescription();
