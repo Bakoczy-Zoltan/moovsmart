@@ -7,18 +7,18 @@
             <input
                 type="email"
                 class="form-control"
-                formControlName="mail"
+                formControlName="userName"
                 id="mail"
                 name="mail"
                 placeholder="Kérjük, adja meg az email-címét!"
                 required
             />
-            <small *ngIf="signInForm.get('mail').invalid && signInForm.get('mail').touched
-       && !signInForm.get('mail').errors?.serverError" class="text-danger">
+            <small *ngIf="signInForm.get('userName').invalid && signInForm.get('userName').touched
+       && !signInForm.get('userName').errors?.serverError" class="text-danger">
                 Érvénytelen email-cím.
             </small>
-            <small *ngIf="signInForm.get('mail').errors?.serverError" class="text-danger">
-                {{signInForm.get('mail').errors['serverError']}}
+            <small *ngIf="signInForm.get('userName').errors?.serverError" class="text-danger">
+                {{signInForm.get('userName').errors['serverError']}}
             </small>
         </div>
 

@@ -23,7 +23,7 @@ public class UserProperty {
     private String password;
     private boolean isActive;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "owner")
     private List<Property> properties = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
@@ -81,11 +81,11 @@ public class UserProperty {
         this.password = password;
     }
 
-    public boolean isActive() {
+    public boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setIsActive(boolean active) {
         isActive = active;
     }
 

@@ -16,12 +16,17 @@ public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private Integer numberOfRooms;
-
     private Integer price;
+    private int buildingYear;
+    private double area;
+    private PropertyType propertyType;
+    private PropertyState propertyState;
+    private County county;
+    private int zipCode;
+    private String street;
+    private String streetNumber;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -30,7 +35,10 @@ public class Property {
     private boolean isValid;
 
     @ManyToOne
-    private UserProperty user;
+    private UserProperty owner;
+
+    private double lngCoord;
+    private double latCoord;
 
     @Column(name = "imagesUrl")
     @ElementCollection(targetClass = String.class)
@@ -104,4 +112,91 @@ public class Property {
         this.imageUrls = imageUrls;
     }
 
+    public int getBuildingYear() {
+        return buildingYear;
+    }
+
+    public void setBuildingYear(int buildingYear) {
+        this.buildingYear = buildingYear;
+    }
+
+    public double getArea() {
+        return area;
+    }
+
+    public void setArea(double area) {
+        this.area = area;
+    }
+
+    public PropertyType getPropertyType() {
+        return propertyType;
+    }
+
+    public void setPropertyType(PropertyType propertyType) {
+        this.propertyType = propertyType;
+    }
+
+    public PropertyState getPropertyState() {
+        return propertyState;
+    }
+
+    public void setPropertyState(PropertyState propertyState) {
+        this.propertyState = propertyState;
+    }
+
+    public County getCounty() {
+        return county;
+    }
+
+    public void setCounty(County county) {
+        this.county = county;
+    }
+
+    public int getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(int zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    public UserProperty getOwner() {
+        return owner;
+    }
+
+    public void setOwner(UserProperty owner) {
+        this.owner = owner;
+    }
+
+    public double getLngCoord() {
+        return lngCoord;
+    }
+
+    public void setLngCoord(double lngCoord) {
+        this.lngCoord = lngCoord;
+    }
+
+    public double getLatCoord() {
+        return latCoord;
+    }
+
+    public void setLatCoord(double latCoord) {
+        this.latCoord = latCoord;
+    }
 }
