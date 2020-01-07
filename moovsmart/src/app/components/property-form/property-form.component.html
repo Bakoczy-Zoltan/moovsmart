@@ -86,7 +86,7 @@
                    accept="image/*"
                    formControlName="imageUrl"
                    id="imageUrl"
-                   type="file" (change)="processFile(imageInput)"
+                   type="file" (change)="processFile($event)"
                    #imageInput>
             <button type="button" (click)="imageInput.click()">Kattintson ide kép feltöltéséhez!</button>
             <small *ngIf="propertyForm.get('imageUrl').errors?.serverError" class="text-danger">
