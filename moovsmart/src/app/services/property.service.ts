@@ -19,6 +19,10 @@ export class PropertyService {
     constructor(private httpClient: HttpClient) {
     }
 
+    getInitialFormData(): Observable<FormInitDataModel> {
+        return this.httpClient.get<FormInitDataModel>(this.baseUrl + '/formData');
+    }
+
     createProperty(roomFormData: PropertyFormDataModel): Observable<any> {
         return this.httpClient.post(this.baseUrl + "/authUser", roomFormData);
     }
