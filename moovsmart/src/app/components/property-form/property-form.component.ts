@@ -15,8 +15,12 @@ import { validationHandler } from '../../utils/validationHandler';
 })
 export class PropertyFormComponent implements OnInit {
 
-  private propertyId: number;
-  selectedFile: File;
+    private propertyId: number;
+    selectedFile: File;
+    searchPosition: string;
+    geocoder: google.maps.Geocoder;
+    addressToDecode: google.maps.GeocoderRequest = {};
+    locationCoordinates: number[] = [null, null];
 
 
   propertyForm = this.formBuilder.group({
@@ -28,27 +32,31 @@ export class PropertyFormComponent implements OnInit {
   });
 
 
-  constructor(private formBuilder: FormBuilder,
-              private propertyService: PropertyService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private imageService: ImageService,
-              private cloudinary: Cloudinary) {
-  }
+    constructor(private formBuilder: FormBuilder,
+                private propertyService: PropertyService,
+                private route: ActivatedRoute,
+                private router: Router,
+                private imageService: ImageService,
+                private cloudinary: Cloudinary) {
 
-  ngOnInit() {
-    this.route.paramMap.subscribe(
-        paramMap => {
-          const editablePropertyId = paramMap.get('id');
-          if (editablePropertyId) {
-            this.propertyId = +editablePropertyId;
-            this.getPropertyData(editablePropertyId);
-          }
-        },
-        error => console.warn(error),
-    );
-  }
+        this.geocoder = new google.maps.Geocoder();
+        this.searchPosition = '1035 Szentendrei ut Budapest 14';
+        this.addressToDecode.address = this.searchPosition;
+    }
 
+    ngOnInit() {
+        this.route.paramMap.subscribe(
+            paramMap => {
+                const editablePropertyId = paramMap.get('id');
+                if (editablePropertyId) {
+                    this.propertyId = +editablePropertyId;
+                    this.getPropertyData(editablePropertyId);
+                }
+            },
+            error => console.warn(error),
+        );
+        this.codeAddress();
+    }
 
   getPropertyData = (id: string) => {
     this.propertyService.fetchPropertyData(id).subscribe(
@@ -91,7 +99,22 @@ export class PropertyFormComponent implements OnInit {
     );
   }
 
-  processFile(imageInput: any) {
-    this.selectedFile = imageInput.target.files[0];
-  }
+    processFile(imageInput: any) {
+        this.selectedFile = imageInput.target.files[0];
+    }
+
+    codeAddress() {
+        this.geocoder.geocode(this.addressToDecode, (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
+            if (status === google.maps.GeocoderStatus.OK) {
+                this.locationCoordinates[0] = results[0].geometry.location.lat();
+                this.locationCoordinates[1] = results[0].geometry.location.lng();
+            } else {
+                console.log(
+                    'Geocoding service: geocode was not successful for the following reason: '
+                    + status,
+                );
+                console.log(status + ' error');
+            }
+        });
+    }
 }

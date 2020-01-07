@@ -4,7 +4,10 @@
     width: auto;
     text-align: center;
 }
-
+#main-div-container{
+    margin-top: 1%;
+    padding-top: 1%;
+}
 
 .small-img {
     max-height: 70px;
@@ -20,6 +23,7 @@
     max-width: 50%;
     margin-bottom: 2%;
     background-color: antiquewhite;
+    padding-bottom: 3px;
 }
 
 #text-container{
@@ -38,3 +42,6 @@ a:hover{
     color: magenta;
 }
 
+#bottom-div{
+    margin-bottom: 3%;
+}

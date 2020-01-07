@@ -1,44 +1,45 @@
 <div class="container" id="cont">
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img [src]="defaultPicture" class="d-block w-100" alt="picture">
+    <div id="main-div-container">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img [src]="defaultPicture" class="d-block w-100" alt="picture">
+                </div>
+                <div class="carousel-item" *ngFor="let image of images">
+                    <img src="{{image}}" class="d-block w-100" alt="picture" id="main-img"
+                         (click)="changeDefaultImg(image)">
+                </div>
             </div>
-            <div class="carousel-item" *ngFor="let image of images">
-                <img src="{{image}}" class="d-block w-100" alt="picture" id="main-img"
-                     (click)="changeDefaultImg(image)">
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <div id="img-holder-row">
+            <div *ngFor="let image of images" id="img-bonder">
+                <img [src]="image" class="small-img" alt="picture" (click)="changeDefaultImg(image)">
             </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
-    <div id="img-holder-row">
-        <div *ngFor="let image of images" id="img-bonder">
-            <img [src]="image" class="small-img" alt="picture" (click)="changeDefaultImg(image)">
-        </div>
-    </div>
-</div>
-<div class="container" id="text-container">
-    <h3><strong>Ingatlan bemutatása</strong></h3>
+    <div>
+        <h3><strong>Ingatlan bemutatása</strong></h3>
 
-    <div class="row" id="description-div">
-        <div class="col">
-            <strong>Ingatlan:</strong> {{propertyDetails?.name + " "}}
-        </div>
-        <div class="col">
-            <strong>Szobák száma:</strong> {{propertyDetails?.numberOfRooms}}
-        </div>
-        <div class="col">
-            <strong>Ár:</strong> {{propertyDetails?.price}}
+        <div class="row" id="description-div">
+            <div class="col">
+                <strong>Ingatlan:</strong> {{propertyDetails?.name + " "}}
+            </div>
+            <div class="col">
+                <strong>Szobák száma:</strong> {{propertyDetails?.numberOfRooms}}
+            </div>
+            <div class="col">
+                <strong>Ár:</strong> {{propertyDetails?.price}}
+            </div>
         </div>
     </div>
-
     <p></p>
     <p><strong>Részletes leírás:</strong></p>
     <p>{{propertyDetails?.description}}</p>
@@ -48,7 +49,8 @@
     </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -65,9 +67,11 @@
             </div>
         </div>
     </div>
+    <div id="bottom-div">
+        <button type="button" class="btn btn-secondary" (click)="edit(propertyDetails.id)">
+            Szerkesztés <i class="fas fa-pencil-alt"></i></button>
+        <button type="button" class="btn btn-info" (click)="delete(propertyDetails.id)">
+            Törlés <i class="far fa-trash-alt"></i></button>
+    </div>
+</div>
 
-</div>
-<div class="container" id="buttons">
-    <button class="btn" (click)="edit(propertyDetails.id)">Szerkesztés</button>
-    <button class="btn" (click)="delete(propertyDetails.id)">Törlés</button>
-</div>
