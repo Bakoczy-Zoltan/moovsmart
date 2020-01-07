@@ -1,5 +1,9 @@
 package com.progmasters.moovsmart.dto;
 
+import com.progmasters.moovsmart.domain.County;
+import com.progmasters.moovsmart.domain.PropertyState;
+import com.progmasters.moovsmart.domain.PropertyType;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -10,10 +14,20 @@ public class PropertyForm {
 
     @Size(min = 3, max = 200, message = "Property name must be between 3 and 60 characters!")
     private String name;
-
     private int numberOfRooms;
-
     private int price;
+    private int buildingYear;
+    private double area;
+    private PropertyType propertyType;
+    private PropertyState propertyState;
+    private County county;
+    private int zipCode;
+    private String street;
+    private String streetNumber;
+    private double lngCoord;
+    private double latCoord;
+
+
     private String description;
     private List<String> imageUrl;
 

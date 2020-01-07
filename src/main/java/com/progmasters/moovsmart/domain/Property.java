@@ -30,7 +30,7 @@ public class Property {
     private boolean isValid;
 
     @ManyToOne
-    private UserProperty user;
+    private UserProperty owner;
 
     @Column(name = "imagesUrl")
     @ElementCollection(targetClass = String.class)

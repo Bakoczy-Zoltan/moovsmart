@@ -23,7 +23,7 @@ public class UserProperty {
     private String password;
     private boolean isActive;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "owner")
     private List<Property> properties = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
