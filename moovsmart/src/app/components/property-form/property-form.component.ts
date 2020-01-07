@@ -16,6 +16,7 @@ import { validationHandler } from '../../utils/validationHandler';
 export class PropertyFormComponent implements OnInit {
 
     private propertyId: number;
+    imgUrl: any;
     selectedFile: File;
     searchPosition: string;
     geocoder: google.maps.Geocoder;
@@ -99,8 +100,14 @@ export class PropertyFormComponent implements OnInit {
     );
   }
 
-    processFile(imageInput: any) {
-        this.selectedFile = imageInput.target.files[0];
+    processFile(event) {
+        this.selectedFile = event.target.files[0];
+
+        let reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        reader.onload = (event2) => {
+            this.imgUrl = reader.result;
+        }
     }
 
     codeAddress() {
