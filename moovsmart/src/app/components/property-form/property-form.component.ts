@@ -101,6 +101,7 @@ export class PropertyFormComponent implements OnInit {
 
   };
 
+
   createNewProperty(data: PropertyFormDataModel) {
     this.propertyService.createProperty(data).subscribe(
         () => this.router.navigate(['property-list']),
