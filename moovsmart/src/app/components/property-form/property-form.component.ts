@@ -60,6 +60,16 @@ export class PropertyFormComponent implements OnInit {
         // this.searchPosition = '1035 Szentendrei ut Budapest 14';
         // this.addressToDecode.address = this.searchPosition;
         this.selectedFile = new File([''], 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg');
+        this.searchPosition = '1035 Szentendrei ut Budapest 14';
+        this.addressToDecode.address = this.searchPosition;
+
+        this.propertyService.userName.subscribe(
+            (name) => {
+                this.registratedUser = name !== null;
+                if (!this.registratedUser) {
+                    this.openModalDialog();
+                }
+            });
     }
 
     ngOnInit() {
@@ -71,10 +81,6 @@ export class PropertyFormComponent implements OnInit {
                 this.openModalDialog();
             }
 
-            this.propertyService.userName.subscribe(
-                (name)=> {
-                this.registratedUser = name !== null;
-            });
 
             this.route.paramMap.subscribe(
                 paramMap => {
@@ -114,30 +120,29 @@ export class PropertyFormComponent implements OnInit {
         );
     };
 
-  submit = () => {
-      if (this.selectedFile != null) {
-          this.imageService.uploadImage(this.selectedFile).subscribe(
-              (data) => {
-                  const formData = {...this.propertyForm.value};
-                  console.log(formData);
+    submit = () => {
+        if (this.selectedFile != null) {
+            this.imageService.uploadImage(this.selectedFile).subscribe(
+                (data) => {
+                    const formData = {...this.propertyForm.value};
+                    console.log(formData);
+                    formData.isValid = true;
+                    formData.imageUrl = ['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
+                    formData.owner = this.propertyService.userName;
+                    this.selectedFile = null;
+                    this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+                    this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
+                    this.addressToDecode.address = this.searchPosition;
 
-                  this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
-                  this.addressToDecode.address = this.searchPosition;
-
-//                  formData.isValid = true;
-                  formData.imageUrl =  'https://res.cloudinary.com/demo/image/upload/' + data + '.jpg';
-                  this.selectedFile = null;
-                  formData.owner = this.propertyService.userName;
-                  this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
-              },
-              () => {}
-          );
-      } else {
-          const formData = {...this.propertyForm.value};
-//          formData.isValid = true;
-          this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
-      }
-  };
+                },
+                () => {},
+            );
+        } else {
+            const formData = {...this.propertyForm.value};
+            formData.isValid = true;
+            this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+        }
+    };
 
 
   createNewProperty(data: PropertyFormDataModel) {
@@ -178,8 +183,10 @@ export class PropertyFormComponent implements OnInit {
                 console.log(status + ' error');
             }
         });
-    }openModalDialog(){
-        this.display='block';
+    }
+
+    openModalDialog() {
+        this.display = 'block';
     }
     closeDial() {
         this.display='none';
