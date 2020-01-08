@@ -67,12 +67,14 @@ export class PropertyFormComponent implements OnInit {
             this.counties = formInitData.counties;
             this.propertyTypes = formInitData.propertyTypes;
             this.propertyStates = formInitData.propertyStates;
-            if(!this.registratedUser){
+            if (!this.registratedUser) {
                 this.openModalDialog();
             }
 
+        });
+
         this.propertyService.userName.subscribe(
-            (name)=> {
+            (name) => {
                 this.registratedUser = (name !== null);
                 this.actualUserName = name;
                 console.log(this.actualUserName);
@@ -95,6 +97,7 @@ export class PropertyFormComponent implements OnInit {
         );
 
         this.codeAddress();
+
     }
 
     getPropertyData = (id: string) => {
