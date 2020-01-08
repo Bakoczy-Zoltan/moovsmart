@@ -20,7 +20,7 @@ export class PropertyFormComponent implements OnInit {
     propertyStates: PropertyStateOptionModel[];
     display = 'none';
 
-    registratedUser: boolean;
+    registratedUser = true;
     private propertyId: number;
     imgUrl: any;
     selectedFile: File;
@@ -59,14 +59,16 @@ export class PropertyFormComponent implements OnInit {
             this.counties = formInitData.counties;
             this.propertyTypes = formInitData.propertyTypes;
             this.propertyStates = formInitData.propertyStates;
-            if(!this.registratedUser){
-                this.openModalDialog();
-            }
+
 
             this.propertyService.userName.subscribe(
                 (name)=> {
-                this.registratedUser = name !== null;
+                this.registratedUser = (name !== null);
             });
+
+            if(!this.registratedUser){
+                this.openModalDialog();
+            }
 
             this.route.paramMap.subscribe(
                 paramMap => {
