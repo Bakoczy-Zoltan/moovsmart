@@ -9,7 +9,7 @@
         formControlName="name"
         id="name"
         name="name"
-        placeholder="Kérjük, írja be az ingatlan nevét!"
+        placeholder=""
       />
       <small *ngIf="propertyForm.get('name').invalid && propertyForm.get('name').touched
        && !propertyForm.get('name').errors?.serverError" class="text-danger">
@@ -20,153 +20,273 @@
       </small>
     </div>
 
-    <div class="form-group">
-      <label
-        for="numberOfRooms">Szobák száma</label>
-      <input
-        class="form-control"
-        formControlName="numberOfRooms"
-        id="numberOfRooms"
-        placeholder="írja be a szobák számát!"
-        type="number"
-      />
-      <small *ngIf="propertyForm.get('numberOfRooms').invalid && propertyForm.get('numberOfRooms').touched
-      && !propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
-        A szobák száma minimum 1 és maximum 12 lehet!
-      </small>
-      <small *ngIf="propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
-        {{propertyForm.get('numberOfRooms').errors['serverError']}}
-      </small>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label
+              for="area">Alapterület (m2)</label>
+          <input
+              class="form-control"
+              formControlName="area"
+              id="area"
+              placeholder=""
+              type="number"
+          />
+          <small *ngIf="propertyForm.get('area').invalid && propertyForm.get('area').touched
+          && !propertyForm.get('area').errors?.serverError" class="text-danger">
+            Az alapterület nem lehet negatív!
+          </small>
+          <small *ngIf="propertyForm.get('area').errors?.serverError" class="text-danger">
+            {{propertyForm.get('area').errors['serverError']}}
+          </small>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="form-group">
+          <label
+            for="numberOfRooms">Szobák száma</label>
+          <input
+            class="form-control"
+            formControlName="numberOfRooms"
+            id="numberOfRooms"
+            placeholder=""
+            type="number"
+          />
+          <small *ngIf="propertyForm.get('numberOfRooms').invalid && propertyForm.get('numberOfRooms').touched
+          && !propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
+            A szobák száma minimum 1 és maximum 12 lehet!
+          </small>
+          <small *ngIf="propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
+            {{propertyForm.get('numberOfRooms').errors['serverError']}}
+          </small>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="form-group">
+          <label
+              for="buildingYear">Építés éve</label>
+          <input
+              class="form-control"
+              formControlName="buildingYear"
+              id="buildingYear"
+              placeholder=""
+              type="number"
+          />
+          <small *ngIf="propertyForm.get('buildingYear').invalid && propertyForm.get('buildingYear').touched
+          && !propertyForm.get('buildingYear').errors?.serverError" class="text-danger">
+            Az építés éve nem lehet negatív!
+          </small>
+          <small *ngIf="propertyForm.get('buildingYear').errors?.serverError" class="text-danger">
+            {{propertyForm.get('buildingYear').errors['serverError']}}
+          </small>
+        </div>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label
-        for="price">Kikiáltási ár</label>
-      <input
-        class="form-control"
-        formControlName="price"
-        id="price"
-        placeholder="írja be az árat!"
-        type="number"
-      />
-      <small *ngIf="propertyForm.get('price').invalid && propertyForm.get('price').touched
-      && !propertyForm.get('price').errors?.serverError" class="text-danger">
-        Kérjük, adjon az ingatlannak nullánál nagyobb kikiáltási árat!
-      </small>
-      <small *ngIf="propertyForm.get('price').errors?.serverError" class="text-danger">
-        {{propertyForm.get('price').errors['serverError']}}
-      </small>
-    </div>
-
-    <div class="form-group">
-      <label
-          for="county"
-          class="form-control-label"
-          [ngClass]="{
-                        'text-danger': propertyForm.get('county').invalid && propertyForm.get('county').touched || propertyForm.get('county').errors?.serverError
-                    }"
-      >
-        Megye:
-      </label>
-      <select
-          id="county"
-          formControlName="county"
-          name="county"
-          class="form-control"
-          [ngClass]="{
-                        'is-invalid': propertyForm.get('county').invalid && propertyForm.get('county').touched || propertyForm.get('county').errors?.serverError
-                    }"
-      >
-        <option value="" disabled>&#45;&#45; Válasszon megyét &#45;&#45;</option>
-        <option *ngFor="let county of counties, let i = index"
-                value="{{county.name}}">{{county.displayName}}</option>
-      </select>
-      <small
-          class="text-danger"
-          *ngIf="propertyForm.get('county').invalid && propertyForm.get('county').touched && !propertyForm.get('county').errors?.serverError"
-      >
-        Válasszon megyét
-      </small>
-      <small
-          *ngIf="propertyForm.get('county').errors?.serverError"
-          class="text-danger"
-      >
-        {{propertyForm.get('county').errors['serverError']}}
-      </small>
-    </div>
-
-    <div class="form-group">
-      <label
-          for="propertyType"
-          class="form-control-label"
-          [ngClass]="{
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label
+              for="propertyType"
+              class="form-control-label"
+              [ngClass]="{
                         'text-danger': propertyForm.get('propertyType').invalid && propertyForm.get('propertyType').touched || propertyForm.get('propertyType').errors?.serverError
                     }"
-      >
-        Ingatlan típusa:
-      </label>
-      <select
-          id="propertyType"
-          formControlName="propertyType"
-          name="propertyType"
-          class="form-control"
-          [ngClass]="{
+          >
+            Ingatlan típusa:
+          </label>
+          <select
+              id="propertyType"
+              formControlName="propertyType"
+              name="propertyType"
+              class="form-control"
+              [ngClass]="{
                         'is-invalid': propertyForm.get('propertyType').invalid && propertyForm.get('propertyType').touched || propertyForm.get('propertyType').errors?.serverError
                     }"
-      >
-        <option value="" disabled>&#45;&#45; Válasszon típust &#45;&#45;</option>
-        <option *ngFor="let propertyType of propertyTypes, let i = index"
-                value="{{propertyType.name}}">{{propertyType.displayName}}</option>
-      </select>
-      <small
-          class="text-danger"
-          *ngIf="propertyForm.get('propertyType').invalid && propertyForm.get('propertyType').touched && !propertyForm.get('propertyType').errors?.serverError"
-      >
-        Válasszon megyét
-      </small>
-      <small
-          *ngIf="propertyForm.get('propertyType').errors?.serverError"
-          class="text-danger"
-      >
-        {{propertyForm.get('propertyType').errors['serverError']}}
-      </small>
-    </div>
+          >
+            <option value="" disabled>&#45;&#45; Válasszon típust &#45;&#45;</option>
+            <option *ngFor="let propertyType of propertyTypes, let i = index"
+                    value="{{propertyType.name}}">{{propertyType.displayName}}</option>
+          </select>
+          <small
+              class="text-danger"
+              *ngIf="propertyForm.get('propertyType').invalid && propertyForm.get('propertyType').touched && !propertyForm.get('propertyType').errors?.serverError"
+          >
+            Válasszon megyét
+          </small>
+          <small
+              *ngIf="propertyForm.get('propertyType').errors?.serverError"
+              class="text-danger"
+          >
+            {{propertyForm.get('propertyType').errors['serverError']}}
+          </small>
+        </div>
+      </div>
 
-    <div class="form-group">
-      <label
-          for="propertyState"
-          class="form-control-label"
-          [ngClass]="{
+      <div class="col">
+        <div class="form-group">
+          <label
+              for="propertyState"
+              class="form-control-label"
+              [ngClass]="{
                         'text-danger': propertyForm.get('propertyState').invalid && propertyForm.get('propertyState').touched || propertyForm.get('propertyState').errors?.serverError
                     }"
-      >
-        Ingatlan állapota:
-      </label>
-      <select
-          id="propertyState"
-          formControlName="propertyState"
-          name="propertyState"
-          class="form-control"
-          [ngClass]="{
+          >
+            Ingatlan állapota:
+          </label>
+          <select
+              id="propertyState"
+              formControlName="propertyState"
+              name="propertyState"
+              class="form-control"
+              [ngClass]="{
                         'is-invalid': propertyForm.get('propertyState').invalid && propertyForm.get('propertyState').touched || propertyForm.get('propertyState').errors?.serverError
                     }"
-      >
-        <option value="" disabled>&#45;&#45; Ingatlan állapota &#45;&#45;</option>
-        <option *ngFor="let propertyState of propertyStates, let i = index"
-                value="{{propertyState.name}}">{{propertyState.displayName}}</option>
-      </select>
-      <small
-          class="text-danger"
-          *ngIf="propertyForm.get('propertyState').invalid && propertyForm.get('propertyState').touched && !propertyForm.get('propertyState').errors?.serverError"
-      >
-        Válasszon megyét
-      </small>
-      <small
-          *ngIf="propertyForm.get('propertyState').errors?.serverError"
-          class="text-danger"
-      >
-        {{propertyForm.get('propertyState').errors['serverError']}}
-      </small>
+          >
+            <option value="" disabled>&#45;&#45; Ingatlan állapota &#45;&#45;</option>
+            <option *ngFor="let propertyState of propertyStates, let i = index"
+                    value="{{propertyState.name}}">{{propertyState.displayName}}</option>
+          </select>
+          <small
+              class="text-danger"
+              *ngIf="propertyForm.get('propertyState').invalid && propertyForm.get('propertyState').touched && !propertyForm.get('propertyState').errors?.serverError"
+          >
+            Válasszon megyét
+          </small>
+          <small
+              *ngIf="propertyForm.get('propertyState').errors?.serverError"
+              class="text-danger"
+          >
+            {{propertyForm.get('propertyState').errors['serverError']}}
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label
+              for="county"
+              class="form-control-label"
+              [ngClass]="{
+                        'text-danger': propertyForm.get('county').invalid && propertyForm.get('county').touched || propertyForm.get('county').errors?.serverError
+                    }"
+          >
+            Megye:
+          </label>
+          <select
+              id="county"
+              formControlName="county"
+              name="county"
+              class="form-control"
+              [ngClass]="{
+                        'is-invalid': propertyForm.get('county').invalid && propertyForm.get('county').touched || propertyForm.get('county').errors?.serverError
+                    }"
+          >
+            <option value="" disabled>&#45;&#45; Válasszon megyét &#45;&#45;</option>
+            <option *ngFor="let county of counties, let i = index"
+                    value="{{county.name}}">{{county.displayName}}</option>
+          </select>
+          <small
+              class="text-danger"
+              *ngIf="propertyForm.get('county').invalid && propertyForm.get('county').touched && !propertyForm.get('county').errors?.serverError"
+          >
+            Válasszon megyét
+          </small>
+          <small
+              *ngIf="propertyForm.get('county').errors?.serverError"
+              class="text-danger"
+          >
+            {{propertyForm.get('county').errors['serverError']}}
+          </small>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="form-group">
+          <label for="city">Város</label>
+          <input
+              class="form-control"
+              formControlName="city"
+              id="city"
+              name="city"
+              placeholder=""
+          />
+          <small *ngIf="propertyForm.get('city').invalid && propertyForm.get('city').touched
+       && !propertyForm.get('city').errors?.serverError" class="text-danger">
+            A város neve minimum 2 karakter legyen.
+          </small>
+          <small *ngIf="propertyForm.get('city').errors?.serverError" class="text-danger">
+            {{propertyForm.get('city').errors['serverError']}}
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-2">
+        <div class="form-group">
+          <label
+              for="zipCode">Irányítószám</label>
+          <input
+              class="form-control"
+              formControlName="zipCode"
+              id="zipCode"
+              placeholder=""
+              type="number"
+          />
+          <small *ngIf="propertyForm.get('zipCode').invalid && propertyForm.get('zipCode').touched
+        && !propertyForm.get('zipCode').errors?.serverError" class="text-danger">
+            Az irányítószám négyjegyű szám lehet!
+          </small>
+          <small *ngIf="propertyForm.get('zipCode').errors?.serverError" class="text-danger">
+            {{propertyForm.get('zipCode').errors['serverError']}}
+          </small>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="form-group">
+          <label for="street">Utca</label>
+          <input
+              class="form-control"
+              formControlName="street"
+              id="street"
+              name="street"
+              placeholder=""
+          />
+          <small *ngIf="propertyForm.get('street').invalid && propertyForm.get('street').touched
+     && !propertyForm.get('street').errors?.serverError" class="text-danger">
+            Az utca neve minimum 2 karakter legyen.
+          </small>
+          <small *ngIf="propertyForm.get('street').errors?.serverError" class="text-danger">
+            {{propertyForm.get('street').errors['serverError']}}
+          </small>
+        </div>
+      </div>
+
+      <div class="col-2">
+        <div class="form-group">
+          <label for="streetNumber">Házszám</label>
+          <input
+              class="form-control"
+              formControlName="streetNumber"
+              id="streetNumber"
+              name="streetNumber"
+              placeholder=""
+          />
+          <small *ngIf="propertyForm.get('streetNumber').invalid && propertyForm.get('streetNumber').touched
+     && !propertyForm.get('street').errors?.serverError" class="text-danger">
+            A házszám minimum 2 karakter legyen.
+          </small>
+          <small *ngIf="propertyForm.get('streetNumber').errors?.serverError" class="text-danger">
+            {{propertyForm.get('streetNumber').errors['serverError']}}
+          </small>
+        </div>
+      </div>
     </div>
 
     <div class="form-group">
@@ -188,7 +308,26 @@
       </small>
     </div>
 
-        <div class="form-group">
+    <div class="form-group">
+      <label
+          for="price">Kikiáltási ár</label>
+      <input
+          class="form-control"
+          formControlName="price"
+          id="price"
+          placeholder=""
+          type="number"
+      />
+      <small *ngIf="propertyForm.get('price').invalid && propertyForm.get('price').touched
+      && !propertyForm.get('price').errors?.serverError" class="text-danger">
+        Kérjük, adjon az ingatlannak nullánál nagyobb kikiáltási árat!
+      </small>
+      <small *ngIf="propertyForm.get('price').errors?.serverError" class="text-danger">
+        {{propertyForm.get('price').errors['serverError']}}
+      </small>
+    </div>
+
+    <div class="form-group">
             <label
                 for="imageUrl"></label>
             <input

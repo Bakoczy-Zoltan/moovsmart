@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,9 +10,9 @@ import { validationHandler } from '../../utils/validationHandler';
 
 
 @Component({
-  selector: 'app-property-form',
-  templateUrl: './property-form.component.html',
-  styleUrls: ['./property-form.component.css']
+    selector: 'app-property-form',
+    templateUrl: './property-form.component.html',
+    styleUrls: ['./property-form.component.css'],
 })
 export class PropertyFormComponent implements OnInit {
 
@@ -28,16 +29,23 @@ export class PropertyFormComponent implements OnInit {
     locationCoordinates: number[] = [null, null];
 
 
-  propertyForm = this.formBuilder.group({
-      "name": ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(60)])],
-      'numberOfRooms': [0, Validators.compose([Validators.min(1), Validators.max(12)])],
-      'price': [0, Validators.min(1)],
-      'county': [''],
-      'propertyType': [''],
-      'propertyState': [''],
-      'description': ['', Validators.minLength(10)],
-      'imageUrl': [''],
-  });
+    propertyForm = this.formBuilder.group({
+        'name': ['', Validators.compose([Validators.required, Validators.minLength(3),
+            Validators.maxLength(60)])],
+        'area': ['', Validators.compose([Validators.required, Validators.min(0)])],
+        'numberOfRooms': ['', Validators.compose([Validators.min(1), Validators.max(12)])],
+        'buildingYear': ['', Validators.min(0)],
+        'propertyType': [''],
+        'propertyState': [''],
+        'county': [''],
+        'city': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
+        'zipCode': ['', Validators.compose([Validators.required, Validators.min(1000), Validators.max(9999)])],
+        'street': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
+        'streetNumber': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
+        'description': ['', Validators.minLength(10)],
+        'price': ['', Validators.min(1)],
+        'imageUrl': [''],
+    });
 
 
     constructor(private formBuilder: FormBuilder,
@@ -48,9 +56,9 @@ export class PropertyFormComponent implements OnInit {
                 private cloudinary: Cloudinary) {
 
         this.geocoder = new google.maps.Geocoder();
-        this.searchPosition = '1035 Szentendrei ut Budapest 14';
-        this.addressToDecode.address = this.searchPosition;
-        this.selectedFile = new File([''], "https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg");
+        // this.searchPosition = '1035 Szentendrei ut Budapest 14';
+        // this.addressToDecode.address = this.searchPosition;
+        this.selectedFile = new File([''], 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg');
     }
 
     ngOnInit() {
@@ -74,46 +82,60 @@ export class PropertyFormComponent implements OnInit {
         this.codeAddress();
     }
 
-  getPropertyData = (id: string) => {
-    this.propertyService.fetchPropertyData(id).subscribe(
-        (response: PropertyFormDataModel) => {
-          this.propertyForm.patchValue({
-            name: response.name,
-            numberOfRooms: response.numberOfRooms,
-            price: response.price,
-            description: response.description,
-            imageUrl: response.imageUrl.join(';')
-          });
-        },
-    );
-  };
+    getPropertyData = (id: string) => {
+        this.propertyService.fetchPropertyData(id).subscribe(
+            (response: PropertyFormDataModel) => {
+                this.propertyForm.patchValue({
+                    name: response.name,
+                    area: response.area,
+                    numberOfRooms: response.numberOfRooms,
+                    buildingYear: response.buildingYear,
+                    propertyType: response.propertyType,
+                    propertyState: response.propertyState,
+                    county: response.county,
+                    city: response.city,
+                    zipCode: response.zipCode,
+                    street: response.street,
+                    streetNumber: response.streetNumber,
+                    description: response.description,
+                    price: response.price,
+                    imageUrl: response.imageUrl.join(';'),
+                });
+            },
+        );
+    };
 
-  submit = () => {
-    this.imageService.uploadImage(this.selectedFile).subscribe(
-        (data) => {
-          const formData = {...this.propertyForm.value};
-          formData.isValid = true;
-          formData.imageUrl.push('https://res.cloudinary.com/demo/image/upload/' + data + '.jpg');
-          this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
-        },
-        () => {}
-    ) ;
+    submit = () => {
+        this.imageService.uploadImage(this.selectedFile).subscribe(
+            (data) => {
+                const formData = {...this.propertyForm.value};
 
-  };
+                this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
+                this.addressToDecode.address = this.searchPosition;
 
-  createNewProperty(data: PropertyFormDataModel) {
-    this.propertyService.createProperty(data).subscribe(
-        () => this.router.navigate(['property-list']),
-        error => validationHandler(error, this.propertyForm),
-    );
-  }
+                // formData.isValid = true;
 
-  private updateProperty(data: PropertyFormDataModel) {
-    this.propertyService.updateProperty(data, this.propertyId).subscribe(
-        () => this.router.navigate(['']),
-        error => validationHandler(error, this.propertyForm),
-    );
-  }
+                formData.imageUrl.push('https://res.cloudinary.com/demo/image/upload/' + data + '.jpg');
+                this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+            },
+            () => {},
+        );
+
+    };
+
+    createNewProperty(data: PropertyFormDataModel) {
+        this.propertyService.createProperty(data).subscribe(
+            () => this.router.navigate(['property-list']),
+            error => validationHandler(error, this.propertyForm),
+        );
+    }
+
+    private updateProperty(data: PropertyFormDataModel) {
+        this.propertyService.updateProperty(data, this.propertyId).subscribe(
+            () => this.router.navigate(['']),
+            error => validationHandler(error, this.propertyForm),
+        );
+    }
 
     processFile(event) {
         this.selectedFile = event.target.files[0];
@@ -122,7 +144,7 @@ export class PropertyFormComponent implements OnInit {
         reader.readAsDataURL(event.target.files[0]);
         reader.onload = (event2) => {
             this.imgUrl = reader.result;
-        }
+        };
     }
 
     codeAddress() {

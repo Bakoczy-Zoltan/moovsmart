@@ -19,7 +19,8 @@ public class PropertyDetails {
     private String propertyState;
     private String county;
     private int zipCode;
-    private String street;
+//    private String street;
+    private String searchPosition;
     private String description;
     private List<String> imageUrl;
 
@@ -43,7 +44,8 @@ public class PropertyDetails {
             this.county = property.getCounty().getDisplayName();
         }
         this.zipCode = property.getZipCode();
-        this.street = property.getStreet();
+//        this.street = property.getStreet();
+        this.searchPosition = property.getSearchPosition();
         this.description = property.getDescription();
         this.imageUrl = property.getImageUrls();
     }
@@ -129,12 +131,20 @@ public class PropertyDetails {
         this.zipCode = zipCode;
     }
 
-    public String getStreet() {
-        return street;
+//    public String getStreet() {
+//        return street;
+//    }
+//
+//    public void setStreet(String street) {
+//        this.street = street;
+//    }
+
+    public String getSearchPosition() {
+        return searchPosition;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setSearchPosition(String searchPosition) {
+        this.searchPosition = searchPosition;
     }
 
     public String getDescription() {

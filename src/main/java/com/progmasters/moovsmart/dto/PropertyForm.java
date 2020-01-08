@@ -10,7 +10,6 @@ import java.util.List;
 
 public class PropertyForm {
 
-    @Size(min = 3, max = 200, message = "Property name must be between 3 and 60 characters!")
     private String name;
     private int numberOfRooms;
     private int price;
@@ -19,9 +18,11 @@ public class PropertyForm {
     private String propertyType;
     private String propertyState;
     private String county;
+    private String city;
     private int zipCode;
-    private String street;
-    private String streetNumber;
+//    private String street;
+//    private String streetNumber;
+    private String searchPosition;
 
     private String description;
     private List<String> imageUrl;
@@ -40,11 +41,14 @@ public class PropertyForm {
         this.propertyType = property.getPropertyType().getDisplayName();
         this.propertyState = property.getPropertyState().getDisplayName();
         this.county = property.getCounty().getDisplayName();
+        this.city = property.getCity();
         this.zipCode = property.getZipCode();
-        this.street = property.getStreet();
-        this.streetNumber = property.getStreetNumber();
+//        this.street = property.getStreet();
+//        this.streetNumber = property.getStreetNumber();
+        this.searchPosition = property.getSearchPosition();
         this.description = property.getDescription();
         this.imageUrl = property.getImageUrls();
+
         this.lngCoord = property.getLngCoord();
         this.latCoord = property.getLatCoord();
         this.owner = property.getOwner().getMail();
@@ -130,6 +134,14 @@ public class PropertyForm {
         this.county = county;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public int getZipCode() {
         return zipCode;
     }
@@ -138,20 +150,28 @@ public class PropertyForm {
         this.zipCode = zipCode;
     }
 
-    public String getStreet() {
-        return street;
+//    public String getStreet() {
+//        return street;
+//    }
+//
+//    public void setStreet(String street) {
+//        this.street = street;
+//    }
+//
+//    public String getStreetNumber() {
+//        return streetNumber;
+//    }
+//
+//    public void setStreetNumber(String streetNumber) {
+//        this.streetNumber = streetNumber;
+//    }
+
+    public String getSearchPosition() {
+        return searchPosition;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getStreetNumber() {
-        return streetNumber;
-    }
-
-    public void setStreetNumber(String streetNumber) {
-        this.streetNumber = streetNumber;
+    public void setSearchPosition(String searchPosition) {
+        this.searchPosition = searchPosition;
     }
 
     public String getOwner() {
