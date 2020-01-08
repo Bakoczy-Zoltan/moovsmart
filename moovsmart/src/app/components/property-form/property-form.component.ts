@@ -20,7 +20,7 @@ export class PropertyFormComponent implements OnInit {
     propertyStates: PropertyStateOptionModel[];
     display = 'none';
 
-    registratedUser = true;
+    registratedUser: boolean;
     private propertyId: number;
     imgUrl: any;
     selectedFile: File;
@@ -31,16 +31,23 @@ export class PropertyFormComponent implements OnInit {
     actualUserName: string;
 
 
-  propertyForm = this.formBuilder.group({
-      "name": ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(60)])],
-      'numberOfRooms': [0, Validators.compose([Validators.min(1), Validators.max(12)])],
-      'price': [0, Validators.min(1)],
-      'county': [''],
-      'propertyType': [''],
-      'propertyState': [''],
-      'description': ['', Validators.minLength(10)],
-      'imageUrl': [''],
-  });
+    propertyForm = this.formBuilder.group({
+        'name': ['', Validators.compose([Validators.required, Validators.minLength(3),
+            Validators.maxLength(60)])],
+        'area': ['', Validators.compose([Validators.required, Validators.min(0)])],
+        'numberOfRooms': ['', Validators.compose([Validators.min(1), Validators.max(12)])],
+        'buildingYear': ['', Validators.min(0)],
+        'propertyType': [''],
+        'propertyState': [''],
+        'county': [''],
+        'city': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
+        'zipCode': ['', Validators.compose([Validators.required, Validators.min(1000), Validators.max(9999)])],
+        'street': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
+        'streetNumber': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
+        'description': ['', Validators.minLength(10)],
+        'price': ['', Validators.min(1)],
+        'imageUrl': [''],
+    });
 
 
     constructor(private formBuilder: FormBuilder,
@@ -60,7 +67,9 @@ export class PropertyFormComponent implements OnInit {
             this.counties = formInitData.counties;
             this.propertyTypes = formInitData.propertyTypes;
             this.propertyStates = formInitData.propertyStates;
-        });
+            if(!this.registratedUser){
+                this.openModalDialog();
+            }
 
         this.propertyService.userName.subscribe(
             (name)=> {
@@ -88,25 +97,41 @@ export class PropertyFormComponent implements OnInit {
         this.codeAddress();
     }
 
-  getPropertyData = (id: string) => {
-    this.propertyService.fetchPropertyData(id).subscribe(
-        (response: PropertyFormDataModel) => {
-          this.propertyForm.patchValue({
-            name: response.name,
-            numberOfRooms: response.numberOfRooms,
-            price: response.price,
-            description: response.description,
-            imageUrl: response.imageUrl.join(';')
-          });
-        },
-    );
-  };
+    getPropertyData = (id: string) => {
+        this.propertyService.fetchPropertyData(id).subscribe(
+            (response: PropertyFormDataModel) => {
+                this.propertyForm.patchValue({
+                    name: response.name,
+                    area: response.area,
+                    numberOfRooms: response.numberOfRooms,
+                    buildingYear: response.buildingYear,
+                    propertyType: response.propertyType,
+                    propertyState: response.propertyState,
+                    county: response.county,
+                    city: response.city,
+                    zipCode: response.zipCode,
+                    street: response.street,
+                    streetNumber: response.streetNumber,
+                    description: response.description,
+                    price: response.price,
+                    imageUrl: response.imageUrl.join(';'),
+                });
+            },
+        );
+    };
 
   submit = () => {
       if (this.selectedFile != null) {
           this.imageService.uploadImage(this.selectedFile).subscribe(
               (data) => {
                   const formData = {...this.propertyForm.value};
+                  console.log(formData);
+
+                  this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
+                  this.addressToDecode.address = this.searchPosition;
+
+//                  formData.isValid = true;
+                  formData.imageUrl =  'https://res.cloudinary.com/demo/image/upload/' + data + '.jpg';
                   formData.isValid = true;
                   formData.imageUrl =  ['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
                   this.selectedFile = null;
@@ -114,6 +139,8 @@ export class PropertyFormComponent implements OnInit {
                   console.log(formData);
                   debugger;
                       this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+                  formData.owner = this.propertyService.userName;
+                  this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
               },
               () => {}
           );
@@ -148,7 +175,7 @@ export class PropertyFormComponent implements OnInit {
         reader.readAsDataURL(event.target.files[0]);
         reader.onload = (event2) => {
             this.imgUrl = reader.result;
-        }
+        };
     }
 
     codeAddress() {

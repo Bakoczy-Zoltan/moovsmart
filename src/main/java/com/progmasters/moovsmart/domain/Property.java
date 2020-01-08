@@ -19,9 +19,11 @@ public class Property {
     private PropertyType propertyType;
     private PropertyState propertyState;
     private County county;
+    private String city;
     private int zipCode;
-    private String street;
-    private String streetNumber;
+//    private String street;
+//    private String streetNumber;
+    private String searchPosition;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -138,6 +140,14 @@ public class Property {
         this.county = county;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public int getZipCode() {
         return zipCode;
     }
@@ -146,20 +156,28 @@ public class Property {
         this.zipCode = zipCode;
     }
 
-    public String getStreet() {
-        return street;
+//    public String getStreet() {
+//        return street;
+//    }
+//
+//    public void setStreet(String street) {
+//        this.street = street;
+//    }
+//
+//    public String getStreetNumber() {
+//        return streetNumber;
+//    }
+//
+//    public void setStreetNumber(String streetNumber) {
+//        this.streetNumber = streetNumber;
+//    }
+
+    public String getSearchPosition() {
+        return searchPosition;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getStreetNumber() {
-        return streetNumber;
-    }
-
-    public void setStreetNumber(String streetNumber) {
-        this.streetNumber = streetNumber;
+    public void setSearchPosition(String searchPosition) {
+        this.searchPosition = searchPosition;
     }
 
     public UserProperty getOwner() {
