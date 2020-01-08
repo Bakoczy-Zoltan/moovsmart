@@ -9,8 +9,10 @@ export interface PropertyDetailsModel {
     propertyState: string;
     county: string;
     zipCode: number;
-//    street: string;
-    searchPosition: string;
+    street: string;
+    // searchPosition: string;
+    lngCoord: number;
+    latCoord: number;
 
     description: string;
     imageUrl: string[];

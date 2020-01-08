@@ -15,8 +15,11 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     propertyDetails: PropertyDetailsModel;
     images: string[];
     map: google.maps.Map;
-    lat = 47.545182;
-    lng = 19.0419057;
+    // lat = 47.545182;
+    // lng = 19.0419057;
+    lat: number;
+    lng: number;
+
     coordinates: google.maps.LatLng;
     mapOptions: google.maps.MapOptions;
     marker: google.maps.Marker;
@@ -25,7 +28,7 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
                 private activatedRoute: ActivatedRoute,
                 private router: Router) {
 
-        this.coordinates = new google.maps.LatLng(this.lat, this.lng);
+        // this.coordinates = new google.maps.LatLng(this.lat, this.lng);
 
         this.activatedRoute.paramMap.subscribe(
             paramMap => {
@@ -40,6 +43,13 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
                                 this.propertyDetails = proDetails;
                                 this.images = this.propertyDetails.imageUrl;
                                 this.changeDefaultImg(this.images[0]);
+
+                                this.lat = this.propertyDetails.latCoord;
+                                this.lng = this.propertyDetails.lngCoord;
+                console.log(this.lat);
+                console.log(this.lng);
+                                this.coordinates = new google.maps.LatLng(this.lat, this.lng);
+
                             },
                             () =>
                                 this.router.navigate(['property-list']),

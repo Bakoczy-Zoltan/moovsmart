@@ -28,7 +28,10 @@ export class PropertyFormComponent implements OnInit {
     searchPosition: string;
     geocoder: google.maps.Geocoder;
     addressToDecode: google.maps.GeocoderRequest = {};
-    locationCoordinates: number[] = [null, null];
+//    locationCoordinates: number[] = [null, null];
+    actualUserName: string;
+    lngCoord: number;
+    latCoord: number;
 
 
     propertyForm = this.formBuilder.group({
@@ -123,29 +126,36 @@ export class PropertyFormComponent implements OnInit {
         );
     };
 
-    submit = () => {
-        if (this.selectedFile != null) {
-            this.imageService.uploadImage(this.selectedFile).subscribe(
-                (data) => {
-                    const formData = {...this.propertyForm.value};
-                    console.log(formData);
-                    formData.isValid = true;
-                    formData.imageUrl = ['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
-                    formData.owner = this.actualUserName;
-                    this.selectedFile = null;
-                    this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
-                    this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
-                    this.addressToDecode.address = this.searchPosition;
+  submit = () => {
+      if (this.selectedFile != null) {
+          this.imageService.uploadImage(this.selectedFile).subscribe(
+              (data) => {
+                  const formData = {...this.propertyForm.value};
+                  console.log(formData);
 
-                },
-                () => {},
-            );
-        } else {
-            const formData = {...this.propertyForm.value};
-            formData.isValid = true;
-            this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
-        }
-    };
+                  this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
+                  this.addressToDecode.address = this.searchPosition;
+                  this.codeAddress();
+
+                  formData.lngCoord = this.lngCoord;
+                  formData.latCoord = this.latCoord;
+
+                  const urlsList: string[] =['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
+
+//                  formData.isValid = true;
+                  formData.imageUrl =  'https://res.cloudinary.com/demo/image/upload/' + data + '.jpg';
+                  this.selectedFile = null;
+                  formData.owner = this.propertyService.userName;
+                  this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+              },
+              () => {}
+          );
+      } else {
+          const formData = {...this.propertyForm.value};
+//          formData.isValid = true;
+          this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+      }
+  };
 
 
   createNewProperty(data: PropertyFormDataModel) {
@@ -176,8 +186,11 @@ export class PropertyFormComponent implements OnInit {
     codeAddress() {
         this.geocoder.geocode(this.addressToDecode, (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
             if (status === google.maps.GeocoderStatus.OK) {
-                this.locationCoordinates[0] = results[0].geometry.location.lat();
-                this.locationCoordinates[1] = results[0].geometry.location.lng();
+                // this.locationCoordinates[0] = results[0].geometry.location.lat();
+                // this.locationCoordinates[1] = results[0].geometry.location.lng();
+                this.lngCoord = results[0].geometry.location.lat();
+                this.latCoord = results[0].geometry.location.lng();
+
             } else {
                 console.log(
                     'Geocoding service: geocode was not successful for the following reason: '
@@ -192,12 +205,12 @@ export class PropertyFormComponent implements OnInit {
         this.display = 'block';
     }
     closeDial() {
-        this.display='none';
+        this.display = 'none';
         this.router.navigate(['signin']);
     }
 
     backToList() {
-        this.display='none';
+        this.display = 'none';
         this.router.navigate(['property-list']);
     }
 }
