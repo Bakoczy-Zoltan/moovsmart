@@ -16,6 +16,7 @@ export class WelcomeComponent implements OnInit {
     ngOnInit() {
         this.route.paramMap.subscribe(paramMap => {
                 const idParam = paramMap.get('id');
+                console.log("ID user: " + paramMap.get('id'));
                 if (idParam) {
                     this.validateUser(idParam);
                 }
