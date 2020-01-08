@@ -34,7 +34,6 @@ public class MyUserDetailsService implements UserDetailsService {
         }
             UserProperty realUser = user.get();
 
-           // List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(realUser.getRoleTypes().toString());
 
             List<GrantedAuthority> authorities = new ArrayList<>();
             for(RoleType role: realUser.getRoleTypes()){

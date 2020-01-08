@@ -1,14 +1,63 @@
 <div class="container">
     <table class="table table-bordered">
-        <thead>
 
-        </thead>
-        <tbody>
 
+    <tbody>
+            <tr>
+                <td>
+                    <label class="form-control-label" for="sizeMin">Méret min:</label>
+                    <input type="number" class="form-control" id="sizeMin">
+                </td>
+                <td>
+                    <label class="form-control-label" for="sizeMax">Méret max:</label>
+                    <input type="number" class="form-control" id="sizeMax">
+                </td>
+                <td>
+                    <label class="form-control-label" for="priceMin">Ár min:</label>
+                    <input type="number" class="form-control" id="priceMin">
+                </td>
+                <td>
+                    <label class="form-control-label" for="priceMax">Ár max:</label>
+                    <input type="number" class="form-control" id="priceMax">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="form-control-label" for="porpertyState">Ingatlan állapot</label>
+                    <select id="porpertyState" class="form-control">
+                        <option>Mindegy</option>
+                        <option *ngFor="let propertyState of propertyStates, let i = index"
+                        value="{{propertyState.name}}">{{propertyState.displayName}}></option>
+                    </select>
+                </td>
+                <td>
+                    <label class="form-control-label" for="porpertyType">Ingatlan állapot</label>
+                    <select id="porpertyType" class="form-control">
+                        <option>Mindegy</option>
+                        <option *ngFor="let propertyType of propertyTypes, let i = index"
+                                value="{{propertyType.name}}">{{propertyType.displayName}}></option>
+                    </select>
+                </td>
+
+                <td>
+                    <label class="form-control-label" for="city">Ingatlan állapot</label>
+                    <select id="city" class="form-control">
+                        <option>Mindegy</option>
+                        <option *ngFor="let city of cities, let i = index"
+                                value="{{city.name}}">{{city.displayName}}></option>
+                    </select>
+                </td>
+
+
+
+                <td>Ingatlan tipusa:</td>
+                <td>Állapota:</td>
+                <td>Város:</td>
+                <td>Kerület:</td>
+            </tr>
         </tbody>
     </table>
 </div>
-
 <div class="container">
     <div *ngIf="propertyListItemModels === undefined || propertyListItemModels.length === 0" id="emptydb">
         <img
@@ -17,33 +66,33 @@
         <div id="emptydbmessage">Sajnáljuk, jelenleg nincs ingatlan az adatbázisunkban.</div>
     </div>
 
-      <table *ngIf="propertyListItemModels?.length !== 0" id="list-table" class="table table-borderless">
-          <thead>
-              <tr>
-                  <th colspan="3"><h1>Eladó ingatlanok</h1></th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let property of propertyListItemModels">
-                  <td>
-                      <div *ngIf="!property.imageUrl">
-                          <img [src]="defaultPicture" class="defaultPicture">
-                      </div>
-                      <div *ngIf="property.imageUrl">
-                      <img (click)="details(property.id)" alt="ingatlan" class="room-list-item__image" width="200"
-                           src="{{property.imageUrl}}"/>
-                      </div>
-                  </td>
-                  <td>
-                      <h3>{{property.name}}</h3>
-                      <p><strong>Szobák száma: </strong> {{property.numberOfRooms}}</p>
-                      <p><strong>Ár: </strong> {{property.price}}</p></td>
-                  <td>
-                      <div class="btn-group">
-                          <button class="btn" (click)="details(property.id)">Részletek</button>
-                      </div>
-                  </td>
-              </tr>
-          </tbody>
-      </table>
+    <table *ngIf="propertyListItemModels?.length !== 0" id="list-table" class="table table-borderless">
+        <thead>
+            <tr>
+                <th colspan="3"><h1>Eladó ingatlanok</h1></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let property of propertyListItemModels">
+                <td>
+                    <div *ngIf="!property.imageUrl">
+                        <img [src]="defaultPicture" class="defaultPicture">
+                    </div>
+                    <div *ngIf="property.imageUrl">
+                        <img (click)="details(property.id)" alt="ingatlan" class="room-list-item__image" width="200"
+                             src="{{property.imageUrl}}"/>
+                    </div>
+                </td>
+                <td>
+                    <h3>{{property.name}}</h3>
+                    <p><strong>Szobák száma: </strong> {{property.numberOfRooms}}</p>
+                    <p><strong>Ár: </strong> {{property.price}}</p></td>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn" (click)="details(property.id)">Részletek</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
