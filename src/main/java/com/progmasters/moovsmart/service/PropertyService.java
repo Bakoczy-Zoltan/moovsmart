@@ -23,8 +23,9 @@ public class PropertyService {
     private UserRepository userRepository;
 
     @Autowired
-    public PropertyService(PropertyRepository propertyRepository) {
+    public PropertyService(PropertyRepository propertyRepository, UserRepository userRepository) {
         this.propertyRepository = propertyRepository;
+        this.userRepository = userRepository;
     }
 
     public List<PropertyListItem> getProperties() {
@@ -75,6 +76,7 @@ public class PropertyService {
         property.setLngCoord(propertyForm.getLngCoord());
         property.setLatCoord(propertyForm.getLatCoord());
         property.setImageUrls(propertyForm.getImageUrl());
+        property.setValid(true);
     }
 
     public boolean deleteProperty(Long id) {
@@ -98,8 +100,11 @@ public class PropertyService {
     }
 
     private UserProperty findUserPropertiesByMail(String mail) {
-        return userRepository
-                .findUserPropertiesByMail(mail)
-                .orElseThrow(EntityNotFoundException::new);
+       UserProperty user = new UserProperty();
+      Optional<UserProperty>tempUser = this.userRepository.findUserPropertiesByMail(mail);
+      if(tempUser.isPresent()){
+          user = tempUser.get();
+      }
+       return user;
     }
 }

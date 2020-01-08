@@ -1,5 +1,4 @@
 package com.progmasters.moovsmart.repository;
-
 import com.progmasters.moovsmart.domain.Property;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

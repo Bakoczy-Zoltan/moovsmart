@@ -42,6 +42,7 @@ export class SigninComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(validUSer.role));
           console.log(validUSer.name + " NAME");
           this.propertyService.userName.next(validUSer.name);
+          this.propertyService.userName2 = (validUSer.name);
           this.router.navigate(['property-list']);
         },
         (err) => console.log(err),

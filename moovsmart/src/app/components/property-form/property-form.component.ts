@@ -20,6 +20,7 @@ export class PropertyFormComponent implements OnInit {
     propertyStates: PropertyStateOptionModel[];
     display = 'none';
 
+    actualUserName: string;
     registratedUser: boolean;
     private propertyId: number;
     imgUrl: any;
@@ -63,13 +64,6 @@ export class PropertyFormComponent implements OnInit {
         this.searchPosition = '1035 Szentendrei ut Budapest 14';
         this.addressToDecode.address = this.searchPosition;
 
-        this.propertyService.userName.subscribe(
-            (name) => {
-                this.registratedUser = name !== null;
-                if (!this.registratedUser) {
-                    this.openModalDialog();
-                }
-            });
     }
 
     ngOnInit() {
@@ -77,23 +71,32 @@ export class PropertyFormComponent implements OnInit {
             this.counties = formInitData.counties;
             this.propertyTypes = formInitData.propertyTypes;
             this.propertyStates = formInitData.propertyStates;
-            if(!this.registratedUser){
-                this.openModalDialog();
-            }
 
-
-            this.route.paramMap.subscribe(
-                paramMap => {
-                    const editablePropertyId = paramMap.get('id');
-                    if (editablePropertyId) {
-                        this.propertyId = +editablePropertyId;
-                        this.getPropertyData(editablePropertyId);
-                    }
-                },
-                error => console.warn(error),
-            );
         });
 
+        this.actualUserName = this.propertyService.userName2;
+        this.propertyService.userName.subscribe(
+            (name) => {
+                this.actualUserName = name;
+                console.log("NAME" + name);
+                this.registratedUser = name !== null;
+                if (this.actualUserName == null) {
+                    this.openModalDialog();
+                } else {
+                    this.closeDial();
+                }
+            });
+
+        this.route.paramMap.subscribe(
+            paramMap => {
+                const editablePropertyId = paramMap.get('id');
+                if (editablePropertyId) {
+                    this.propertyId = +editablePropertyId;
+                    this.getPropertyData(editablePropertyId);
+                }
+            },
+            error => console.warn(error),
+        );
         this.codeAddress();
     }
 
@@ -128,7 +131,7 @@ export class PropertyFormComponent implements OnInit {
                     console.log(formData);
                     formData.isValid = true;
                     formData.imageUrl = ['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
-                    formData.owner = this.propertyService.userName;
+                    formData.owner = this.actualUserName;
                     this.selectedFile = null;
                     this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
                     this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
