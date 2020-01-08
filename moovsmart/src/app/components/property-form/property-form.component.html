@@ -200,7 +200,7 @@
                    type="file" (change)="processFile($event)"
                    #imageInput>
             <button type="button" (click)="imageInput.click()">Kattintson ide kép feltöltéséhez!</button>
-          <img [src]="imgUrl" alt="img" width="100" height="70">
+          <img *ngIf="imgUrl != null" [src]="imgUrl" alt="img" width="100" height="70">
             <small *ngIf="propertyForm.get('imageUrl').errors?.serverError" class="text-danger">
                 {{propertyForm.get('imageUrl').errors['serverError']}}
             </small>
