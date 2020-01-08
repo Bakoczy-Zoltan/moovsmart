@@ -27,7 +27,9 @@ export class PropertyFormComponent implements OnInit {
     searchPosition: string;
     geocoder: google.maps.Geocoder;
     addressToDecode: google.maps.GeocoderRequest = {};
-    locationCoordinates: number[] = [null, null];
+    lngCoord: number;
+    latCoord: number;
+//    locationCoordinates: number[] = [null, null];
 
 
     propertyForm = this.formBuilder.group({
@@ -67,9 +69,9 @@ export class PropertyFormComponent implements OnInit {
             this.counties = formInitData.counties;
             this.propertyTypes = formInitData.propertyTypes;
             this.propertyStates = formInitData.propertyStates;
-            if(!this.registratedUser){
-                this.openModalDialog();
-            }
+            // if(!this.registratedUser){
+            //     this.openModalDialog();
+            // }
 
             this.propertyService.userName.subscribe(
                 (name)=> {
@@ -88,7 +90,7 @@ export class PropertyFormComponent implements OnInit {
             );
         });
 
-        this.codeAddress();
+        // this.codeAddress();
     }
 
     getPropertyData = (id: string) => {
@@ -123,9 +125,14 @@ export class PropertyFormComponent implements OnInit {
 
                   this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
                   this.addressToDecode.address = this.searchPosition;
+                  this.codeAddress();
 
+                  formData.lngCoord = this.lngCoord;
+                  formData.latCoord = this.latCoord;
+
+                  const urlsList: string[] =['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
 //                  formData.isValid = true;
-                  formData.imageUrl =  'https://res.cloudinary.com/demo/image/upload/' + data + '.jpg';
+                  formData.imageUrl =  urlsList;
                   this.selectedFile = null;
                   formData.owner = this.propertyService.userName;
                   this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
@@ -168,8 +175,11 @@ export class PropertyFormComponent implements OnInit {
     codeAddress() {
         this.geocoder.geocode(this.addressToDecode, (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
             if (status === google.maps.GeocoderStatus.OK) {
-                this.locationCoordinates[0] = results[0].geometry.location.lat();
-                this.locationCoordinates[1] = results[0].geometry.location.lng();
+                // this.locationCoordinates[0] = results[0].geometry.location.lat();
+                // this.locationCoordinates[1] = results[0].geometry.location.lng();
+                this.lngCoord = results[0].geometry.location.lat();
+                this.latCoord = results[0].geometry.location.lng();
+
             } else {
                 console.log(
                     'Geocoding service: geocode was not successful for the following reason: '

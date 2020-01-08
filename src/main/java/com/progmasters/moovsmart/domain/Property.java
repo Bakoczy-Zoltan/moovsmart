@@ -14,16 +14,16 @@ public class Property {
     private String name;
     private Integer numberOfRooms;
     private Integer price;
-    private int buildingYear;
-    private double area;
+    private Integer buildingYear;
+    private Double area;
     private PropertyType propertyType;
     private PropertyState propertyState;
     private County county;
     private String city;
-    private int zipCode;
-//    private String street;
-//    private String streetNumber;
-    private String searchPosition;
+    private Integer zipCode;
+    private String street;
+    private String streetNumber;
+//    private String searchPosition;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -34,8 +34,8 @@ public class Property {
     @ManyToOne
     private UserProperty owner;
 
-    private double lngCoord;
-    private double latCoord;
+    private Double lngCoord;
+    private Double latCoord;
 
     @Column(name = "imagesUrl")
     @ElementCollection(targetClass = String.class)
@@ -100,19 +100,19 @@ public class Property {
         this.imageUrls = imageUrls;
     }
 
-    public int getBuildingYear() {
+    public Integer getBuildingYear() {
         return buildingYear;
     }
 
-    public void setBuildingYear(int buildingYear) {
+    public void setBuildingYear(Integer buildingYear) {
         this.buildingYear = buildingYear;
     }
 
-    public double getArea() {
+    public Double getArea() {
         return area;
     }
 
-    public void setArea(double area) {
+    public void setArea(Double area) {
         this.area = area;
     }
 
@@ -148,37 +148,37 @@ public class Property {
         this.city = city;
     }
 
-    public int getZipCode() {
+    public Integer getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(Integer zipCode) {
         this.zipCode = zipCode;
     }
 
-//    public String getStreet() {
-//        return street;
-//    }
-//
-//    public void setStreet(String street) {
-//        this.street = street;
-//    }
-//
-//    public String getStreetNumber() {
-//        return streetNumber;
-//    }
-//
-//    public void setStreetNumber(String streetNumber) {
-//        this.streetNumber = streetNumber;
-//    }
-
-    public String getSearchPosition() {
-        return searchPosition;
+    public String getStreet() {
+        return street;
     }
 
-    public void setSearchPosition(String searchPosition) {
-        this.searchPosition = searchPosition;
+    public void setStreet(String street) {
+        this.street = street;
     }
+
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+//    public String getSearchPosition() {
+//        return searchPosition;
+//    }
+//
+//    public void setSearchPosition(String searchPosition) {
+//        this.searchPosition = searchPosition;
+//    }
 
     public UserProperty getOwner() {
         return owner;
@@ -188,19 +188,19 @@ public class Property {
         this.owner = owner;
     }
 
-    public double getLngCoord() {
+    public Double getLngCoord() {
         return lngCoord;
     }
 
-    public void setLngCoord(double lngCoord) {
+    public void setLngCoord(Double lngCoord) {
         this.lngCoord = lngCoord;
     }
 
-    public double getLatCoord() {
+    public Double getLatCoord() {
         return latCoord;
     }
 
-    public void setLatCoord(double latCoord) {
+    public void setLatCoord(Double latCoord) {
         this.latCoord = latCoord;
     }
 }

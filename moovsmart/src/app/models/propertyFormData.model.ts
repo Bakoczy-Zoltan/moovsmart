@@ -12,7 +12,7 @@ export interface PropertyFormDataModel {
   zipCode: number;
   street: string;
   streetNumber: string;
-  searchPosition: string;
+  // searchPosition: string;
   description: string;
   imageUrl: string[];
   owner: string;

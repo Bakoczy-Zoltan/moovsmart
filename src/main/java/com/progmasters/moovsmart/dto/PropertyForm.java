@@ -11,26 +11,29 @@ import java.util.List;
 public class PropertyForm {
 
     private String name;
-    private int numberOfRooms;
-    private int price;
-    private int buildingYear;
-    private double area;
+    private Integer numberOfRooms;
+    private Integer price;
+    private Integer buildingYear;
+    private Double area;
     private String propertyType;
     private String propertyState;
     private String county;
     private String city;
-    private int zipCode;
-//    private String street;
-//    private String streetNumber;
-    private String searchPosition;
+    private Integer zipCode;
+    private String street;
+    private String streetNumber;
+//    private String searchPosition;
 
     private String description;
     private List<String> imageUrl;
 
     private String owner;
 
-    private double lngCoord;
-    private double latCoord;
+    private Double lngCoord;
+    private Double latCoord;
+
+    public PropertyForm() {
+    }
 
     PropertyForm(Property property) {
         this.name = property.getName();
@@ -43,9 +46,9 @@ public class PropertyForm {
         this.county = property.getCounty().getDisplayName();
         this.city = property.getCity();
         this.zipCode = property.getZipCode();
-//        this.street = property.getStreet();
-//        this.streetNumber = property.getStreetNumber();
-        this.searchPosition = property.getSearchPosition();
+        this.street = property.getStreet();
+        this.streetNumber = property.getStreetNumber();
+//        this.searchPosition = property.getSearchPosition();
         this.description = property.getDescription();
         this.imageUrl = property.getImageUrls();
 
@@ -62,19 +65,19 @@ public class PropertyForm {
         this.name = name;
     }
 
-    public int getNumberOfRooms() {
+    public Integer getNumberOfRooms() {
         return numberOfRooms;
     }
 
-    public void setNumberOfRooms(int numberOfRooms) {
+    public void setNumberOfRooms(Integer numberOfRooms) {
         this.numberOfRooms = numberOfRooms;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
@@ -94,19 +97,19 @@ public class PropertyForm {
         this.imageUrl = imageUrl;
     }
 
-    public int getBuildingYear() {
+    public Integer getBuildingYear() {
         return buildingYear;
     }
 
-    public void setBuildingYear(int buildingYear) {
+    public void setBuildingYear(Integer buildingYear) {
         this.buildingYear = buildingYear;
     }
 
-    public double getArea() {
+    public Double getArea() {
         return area;
     }
 
-    public void setArea(double area) {
+    public void setArea(Double area) {
         this.area = area;
     }
 
@@ -142,37 +145,37 @@ public class PropertyForm {
         this.city = city;
     }
 
-    public int getZipCode() {
+    public Integer getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(Integer zipCode) {
         this.zipCode = zipCode;
     }
 
-//    public String getStreet() {
-//        return street;
-//    }
-//
-//    public void setStreet(String street) {
-//        this.street = street;
-//    }
-//
-//    public String getStreetNumber() {
-//        return streetNumber;
-//    }
-//
-//    public void setStreetNumber(String streetNumber) {
-//        this.streetNumber = streetNumber;
-//    }
-
-    public String getSearchPosition() {
-        return searchPosition;
+    public String getStreet() {
+        return street;
     }
 
-    public void setSearchPosition(String searchPosition) {
-        this.searchPosition = searchPosition;
+    public void setStreet(String street) {
+        this.street = street;
     }
+
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+//    public String getSearchPosition() {
+//        return searchPosition;
+//    }
+//
+//    public void setSearchPosition(String searchPosition) {
+//        this.searchPosition = searchPosition;
+//    }
 
     public String getOwner() {
         return owner;
@@ -182,19 +185,19 @@ public class PropertyForm {
         this.owner = owner;
     }
 
-    public double getLngCoord() {
+    public Double getLngCoord() {
         return lngCoord;
     }
 
-    public void setLngCoord(double lngCoord) {
+    public void setLngCoord(Double lngCoord) {
         this.lngCoord = lngCoord;
     }
 
-    public double getLatCoord() {
+    public Double getLatCoord() {
         return latCoord;
     }
 
-    public void setLatCoord(double latCoord) {
+    public void setLatCoord(Double latCoord) {
         this.latCoord = latCoord;
     }
 }
