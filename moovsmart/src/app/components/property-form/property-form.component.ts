@@ -127,6 +127,7 @@ export class PropertyFormComponent implements OnInit {
 //                  formData.isValid = true;
                   formData.imageUrl =  'https://res.cloudinary.com/demo/image/upload/' + data + '.jpg';
                   this.selectedFile = null;
+                  formData.owner = this.propertyService.userName;
                   this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
               },
               () => {}
