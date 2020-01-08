@@ -58,8 +58,19 @@ export class PropertyFormComponent implements OnInit {
                 private cloudinary: Cloudinary) {
 
         this.geocoder = new google.maps.Geocoder();
+        // this.searchPosition = '1035 Szentendrei ut Budapest 14';
+        // this.addressToDecode.address = this.searchPosition;
+        this.selectedFile = new File([''], 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg');
         this.searchPosition = '1035 Szentendrei ut Budapest 14';
         this.addressToDecode.address = this.searchPosition;
+
+        this.propertyService.userName.subscribe(
+            (name) => {
+                this.registratedUser = name !== null;
+                if (!this.registratedUser) {
+                    this.openModalDialog();
+                }
+            });
     }
 
     ngOnInit() {
@@ -70,8 +81,6 @@ export class PropertyFormComponent implements OnInit {
             if (!this.registratedUser) {
                 this.openModalDialog();
             }
-            //
-        });
 
         this.propertyService.userName.subscribe(
             (name) => {
@@ -97,7 +106,6 @@ export class PropertyFormComponent implements OnInit {
         );
 
         this.codeAddress();
-
     }
 
     getPropertyData = (id: string) => {
@@ -123,25 +131,19 @@ export class PropertyFormComponent implements OnInit {
         );
     };
 
-  submit = () => {
-      if (this.selectedFile != null) {
-          this.imageService.uploadImage(this.selectedFile).subscribe(
-              (data) => {
-                  const formData = {...this.propertyForm.value};
-                  console.log(formData);
+    submit = () => {
+        if (this.selectedFile != null) {
+            this.imageService.uploadImage(this.selectedFile).subscribe(
+                (data) => {
+                    const formData = {...this.propertyForm.value};
+                    console.log(formData);
 
-                  this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
-                  this.addressToDecode.address = this.searchPosition;
+                    this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
+                    this.addressToDecode.address = this.searchPosition;
 
 //                  formData.isValid = true;
                   formData.imageUrl =  'https://res.cloudinary.com/demo/image/upload/' + data + '.jpg';
-                  formData.isValid = true;
-                  formData.imageUrl =  ['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
                   this.selectedFile = null;
-                  formData.owner = this.actualUserName;
-                  console.log(formData);
-                  debugger;
-                      this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
                   formData.owner = this.propertyService.userName;
                   this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
               },
@@ -149,8 +151,7 @@ export class PropertyFormComponent implements OnInit {
           );
       } else {
           const formData = {...this.propertyForm.value};
-          formData.isValid = true;
-          formData.owner = this.propertyService.userName;
+//          formData.isValid = true;
           this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
       }
   };
