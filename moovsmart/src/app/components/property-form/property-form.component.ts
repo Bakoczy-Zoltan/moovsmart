@@ -70,7 +70,7 @@ export class PropertyFormComponent implements OnInit {
             if (!this.registratedUser) {
                 this.openModalDialog();
             }
-
+            //
         });
 
         this.propertyService.userName.subscribe(
