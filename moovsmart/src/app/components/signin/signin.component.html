@@ -1,5 +1,7 @@
 <div class="container jumbotron">
     <h2>Bejelentkezés <i class="far fa-arrow-alt-circle-right"></i></h2>
+    <p id="registrate-message">
+        <a routerLink="/registration"><strong>nincs még fiókom</strong></a></p>
     <hr/>
     <form (ngSubmit)="onSubmit()" [formGroup]="signInForm">
         <div class="form-group">

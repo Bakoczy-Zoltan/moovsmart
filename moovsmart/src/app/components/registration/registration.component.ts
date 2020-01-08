@@ -26,7 +26,8 @@ export class RegistrationComponent implements OnInit {
   });
 
   constructor(private formBuilder: FormBuilder,
-              private propertyService: PropertyService) { }
+              private propertyService: PropertyService,
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -38,10 +39,13 @@ export class RegistrationComponent implements OnInit {
   };
 
   createNewUser(data: UserFormDataModel) {
+    this.openModalDialog();
     this.propertyService.registerUser(data).subscribe(
-        () => this.openModalDialog(),
+        (mess) => console.log(mess),
         // error => validationHandler(error, this.registrationForm),
-        error => this.openModalDialogError(),
+        error => {
+          this.closeModalDialog();
+          this.openModalDialogError()},
     );
   }
 
@@ -61,4 +65,7 @@ export class RegistrationComponent implements OnInit {
     this.displayError='none';
   }
 
+  routeToPropertyList() {
+    this.router.navigate(['property-list']);
+  }
 }

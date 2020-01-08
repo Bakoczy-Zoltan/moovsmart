@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ValidUserModel } from '../../models/validUserModel';
 import { PropertyService } from '../../services/property.service';
 
 @Component({
@@ -17,19 +18,46 @@ export class SigninComponent implements OnInit {
       Validators.pattern("(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}")])]
   });
 
-  constructor(private formBuilder: FormBuilder, private serviceLogin: PropertyService) { }
+  constructor(private formBuilder: FormBuilder,
+              private serviceLogin: PropertyService,
+              private route: ActivatedRoute,
+              private propertyService: PropertyService,
+              private router: Router) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(paramMap => {
+          const idParam = paramMap.get('id');
+          console.log("ID user: " + paramMap.get('id'));
+          if (idParam) {
+            this.validateUser(idParam);
+          }
+        },
+    );
   }
 
   onSubmit = () => {
     const data = {...this.signInForm.value};
-    console.log(data);
     this.serviceLogin.signIn(data).subscribe(
-        (mess) => console.log(mess),
+        (validUSer: ValidUserModel) => {
+          localStorage.setItem('user', JSON.stringify(validUSer.role));
+          this.propertyService.userName.next(validUSer.name);
+          this.router.navigate(['property-list']);
+        },
         (err) => console.log(err),
     );
 
   };
 
+  validateUser(id: string) {
+    this.propertyService.validateUser(id).subscribe(
+        (data: string) => {
+          localStorage.setItem('user', data);
+        },
+        (err) => console.log(err),
+    );
+  }
+
+  moveToRegistrate() {
+    this.router.navigate(['registration']);
+  }
 }

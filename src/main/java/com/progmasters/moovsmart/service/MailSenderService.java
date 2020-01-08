@@ -63,7 +63,7 @@ public class MailSenderService {
 
     private SimpleMailMessage MakeMailMessage(String userName, String mail, String newToken) {
         SimpleMailMessage message = new SimpleMailMessage();
-        String link = "http://localhost:4200/welcome/" + newToken;
+        String link = "http://localhost:4200/signin/" + newToken;
 
         message.setSubject("Regisztráció megerősítése");
         message.setFrom(mailSenderAddress);
