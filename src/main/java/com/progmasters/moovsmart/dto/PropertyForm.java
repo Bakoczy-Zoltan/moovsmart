@@ -35,6 +35,9 @@ public class PropertyForm {
     public PropertyForm() {
     }
 
+    public PropertyForm() {
+    }
+
     PropertyForm(Property property) {
         this.name = property.getName();
         this.numberOfRooms = property.getNumberOfRooms();

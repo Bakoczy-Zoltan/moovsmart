@@ -40,7 +40,10 @@ export class SigninComponent implements OnInit {
     this.serviceLogin.signIn(data).subscribe(
         (validUSer: ValidUserModel) => {
           localStorage.setItem('user', JSON.stringify(validUSer.role));
+          console.log(validUSer.name + " NAME");
           this.propertyService.userName.next(validUSer.name);
+          console.log(validUSer.name);
+          debugger;
           this.router.navigate(['property-list']);
         },
         (err) => console.log(err),

@@ -16,8 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Base64;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
