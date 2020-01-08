@@ -55,12 +55,11 @@ public class UserController {
     }
 
     @GetMapping("/validuser/{id}")
-    public ResponseEntity validateUser(@PathVariable("id") String id) {
-        UserProperty user = this.mailSenderService.getUserByToken(id);
+    public ResponseEntity validateUser(@PathVariable("id") String token) {
+        UserProperty user = this.mailSenderService.getUserByToken(token);
         if(user != null){
             user.setIsActive(true);
-            this.userService.validateUser(user.getId());
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return this.userService.validateUser(user.getId());
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

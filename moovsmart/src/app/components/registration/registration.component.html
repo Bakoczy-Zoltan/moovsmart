@@ -75,9 +75,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>A regisztrációt megerősítő email-t elküldtük a megadott email-címre.</p>
+                <p>A regisztrációt megerősítő email-t elküldtük a megadott email-címre!</p>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal" (click)="routeToPropertyList()">Vissza az Ingatlanokhoz</button>
                 <button type="button" class="btn" data-dismiss="modal" (click)="closeModalDialog()">Close</button>
             </div>
         </div>
@@ -94,7 +95,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>A regisztráció sikertelen. Ezzel az e-mail címmel már regisztráltak.</p>
+                <p id="error-message">A regisztráció sikertelen. Ezzel az e-mail címmel már regisztráltak.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn" data-dismiss="modal" (click)="closeModalDialogError()">Close</button>

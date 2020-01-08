@@ -18,7 +18,9 @@ export class PropertyFormComponent implements OnInit {
     counties: CountyOptionModel[];
     propertyTypes: PropertyTypeOptionModel[];
     propertyStates: PropertyStateOptionModel[];
+    display = 'none';
 
+    registratedUser: boolean;
     private propertyId: number;
     imgUrl: any;
     selectedFile: File;
@@ -58,6 +60,14 @@ export class PropertyFormComponent implements OnInit {
             this.counties = formInitData.counties;
             this.propertyTypes = formInitData.propertyTypes;
             this.propertyStates = formInitData.propertyStates;
+            if(!this.registratedUser){
+                this.openModalDialog();
+            }
+
+            this.propertyService.userName.subscribe(
+                (name)=> {
+                this.registratedUser = name !== null;
+            });
 
             this.route.paramMap.subscribe(
                 paramMap => {
@@ -139,5 +149,16 @@ export class PropertyFormComponent implements OnInit {
                 console.log(status + ' error');
             }
         });
+    }openModalDialog(){
+        this.display='block';
+    }
+    closeDial() {
+        this.display='none';
+        this.router.navigate(['signin']);
+    }
+
+    backToList() {
+        this.display='none';
+        this.router.navigate(['property-list']);
     }
 }

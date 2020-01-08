@@ -208,3 +208,23 @@
         <button type="submit" class="btn btn-primary my-buttons" [disabled]="propertyForm.invalid">Mentés</button>
     </form>
 </div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Értesítés</h5>
+        <button type="button" class="close" data-dismiss="modal" (click)="closeDial()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="error-message">Az ingatlan regisztrációhoz kérjük jelentkezzen be!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal" (click)="backToList()">Vissza az Ingatlanokhoz</button>
+        <button type="button" class="btn btn-info" data-dismiss="modal" (click)="closeDial()">Bejelentkezem</button>
+      </div>
+    </div>
+  </div>
+</div>

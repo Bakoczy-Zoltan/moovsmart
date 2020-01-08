@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PropertyService } from '../../services/property.service';
 
 @Component({
     selector: 'app-navbar',
@@ -9,18 +10,30 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
     BASE_URL: string;
+    registratedUser: boolean = false;
 
-    constructor(private http: HttpClient, private router: Router) {
+    constructor(private http: HttpClient,
+                private router: Router,
+                private propertyService: PropertyService) {
         this.BASE_URL = 'http://localhost:8080';
     }
 
 
     ngOnInit() {
+        this.propertyService.userName.subscribe(
+            (name)=> {
+                if(name != null){
+                    this.registratedUser = true;
+                }
+            })
+
     }
 
     logout() {
+        this.registratedUser = false;
         this.http.post(this.BASE_URL + '/logout', {}).subscribe(() => {
             localStorage.removeItem('user');
+            this.propertyService.userName.next(null);
             this.router.navigateByUrl('/');
         });
     }
