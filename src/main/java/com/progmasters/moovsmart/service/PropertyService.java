@@ -1,10 +1,11 @@
 package com.progmasters.moovsmart.service;
 
-import com.progmasters.moovsmart.domain.Property;
+import com.progmasters.moovsmart.domain.*;
 import com.progmasters.moovsmart.dto.PropertyDetails;
 import com.progmasters.moovsmart.dto.PropertyForm;
 import com.progmasters.moovsmart.dto.PropertyListItem;
 import com.progmasters.moovsmart.repository.PropertyRepository;
+import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class PropertyService {
 
     private PropertyRepository propertyRepository;
+    private UserRepository userRepository;
 
     @Autowired
     public PropertyService(PropertyRepository propertyRepository) {
@@ -38,7 +40,8 @@ public class PropertyService {
     public void createProperty(PropertyForm propertyForm) {
         System.out.println("URLS List: => " + propertyForm.getImageUrl());
 
-        Property property = new Property(propertyForm);
+        Property property = new Property();
+        updateValues(propertyForm, property);
         propertyRepository.save(property);
     }
 
@@ -59,7 +62,18 @@ public class PropertyService {
         property.setName(propertyForm.getName());
         property.setNumberOfRooms(propertyForm.getNumberOfRooms());
         property.setPrice(propertyForm.getPrice());
+        property.setBuildingYear(propertyForm.getBuildingYear());
+        property.setArea(propertyForm.getArea());
+        property.setPropertyType(PropertyType.valueOf(propertyForm.getPropertyType()));
+        property.setPropertyState(PropertyState.valueOf(propertyForm.getPropertyState()));
+        property.setCounty(County.valueOf(propertyForm.getCounty()));
+        property.setZipCode(propertyForm.getZipCode());
+        property.setStreet(propertyForm.getStreet());
+        property.setStreetNumber(propertyForm.getStreetNumber());
         property.setDescription(propertyForm.getDescription());
+        property.setOwner(findUserPropertiesByMail(propertyForm.getOwner()));
+        property.setLngCoord(propertyForm.getLngCoord());
+        property.setLatCoord(propertyForm.getLatCoord());
         property.setImageUrls(propertyForm.getImageUrl());
     }
 
@@ -83,4 +97,9 @@ public class PropertyService {
                 .orElseThrow(EntityNotFoundException::new);
     }
 
+    private UserProperty findUserPropertiesByMail(String mail) {
+        return userRepository
+                .findUserPropertiesByMail(mail)
+                .orElseThrow(EntityNotFoundException::new);
+    }
 }

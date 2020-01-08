@@ -3,6 +3,9 @@ export interface PropertyFormDataModel {
   name: string;
   numberOfRooms: number;
   price: number;
+  buildingYear: number;
+  area: number;
+
   description: string;
   imageUrl: string[];
 }
