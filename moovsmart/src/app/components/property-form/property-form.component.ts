@@ -89,15 +89,15 @@ export class PropertyFormComponent implements OnInit {
   };
 
   submit = () => {
- //   this.imageService.uploadImage(this.selectedFile).subscribe(
-   //     (data) => {
+    this.imageService.uploadImage(this.selectedFile).subscribe(
+        (data) => {
           const formData = {...this.propertyForm.value};
           formData.isValid = true;
-          formData.imageUrl = ['https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg'];
+          formData.imageUrl.push('https://res.cloudinary.com/demo/image/upload/' + data + '.jpg');
           this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
-     //   },
-  //      () => {}
-   // ) ;
+        },
+        () => {}
+    ) ;
 
   };
 
