@@ -41,6 +41,8 @@ export class SigninComponent implements OnInit {
         (validUSer: ValidUserModel) => {
           localStorage.setItem('user', JSON.stringify(validUSer.role));
           this.propertyService.userName.next(validUSer.name);
+          console.log(validUSer.name);
+          debugger;
           this.router.navigate(['property-list']);
         },
         (err) => console.log(err),

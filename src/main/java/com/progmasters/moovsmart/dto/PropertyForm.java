@@ -31,6 +31,9 @@ public class PropertyForm {
     private double lngCoord;
     private double latCoord;
 
+    public PropertyForm() {
+    }
+
     PropertyForm(Property property) {
         this.name = property.getName();
         this.numberOfRooms = property.getNumberOfRooms();

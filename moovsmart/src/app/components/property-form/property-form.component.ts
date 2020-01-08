@@ -28,6 +28,7 @@ export class PropertyFormComponent implements OnInit {
     geocoder: google.maps.Geocoder;
     addressToDecode: google.maps.GeocoderRequest = {};
     locationCoordinates: number[] = [null, null];
+    actualUserName: string;
 
 
   propertyForm = this.formBuilder.group({
@@ -59,28 +60,30 @@ export class PropertyFormComponent implements OnInit {
             this.counties = formInitData.counties;
             this.propertyTypes = formInitData.propertyTypes;
             this.propertyStates = formInitData.propertyStates;
+        });
 
-
-            this.propertyService.userName.subscribe(
-                (name)=> {
+        this.propertyService.userName.subscribe(
+            (name)=> {
                 this.registratedUser = (name !== null);
+                this.actualUserName = name;
+                console.log(this.actualUserName);
+                debugger;
             });
 
-            if(!this.registratedUser){
-                this.openModalDialog();
-            }
+        if(!this.registratedUser){
+            this.openModalDialog();
+        }
 
-            this.route.paramMap.subscribe(
-                paramMap => {
-                    const editablePropertyId = paramMap.get('id');
-                    if (editablePropertyId) {
-                        this.propertyId = +editablePropertyId;
-                        this.getPropertyData(editablePropertyId);
-                    }
-                },
-                error => console.warn(error),
-            );
-        });
+        this.route.paramMap.subscribe(
+            paramMap => {
+                const editablePropertyId = paramMap.get('id');
+                if (editablePropertyId) {
+                    this.propertyId = +editablePropertyId;
+                    this.getPropertyData(editablePropertyId);
+                }
+            },
+            error => console.warn(error),
+        );
 
         this.codeAddress();
     }
@@ -104,17 +107,20 @@ export class PropertyFormComponent implements OnInit {
           this.imageService.uploadImage(this.selectedFile).subscribe(
               (data) => {
                   const formData = {...this.propertyForm.value};
-                  console.log(formData);
                   formData.isValid = true;
-                  formData.imageUrl =  'https://res.cloudinary.com/demo/image/upload/' + data + '.jpg';
+                  formData.imageUrl =  ['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
                   this.selectedFile = null;
-                  this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+                  formData.owner = this.actualUserName;
+                  console.log(formData);
+                  debugger;
+                      this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
               },
               () => {}
           );
       } else {
           const formData = {...this.propertyForm.value};
           formData.isValid = true;
+          formData.owner = this.propertyService.userName;
           this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
       }
   };
