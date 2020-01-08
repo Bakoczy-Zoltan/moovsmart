@@ -1,8 +1,8 @@
 package com.progmasters.moovsmart.controller;
 
+import com.progmasters.moovsmart.domain.UserProperty;
 import com.progmasters.moovsmart.dto.CreateUserCommand;
 import com.progmasters.moovsmart.security.AuthenticatedUser;
-import com.progmasters.moovsmart.security.MyUserDetails;
 import com.progmasters.moovsmart.service.MailSenderService;
 import com.progmasters.moovsmart.service.UserService;
 import com.progmasters.moovsmart.validation.RegistrationValidator;
@@ -28,6 +28,7 @@ public class UserController {
     private Logger logger = LoggerFactory.getLogger(UserController.class);
     private RegistrationValidator registrationValidator;
 
+
     public UserController(MailSenderService mailSenderService,
                           UserService userService,
                           RegistrationValidator registrationValidator) {
@@ -45,7 +46,7 @@ public class UserController {
     public ResponseEntity createUser(@RequestBody CreateUserCommand command) {
         Long id = this.userService.makeUser(command);
         if (id != null) {
-            this.mailSenderService.sendMailByRegistration(command.getUserName(), command.getMail(), id);
+           this.mailSenderService.sendMailByTokenRegistration(command.getUserName(), command.getMail());
             return new ResponseEntity(HttpStatus.OK);
         } else {
             logger.warn("Registration was not possible");
@@ -54,11 +55,15 @@ public class UserController {
     }
 
     @GetMapping("/validuser/{id}")
-    public ResponseEntity<List<String>> validateUser(@PathVariable("id") String id) {
-        byte[] decodedBytes = Base64.getDecoder().decode(id);
-        String realId = new String(decodedBytes);
-        Long decodedId = Long.valueOf(realId);
-        return this.userService.validateUser(decodedId);
+    public ResponseEntity validateUser(@PathVariable("id") String token) {
+        UserProperty user = this.mailSenderService.getUserByToken(token);
+        if(user != null){
+            user.setIsActive(true);
+            return this.userService.validateUser(user.getId());
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/me")

@@ -23,6 +23,8 @@ public class ImageService {
 
         Map uploadResult = cloudinary.uploader().upload(imageToUpload.getBytes(), ObjectUtils.emptyMap());
 
-        return  ((String) uploadResult.get("public_id"));
+        String result = ((String) uploadResult.get("public_id"));
+        System.out.println(result);
+        return  result;
     }
 }

@@ -2,3 +2,6 @@
     background-color: #7E685A;
     color: white;
 }
+#error-message{
+    color: red;
+}

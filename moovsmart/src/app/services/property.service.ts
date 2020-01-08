@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { PropertyDetailsModel } from '../models/propertyDetails.model';
 import { PropertyListItemModel } from '../models/propertyListItem.model';
 import { PropertyFormDataModel } from '../models/propertyFormData.model';
@@ -11,6 +11,8 @@ import {environment} from "../../environments/environment";
     providedIn: 'root',
 })
 export class PropertyService {
+
+    userName = new Subject<string>();
 
     baseUrl = environment.apiUrl+'/properties';
     baseUserUrl = environment.apiUrl+'/user';

@@ -12,7 +12,9 @@ export class ImageService {
 
     public uploadImage(image: File): Observable<any> {
         const uploadData = new FormData();
-        uploadData.append('myPicture', image)
-        return this.http.post('http://localhost:8080/api/images', uploadData);
+        uploadData.append('myPicture', image);
+
+        const imageServiceReturn = this.http.post('http://localhost:8080/api/images', uploadData, {responseType: 'text'});
+        return imageServiceReturn;
     }
 }

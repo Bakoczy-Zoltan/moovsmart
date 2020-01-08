@@ -13,9 +13,9 @@
         <li class="nav-item"><a class="nav-link" routerLink="/property-form">Ingatlan regisztrálása</a></li>
       </ul>
 
-      <a class="nav-link" routerLink="/registration">Regisztráció <i class="far fa-edit"></i></a>
-      <a class="nav-link" routerLink="/signin">Bejelentkezés <i class="fas fa-sign-in-alt"></i></a>
-      <a class="nav-link" (click)="logout()">Logout</a>
+      <a *ngIf="!registratedUser" class="nav-link" routerLink="/registration">Regisztráció <i class="far fa-edit"></i></a>
+      <a *ngIf="!registratedUser" class="nav-link" routerLink="/signin">Bejelentkezés <i class="fas fa-sign-in-alt"></i></a>
+      <a *ngIf="registratedUser" class="nav-link" (click)="logout()">Logout</a>
     </div>
   </div>
 </nav>

@@ -1,6 +1,7 @@
 package com.progmasters.moovsmart.domain;
 
 import com.progmasters.moovsmart.dto.CreateUserCommand;
+import com.progmasters.moovsmart.security.TokenStorage;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -17,11 +18,17 @@ public class UserProperty {
     private Long id;
 
     private String userName;
+
     @Email(message = "Email should be valid")
     private String mail;
+
     @Pattern(regexp="(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}")
     private String password;
+
     private boolean isActive;
+
+    @OneToOne(mappedBy = "tokenUser")
+    private TokenStorage tokenStorage;
 
     @OneToMany(mappedBy = "owner")
     private List<Property> properties = new ArrayList<>();
@@ -103,5 +110,13 @@ public class UserProperty {
 
     public void setRoleTypes(List<RoleType> roleTypes) {
         this.roleTypes = roleTypes;
+    }
+
+    public TokenStorage getTokenStorage() {
+        return tokenStorage;
+    }
+
+    public void setTokenStorage(TokenStorage tokenStorage) {
+        this.tokenStorage = tokenStorage;
     }
 }
