@@ -31,6 +31,7 @@ export class PropertyFormComponent implements OnInit {
     lngCoord: number;
     latCoord: number;
     answer: string[];
+    formData;
 
 
     propertyForm = this.formBuilder.group({
@@ -44,8 +45,8 @@ export class PropertyFormComponent implements OnInit {
         'county': [''],
         'city': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
         'zipCode': ['', Validators.compose([Validators.required, Validators.min(1000), Validators.max(9999)])],
-        'street': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
-        'streetNumber': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
+        'street': ['', Validators.compose([Validators.required, Validators.minLength(1)])],
+        'streetNumber': ['', Validators.compose([Validators.required, Validators.minLength(1)])],
         'description': ['', Validators.minLength(10)],
         'price': ['', Validators.min(1)],
         'imageUrl': [''],
@@ -96,7 +97,6 @@ export class PropertyFormComponent implements OnInit {
             },
             error => console.warn(error),
         );
-        this.codeAddress();
     }
 
     getPropertyData = (id: string) => {
@@ -123,36 +123,15 @@ export class PropertyFormComponent implements OnInit {
     };
 
     submit = () => {
-        const formData = {...this.propertyForm.value};
-        console.log(formData);
+        this.formData = {...this.propertyForm.value};
+        console.log(this.formData);
 
-        this.searchPosition = formData.zipCode + ' ' + formData.street + ' ' + formData.city + ' ' + formData.streetNumber;
+        this.searchPosition = this.formData.zipCode + ' ' + this.formData.street + ' ' + this.formData.city + ' ' + this.formData.streetNumber;
         this.addressToDecode.address = this.searchPosition;
-        this.codeAddress();
 
-        formData.lngCoord = this.lngCoord;
-        formData.latCoord = this.latCoord;
+        this.getTheOtherFormData();
 
-        formData.isValid = true;
-        formData.owner = this.actualUserName;
-
-
-
-      if (this.selectedFile != null) {
-          this.imageService.uploadImage(this.selectedFile).subscribe(
-              (data) => {
-                  this.answer = data;
-                  formData.publicId = this.answer[0];
-                  formData.imageUrl = this.answer[1];
-                  this.selectedFile = null;
-              },
-              () => {}
-          );
-      }
-
-        this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
     };
-
 
     createNewProperty(data: PropertyFormDataModel) {
         this.propertyService.createProperty(data).subscribe(
@@ -179,22 +158,42 @@ export class PropertyFormComponent implements OnInit {
         };
     }
 
-    codeAddress() {
-        this.geocoder.geocode(this.addressToDecode, (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
-            if (status === google.maps.GeocoderStatus.OK) {
-                // this.locationCoordinates[0] = results[0].geometry.location.lat();
-                // this.locationCoordinates[1] = results[0].geometry.location.lng();
-                this.lngCoord = results[0].geometry.location.lat();
-                this.latCoord = results[0].geometry.location.lng();
+    getTheOtherFormData() {
+        this.geocoder.geocode(this.addressToDecode,
+            (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    // this.locationCoordinates[0] = results[0].geometry.location.lat();
+                    // this.locationCoordinates[1] = results[0].geometry.location.lng();
+                    this.lngCoord = results[0].geometry.location.lat();
+                    this.latCoord = results[0].geometry.location.lng();
 
-            } else {
-                console.log(
-                    'Geocoding service: geocode was not successful for the following reason: '
-                    + status,
-                );
-                console.log(status + ' error');
-            }
-        });
+                } else {
+                    console.log(
+                        'Geocoding service: geocode was not successful for the following reason: '
+                        + status,
+                    );
+                    console.log(status + ' error');
+                }
+
+                this.formData.lngCoord = this.lngCoord;
+                this.formData.latCoord = this.latCoord;
+
+                this.formData.isValid = true;
+                this.formData.owner = this.actualUserName;
+
+                if (this.selectedFile != null) {
+                    this.imageService.uploadImage(this.selectedFile).subscribe(
+                        (data) => {
+                            this.answer = data;
+                            this.formData.publicId = this.answer[0];
+                            this.formData.imageUrl = this.answer[1];
+                            this.selectedFile = null;
+                        },
+                        () => {},
+                    );
+                }
+                this.propertyId ? this.updateProperty(this.formData) : this.createNewProperty(this.formData);
+            });
     }
 
     openModalDialog() {
