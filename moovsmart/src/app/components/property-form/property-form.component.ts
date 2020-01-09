@@ -70,7 +70,6 @@ export class PropertyFormComponent implements OnInit {
             this.counties = formInitData.counties;
             this.propertyTypes = formInitData.propertyTypes;
             this.propertyStates = formInitData.propertyStates;
-
         });
 
         this.actualUserName = this.propertyService.userName2;
@@ -126,12 +125,12 @@ export class PropertyFormComponent implements OnInit {
       const formData = {...this.propertyForm.value};
       console.log(formData);
 
-      this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
-      this.addressToDecode.address = this.searchPosition;
-      this.codeAddress();
+                  this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
+                  this.addressToDecode.address = this.searchPosition;
+                  this.codeAddress();
 
-      formData.lngCoord = this.lngCoord;
-      formData.latCoord = this.latCoord;
+                  formData.lngCoord = this.lngCoord;
+                  formData.latCoord = this.latCoord;
 
       formData.isValid = true;
       formData.owner = this.propertyService.userName;

@@ -24,7 +24,9 @@ public class ImageService {
         Map uploadResult = cloudinary.uploader().upload(imageToUpload.getBytes(), ObjectUtils.emptyMap());
 
         String result = ((String) uploadResult.get("public_id"));
+        String tempLink = ((String) uploadResult.get("url"));
         System.out.println(result);
+        System.out.println(tempLink);
         return  result;
     }
 }
