@@ -72,7 +72,6 @@ export class PropertyFormComponent implements OnInit {
             this.counties = formInitData.counties;
             this.propertyTypes = formInitData.propertyTypes;
             this.propertyStates = formInitData.propertyStates;
-
         });
 
         this.actualUserName = this.propertyService.userName2;
@@ -129,7 +128,7 @@ export class PropertyFormComponent implements OnInit {
           this.imageService.uploadImage(this.selectedFile).subscribe(
               (data) => {
                   const formData = {...this.propertyForm.value};
-                  console.log(formData);
+
 
                   this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
                   this.addressToDecode.address = this.searchPosition;
@@ -141,7 +140,8 @@ export class PropertyFormComponent implements OnInit {
                     formData.isValid = true;
                     formData.imageUrl = ['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
                     this.selectedFile = null;
-                    formData.owner = this.propertyService.userName;
+                    formData.owner = this.actualUserName;
+                   console.log(formData);
                     this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
                 },
                 () => {},
