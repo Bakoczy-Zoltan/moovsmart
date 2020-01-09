@@ -9,9 +9,9 @@ import { validationHandler } from '../../utils/validationHandler';
 
 
 @Component({
-    selector: 'app-property-form',
-    templateUrl: './property-form.component.html',
-    styleUrls: ['./property-form.component.css'],
+  selector: 'app-property-form',
+  templateUrl: './property-form.component.html',
+  styleUrls: ['./property-form.component.css']
 })
 export class PropertyFormComponent implements OnInit {
 
@@ -30,6 +30,7 @@ export class PropertyFormComponent implements OnInit {
     actualUserName: string;
     lngCoord: number;
     latCoord: number;
+    answer: string[];
 
 
     propertyForm = this.formBuilder.group({
@@ -134,18 +135,23 @@ export class PropertyFormComponent implements OnInit {
 
         formData.isValid = true;
         formData.owner = this.actualUserName;
-        formData.imageUrl = [''];
-        if (this.selectedFile != null) {
-            this.imageService.uploadImage(this.selectedFile).subscribe(
-                (data) => {
-                    const urlsList: string[] = ['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
 
-                    formData.imageUrl = ['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
-                    this.selectedFile = null;
-                },
-                () => {},
-            );
-        }
+
+
+      if (this.selectedFile != null) {
+          this.imageService.uploadImage(this.selectedFile).subscribe(
+              (data) => {
+                  this.answer = data;
+                  formData.publicId = this.answer[0];
+                  formData.imageUrl = this.answer[1];
+                  this.selectedFile = null;
+              },
+              () => {}
+          );
+      }
+
+        formData.isValid = true;
+        formData.owner = this.actualUserName;
 
         this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
     };
