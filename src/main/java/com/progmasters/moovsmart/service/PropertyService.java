@@ -41,18 +41,28 @@ public class PropertyService {
 
     public void createProperty(PropertyForm propertyForm) {
         System.out.println("URLS List: => " + propertyForm.getImageUrl());
-
+        Optional<UserProperty>tempUser = this.userRepository.findUserPropertiesByMail(propertyForm.getOwner());
+        UserProperty user = new UserProperty();
+        if(tempUser.isPresent()){
+            user = tempUser.get();
+        }
         Property property = new Property();
-        updateValues(propertyForm, property);
+        findUserPropertiesByMail(propertyForm.getOwner());
+        updateValues(propertyForm, property, user);
         propertyRepository.save(property);
     }
 
 
     public Property updateProperty(PropertyForm propertyForm, Long id) {
         Optional<Property> propertyOptional = propertyRepository.findById(id);
+        Optional<UserProperty>tempUser = this.userRepository.findUserPropertiesByMail(propertyForm.getOwner());
+        UserProperty user = new UserProperty();
+        if(tempUser.isPresent()){
+            user = tempUser.get();
+        }
         if (propertyOptional.isPresent()) {
             Property property = propertyOptional.get();
-            updateValues(propertyForm, property);
+            updateValues(propertyForm, property, user);
             propertyRepository.save(property);
             return property;
         } else {
@@ -60,7 +70,7 @@ public class PropertyService {
         }
     }
 
-    private void updateValues(PropertyForm propertyForm, Property property) {
+    private void updateValues(PropertyForm propertyForm, Property property, UserProperty user) {
         property.setName(propertyForm.getName());
         property.setNumberOfRooms(propertyForm.getNumberOfRooms());
         property.setPrice(propertyForm.getPrice());
@@ -70,10 +80,8 @@ public class PropertyService {
         property.setPropertyState(PropertyState.valueOf(propertyForm.getPropertyState()));
         property.setCounty(County.valueOf(propertyForm.getCounty()));
         property.setZipCode(propertyForm.getZipCode());
-//        property.setStreet(propertyForm.getStreet());
-//        property.setStreetNumber(propertyForm.getStreetNumber());
         property.setDescription(propertyForm.getDescription());
-        property.setOwner(findUserPropertiesByMail(propertyForm.getOwner()));
+        property.setOwner(user);
         property.setLngCoord(propertyForm.getLngCoord());
         property.setLatCoord(propertyForm.getLatCoord());
         property.setImageUrls(propertyForm.getImageUrl());

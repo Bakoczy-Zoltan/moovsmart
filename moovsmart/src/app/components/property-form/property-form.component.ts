@@ -77,7 +77,7 @@ export class PropertyFormComponent implements OnInit {
         this.propertyService.userName.subscribe(
             (name) => {
                 this.actualUserName = name;
-                console.log("NAME" + name);
+                console.log('NAME' + name);
                 this.registratedUser = name !== null;
                 if (this.actualUserName == null) {
                     this.openModalDialog();
@@ -122,16 +122,16 @@ export class PropertyFormComponent implements OnInit {
         );
     };
 
-  submit = () => {
-      const formData = {...this.propertyForm.value};
-      console.log(formData);
+    submit = () => {
+        const formData = {...this.propertyForm.value};
+        console.log(formData);
 
-                  this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
-                  this.addressToDecode.address = this.searchPosition;
-                  this.codeAddress();
+        this.searchPosition = formData.zipCode + ' ' + formData.street + ' ' + formData.city + ' ' + formData.streetNumber;
+        this.addressToDecode.address = this.searchPosition;
+        this.codeAddress();
 
-                  formData.lngCoord = this.lngCoord;
-                  formData.latCoord = this.latCoord;
+        formData.lngCoord = this.lngCoord;
+        formData.latCoord = this.latCoord;
 
       formData.isValid = true;
       formData.owner = this.actualUserName;
@@ -150,24 +150,38 @@ export class PropertyFormComponent implements OnInit {
               () => {}
           );
       }
+        formData.isValid = true;
+        formData.owner = this.actualUserName;
+        formData.imageUrl = [''];
+        if (this.selectedFile != null) {
+            this.imageService.uploadImage(this.selectedFile).subscribe(
+                (data) => {
+                    const urlsList: string[] = ['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
 
-      this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
-  };
+                    formData.imageUrl = ['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
+                    this.selectedFile = null;
+                },
+                () => {},
+            );
+        }
+
+        this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+    };
 
 
-  createNewProperty(data: PropertyFormDataModel) {
-    this.propertyService.createProperty(data).subscribe(
-        () => this.router.navigate(['property-list']),
-        error => validationHandler(error, this.propertyForm),
-    );
-  }
+    createNewProperty(data: PropertyFormDataModel) {
+        this.propertyService.createProperty(data).subscribe(
+            () => this.router.navigate(['property-list']),
+            error => validationHandler(error, this.propertyForm),
+        );
+    }
 
-  private updateProperty(data: PropertyFormDataModel) {
-    this.propertyService.updateProperty(data, this.propertyId).subscribe(
-        () => this.router.navigate(['']),
-        error => validationHandler(error, this.propertyForm),
-    );
-  }
+    private updateProperty(data: PropertyFormDataModel) {
+        this.propertyService.updateProperty(data, this.propertyId).subscribe(
+            () => this.router.navigate(['']),
+            error => validationHandler(error, this.propertyForm),
+        );
+    }
 
     processFile(event) {
 
@@ -201,6 +215,7 @@ export class PropertyFormComponent implements OnInit {
     openModalDialog() {
         this.display = 'block';
     }
+
     closeDial() {
         this.display = 'none';
         this.router.navigate(['signin']);
