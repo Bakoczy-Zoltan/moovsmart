@@ -53,7 +53,9 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
                             proDetails => {
                                 this.propertyDetails = proDetails;
                                 this.images = this.propertyDetails.imageUrl;
-                                this.changeDefaultImg(this.images[0]);
+                                if(this.images !== null){
+                                    this.changeDefaultImg(this.images[0]);
+                                }
 
                                 this.lat = this.propertyDetails.latCoord;
                                 this.lng = this.propertyDetails.lngCoord;
@@ -111,8 +113,10 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
 
 
     changeDefaultImg(image: string) {
-        if (image !== undefined && image !== null) {
+        if (image !== undefined && image !== null && image.length > 3) {
             this.defaultPicture = image;
+        } else {
+            this.images[0] = this.defaultPicture;
         }
     }
 
