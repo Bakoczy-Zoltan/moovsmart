@@ -125,22 +125,28 @@ export class PropertyFormComponent implements OnInit {
       const formData = {...this.propertyForm.value};
       console.log(formData);
 
-                  this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
-                  this.addressToDecode.address = this.searchPosition;
-                  this.codeAddress();
+      this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
+      console.log(this.searchPosition);
+      this.addressToDecode.address = this.searchPosition;
+      console.log(this.addressToDecode.address)
+      this.codeAddress();
 
-                  formData.lngCoord = this.lngCoord;
-                  formData.latCoord = this.latCoord;
+      formData.lngCoord = this.lngCoord;
+      formData.latCoord = this.latCoord;
+
+console.log(formData.lngCoord);
+console.log(formData.latCoord);
 
       formData.isValid = true;
-      formData.owner = this.propertyService.userName;
+      formData.owner = this.actualUserName;
+      formData.imageUrl = [''];
 
       if (this.selectedFile != null) {
           this.imageService.uploadImage(this.selectedFile).subscribe(
               (data) => {
                   const urlsList: string[] =['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
 
-                  formData.imageUrl =  'https://res.cloudinary.com/demo/image/upload/' + data + '.jpg';
+                  formData.imageUrl =  ['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
                   this.selectedFile = null;
               },
               () => {}
@@ -183,7 +189,8 @@ export class PropertyFormComponent implements OnInit {
                 // this.locationCoordinates[1] = results[0].geometry.location.lng();
                 this.lngCoord = results[0].geometry.location.lat();
                 this.latCoord = results[0].geometry.location.lng();
-
+console.log(this.lngCoord);
+console.log(this.latCoord);
             } else {
                 console.log(
                     'Geocoding service: geocode was not successful for the following reason: '
