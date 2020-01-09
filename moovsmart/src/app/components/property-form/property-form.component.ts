@@ -118,7 +118,7 @@ export class PropertyFormComponent implements OnInit {
                     streetNumber: response.streetNumber,
                     description: response.description,
                     price: response.price,
-                    imageUrl: response.imageUrl.join(';'),
+                    imageUrl: response.imageUrl,
                 });
             },
         );
