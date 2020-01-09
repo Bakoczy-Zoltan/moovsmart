@@ -20,6 +20,7 @@ public class PropertyDetails {
     private String county;
     private Integer zipCode;
     private String street;
+    private String city;
 //    private String searchPosition;
     private Double lngCoord;
     private Double latCoord;
@@ -53,6 +54,7 @@ public class PropertyDetails {
         this.lngCoord = property.getLngCoord();
         this.description = property.getDescription();
         this.imageUrl = property.getImageUrls();
+        this.city = property.getCity();
     }
 
 
@@ -185,4 +187,11 @@ public class PropertyDetails {
         this.imageUrl = imageUrl;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 }

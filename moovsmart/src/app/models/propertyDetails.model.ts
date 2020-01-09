@@ -10,6 +10,7 @@ export interface PropertyDetailsModel {
     county: string;
     zipCode: number;
     street: string;
+    city: string;
     // searchPosition: string;
     lngCoord: number;
     latCoord: number;

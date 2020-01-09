@@ -1,7 +1,7 @@
 package com.progmasters.moovsmart.domain;
 
 public enum County {
-    BACS_KISKUN("Bács-Kiskun"), BARANYA("Baranya"), BEKES("Békés"),
+    BUDAPEST("Budapest"),BACS_KISKUN("Bács-Kiskun"), BARANYA("Baranya"), BEKES("Békés"),
     BORSOD_ABAUJ_ZEMPLEN("Borsod-Abaúj-Zemplén"), CSONGRAD("Csongrád"),
     FEJER("Fejér"), GYOR_MOSON_SOPRON("Győr-Moson-Sopron"),
     HAJDU_BIHAR("Hajdú-Bihar"), HEVES("Heves"), JASZ_NAGYKUN_SZOLNOK("Jász-Nagykun-Szolnok"),
