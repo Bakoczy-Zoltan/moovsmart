@@ -133,37 +133,25 @@ export class PropertyFormComponent implements OnInit {
         formData.lngCoord = this.lngCoord;
         formData.latCoord = this.latCoord;
 
-      formData.isValid = true;
-      formData.owner = this.actualUserName;
+        formData.isValid = true;
+        formData.owner = this.actualUserName;
+
+
 
       if (this.selectedFile != null) {
           this.imageService.uploadImage(this.selectedFile).subscribe(
               (data) => {
                   this.answer = data;
-                  console.log(this.answer);
-                  debugger;
-                  const urlsList: string[] =['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
-                  formData.append('publicId', this.answer[0]);
-                  formData.append('imageUrl',  this.answer[1]);
+                  formData.publicId = this.answer[0];
+                  formData.imageUrl = this.answer[1];
                   this.selectedFile = null;
               },
               () => {}
           );
       }
+
         formData.isValid = true;
         formData.owner = this.actualUserName;
-        formData.imageUrl = [''];
-        if (this.selectedFile != null) {
-            this.imageService.uploadImage(this.selectedFile).subscribe(
-                (data) => {
-                    const urlsList: string[] = ['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
-
-                    formData.imageUrl = ['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
-                    this.selectedFile = null;
-                },
-                () => {},
-            );
-        }
 
         this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
     };
