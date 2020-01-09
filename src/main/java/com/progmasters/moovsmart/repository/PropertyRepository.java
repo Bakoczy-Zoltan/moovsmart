@@ -3,6 +3,7 @@ package com.progmasters.moovsmart.repository;
 import com.progmasters.moovsmart.domain.Property;
 import com.progmasters.moovsmart.domain.PropertyState;
 import com.progmasters.moovsmart.domain.PropertyType;
+import com.progmasters.moovsmart.domain.UserProperty;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,6 +16,8 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
 
     @Query("SELECT p FROM Property p WHERE p.isValid = true")
     List<Property> findAllByIsValid();
+
+    List<Property>findAllByOwner(UserProperty user);
 
     @Query("SELECT p FROM Property p " +
             "WHERE p.area BETWEEN :minArea AND :maxArea " +
