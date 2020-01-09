@@ -63,9 +63,6 @@ export class PropertyFormComponent implements OnInit {
                 private cloudinary: Cloudinary) {
 
         this.geocoder = new google.maps.Geocoder();
-        // this.searchPosition = '1035 Szentendrei ut Budapest 14';
-        // this.addressToDecode.address = this.searchPosition;
-
 
     }
 

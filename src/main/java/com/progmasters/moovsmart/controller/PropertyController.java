@@ -19,6 +19,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,10 +80,11 @@ public class PropertyController {
         logger.info("Get properties-list");
         return new ResponseEntity<>(propertyService.getProperties(), HttpStatus.OK);
     }
-    @GetMapping("/authUser/{id}")
-    public ResponseEntity<List<PropertyListItem>> getOwnProperties(@PathVariable("id")String user) {
+    @GetMapping("/authUser/myList")
+    public ResponseEntity<List<PropertyListItem>> getOwnProperties(Principal principal) {
+        String userMail = principal.getName();
         logger.info("Get own properties-list");
-        return new ResponseEntity<>(propertyService.getOwnProperties(user), HttpStatus.OK);
+        return new ResponseEntity<>(propertyService.getOwnProperties(userMail), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

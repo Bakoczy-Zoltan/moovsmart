@@ -1,7 +1,7 @@
-<div class="container">
+<!--div-- class="container">
     <table class="table table-bordered">
 
-    <tbody>
+        <tbody>
             <tr>
                 <td>
                     <label class="form-control-label" for="sizeMin">Méret min:</label>
@@ -26,7 +26,8 @@
                     <select id="porpertyState" class="form-control">
                         <option>Mindegy</option>
                         <option *ngFor="let propertyState of propertyStates, let i = index"
-                        value="{{propertyState.name}}">{{propertyState.displayName}}></option>
+                                value="{{propertyState.name}}">{{propertyState.displayName}}>
+                        </option>
                     </select>
                 </td>
                 <td>
@@ -34,7 +35,8 @@
                     <select id="porpertyType" class="form-control">
                         <option>Mindegy</option>
                         <option *ngFor="let propertyType of propertyTypes, let i = index"
-                                value="{{propertyType.name}}">{{propertyType.displayName}}></option>
+                                value="{{propertyType.name}}">{{propertyType.displayName}}>
+                        </option>
                     </select>
                 </td>
 
@@ -43,7 +45,8 @@
                     <select id="city" class="form-control">
                         <option>Mindegy</option>
                         <option *ngFor="let city of cities, let i = index"
-                                value="{{city.name}}">{{city.displayName}}></option>
+                                value="{{city.name}}">{{city.displayName}}>
+                        </option>
                     </select>
                 </td>
                 <td>
@@ -53,13 +56,15 @@
             </tr>
         </tbody>
     </table>
-</div>
-<div class="container">
-    <div *ngIf="propertyListItemModels === undefined || propertyListItemModels.length === 0" id="emptydb">
-        <img
-            src="https://previews.123rf.com/images/tcareob72/tcareob721801/tcareob72180100003/94128283-beautiful-atmosphere-empty-field-in-thailand-.jpg"
-            alt="empty database">
-        <div id="emptydbmessage">Sajnáljuk, jelenleg nincs ingatlan az adatbázisunkban.</div>
+</div-->
+<div class="container jumbotron">
+    <div id="mainDiv">
+        <div *ngIf="propertyListItemModels === undefined || propertyListItemModels.length === 0" id="emptydb">
+            <img
+                src="https://previews.123rf.com/images/tcareob72/tcareob721801/tcareob72180100003/94128283-beautiful-atmosphere-empty-field-in-thailand-.jpg"
+                alt="empty database" id="emptyPicture">
+            <div id="emptydbmessage">Sajnáljuk, jelenleg nincs ingatlan az adatbázisunkban.</div>
+        </div>
     </div>
 
     <table *ngIf="propertyListItemModels?.length !== 0" id="list-table" class="table table-borderless">
@@ -69,7 +74,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let property of propertyListItemModels">
+            <tr *ngFor="let property of propertyListItemModels" id="mainRow">
                 <td>
                     <div *ngIf="!property.imageUrl">
                         <img [src]="defaultPicture" class="defaultPicture">

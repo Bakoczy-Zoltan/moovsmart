@@ -94,13 +94,14 @@ public class PropertyService {
     public boolean deleteProperty(Long id, String userMail) {
         boolean result = false;
         Optional<Property> propertyOptional = propertyRepository.findById(id);
-        UserProperty user = null;
+      //  UserProperty user = null;
         if (propertyOptional.isPresent()) {
             Property property = propertyOptional.get();
-            user = property.getOwner();
-            if(!user.getMail().equals(userMail)){
-                return result;
-            }
+            System.out.println("ID PROP: " + property.getId());
+//            user = property.getOwner();
+//            if(!user.getMail().equals(userMail)){
+//                return result;
+//            }
             property.setValid(false);
             result = true;
         }
@@ -143,7 +144,6 @@ public class PropertyService {
         if(tempUser.isPresent()){
             ownUser = tempUser.get();
             System.out.println("USER " + ownUser.getMail());
-      //      this.propertyRepository.findAllByOwner(ownUser);
             for(Property property: properties){
                 if(property.getOwner() != null){
                     if(property.getOwner().getId().equals(ownUser.getId())){

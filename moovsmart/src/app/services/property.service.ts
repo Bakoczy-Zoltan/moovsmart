@@ -14,6 +14,8 @@ export class PropertyService {
 
     userName = new Subject<string>();
     userName2 : string;
+    registratedUser: boolean;
+    regisTrated = new Subject<boolean>();
 
     baseUrl = environment.apiUrl+'/properties';
     baseUserUrl = environment.apiUrl+'/user';
@@ -68,6 +70,6 @@ export class PropertyService {
     }
 
     getMyPropertyList(id: string): Observable<Array<PropertyListItemModel>> {
-        return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl + '/authUser/' +id);
+        return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl + '/authUser/myList');
     }
 }

@@ -17,16 +17,20 @@ export class PropertyListComponent implements OnInit {
     propertyStates: PropertyStateOptionModel[];
     cities;
     id: string;
+    registratedUser: boolean;
 
     constructor(private propertyService: PropertyService,
                 private router: Router,
                 private route: ActivatedRoute) {
-
     }
 
     ngOnInit() {
 
+        if(localStorage.getItem('user') != null){
+            this.registratedUser = true;
+        }
 
+        this.id = this.propertyService.userName2;
         this.propertyService.getPropertyList().subscribe(
             propertyListItems => this.propertyListItemModels = propertyListItems,
         );
@@ -36,13 +40,15 @@ export class PropertyListComponent implements OnInit {
             paramMap => {
                 const editableId = paramMap.get('id');
                 if (editableId) {
-                    this.id = this.propertyService.userName2;
-                    console.log(this.id + ' my LIST');
 
                     this.propertyService.getMyPropertyList(this.id).subscribe(
                         (datas: Array<PropertyListItemModel>) => {
                             this.propertyListItemModels = datas;
                         },
+                    );
+                } else{
+                    this.propertyService.getPropertyList().subscribe(
+                        propertyListItems => this.propertyListItemModels = propertyListItems,
                     );
                 }
             },

@@ -4,20 +4,25 @@
 }
 
 #emptydb {
-    position: fixed;
     top: 0;
     left: 0;
+    text-align: center;
 
     /* Preserve aspet ratio */
     min-width: 100%;
     min-height: 100%;
 }
 
+#mainDiv{
+    margin-right: auto;
+    margin-left: auto;
+}
+
 #emptydbmessage {
     position: absolute;
     font-size: 20px;
     font-weight: bold;
-    top: 40%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -29,7 +34,17 @@
     max-height: 150px;
 }
 
+#emptyPicture{
+    max-width: 90%;
+    height: auto;
+}
+
 .btn {
     background-color: #7E685A;
     color: white;
+}
+
+#mainRow{
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
