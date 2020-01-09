@@ -30,6 +30,7 @@ export class PropertyFormComponent implements OnInit {
     actualUserName: string;
     lngCoord: number;
     latCoord: number;
+    answer: string[];
 
 
     propertyForm = this.formBuilder.group({
@@ -121,38 +122,35 @@ export class PropertyFormComponent implements OnInit {
         );
     };
 
-  submit = () => {
-      const formData = {...this.propertyForm.value};
-      console.log(formData);
+    submit = () => {
+        const formData = {...this.propertyForm.value};
+        console.log(formData);
 
-      this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
-      this.addressToDecode.address = this.searchPosition;
-  console.log(this.addressToDecode.address)
-      this.codeAddress();
+        this.searchPosition = formData.zipCode + ' ' + formData.street + ' ' + formData.city + ' ' + formData.streetNumber;
+        this.addressToDecode.address = this.searchPosition;
+        this.codeAddress();
 
-      formData.isValid = true;
-      formData.owner = this.actualUserName;
-      formData.imageUrl = [''];
+        formData.lngCoord = this.lngCoord;
+        formData.latCoord = this.latCoord;
+
+        formData.isValid = true;
+        formData.owner = this.actualUserName;
+
+
 
       if (this.selectedFile != null) {
           this.imageService.uploadImage(this.selectedFile).subscribe(
               (data) => {
-                  const urlsList: string[] =['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
+                  this.answer = data;
+                  formData.publicId = this.answer[0];
+                  formData.imageUrl = this.answer[1];
+                  this.selectedFile = null;
+              },
+              () => {}
+          );
+      }
 
-                    formData.imageUrl = ['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
-                    this.selectedFile = null;
-                },
-                () => {},
-            );
-        }
-
-      formData.lngCoord = this.lngCoord;
-      formData.latCoord = this.latCoord;
-
-      console.log(formData.lngCoord);
-      console.log(formData.latCoord);
-
-      this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+        this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
     };
 
 
@@ -188,8 +186,7 @@ export class PropertyFormComponent implements OnInit {
                 // this.locationCoordinates[1] = results[0].geometry.location.lng();
                 this.lngCoord = results[0].geometry.location.lat();
                 this.latCoord = results[0].geometry.location.lng();
-console.log(this.lngCoord);
-console.log(this.latCoord);
+
             } else {
                 console.log(
                     'Geocoding service: geocode was not successful for the following reason: '

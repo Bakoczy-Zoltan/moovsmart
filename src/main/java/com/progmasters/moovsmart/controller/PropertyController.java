@@ -12,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -79,6 +82,7 @@ public class PropertyController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PropertyDetails> getPropertyDetails(@PathVariable Long id) {
+
         logger.info("property-details requested");
         return new ResponseEntity<>(propertyService.getPropertyDetails(id), HttpStatus.OK);
     }
@@ -106,7 +110,10 @@ public class PropertyController {
 
     @DeleteMapping("/authUser/{id}")
     public ResponseEntity deleteProperty(@PathVariable Long id) {
-        boolean isDeleteSuccessful = propertyService.deleteProperty(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails user = (UserDetails) authentication.getPrincipal();
+        String userMail = user.getUsername();
+        boolean isDeleteSuccessful = propertyService.deleteProperty(id, userMail);
         ResponseEntity result;
         if (isDeleteSuccessful) {
             result = new ResponseEntity<>(HttpStatus.OK);

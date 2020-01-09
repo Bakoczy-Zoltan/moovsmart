@@ -90,14 +90,17 @@ public class PropertyService {
         property.setValid(true);
     }
 
-    public boolean deleteProperty(Long id) {
+    public boolean deleteProperty(Long id, String userMail) {
         boolean result = false;
         Optional<Property> propertyOptional = propertyRepository.findById(id);
+        UserProperty user = null;
         if (propertyOptional.isPresent()) {
             Property property = propertyOptional.get();
+            user = property.getOwner();
+            if(!user.getMail().equals(userMail)){
+                return result;
+            }
             property.setValid(false);
-//            propertyRepository.save(property);
-//            propertyRepository.delete(property);
             result = true;
         }
 
