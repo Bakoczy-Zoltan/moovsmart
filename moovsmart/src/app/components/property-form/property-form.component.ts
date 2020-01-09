@@ -31,6 +31,8 @@ export class PropertyFormComponent implements OnInit {
     lngCoord: number;
     latCoord: number;
     answer: string[];
+    answerPublicId: string[];
+    answerUrl: string[];
 
 
     propertyForm = this.formBuilder.group({
@@ -62,7 +64,7 @@ export class PropertyFormComponent implements OnInit {
         this.geocoder = new google.maps.Geocoder();
         // this.searchPosition = '1035 Szentendrei ut Budapest 14';
         // this.addressToDecode.address = this.searchPosition;
-        this.selectedFile = new File([''], 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg');
+
 
     }
 
@@ -124,7 +126,6 @@ export class PropertyFormComponent implements OnInit {
 
     submit = () => {
         const formData = {...this.propertyForm.value};
-        console.log(formData);
 
         this.searchPosition = formData.zipCode + ' ' + formData.street + ' ' + formData.city + ' ' + formData.streetNumber;
         this.addressToDecode.address = this.searchPosition;
@@ -136,22 +137,33 @@ export class PropertyFormComponent implements OnInit {
         formData.isValid = true;
         formData.owner = this.actualUserName;
 
-
-
       if (this.selectedFile != null) {
           this.imageService.uploadImage(this.selectedFile).subscribe(
               (data) => {
                   this.answer = data;
-                  formData.publicId = this.answer[0];
-                  formData.imageUrl = this.answer[1];
+
+                  this.answerPublicId = [this.answer[0]];
+                  this.answerUrl = [this.answer[1]];
+
+                  formData.publicId = this.answerPublicId;
+                  formData.imageUrl = this.answerUrl;
+
+                  console.log(formData.publicId);
+                  debugger;
+
                   this.selectedFile = null;
               },
               () => {}
           );
+      } else {
+          formData.imageUrl = [];
       }
 
         formData.isValid = true;
         formData.owner = this.actualUserName;
+
+        console.log(formData);
+        debugger;
 
         this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
     };
