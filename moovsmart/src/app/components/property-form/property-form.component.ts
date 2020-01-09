@@ -126,16 +126,9 @@ export class PropertyFormComponent implements OnInit {
       console.log(formData);
 
       this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
-      console.log(this.searchPosition);
       this.addressToDecode.address = this.searchPosition;
-      console.log(this.addressToDecode.address)
+  console.log(this.addressToDecode.address)
       this.codeAddress();
-
-                  formData.lngCoord = this.lngCoord;
-                  formData.latCoord = this.latCoord;
-
-console.log(formData.lngCoord);
-console.log(formData.latCoord);
 
       formData.isValid = true;
       formData.owner = this.actualUserName;
@@ -153,7 +146,13 @@ console.log(formData.latCoord);
             );
         }
 
-        this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+      formData.lngCoord = this.lngCoord;
+      formData.latCoord = this.latCoord;
+
+      console.log(formData.lngCoord);
+      console.log(formData.latCoord);
+
+      this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
     };
 
 
