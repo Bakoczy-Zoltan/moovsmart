@@ -38,7 +38,7 @@ export class PropertyFormComponent implements OnInit {
     propertyForm = this.formBuilder.group({
         'name': ['', Validators.compose([Validators.required, Validators.minLength(3),
             Validators.maxLength(60)])],
-        'area': ['', Validators.compose([Validators.required, Validators.min(0)])],
+        'area': ['', Validators.compose([Validators.required, Validators.min(1)])],
         'numberOfRooms': ['', Validators.compose([Validators.min(1), Validators.max(12)])],
         'buildingYear': ['', Validators.min(0)],
         'propertyType': [''],
@@ -47,7 +47,7 @@ export class PropertyFormComponent implements OnInit {
         'city': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
         'zipCode': ['', Validators.compose([Validators.required, Validators.min(1000), Validators.max(9999)])],
         'street': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
-        'streetNumber': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
+        'streetNumber': ['', Validators.compose([Validators.required, Validators.minLength(1)])],
         'description': ['', Validators.minLength(10)],
         'price': ['', Validators.min(1)],
         'imageUrl': [[''],],
