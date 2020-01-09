@@ -66,4 +66,8 @@ export class PropertyService {
         } : {});
         return this.httpClient.get<any>(this.baseUserUrl + '/me', {headers:headers})
     }
+
+    getMyPropertyList(id: string): Observable<Array<PropertyListItemModel>> {
+        return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl + '/authUser/id');
+    }
 }

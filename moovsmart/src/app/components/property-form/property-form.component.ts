@@ -9,9 +9,9 @@ import { validationHandler } from '../../utils/validationHandler';
 
 
 @Component({
-    selector: 'app-property-form',
-    templateUrl: './property-form.component.html',
-    styleUrls: ['./property-form.component.css'],
+  selector: 'app-property-form',
+  templateUrl: './property-form.component.html',
+  styleUrls: ['./property-form.component.css']
 })
 export class PropertyFormComponent implements OnInit {
 
@@ -31,13 +31,15 @@ export class PropertyFormComponent implements OnInit {
     lngCoord: number;
     latCoord: number;
     answer: string[];
+    answerPublicId: string[];
+    answerUrl: string[];
     formData;
 
 
     propertyForm = this.formBuilder.group({
         'name': ['', Validators.compose([Validators.required, Validators.minLength(3),
             Validators.maxLength(60)])],
-        'area': ['', Validators.compose([Validators.required, Validators.min(0)])],
+        'area': ['', Validators.compose([Validators.required, Validators.min(1)])],
         'numberOfRooms': ['', Validators.compose([Validators.min(1), Validators.max(12)])],
         'buildingYear': ['', Validators.min(0)],
         'propertyType': [''],
@@ -45,11 +47,11 @@ export class PropertyFormComponent implements OnInit {
         'county': [''],
         'city': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
         'zipCode': ['', Validators.compose([Validators.required, Validators.min(1000), Validators.max(9999)])],
-        'street': ['', Validators.compose([Validators.required, Validators.minLength(1)])],
+        'street': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
         'streetNumber': ['', Validators.compose([Validators.required, Validators.minLength(1)])],
         'description': ['', Validators.minLength(10)],
         'price': ['', Validators.min(1)],
-        'imageUrl': [''],
+        'imageUrl': [[''],],
     });
 
 
@@ -63,7 +65,7 @@ export class PropertyFormComponent implements OnInit {
         this.geocoder = new google.maps.Geocoder();
         // this.searchPosition = '1035 Szentendrei ut Budapest 14';
         // this.addressToDecode.address = this.searchPosition;
-        this.selectedFile = new File([''], 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg');
+
 
     }
 
@@ -185,15 +187,27 @@ export class PropertyFormComponent implements OnInit {
                     this.imageService.uploadImage(this.selectedFile).subscribe(
                         (data) => {
                             this.answer = data;
-                            this.formData.publicId = this.answer[0];
-                            this.formData.imageUrl = this.answer[1];
+
+                            this.answerPublicId = [this.answer[0]];
+                            this.answerUrl = [this.answer[1]];
+
+                            formData.publicId = this.answerPublicId;
+                            formData.imageUrl = this.answerUrl;
+
+                            console.log(formData.publicId);
+                            debugger;
+
                             this.selectedFile = null;
                         },
                         () => {},
+                        () => {
+                            console.log('COMPLETE', formData);
+                            this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+                        },
                     );
-                }
-                this.propertyId ? this.updateProperty(this.formData) : this.createNewProperty(this.formData);
-            });
+                } else {
+                    this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+                }});
     }
 
     openModalDialog() {
