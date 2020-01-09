@@ -15,8 +15,11 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     propertyDetails: PropertyDetailsModel;
     images: string[];
     map: google.maps.Map;
-    lat = 47.545182;
-    lng = 19.0419057;
+    // lat = 47.545182;
+    // lng = 19.0419057;
+    lat: number = 0;
+    lng: number = 0;
+
     coordinates: google.maps.LatLng;
     mapOptions: google.maps.MapOptions;
     marker: google.maps.Marker;
@@ -25,7 +28,7 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
                 private activatedRoute: ActivatedRoute,
                 private router: Router) {
 
-        this.coordinates = new google.maps.LatLng(this.lat, this.lng);
+        // this.coordinates = new google.maps.LatLng(this.lat, this.lng);
 
         this.activatedRoute.paramMap.subscribe(
             paramMap => {
@@ -40,6 +43,12 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
                                 this.propertyDetails = proDetails;
                                 this.images = this.propertyDetails.imageUrl;
                                 this.changeDefaultImg(this.images[0]);
+
+                                 this.lat = this.propertyDetails.latCoord;
+                                 this.lng = this.propertyDetails.lngCoord;
+
+                                //   this.coordinates = new google.maps.LatLng(this.lat, this.lng);
+
                             },
                             () =>
                                 this.router.navigate(['property-list']),
@@ -50,6 +59,9 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
+        console.log(this.lat + " in INIT");
+        console.log(this.lng);
+        this.coordinates = new google.maps.LatLng(this.lat, this.lng);
         this.mapOptions = {
             center: this.coordinates,
             zoom: 15,
@@ -61,6 +73,12 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     }
 
     mapInitializer() {
+        this.coordinates = new google.maps.LatLng(this.lat, this.lng);
+        this.mapOptions = {
+            center: this.coordinates,
+            zoom: 15,
+        };
+
         this.map = new google.maps.Map(this.gmap.nativeElement,
             this.mapOptions);
         this.marker = new google.maps.Marker({

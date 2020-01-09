@@ -11,16 +11,19 @@ public class PropertyDetails {
 
     private long id;
     private String name;
-    private int numberOfRooms;
-    private int price;
-    private int buildingYear;
-    private double area;
+    private Integer numberOfRooms;
+    private Integer price;
+    private Integer buildingYear;
+    private Double area;
     private String propertyType;
     private String propertyState;
     private String county;
-    private int zipCode;
-//    private String street;
-    private String searchPosition;
+    private Integer zipCode;
+    private String street;
+//    private String searchPosition;
+    private Double lngCoord;
+    private Double latCoord;
+
     private String description;
     private List<String> imageUrl;
 
@@ -44,8 +47,10 @@ public class PropertyDetails {
             this.county = property.getCounty().getDisplayName();
         }
         this.zipCode = property.getZipCode();
-//        this.street = property.getStreet();
-        this.searchPosition = property.getSearchPosition();
+        this.street = property.getStreet();
+//        this.searchPosition = property.getSearchPosition();
+        this.latCoord = property.getLatCoord();
+        this.lngCoord = property.getLngCoord();
         this.description = property.getDescription();
         this.imageUrl = property.getImageUrls();
     }
@@ -67,35 +72,35 @@ public class PropertyDetails {
         this.name = name;
     }
 
-    public int getNumberOfRooms() {
+    public Integer getNumberOfRooms() {
         return numberOfRooms;
     }
 
-    public void setNumberOfRooms(int numberOfRooms) {
+    public void setNumberOfRooms(Integer numberOfRooms) {
         this.numberOfRooms = numberOfRooms;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public int getBuildingYear() {
+    public Integer getBuildingYear() {
         return buildingYear;
     }
 
-    public void setBuildingYear(int buildingYear) {
+    public void setBuildingYear(Integer buildingYear) {
         this.buildingYear = buildingYear;
     }
 
-    public double getArea() {
+    public Double getArea() {
         return area;
     }
 
-    public void setArea(double area) {
+    public void setArea(Double area) {
         this.area = area;
     }
 
@@ -123,28 +128,45 @@ public class PropertyDetails {
         this.county = county;
     }
 
-    public int getZipCode() {
+    public Integer getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(Integer zipCode) {
         this.zipCode = zipCode;
     }
 
-//    public String getStreet() {
-//        return street;
-//    }
-//
-//    public void setStreet(String street) {
-//        this.street = street;
-//    }
-
-    public String getSearchPosition() {
-        return searchPosition;
+    public String getStreet() {
+        return street;
     }
 
-    public void setSearchPosition(String searchPosition) {
-        this.searchPosition = searchPosition;
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+//    public String getSearchPosition() {
+//        return searchPosition;
+//    }
+//
+//    public void setSearchPosition(String searchPosition) {
+//        this.searchPosition = searchPosition;
+//    }
+
+
+    public Double getLngCoord() {
+        return lngCoord;
+    }
+
+    public void setLngCoord(Double lngCoord) {
+        this.lngCoord = lngCoord;
+    }
+
+    public Double getLatCoord() {
+        return latCoord;
+    }
+
+    public void setLatCoord(Double latCoord) {
+        this.latCoord = latCoord;
     }
 
     public String getDescription() {

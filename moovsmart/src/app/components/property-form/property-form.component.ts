@@ -9,9 +9,9 @@ import { validationHandler } from '../../utils/validationHandler';
 
 
 @Component({
-    selector: 'app-property-form',
-    templateUrl: './property-form.component.html',
-    styleUrls: ['./property-form.component.css'],
+  selector: 'app-property-form',
+  templateUrl: './property-form.component.html',
+  styleUrls: ['./property-form.component.css']
 })
 export class PropertyFormComponent implements OnInit {
 
@@ -27,8 +27,9 @@ export class PropertyFormComponent implements OnInit {
     searchPosition: string;
     geocoder: google.maps.Geocoder;
     addressToDecode: google.maps.GeocoderRequest = {};
-    locationCoordinates: number[] = [null, null];
     actualUserName: string;
+    lngCoord: number;
+    latCoord: number;
 
 
     propertyForm = this.formBuilder.group({
@@ -64,13 +65,6 @@ export class PropertyFormComponent implements OnInit {
         this.searchPosition = '1035 Szentendrei ut Budapest 14';
         this.addressToDecode.address = this.searchPosition;
 
-        this.propertyService.userName.subscribe(
-            (name) => {
-                this.registratedUser = name !== null;
-                if (!this.registratedUser) {
-                    this.openModalDialog();
-                }
-            });
     }
 
     ngOnInit() {
@@ -78,22 +72,21 @@ export class PropertyFormComponent implements OnInit {
             this.counties = formInitData.counties;
             this.propertyTypes = formInitData.propertyTypes;
             this.propertyStates = formInitData.propertyStates;
-            if (!this.registratedUser) {
-                this.openModalDialog();
-            }
+
         });
 
+        this.actualUserName = this.propertyService.userName2;
         this.propertyService.userName.subscribe(
             (name) => {
-                this.registratedUser = (name !== null);
                 this.actualUserName = name;
-                console.log(this.actualUserName);
-                debugger;
+                console.log("NAME" + name);
+                this.registratedUser = name !== null;
+                if (this.actualUserName == null) {
+                    this.openModalDialog();
+                } else {
+                    this.closeDial();
+                }
             });
-
-        if (!this.registratedUser) {
-            this.openModalDialog();
-        }
 
         this.route.paramMap.subscribe(
             paramMap => {
@@ -105,10 +98,8 @@ export class PropertyFormComponent implements OnInit {
             },
             error => console.warn(error),
         );
-
         this.codeAddress();
     }
-
 
     getPropertyData = (id: string) => {
         this.propertyService.fetchPropertyData(id).subscribe(
@@ -133,15 +124,19 @@ export class PropertyFormComponent implements OnInit {
         );
     };
 
-    submit = () => {
-        if (this.selectedFile != null) {
-            this.imageService.uploadImage(this.selectedFile).subscribe(
-                (data) => {
-                    const formData = {...this.propertyForm.value};
-                    console.log(formData);
+  submit = () => {
+      if (this.selectedFile != null) {
+          this.imageService.uploadImage(this.selectedFile).subscribe(
+              (data) => {
+                  const formData = {...this.propertyForm.value};
+                  console.log(formData);
 
-                    this.searchPosition = formData.zipCode + ' ' + formData.street + ' ' + formData.city + ' ' + formData.streetNumber;
-                    this.addressToDecode.address = this.searchPosition;
+                  this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
+                  this.addressToDecode.address = this.searchPosition;
+                  this.codeAddress();
+
+                  formData.lngCoord = this.lngCoord;
+                  formData.latCoord = this.latCoord;
 
                     formData.isValid = true;
                     formData.imageUrl = ['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
@@ -160,19 +155,19 @@ export class PropertyFormComponent implements OnInit {
     };
 
 
-    createNewProperty(data: PropertyFormDataModel) {
-        this.propertyService.createProperty(data).subscribe(
-            () => this.router.navigate(['property-list']),
-            error => validationHandler(error, this.propertyForm),
-        );
-    }
+  createNewProperty(data: PropertyFormDataModel) {
+    this.propertyService.createProperty(data).subscribe(
+        () => this.router.navigate(['property-list']),
+        error => validationHandler(error, this.propertyForm),
+    );
+  }
 
-    private updateProperty(data: PropertyFormDataModel) {
-        this.propertyService.updateProperty(data, this.propertyId).subscribe(
-            () => this.router.navigate(['']),
-            error => validationHandler(error, this.propertyForm),
-        );
-    }
+  private updateProperty(data: PropertyFormDataModel) {
+    this.propertyService.updateProperty(data, this.propertyId).subscribe(
+        () => this.router.navigate(['']),
+        error => validationHandler(error, this.propertyForm),
+    );
+  }
 
     processFile(event) {
 
@@ -188,8 +183,11 @@ export class PropertyFormComponent implements OnInit {
     codeAddress() {
         this.geocoder.geocode(this.addressToDecode, (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
             if (status === google.maps.GeocoderStatus.OK) {
-                this.locationCoordinates[0] = results[0].geometry.location.lat();
-                this.locationCoordinates[1] = results[0].geometry.location.lng();
+                // this.locationCoordinates[0] = results[0].geometry.location.lat();
+                // this.locationCoordinates[1] = results[0].geometry.location.lng();
+                this.lngCoord = results[0].geometry.location.lat();
+                this.latCoord = results[0].geometry.location.lng();
+
             } else {
                 console.log(
                     'Geocoding service: geocode was not successful for the following reason: '
@@ -203,7 +201,6 @@ export class PropertyFormComponent implements OnInit {
     openModalDialog() {
         this.display = 'block';
     }
-
     closeDial() {
         this.display = 'none';
         this.router.navigate(['signin']);

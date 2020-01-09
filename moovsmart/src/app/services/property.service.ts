@@ -13,6 +13,7 @@ import {environment} from "../../environments/environment";
 export class PropertyService {
 
     userName = new Subject<string>();
+    userName2 : string;
 
     baseUrl = environment.apiUrl+'/properties';
     baseUserUrl = environment.apiUrl+'/user';
@@ -34,7 +35,7 @@ export class PropertyService {
     }
 
     getPropertyDetails = (id: number): Observable<PropertyDetailsModel> => {
-        return this.httpClient.get<PropertyDetailsModel>(this.baseUrl + '/authUser/' + id);
+        return this.httpClient.get<PropertyDetailsModel>(this.baseUrl + '/' + id);
     };
 
 
