@@ -38,7 +38,7 @@ public class Property {
     @Column(columnDefinition = "boolean default true")
     private boolean isValid;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     private UserProperty owner;
 
     private Double lngCoord;

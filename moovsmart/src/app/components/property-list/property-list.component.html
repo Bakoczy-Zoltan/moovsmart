@@ -71,10 +71,10 @@
         <tbody>
             <tr *ngFor="let property of propertyListItemModels">
                 <td>
-                    <div *ngIf="!property.imageUrl || property.imageUrl.length < 4">
+                    <div *ngIf="!property.imageUrl">
                         <img [src]="defaultPicture" class="defaultPicture">
                     </div>
-                    <div *ngIf="property.imageUrl && property.imageUrl.length >= 4">
+                    <div *ngIf="property.imageUrl">
                         <img (click)="details(property.id)" alt="ingatlan" class="room-list-item__image" width="200"
                              src="{{property.imageUrl}}"/>
                     </div>
