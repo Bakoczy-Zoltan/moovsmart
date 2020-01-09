@@ -68,9 +68,9 @@
         </div>
     </div>
     <div id="bottom-div">
-        <button type="button" class="btn btn-secondary" (click)="edit(propertyDetails.id)">
+        <button *ngIf="reagistratedUser" type="button" class="btn btn-secondary" (click)="edit(propertyDetails.id)">
             Szerkesztés <i class="fas fa-pencil-alt"></i></button>
-        <button type="button" class="btn btn-info" (click)="delete(propertyDetails.id)">
+        <button *ngIf="reagistratedUser" type="button" class="btn btn-info" (click)="delete(propertyDetails.id)">
             Törlés <i class="far fa-trash-alt"></i></button>
     </div>
 </div>

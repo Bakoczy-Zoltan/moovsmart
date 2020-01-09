@@ -14,12 +14,14 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     defaultPicture = 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg';
     propertyDetails: PropertyDetailsModel;
     images: string[];
+    reagistratedUser: boolean;
+    actualOwner: string;
     map: google.maps.Map;
     lat: number;
     lng: number;
+
     // lat = 47.545182;
     // lng = 19.0419057;
-
     coordinates: google.maps.LatLng;
     mapOptions: google.maps.MapOptions;
     marker: google.maps.Marker;
@@ -27,6 +29,15 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     constructor(private propertyService: PropertyService,
                 private activatedRoute: ActivatedRoute,
                 private router: Router) {
+
+        this.actualOwner = this.propertyService.userName2;
+        this.checkValidUser(this.actualOwner);
+        this.propertyService.userName.subscribe(
+            (name) => {
+                this.actualOwner = name;
+                this.checkValidUser(name);
+            },
+        );
     }
 
     ngOnInit() {
@@ -64,6 +75,14 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
                     ;
                 }
             });
+    }
+
+    checkValidUser(name:string) {
+        if (name == null) {
+            this.reagistratedUser = false;
+        } else {
+            this.reagistratedUser = true;
+        }
     }
 
     ngAfterViewInit() {
