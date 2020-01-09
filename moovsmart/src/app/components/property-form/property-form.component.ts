@@ -33,7 +33,7 @@ export class PropertyFormComponent implements OnInit {
     answer: string[];
     answerPublicId: string[];
     answerUrl: string[];
-    formData;
+    formData: any;
 
 
     propertyForm = this.formBuilder.group({
@@ -166,8 +166,8 @@ export class PropertyFormComponent implements OnInit {
                 if (status === google.maps.GeocoderStatus.OK) {
                     // this.locationCoordinates[0] = results[0].geometry.location.lat();
                     // this.locationCoordinates[1] = results[0].geometry.location.lng();
-                    this.lngCoord = results[0].geometry.location.lat();
-                    this.latCoord = results[0].geometry.location.lng();
+                    this.lngCoord = results[0].geometry.location.lng();
+                    this.latCoord = results[0].geometry.location.lat();
 
                 } else {
                     console.log(
@@ -191,23 +191,24 @@ export class PropertyFormComponent implements OnInit {
                             this.answerPublicId = [this.answer[0]];
                             this.answerUrl = [this.answer[1]];
 
-                            formData.publicId = this.answerPublicId;
-                            formData.imageUrl = this.answerUrl;
+                            this.formData.publicId = this.answerPublicId;
+                            this.formData.imageUrl = this.answerUrl;
 
-                            console.log(formData.publicId);
+                            console.log(this.formData.publicId);
                             debugger;
 
                             this.selectedFile = null;
                         },
                         () => {},
                         () => {
-                            console.log('COMPLETE', formData);
-                            this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+                            console.log('COMPLETE', this.formData);
+                            this.propertyId ? this.updateProperty(this.formData) : this.createNewProperty(this.formData);
                         },
                     );
                 } else {
-                    this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
-                }});
+                    this.propertyId ? this.updateProperty(this.formData) : this.createNewProperty(this.formData);
+                }
+        });
     }
 
     openModalDialog() {
