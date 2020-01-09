@@ -14,7 +14,7 @@ export class ImageService {
         const uploadData = new FormData();
         uploadData.append('myPicture', image);
 
-        const imageServiceReturn = this.http.post('http://localhost:8080/api/images', uploadData, {responseType: 'text'});
+        const imageServiceReturn = this.http.post('http://localhost:8080/api/images', uploadData);
         return imageServiceReturn;
     }
 }

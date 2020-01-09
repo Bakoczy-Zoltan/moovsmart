@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 @Service
@@ -19,14 +20,15 @@ public class ImageService {
             "api_secret", "ZyTQRXDv4vTFXIq8SEhQEcE0ebc"));
 
 
-    public String uploadImage(MultipartFile imageToUpload) throws IOException {
+    public String[] uploadImage(MultipartFile imageToUpload) throws IOException {
 
         Map uploadResult = cloudinary.uploader().upload(imageToUpload.getBytes(), ObjectUtils.emptyMap());
 
-        String result = ((String) uploadResult.get("public_id"));
-        String tempLink = ((String) uploadResult.get("url"));
-        System.out.println(result);
-        System.out.println(tempLink);
-        return  result;
+        String[] result = new String[2];
+
+        result[0] = ((String) uploadResult.get("public_id"));
+        result[1] = ((String) uploadResult.get("url"));
+
+        return result;
     }
 }

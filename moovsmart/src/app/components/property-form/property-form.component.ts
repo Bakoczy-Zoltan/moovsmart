@@ -30,6 +30,7 @@ export class PropertyFormComponent implements OnInit {
     actualUserName: string;
     lngCoord: number;
     latCoord: number;
+    answer: string[];
 
 
     propertyForm = this.formBuilder.group({
@@ -133,14 +134,17 @@ export class PropertyFormComponent implements OnInit {
                   formData.latCoord = this.latCoord;
 
       formData.isValid = true;
-      formData.owner = this.propertyService.userName;
+      formData.owner = this.actualUserName;
 
       if (this.selectedFile != null) {
           this.imageService.uploadImage(this.selectedFile).subscribe(
               (data) => {
+                  this.answer = data;
+                  console.log(this.answer);
+                  debugger;
                   const urlsList: string[] =['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
-
-                  formData.imageUrl =  'https://res.cloudinary.com/demo/image/upload/' + data + '.jpg';
+                  formData.append('publicId', this.answer[0]);
+                  formData.append('imageUrl',  this.answer[1]);
                   this.selectedFile = null;
               },
               () => {}
