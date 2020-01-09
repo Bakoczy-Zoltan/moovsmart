@@ -16,9 +16,16 @@ public class Property {
     private Integer price;
     private Integer buildingYear;
     private Double area;
+
+    @Enumerated(EnumType.STRING)
     private PropertyType propertyType;
+
+    @Enumerated(EnumType.STRING)
     private PropertyState propertyState;
+
+    @Enumerated(EnumType.STRING)
     private County county;
+
     private String city;
     private Integer zipCode;
     private String street;

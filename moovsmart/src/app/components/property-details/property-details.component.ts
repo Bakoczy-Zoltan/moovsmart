@@ -15,10 +15,10 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     propertyDetails: PropertyDetailsModel;
     images: string[];
     map: google.maps.Map;
-    // lat = 47.545182;
-    // lng = 19.0419057;
     lat: number;
     lng: number;
+    // lat = 47.545182;
+    // lng = 19.0419057;
 
     coordinates: google.maps.LatLng;
     mapOptions: google.maps.MapOptions;
@@ -27,9 +27,9 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     constructor(private propertyService: PropertyService,
                 private activatedRoute: ActivatedRoute,
                 private router: Router) {
+    }
 
-        // this.coordinates = new google.maps.LatLng(this.lat, this.lng);
-
+    ngOnInit() {
         this.activatedRoute.paramMap.subscribe(
             paramMap => {
                 const idParam: number = +paramMap.get('id');
@@ -46,9 +46,16 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
 
                                 this.lat = this.propertyDetails.latCoord;
                                 this.lng = this.propertyDetails.lngCoord;
-                console.log(this.lat);
-                console.log(this.lng);
+                                // console.log(this.lat);
+                                // console.log(this.lng);
                                 this.coordinates = new google.maps.LatLng(this.lat, this.lng);
+
+                                this.mapOptions = {
+                                    center: this.coordinates,
+                                    zoom: 15,
+                                };
+                                this.mapInitializer();
+
 
                             },
                             () =>
@@ -59,15 +66,8 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
             });
     }
 
-    ngOnInit() {
-        this.mapOptions = {
-            center: this.coordinates,
-            zoom: 15,
-        };
-    }
-
     ngAfterViewInit() {
-        this.mapInitializer();
+        // this.mapInitializer();
     }
 
     mapInitializer() {

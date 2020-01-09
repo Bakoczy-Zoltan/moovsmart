@@ -63,8 +63,6 @@ export class PropertyFormComponent implements OnInit {
         // this.searchPosition = '1035 Szentendrei ut Budapest 14';
         // this.addressToDecode.address = this.searchPosition;
         this.selectedFile = new File([''], 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg');
-        this.searchPosition = '1035 Szentendrei ut Budapest 14';
-        this.addressToDecode.address = this.searchPosition;
 
         this.propertyService.userName.subscribe(
             (name) => {
@@ -135,34 +133,32 @@ export class PropertyFormComponent implements OnInit {
     };
 
   submit = () => {
+      const formData = {...this.propertyForm.value};
+      console.log(formData);
+
+      this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
+      this.addressToDecode.address = this.searchPosition;
+      this.codeAddress();
+
+      formData.lngCoord = this.lngCoord;
+      formData.latCoord = this.latCoord;
+
+      formData.isValid = true;
+      formData.owner = this.propertyService.userName;
+
       if (this.selectedFile != null) {
           this.imageService.uploadImage(this.selectedFile).subscribe(
               (data) => {
-                  const formData = {...this.propertyForm.value};
-                  console.log(formData);
-
-                  this.searchPosition = formData.zipCode + " " + formData.street + " " + formData.city + " " + formData.streetNumber;
-                  this.addressToDecode.address = this.searchPosition;
-                  this.codeAddress();
-
-                  formData.lngCoord = this.lngCoord;
-                  formData.latCoord = this.latCoord;
-
                   const urlsList: string[] =['https://res.cloudinary.com/demo/image/upload/' + data + '.jpg'];
 
-//                  formData.isValid = true;
                   formData.imageUrl =  'https://res.cloudinary.com/demo/image/upload/' + data + '.jpg';
                   this.selectedFile = null;
-                  formData.owner = this.propertyService.userName;
-                  this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
               },
               () => {}
           );
-      } else {
-          const formData = {...this.propertyForm.value};
-//          formData.isValid = true;
-          this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
       }
+
+      this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
   };
 
 
