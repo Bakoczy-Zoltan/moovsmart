@@ -17,8 +17,8 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     map: google.maps.Map;
     // lat = 47.545182;
     // lng = 19.0419057;
-    lat: number;
-    lng: number;
+    lat: number = 0;
+    lng: number = 0;
 
     coordinates: google.maps.LatLng;
     mapOptions: google.maps.MapOptions;
@@ -44,11 +44,10 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
                                 this.images = this.propertyDetails.imageUrl;
                                 this.changeDefaultImg(this.images[0]);
 
-                                this.lat = this.propertyDetails.latCoord;
-                                this.lng = this.propertyDetails.lngCoord;
-                console.log(this.lat);
-                console.log(this.lng);
-                                this.coordinates = new google.maps.LatLng(this.lat, this.lng);
+                                 this.lat = this.propertyDetails.latCoord;
+                                 this.lng = this.propertyDetails.lngCoord;
+
+                                //   this.coordinates = new google.maps.LatLng(this.lat, this.lng);
 
                             },
                             () =>
@@ -60,6 +59,9 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
+        console.log(this.lat + " in INIT");
+        console.log(this.lng);
+        this.coordinates = new google.maps.LatLng(this.lat, this.lng);
         this.mapOptions = {
             center: this.coordinates,
             zoom: 15,
@@ -71,6 +73,12 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     }
 
     mapInitializer() {
+        this.coordinates = new google.maps.LatLng(this.lat, this.lng);
+        this.mapOptions = {
+            center: this.coordinates,
+            zoom: 15,
+        };
+
         this.map = new google.maps.Map(this.gmap.nativeElement,
             this.mapOptions);
         this.marker = new google.maps.Marker({

@@ -117,4 +117,10 @@ public class PropertyController {
         }
         return result;
     }
+
+    @PostMapping("/filteredList")
+    public ResponseEntity<List<Property>> getFilteredList(@RequestBody CreateFilteredCommand command) {
+        List<Property>filteredList = this.propertyService.getFilteredProperties(command);
+        return new ResponseEntity<>(filteredList, HttpStatus.OK);
+    }
 }

@@ -1,6 +1,7 @@
 package com.progmasters.moovsmart.service;
 
 import com.progmasters.moovsmart.domain.*;
+import com.progmasters.moovsmart.dto.CreateFilteredCommand;
 import com.progmasters.moovsmart.dto.PropertyDetails;
 import com.progmasters.moovsmart.dto.PropertyForm;
 import com.progmasters.moovsmart.dto.PropertyListItem;
@@ -106,5 +107,15 @@ public class PropertyService {
           user = tempUser.get();
       }
        return user;
+    }
+
+    public List<Property> getFilteredProperties(CreateFilteredCommand command) {
+        List<Property>filteredList = this.propertyRepository.getFilteredProperties(
+                command.getMinArea(), command.getMaxArea(),
+                command.getMinPrice(), command.getMaxPrice(),
+                command.getPropertyState(), command.getPropertyType(),
+                command.getCity(), command.getNumberOfRooms()
+        );
+        return filteredList;
     }
 }

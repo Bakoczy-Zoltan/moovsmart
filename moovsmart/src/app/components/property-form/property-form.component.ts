@@ -20,7 +20,6 @@ export class PropertyFormComponent implements OnInit {
     propertyStates: PropertyStateOptionModel[];
     display = 'none';
 
-    actualUserName: string;
     registratedUser: boolean;
     private propertyId: number;
     imgUrl: any;
@@ -28,7 +27,6 @@ export class PropertyFormComponent implements OnInit {
     searchPosition: string;
     geocoder: google.maps.Geocoder;
     addressToDecode: google.maps.GeocoderRequest = {};
-//    locationCoordinates: number[] = [null, null];
     actualUserName: string;
     lngCoord: number;
     latCoord: number;
