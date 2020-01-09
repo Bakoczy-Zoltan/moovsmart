@@ -21,25 +21,34 @@ export class PropertyListComponent implements OnInit {
     constructor(private propertyService: PropertyService,
                 private router: Router,
                 private route: ActivatedRoute) {
+
     }
 
     ngOnInit() {
 
-        this.route.paramMap.subscribe(
-            () => {
-                this.id = this.propertyService.userName2;
-                console.log(this.id + ' my LIST');
-                this.propertyService.getMyPropertyList(this.id).subscribe(
-                    (datas: Array<PropertyListItemModel>) => {
-                        this.propertyListItemModels = datas;
-                    },
-                );
-            },
-        );
 
         this.propertyService.getPropertyList().subscribe(
             propertyListItems => this.propertyListItemModels = propertyListItems,
         );
+
+
+        this.route.paramMap.subscribe(
+            paramMap => {
+                const editableId = paramMap.get('id');
+                if (editableId) {
+                    this.id = this.propertyService.userName2;
+                    console.log(this.id + ' my LIST');
+
+                    this.propertyService.getMyPropertyList(this.id).subscribe(
+                        (datas: Array<PropertyListItemModel>) => {
+                            this.propertyListItemModels = datas;
+                        },
+                    );
+                }
+            },
+        );
+
+
     }
 
     details(id: number) {

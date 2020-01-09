@@ -132,14 +132,28 @@ public class PropertyService {
         return filteredList;
     }
 
-    public List<PropertyListItem> getOwnProperties(String user) {
+    public List<PropertyListItem> getOwnProperties(String userMail) {
         List<Property> properties = propertyRepository.findAllByIsValid();
         List<PropertyListItem>ownProperties = new ArrayList<>();
-        for(Property property: properties){
-            if(property.getOwner().getMail().equals(user)){
-                ownProperties.add(new PropertyListItem(property));
+
+        Optional<UserProperty> tempUser = this.userRepository.findUserPropertiesByMail(userMail);
+        UserProperty ownUser = null;
+
+        if(tempUser.isPresent()){
+            ownUser = tempUser.get();
+            System.out.println("USER " + ownUser.getMail());
+      //      this.propertyRepository.findAllByOwner(ownUser);
+            for(Property property: properties){
+                if(property.getOwner() != null){
+                    if(property.getOwner().getId().equals(ownUser.getId())){
+                        ownProperties.add(new PropertyListItem(property));
+                    }
+                }
             }
+
         }
+
+
         return ownProperties;
     }
 }
