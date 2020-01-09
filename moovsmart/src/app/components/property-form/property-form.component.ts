@@ -9,9 +9,9 @@ import { validationHandler } from '../../utils/validationHandler';
 
 
 @Component({
-  selector: 'app-property-form',
-  templateUrl: './property-form.component.html',
-  styleUrls: ['./property-form.component.css']
+    selector: 'app-property-form',
+    templateUrl: './property-form.component.html',
+    styleUrls: ['./property-form.component.css'],
 })
 export class PropertyFormComponent implements OnInit {
 
@@ -50,7 +50,7 @@ export class PropertyFormComponent implements OnInit {
         'streetNumber': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
         'description': ['', Validators.minLength(10)],
         'price': ['', Validators.min(1)],
-        'imageUrl': [''],
+        'imageUrl': [[''],],
     });
 
 
@@ -98,7 +98,6 @@ export class PropertyFormComponent implements OnInit {
             },
             error => console.warn(error),
         );
-        this.codeAddress();
     }
 
     getPropertyData = (id: string) => {
@@ -137,35 +136,31 @@ export class PropertyFormComponent implements OnInit {
         formData.isValid = true;
         formData.owner = this.actualUserName;
 
-      if (this.selectedFile != null) {
-          this.imageService.uploadImage(this.selectedFile).subscribe(
-              (data) => {
-                  this.answer = data;
+        if (this.selectedFile != null) {
+            this.imageService.uploadImage(this.selectedFile).subscribe(
+                (data) => {
+                    this.answer = data;
 
-                  this.answerPublicId = [this.answer[0]];
-                  this.answerUrl = [this.answer[1]];
+                    this.answerPublicId = [this.answer[0]];
+                    this.answerUrl = [this.answer[1]];
 
-                  formData.publicId = this.answerPublicId;
-                  formData.imageUrl = this.answerUrl;
+                    formData.publicId = this.answerPublicId;
+                    formData.imageUrl = this.answerUrl;
 
-                  console.log(formData.publicId);
-                  debugger;
+                    console.log(formData.publicId);
+                    debugger;
 
-                  this.selectedFile = null;
-              },
-              () => {}
-          );
-      } else {
-          formData.imageUrl = [];
-      }
-
-        formData.isValid = true;
-        formData.owner = this.actualUserName;
-
-        console.log(formData);
-        debugger;
-
-        this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+                    this.selectedFile = null;
+                },
+                () => {},
+                () => {
+                    console.log('COMPLETE', formData);
+                    this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+                },
+            );
+        } else {
+            this.propertyId ? this.updateProperty(formData) : this.createNewProperty(formData);
+        }
     };
 
 
