@@ -79,6 +79,11 @@ public class PropertyController {
         logger.info("Get properties-list");
         return new ResponseEntity<>(propertyService.getProperties(), HttpStatus.OK);
     }
+    @GetMapping("/authUSer/{id}")
+    public ResponseEntity<List<PropertyListItem>> getOwnProperties(@PathVariable("id")String user) {
+        logger.info("Get own properties-list");
+        return new ResponseEntity<>(propertyService.getOwnProperties(user), HttpStatus.OK);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<PropertyDetails> getPropertyDetails(@PathVariable Long id) {

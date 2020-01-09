@@ -136,14 +136,12 @@ export class PropertyFormComponent implements OnInit {
         formData.isValid = true;
         formData.owner = this.actualUserName;
 
-
-
       if (this.selectedFile != null) {
           this.imageService.uploadImage(this.selectedFile).subscribe(
               (data) => {
                   this.answer = data;
                   formData.publicId = this.answer[0];
-                  formData.imageUrl = this.answer[1];
+                  formData.imageUrl = [this.answer[1]];
                   this.selectedFile = null;
               },
               () => {}

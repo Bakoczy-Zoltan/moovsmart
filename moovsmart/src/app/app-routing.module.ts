@@ -11,6 +11,7 @@ const routes: Routes = [
     {path: '', component: WelcomeComponent},
     {path: 'welcome', component: WelcomeComponent},
     {path: 'property-list', component: PropertyListComponent},
+    {path: 'property-list/:id', component: PropertyListComponent},
     {path: 'property-form', component: PropertyFormComponent},
     {path: 'property-form/:id', component: PropertyFormComponent},
     {path: 'property-details/:id', component: PropertyDetailsComponent},

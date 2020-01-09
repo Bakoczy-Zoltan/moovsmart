@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -129,5 +130,16 @@ public class PropertyService {
                 command.getCity(), command.getNumberOfRooms()
         );
         return filteredList;
+    }
+
+    public List<PropertyListItem> getOwnProperties(String user) {
+        List<Property> properties = propertyRepository.findAllByIsValid();
+        List<PropertyListItem>ownProperties = new ArrayList<>();
+        for(Property property: properties){
+            if(property.getOwner().getMail().equals(user)){
+                ownProperties.add(new PropertyListItem(property));
+            }
+        }
+        return ownProperties;
     }
 }
