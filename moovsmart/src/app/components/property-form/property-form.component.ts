@@ -9,9 +9,9 @@ import { validationHandler } from '../../utils/validationHandler';
 
 
 @Component({
-    selector: 'app-property-form',
-    templateUrl: './property-form.component.html',
-    styleUrls: ['./property-form.component.css'],
+  selector: 'app-property-form',
+  templateUrl: './property-form.component.html',
+  styleUrls: ['./property-form.component.css']
 })
 export class PropertyFormComponent implements OnInit {
 
@@ -98,6 +98,7 @@ export class PropertyFormComponent implements OnInit {
             },
             error => console.warn(error),
         );
+        this.codeAddress();
     }
 
     getPropertyData = (id: string) => {

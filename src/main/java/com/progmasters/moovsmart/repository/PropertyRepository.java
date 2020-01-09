@@ -25,7 +25,7 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
             "AND p.numberOfRooms = :numberOfRooms " +
             "AND p.isValid = true")
     List<Property> getFilteredProperties(
-            @Param("minArea") int minArea, @Param("maxArea") int maxArea, @Param("minPrice") int minPrice,
+            @Param("minArea") double minArea, @Param("maxArea") double maxArea, @Param("minPrice") int minPrice,
             @Param("maxPrice") int maxPrice,
             @Param("propertyState") PropertyState propertyState, @Param("propertyType") PropertyType propertyType,
             @Param("city") String city, @Param("numberOfRooms") int numberOfRooms

@@ -11,6 +11,7 @@ import { PropertyService } from '../../services/property.service';
 export class NavbarComponent implements OnInit {
     BASE_URL: string;
     registratedUser: boolean;
+    id: string;
 
     constructor(private http: HttpClient,
                 private router: Router,
@@ -23,10 +24,12 @@ export class NavbarComponent implements OnInit {
         if(localStorage.getItem('user')){
             this.registratedUser = true;
         }
+        this.id = this.propertyService.userName2;
         this.propertyService.userName.subscribe(
             (name)=> {
                 if(name != null){
                     this.registratedUser = true;
+                    this.id = name;
                 }
             })
     }
@@ -38,5 +41,11 @@ export class NavbarComponent implements OnInit {
             this.propertyService.userName.next(null);
             this.router.navigateByUrl('/');
         });
+    }
+
+    ownProperties() {
+        if(this.id !== null){
+            this.router.navigate(['property-list', 'ownList'])
+        }
     }
 }
