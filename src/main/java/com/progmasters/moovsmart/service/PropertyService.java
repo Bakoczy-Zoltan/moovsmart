@@ -1,6 +1,7 @@
 package com.progmasters.moovsmart.service;
 
 import com.progmasters.moovsmart.domain.*;
+import com.progmasters.moovsmart.dto.CreateFilteredCommand;
 import com.progmasters.moovsmart.dto.PropertyDetails;
 import com.progmasters.moovsmart.dto.PropertyForm;
 import com.progmasters.moovsmart.dto.PropertyListItem;
@@ -23,8 +24,9 @@ public class PropertyService {
     private UserRepository userRepository;
 
     @Autowired
-    public PropertyService(PropertyRepository propertyRepository) {
+    public PropertyService(PropertyRepository propertyRepository, UserRepository userRepository) {
         this.propertyRepository = propertyRepository;
+        this.userRepository = userRepository;
     }
 
     public List<PropertyListItem> getProperties() {
@@ -75,6 +77,7 @@ public class PropertyService {
         property.setLngCoord(propertyForm.getLngCoord());
         property.setLatCoord(propertyForm.getLatCoord());
         property.setImageUrls(propertyForm.getImageUrl());
+        property.setValid(true);
     }
 
     public boolean deleteProperty(Long id) {
@@ -98,8 +101,21 @@ public class PropertyService {
     }
 
     private UserProperty findUserPropertiesByMail(String mail) {
-        return userRepository
-                .findUserPropertiesByMail(mail)
-                .orElseThrow(EntityNotFoundException::new);
+       UserProperty user = new UserProperty();
+      Optional<UserProperty>tempUser = this.userRepository.findUserPropertiesByMail(mail);
+      if(tempUser.isPresent()){
+          user = tempUser.get();
+      }
+       return user;
+    }
+
+    public List<Property> getFilteredProperties(CreateFilteredCommand command) {
+        List<Property>filteredList = this.propertyRepository.getFilteredProperties(
+                command.getMinArea(), command.getMaxArea(),
+                command.getMinPrice(), command.getMaxPrice(),
+                command.getPropertyState(), command.getPropertyType(),
+                command.getCity(), command.getNumberOfRooms()
+        );
+        return filteredList;
     }
 }

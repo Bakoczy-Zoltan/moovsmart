@@ -10,7 +10,7 @@ import { PropertyService } from '../../services/property.service';
 })
 export class NavbarComponent implements OnInit {
     BASE_URL: string;
-    registratedUser: boolean = false;
+    registratedUser: boolean;
 
     constructor(private http: HttpClient,
                 private router: Router,
@@ -20,13 +20,15 @@ export class NavbarComponent implements OnInit {
 
 
     ngOnInit() {
+        if(localStorage.getItem('user')){
+            this.registratedUser = true;
+        }
         this.propertyService.userName.subscribe(
             (name)=> {
                 if(name != null){
                     this.registratedUser = true;
                 }
             })
-
     }
 
     logout() {

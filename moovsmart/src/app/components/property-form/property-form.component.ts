@@ -27,7 +27,6 @@ export class PropertyFormComponent implements OnInit {
     searchPosition: string;
     geocoder: google.maps.Geocoder;
     addressToDecode: google.maps.GeocoderRequest = {};
-//    locationCoordinates: number[] = [null, null];
     actualUserName: string;
     lngCoord: number;
     latCoord: number;
@@ -64,13 +63,6 @@ export class PropertyFormComponent implements OnInit {
         // this.addressToDecode.address = this.searchPosition;
         this.selectedFile = new File([''], 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg');
 
-        this.propertyService.userName.subscribe(
-            (name) => {
-                this.registratedUser = name !== null;
-                if (!this.registratedUser) {
-                    this.openModalDialog();
-                }
-            });
     }
 
     ngOnInit() {
@@ -78,35 +70,33 @@ export class PropertyFormComponent implements OnInit {
             this.counties = formInitData.counties;
             this.propertyTypes = formInitData.propertyTypes;
             this.propertyStates = formInitData.propertyStates;
-            // if(!this.registratedUser){
-            //     this.openModalDialog();
-            // }
 
-        this.propertyService.userName.subscribe(
-            (name) => {
-                this.registratedUser = (name !== null);
-                this.actualUserName = name;
-                console.log(this.actualUserName);
-                debugger;
-            });
-
-        if (!this.registratedUser) {
-            this.openModalDialog();
-        }
-
-            this.route.paramMap.subscribe(
-                paramMap => {
-                    const editablePropertyId = paramMap.get('id');
-                    if (editablePropertyId) {
-                        this.propertyId = +editablePropertyId;
-                        this.getPropertyData(editablePropertyId);
-                    }
-                },
-                error => console.warn(error),
-            );
         });
 
-        // this.codeAddress();
+        this.actualUserName = this.propertyService.userName2;
+        this.propertyService.userName.subscribe(
+            (name) => {
+                this.actualUserName = name;
+                console.log("NAME" + name);
+                this.registratedUser = name !== null;
+                if (this.actualUserName == null) {
+                    this.openModalDialog();
+                } else {
+                    this.closeDial();
+                }
+            });
+
+        this.route.paramMap.subscribe(
+            paramMap => {
+                const editablePropertyId = paramMap.get('id');
+                if (editablePropertyId) {
+                    this.propertyId = +editablePropertyId;
+                    this.getPropertyData(editablePropertyId);
+                }
+            },
+            error => console.warn(error),
+        );
+        this.codeAddress();
     }
 
     getPropertyData = (id: string) => {
@@ -208,7 +198,6 @@ export class PropertyFormComponent implements OnInit {
     openModalDialog() {
         this.display = 'block';
     }
-
     closeDial() {
         this.display = 'none';
         this.router.navigate(['signin']);

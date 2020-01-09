@@ -77,7 +77,7 @@ public class PropertyController {
         return new ResponseEntity<>(propertyService.getProperties(), HttpStatus.OK);
     }
 
-    @GetMapping("/authUser/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PropertyDetails> getPropertyDetails(@PathVariable Long id) {
         logger.info("property-details requested");
         return new ResponseEntity<>(propertyService.getPropertyDetails(id), HttpStatus.OK);
@@ -107,7 +107,6 @@ public class PropertyController {
     @DeleteMapping("/authUser/{id}")
     public ResponseEntity deleteProperty(@PathVariable Long id) {
         boolean isDeleteSuccessful = propertyService.deleteProperty(id);
-
         ResponseEntity result;
         if (isDeleteSuccessful) {
             result = new ResponseEntity<>(HttpStatus.OK);
@@ -117,5 +116,11 @@ public class PropertyController {
             this.logger.info("Property (id: " + id + ") not found");
         }
         return result;
+    }
+
+    @PostMapping("/filteredList")
+    public ResponseEntity<List<Property>> getFilteredList(@RequestBody CreateFilteredCommand command) {
+        List<Property>filteredList = this.propertyService.getFilteredProperties(command);
+        return new ResponseEntity<>(filteredList, HttpStatus.OK);
     }
 }

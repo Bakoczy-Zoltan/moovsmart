@@ -31,7 +31,7 @@
                     </select>
                 </td>
                 <td>
-                    <label class="form-control-label" for="porpertyType">Ingatlan állapot</label>
+                    <label class="form-control-label" for="porpertyType">Ingatlan típusa</label>
                     <select id="porpertyType" class="form-control">
                         <option>Mindegy</option>
                         <option *ngFor="let propertyType of propertyTypes, let i = index"
@@ -40,20 +40,17 @@
                 </td>
 
                 <td>
-                    <label class="form-control-label" for="city">Ingatlan állapot</label>
+                    <label class="form-control-label" for="city">Város</label>
                     <select id="city" class="form-control">
                         <option>Mindegy</option>
                         <option *ngFor="let city of cities, let i = index"
                                 value="{{city.name}}">{{city.displayName}}></option>
                     </select>
                 </td>
-
-
-
-                <td>Ingatlan tipusa:</td>
-                <td>Állapota:</td>
-                <td>Város:</td>
-                <td>Kerület:</td>
+                <td>
+                    <label class="form-control-label" for="rooms">Szobák száma</label>
+                    <input type="number" class="form-control" id="rooms">
+                </td>
             </tr>
         </tbody>
     </table>
