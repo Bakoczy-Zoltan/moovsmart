@@ -8,8 +8,6 @@ export class ImageService {
 
     constructor(private http: HttpClient) {}
 
-    publicId: string;
-
     public uploadImage(image: File): Observable<any> {
         const uploadData = new FormData();
         uploadData.append('myPicture', image);
