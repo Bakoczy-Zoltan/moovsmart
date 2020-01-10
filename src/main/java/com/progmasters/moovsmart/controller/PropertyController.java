@@ -87,6 +87,14 @@ public class PropertyController {
         return new ResponseEntity<>(propertyService.getOwnProperties(userMail), HttpStatus.OK);
     }
 
+    @GetMapping("/authUser/{id}")
+    public ResponseEntity<PropertyDetails> getPropertyDetailsForEdit(@PathVariable Long id) {
+
+        logger.info("property-details for edit requested");
+        return new ResponseEntity<>(propertyService.getPropertyDetails(id), HttpStatus.OK);
+    }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<PropertyDetails> getPropertyDetails(@PathVariable Long id) {
 
