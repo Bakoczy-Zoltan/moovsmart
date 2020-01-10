@@ -3,4 +3,4 @@ server:
 
 spring:
   mail:
-    url: http://moov.progmasters.hu/
+    url: http://moov.progmasters.hu/#/
