@@ -1,64 +1,50 @@
 package com.progmasters.moovsmart.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.progmasters.moovsmart.domain.PropertyState;
 import com.progmasters.moovsmart.domain.PropertyType;
 
+@JsonIgnoreProperties
 public class CreateFilteredCommand {
-    private int minArea;
-    private int minPrice;
-    private int maxArea;
-    private int maxPrice;
+
+    private Double minArea;
+    private Integer minPrice;
+    private Double maxArea;
+    private Integer maxPrice;
     private PropertyState propertyState;
     private PropertyType propertyType;
     private String city;
-    private int numberOfRooms;
+    private Integer numberOfRooms;
 
-    public CreateFilteredCommand() {
-    }
-
-    public CreateFilteredCommand(int minArea, int minPrice,
-                                 int maxArea, int maxPrice, PropertyState propertyState,
-                                 PropertyType propertyType, String city,
-                                 int numberOfRooms) {
-        this.minArea = minArea;
-        this.minPrice = minPrice;
-        this.maxArea = maxArea;
-        this.maxPrice = maxPrice;
-        this.propertyState = propertyState;
-        this.propertyType = propertyType;
-        this.city = city;
-        this.numberOfRooms = numberOfRooms;
-    }
-
-    public int getMinArea() {
+    public Double getMinArea() {
         return minArea;
     }
 
-    public void setMinArea(int minArea) {
+    public void setMinArea(Double minArea) {
         this.minArea = minArea;
     }
 
-    public int getMinPrice() {
+    public Integer getMinPrice() {
         return minPrice;
     }
 
-    public void setMinPrice(int minPrice) {
+    public void setMinPrice(Integer minPrice) {
         this.minPrice = minPrice;
     }
 
-    public int getMaxArea() {
+    public Double getMaxArea() {
         return maxArea;
     }
 
-    public void setMaxArea(int maxArea) {
+    public void setMaxArea(Double maxArea) {
         this.maxArea = maxArea;
     }
 
-    public int getMaxPrice() {
+    public Integer getMaxPrice() {
         return maxPrice;
     }
 
-    public void setMaxPrice(int maxPrice) {
+    public void setMaxPrice(Integer maxPrice) {
         this.maxPrice = maxPrice;
     }
 
@@ -86,11 +72,11 @@ public class CreateFilteredCommand {
         this.city = city;
     }
 
-    public int getNumberOfRooms() {
+    public Integer getNumberOfRooms() {
         return numberOfRooms;
     }
 
-    public void setNumberOfRooms(int numberOfRooms) {
+    public void setNumberOfRooms(Integer numberOfRooms) {
         this.numberOfRooms = numberOfRooms;
     }
 }

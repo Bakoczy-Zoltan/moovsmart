@@ -27,6 +27,7 @@ spring:
     username: moovsmartproject@gmail.com
     properties.mail.smtp.starttls.enable: true
     password: Moov2002
+    url: http://localhost:4200/#/
 
 logging:
   level:

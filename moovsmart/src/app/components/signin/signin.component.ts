@@ -25,7 +25,13 @@ export class SigninComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+      debugger;
+      console.log("INSIDE SIGNIN");
     this.route.paramMap.subscribe(paramMap => {
+
+        debugger;
+        console.log("INSIDE SIGNIN");
+
           const idParam = paramMap.get('id');
           console.log("ID user: " + paramMap.get('id'));
           if (idParam) {
@@ -41,8 +47,8 @@ export class SigninComponent implements OnInit {
         (validUSer: ValidUserModel) => {
           localStorage.setItem('user', JSON.stringify(validUSer.role));
           console.log(validUSer.name + " NAME");
-          this.propertyService.userName.next(validUSer.name);
-          this.propertyService.userName2 = (validUSer.name);
+          //this.propertyService.userName2 = (validUSer.name);
+          this.propertyService.regisTrated.next(true);
           this.router.navigate(['property-list']);
         },
         (err) => console.log(err),

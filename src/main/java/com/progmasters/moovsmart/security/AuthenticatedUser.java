@@ -11,6 +11,7 @@ public class AuthenticatedUser {
 
     private List<String> role;
     private String name;
+    private Long id;
 
     public AuthenticatedUser(UserDetails user) {
         this.role = getAllRoles(user.getAuthorities());

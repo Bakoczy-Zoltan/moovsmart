@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,15 +40,13 @@ public class PropertyService {
         return new PropertyDetails(property);
     }
 
-    public void createProperty(PropertyForm propertyForm) {
-        System.out.println("URLS List: => " + propertyForm.getImageUrl());
-        Optional<UserProperty>tempUser = this.userRepository.findUserPropertiesByMail(propertyForm.getOwner());
+    public void createProperty(PropertyForm propertyForm, String mail) {
+        Optional<UserProperty>tempUser = this.userRepository.findUserPropertiesByMail(mail);
         UserProperty user = new UserProperty();
         if(tempUser.isPresent()){
             user = tempUser.get();
         }
         Property property = new Property();
-        findUserPropertiesByMail(propertyForm.getOwner());
         updateValues(propertyForm, property, user);
         propertyRepository.save(property);
     }
@@ -80,6 +79,8 @@ public class PropertyService {
         property.setPropertyState(PropertyState.valueOf(propertyForm.getPropertyState()));
         property.setCounty(County.valueOf(propertyForm.getCounty()));
         property.setZipCode(propertyForm.getZipCode());
+//        property.setStreet(propertyForm.getStreet());
+//        property.setStreetNumber(propertyForm.getStreetNumber());
         property.setDescription(propertyForm.getDescription());
         property.setOwner(user);
         property.setLngCoord(propertyForm.getLngCoord());
@@ -92,13 +93,14 @@ public class PropertyService {
     public boolean deleteProperty(Long id, String userMail) {
         boolean result = false;
         Optional<Property> propertyOptional = propertyRepository.findById(id);
-        UserProperty user = null;
+      //  UserProperty user = null;
         if (propertyOptional.isPresent()) {
             Property property = propertyOptional.get();
-            user = property.getOwner();
-            if(!user.getMail().equals(userMail)){
-                return result;
-            }
+            System.out.println("ID PROP: " + property.getId());
+//            user = property.getOwner();
+//            if(!user.getMail().equals(userMail)){
+//                return result;
+//            }
             property.setValid(false);
             result = true;
         }
@@ -129,5 +131,29 @@ public class PropertyService {
                 command.getCity(), command.getNumberOfRooms()
         );
         return filteredList;
+    }
+
+    public List<PropertyListItem> getOwnProperties(String userMail) {
+        List<Property> properties = propertyRepository.findAllByIsValid();
+        List<PropertyListItem>ownProperties = new ArrayList<>();
+
+        Optional<UserProperty> tempUser = this.userRepository.findUserPropertiesByMail(userMail);
+        UserProperty ownUser = null;
+
+        if(tempUser.isPresent()){
+            ownUser = tempUser.get();
+            System.out.println("USER " + ownUser.getMail());
+            for(Property property: properties){
+                if(property.getOwner() != null){
+                    if(property.getOwner().getId().equals(ownUser.getId())){
+                        ownProperties.add(new PropertyListItem(property));
+                    }
+                }
+            }
+
+        }
+
+
+        return ownProperties;
     }
 }

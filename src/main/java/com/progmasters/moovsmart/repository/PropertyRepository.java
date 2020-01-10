@@ -3,6 +3,7 @@ package com.progmasters.moovsmart.repository;
 import com.progmasters.moovsmart.domain.Property;
 import com.progmasters.moovsmart.domain.PropertyState;
 import com.progmasters.moovsmart.domain.PropertyType;
+import com.progmasters.moovsmart.domain.UserProperty;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,6 +17,8 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
     @Query("SELECT p FROM Property p WHERE p.isValid = true")
     List<Property> findAllByIsValid();
 
+    List<Property>findAllByOwner(UserProperty user);
+
     @Query("SELECT p FROM Property p " +
             "WHERE p.area BETWEEN :minArea AND :maxArea " +
             "AND p.price BETWEEN :minPrice AND :maxPrice " +
@@ -25,7 +28,7 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
             "AND p.numberOfRooms = :numberOfRooms " +
             "AND p.isValid = true")
     List<Property> getFilteredProperties(
-            @Param("minArea") int minArea, @Param("maxArea") int maxArea, @Param("minPrice") int minPrice,
+            @Param("minArea") double minArea, @Param("maxArea") double maxArea, @Param("minPrice") int minPrice,
             @Param("maxPrice") int maxPrice,
             @Param("propertyState") PropertyState propertyState, @Param("propertyType") PropertyType propertyType,
             @Param("city") String city, @Param("numberOfRooms") int numberOfRooms

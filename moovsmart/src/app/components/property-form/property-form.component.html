@@ -34,7 +34,7 @@
           />
           <small *ngIf="propertyForm.get('area').invalid && propertyForm.get('area').touched
           && !propertyForm.get('area').errors?.serverError" class="text-danger">
-            Az alapterület nem lehet negatív!
+            Az alapterület nem lehet kisebb, mint 1!
           </small>
           <small *ngIf="propertyForm.get('area').errors?.serverError" class="text-danger">
             {{propertyForm.get('area').errors['serverError']}}
@@ -280,7 +280,7 @@
           />
           <small *ngIf="propertyForm.get('streetNumber').invalid && propertyForm.get('streetNumber').touched
      && !propertyForm.get('street').errors?.serverError" class="text-danger">
-            A házszám minimum 2 karakter legyen.
+            A házszám minimum 1 karakter legyen.
           </small>
           <small *ngIf="propertyForm.get('streetNumber').errors?.serverError" class="text-danger">
             {{propertyForm.get('streetNumber').errors['serverError']}}

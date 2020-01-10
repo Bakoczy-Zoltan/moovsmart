@@ -41,6 +41,10 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
+        this.reagistratedUser = (localStorage.getItem('user') !== null);
+        this.actualOwner = localStorage.getItem('user');
+
+
         this.activatedRoute.paramMap.subscribe(
             paramMap => {
                 const idParam: number = +paramMap.get('id');
@@ -53,14 +57,12 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
                             proDetails => {
                                 this.propertyDetails = proDetails;
                                 this.images = this.propertyDetails.imageUrl;
-                                if(this.images !== null){
+                                if (this.images !== null) {
                                     this.changeDefaultImg(this.images[0]);
                                 }
 
                                 this.lat = this.propertyDetails.latCoord;
                                 this.lng = this.propertyDetails.lngCoord;
-                                // console.log(this.lat);
-                                // console.log(this.lng);
                                 this.coordinates = new google.maps.LatLng(this.lat, this.lng);
 
                                 this.mapOptions = {
@@ -68,8 +70,6 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
                                     zoom: 15,
                                 };
                                 this.mapInitializer();
-
-
                             },
                             () =>
                                 this.router.navigate(['property-list']),
@@ -79,7 +79,7 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
             });
     }
 
-    checkValidUser(name:string) {
+    checkValidUser(name: string) {
         if (name == null) {
             this.reagistratedUser = false;
         } else {

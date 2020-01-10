@@ -19,6 +19,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,6 +80,12 @@ public class PropertyController {
         logger.info("Get properties-list");
         return new ResponseEntity<>(propertyService.getProperties(), HttpStatus.OK);
     }
+    @GetMapping("/authUser/myList")
+    public ResponseEntity<List<PropertyListItem>> getOwnProperties(Principal principal) {
+        String userMail = principal.getName();
+        logger.info("Get own properties-list");
+        return new ResponseEntity<>(propertyService.getOwnProperties(userMail), HttpStatus.OK);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<PropertyDetails> getPropertyDetails(@PathVariable Long id) {
@@ -88,8 +95,11 @@ public class PropertyController {
     }
 
     @PostMapping("/authUser")
-    public ResponseEntity createProperty(@RequestBody @Valid PropertyForm propertyForm) {
-        propertyService.createProperty(propertyForm);
+    public ResponseEntity createProperty(@RequestBody @Valid PropertyForm propertyForm, Principal principal) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails user = (UserDetails) authentication.getPrincipal();
+        String userMail = user.getUsername();
+        propertyService.createProperty(propertyForm, userMail);
         this.logger.info("New Property created");
         return new ResponseEntity(HttpStatus.CREATED);
     }
