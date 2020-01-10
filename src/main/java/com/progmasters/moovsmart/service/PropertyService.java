@@ -40,9 +40,8 @@ public class PropertyService {
         return new PropertyDetails(property);
     }
 
-    public void createProperty(PropertyForm propertyForm) {
-        System.out.println("URLS List: => " + propertyForm.getImageUrl());
-        Optional<UserProperty>tempUser = this.userRepository.findUserPropertiesByMail(propertyForm.getOwner());
+    public void createProperty(PropertyForm propertyForm, String mail) {
+        Optional<UserProperty>tempUser = this.userRepository.findUserPropertiesByMail(mail);
         UserProperty user = new UserProperty();
         if(tempUser.isPresent()){
             user = tempUser.get();

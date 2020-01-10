@@ -178,7 +178,6 @@ export class PropertyFormComponent implements OnInit {
                 this.formData.latCoord = this.latCoord;
 
                 this.formData.isValid = true;
-                this.formData.owner = this.actualUserName;
 
                 if (this.selectedFile != null) {
                     this.imageService.uploadImage(this.selectedFile).subscribe(
@@ -192,7 +191,6 @@ export class PropertyFormComponent implements OnInit {
                             this.formData.imageUrl = this.answerUrl;
 
                             console.log(this.formData.publicId);
-                            debugger;
 
                             this.selectedFile = null;
                         },

@@ -26,6 +26,9 @@ public class MailSenderService {
     private UserRepository userRepository;
     private TokenStorageRepository tokenStorageRepository;
 
+    @Value("${spring.mail.url}")
+    private String actualUrl;
+
     @Value("${spring.mail.username}")
     private String mailSenderAddress;
 
@@ -63,7 +66,7 @@ public class MailSenderService {
 
     private SimpleMailMessage MakeMailMessage(String userName, String mail, String newToken) {
         SimpleMailMessage message = new SimpleMailMessage();
-        String link = "http://localhost:4200/signin/" + newToken;
+        String link = this.actualUrl +"signin/" + newToken;
 
         message.setSubject("Regisztráció megerősítése");
         message.setFrom(mailSenderAddress);

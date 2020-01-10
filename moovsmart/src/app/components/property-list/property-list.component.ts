@@ -30,29 +30,29 @@ export class PropertyListComponent implements OnInit {
             this.registratedUser = true;
         }
 
-        this.id = this.propertyService.userName2;
+      //  this.id = this.propertyService.userName2;
         this.propertyService.getPropertyList().subscribe(
             propertyListItems => this.propertyListItemModels = propertyListItems,
         );
 
 
-        this.route.paramMap.subscribe(
-            paramMap => {
-                const editableId = paramMap.get('id');
-                if (editableId) {
-
-                    this.propertyService.getMyPropertyList(this.id).subscribe(
-                        (datas: Array<PropertyListItemModel>) => {
-                            this.propertyListItemModels = datas;
-                        },
-                    );
-                } else{
-                    this.propertyService.getPropertyList().subscribe(
-                        propertyListItems => this.propertyListItemModels = propertyListItems,
-                    );
-                }
-            },
-        );
+        // this.route.paramMap.subscribe(
+        //     paramMap => {
+        //         const editableId = paramMap.get('id');
+        //         if (editableId) {
+        //
+        //             this.propertyService.getMyPropertyList(this.id).subscribe(
+        //                 (datas: Array<PropertyListItemModel>) => {
+        //                     this.propertyListItemModels = datas;
+        //                 },
+        //             );
+        //         } else{
+        //             this.propertyService.getPropertyList().subscribe(
+        //                 propertyListItems => this.propertyListItemModels = propertyListItems,
+        //             );
+        //         }
+        //     },
+        // );
 
 
     }
