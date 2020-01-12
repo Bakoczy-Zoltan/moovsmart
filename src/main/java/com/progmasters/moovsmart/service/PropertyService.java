@@ -79,8 +79,8 @@ public class PropertyService {
         property.setPropertyState(PropertyState.valueOf(propertyForm.getPropertyState()));
         property.setCounty(County.valueOf(propertyForm.getCounty()));
         property.setZipCode(propertyForm.getZipCode());
-//        property.setStreet(propertyForm.getStreet());
-//        property.setStreetNumber(propertyForm.getStreetNumber());
+        property.setStreet(propertyForm.getStreet());
+        property.setStreetNumber(propertyForm.getStreetNumber());
         property.setDescription(propertyForm.getDescription());
         property.setOwner(user);
         property.setLngCoord(propertyForm.getLngCoord());

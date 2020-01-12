@@ -34,7 +34,7 @@ export class PropertyFormComponent implements OnInit {
     answerPublicId: string[];
     answerUrl: string[];
     formData: any;
-
+    editing: boolean = false;
 
     propertyForm = this.formBuilder.group({
         'name': ['', Validators.compose([Validators.required, Validators.minLength(3),
@@ -92,6 +92,7 @@ export class PropertyFormComponent implements OnInit {
                 if (editablePropertyId) {
                     this.propertyId = +editablePropertyId;
                     this.getPropertyData(editablePropertyId);
+                    this.editing = true;
                 }
             },
             error => console.warn(error),
