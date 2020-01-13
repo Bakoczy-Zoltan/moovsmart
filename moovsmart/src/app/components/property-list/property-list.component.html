@@ -1,62 +1,67 @@
-<!--div-- class="container">
+<div class="container">
+    <form [formGroup]="filteredForm" (ngSubmit)="filterProperties()">
     <table class="table table-bordered">
 
         <tbody>
             <tr>
                 <td>
                     <label class="form-control-label" for="sizeMin">Méret min:</label>
-                    <input type="number" class="form-control" id="sizeMin">
+                    <input type="number" formControlName="minSize" class="form-control" id="sizeMin" placeholder="0">
                 </td>
                 <td>
                     <label class="form-control-label" for="sizeMax">Méret max:</label>
-                    <input type="number" class="form-control" id="sizeMax">
+                    <input type="number" formControlName="maxSize" class="form-control" id="sizeMax" placeholder="mindegy">
                 </td>
                 <td>
                     <label class="form-control-label" for="priceMin">Ár min:</label>
-                    <input type="number" class="form-control" id="priceMin">
+                    <input type="number" formControlName="minPrice" class="form-control" id="priceMin" placeholder = "0">
                 </td>
                 <td>
                     <label class="form-control-label" for="priceMax">Ár max:</label>
-                    <input type="number" class="form-control" id="priceMax">
+                    <input type="number" formControlName="maxPrice" class="form-control" id="priceMax" placeholder="mindegy">
                 </td>
             </tr>
             <tr>
                 <td>
                     <label class="form-control-label" for="porpertyState">Ingatlan állapot</label>
-                    <select id="porpertyState" class="form-control">
-                        <option>Mindegy</option>
-                        <option *ngFor="let propertyState of propertyStates, let i = index"
-                                value="{{propertyState.name}}">{{propertyState.displayName}}>
+                    <select id="porpertyState" formControlName="propertyState" class="form-control">
+                        <option value=null>--Mindegy--</option>
+                        <option *ngFor="let state of propertyStates, let i = index"
+                                [value]="state.name">{{state.displayName}}
                         </option>
                     </select>
                 </td>
                 <td>
-                    <label class="form-control-label" for="porpertyType">Ingatlan típusa</label>
-                    <select id="porpertyType" class="form-control">
-                        <option>Mindegy</option>
-                        <option *ngFor="let propertyType of propertyTypes, let i = index"
-                                value="{{propertyType.name}}">{{propertyType.displayName}}>
+                    <label class="form-control-label"  for="porpertyType">Ingatlan típusa</label>
+                    <select id="porpertyType" formControlName="propertyType" class="form-control">
+                        <option value=null>--Mindegy--</option>
+                        <option *ngFor="let typeProperty of propertyTypes, let i = index"
+                                [value]="typeProperty.name">{{typeProperty.displayName}}
                         </option>
                     </select>
                 </td>
 
                 <td>
                     <label class="form-control-label" for="city">Város</label>
-                    <select id="city" class="form-control">
-                        <option>Mindegy</option>
+                    <select id="city" formControlName="city" class="form-control">
+                        <option value=null>--Mindegy--</option>
                         <option *ngFor="let city of cities, let i = index"
-                                value="{{city.name}}">{{city.displayName}}>
+                                [value]="city">{{city}}
                         </option>
                     </select>
                 </td>
                 <td>
                     <label class="form-control-label" for="rooms">Szobák száma</label>
-                    <input type="number" class="form-control" id="rooms">
+                    <input type="number" formControlName="numberOfRooms" class="form-control" id="rooms" placeholder="mindegy">
                 </td>
             </tr>
         </tbody>
     </table>
-</div-->
+        <p id="filterButton">
+            <button class="btn btn-warning" type="submit">Szűrés</button>
+        </p>
+    </form>
+</div>
 <div class="container jumbotron">
     <div id="mainDiv">
         <div *ngIf="propertyListItemModels === undefined || propertyListItemModels.length === 0" id="emptydb">

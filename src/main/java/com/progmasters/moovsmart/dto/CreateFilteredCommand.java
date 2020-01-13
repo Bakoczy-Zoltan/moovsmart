@@ -7,21 +7,21 @@ import com.progmasters.moovsmart.domain.PropertyType;
 @JsonIgnoreProperties
 public class CreateFilteredCommand {
 
-    private Double minArea;
+    private Double minSize;
     private Integer minPrice;
-    private Double maxArea;
+    private Double maxSize;
     private Integer maxPrice;
     private PropertyState propertyState;
     private PropertyType propertyType;
     private String city;
     private Integer numberOfRooms;
 
-    public Double getMinArea() {
-        return minArea;
+    public Double getMinSize() {
+        return minSize;
     }
 
-    public void setMinArea(Double minArea) {
-        this.minArea = minArea;
+    public void setMinSize(Double minSize) {
+        this.minSize = minSize;
     }
 
     public Integer getMinPrice() {
@@ -32,12 +32,12 @@ public class CreateFilteredCommand {
         this.minPrice = minPrice;
     }
 
-    public Double getMaxArea() {
-        return maxArea;
+    public Double getMaxSize() {
+        return maxSize;
     }
 
-    public void setMaxArea(Double maxArea) {
-        this.maxArea = maxArea;
+    public void setMaxSize(Double maxSize) {
+        this.maxSize = maxSize;
     }
 
     public Integer getMaxPrice() {

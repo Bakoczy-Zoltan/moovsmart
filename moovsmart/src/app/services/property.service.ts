@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
+import { FilteredListModel } from '../models/FilteredListModel';
 import { PropertyDetailsModel } from '../models/propertyDetails.model';
 import { PropertyListItemModel } from '../models/propertyListItem.model';
 import { PropertyFormDataModel } from '../models/propertyFormData.model';
@@ -71,5 +72,13 @@ export class PropertyService {
 
     getMyPropertyList(id: string): Observable<Array<PropertyListItemModel>> {
         return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl + '/authUser/myList');
+    }
+
+    getCityList(): Observable<string[]> {
+        return this.httpClient.get<string[]>(this.baseUrl + '/getCityList');
+    }
+
+    sendFilterList(datas: FilteredListModel): Observable<Array<PropertyListItemModel>> {
+        return this.httpClient.post<Array<PropertyListItemModel>>(this.baseUrl + '/filteredList', datas);
     }
 }

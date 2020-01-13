@@ -25,12 +25,9 @@ export class SigninComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-      debugger;
-      console.log("INSIDE SIGNIN");
     this.route.paramMap.subscribe(paramMap => {
 
-        debugger;
-        console.log("INSIDE SIGNIN");
+
 
           const idParam = paramMap.get('id');
           console.log("ID user: " + paramMap.get('id'));

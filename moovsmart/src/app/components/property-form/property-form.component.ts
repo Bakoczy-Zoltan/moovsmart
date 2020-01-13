@@ -141,7 +141,7 @@ export class PropertyFormComponent implements OnInit {
 
     private updateProperty(data: PropertyFormDataModel) {
         this.propertyService.updateProperty(data, this.propertyId).subscribe(
-            () => this.router.navigate(['']),
+            () => this.router.navigate(['property-list']),
             error => validationHandler(error, this.propertyForm),
         );
     }

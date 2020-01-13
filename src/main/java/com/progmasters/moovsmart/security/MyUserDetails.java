@@ -69,4 +69,32 @@ public class MyUserDetails implements UserDetails {
     public boolean isEnabled() {
         return this.isActive;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<GrantedAuthority> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<GrantedAuthority> roleList) {
+        this.roleList = roleList;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 }

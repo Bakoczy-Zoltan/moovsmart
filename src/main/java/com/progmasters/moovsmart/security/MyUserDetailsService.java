@@ -40,11 +40,14 @@ public class MyUserDetailsService implements UserDetailsService {
                 authorities.add(new SimpleGrantedAuthority(role.toString()));
             }
 
-            UserDetails principal = org.springframework.security.core.userdetails.User
-                    .withUsername(username)
-                    .authorities(authorities)
-                    .password(realUser.getPassword())
-                    .build();
+            MyUserDetails principal = new MyUserDetails(realUser);
+
+
+//            UserDetails principal = org.springframework.security.core.userdetails.User
+//                    .withUsername(username)
+//                    .authorities(authorities)
+//                    .password(realUser.getPassword())
+//                    .build();
 
         return principal;
     }

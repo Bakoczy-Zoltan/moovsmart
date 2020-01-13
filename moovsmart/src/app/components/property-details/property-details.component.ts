@@ -15,7 +15,7 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     propertyDetails: PropertyDetailsModel;
     images: string[];
     reagistratedUser: boolean;
-    actualOwner: string;
+ //   actualOwner: string;
     map: google.maps.Map;
     lat: number;
     lng: number;
@@ -30,11 +30,11 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
                 private activatedRoute: ActivatedRoute,
                 private router: Router) {
 
-        this.actualOwner = this.propertyService.userName2;
-        this.checkValidUser(this.actualOwner);
+       // this.actualOwner = this.propertyService.userName2;
+       // this.checkValidUser(this.actualOwner);
         this.propertyService.userName.subscribe(
             (name) => {
-                this.actualOwner = name;
+              //  this.actualOwner = name;
                 this.checkValidUser(name);
             },
         );
@@ -42,7 +42,7 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.reagistratedUser = (localStorage.getItem('user') !== null);
-        this.actualOwner = localStorage.getItem('user');
+       // this.actualOwner = localStorage.getItem('user');
 
 
         this.activatedRoute.paramMap.subscribe(

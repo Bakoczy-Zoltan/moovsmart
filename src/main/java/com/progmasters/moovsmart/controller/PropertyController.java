@@ -51,6 +51,12 @@ public class PropertyController {
         return new ResponseEntity<>(initFormData, HttpStatus.OK);
     }
 
+    @GetMapping("/getCityList")
+    public ResponseEntity<List<String>>getCityList(){
+        List<String>cityList = this.propertyService.getCityList();
+        return new ResponseEntity<>(cityList, HttpStatus.OK);
+    }
+
     private List<PropertyTypeOption> getPropertyTypes() {
         List<PropertyTypeOption> propertyTypeOptions = new ArrayList<>();
         for (PropertyType propertyType : PropertyType.values()) {
@@ -80,6 +86,7 @@ public class PropertyController {
         logger.info("Get properties-list");
         return new ResponseEntity<>(propertyService.getProperties(), HttpStatus.OK);
     }
+
     @GetMapping("/authUser/myList")
     public ResponseEntity<List<PropertyListItem>> getOwnProperties(Principal principal) {
         String userMail = principal.getName();
@@ -113,8 +120,14 @@ public class PropertyController {
     }
 
     @PutMapping("/authUser/{id}")
-    public ResponseEntity updateProperty(@Valid @RequestBody PropertyForm propertyForm, @PathVariable Long id) {
-        Property updatedProperty = propertyService.updateProperty(propertyForm, id);
+    public ResponseEntity updateProperty(@Valid @RequestBody PropertyForm propertyForm,
+                                         @PathVariable Long id, Principal principal) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails user = (UserDetails) authentication.getPrincipal();
+        String userMail = user.getUsername();
+
+        Property updatedProperty = propertyService.updateProperty(propertyForm, id, userMail);
         ResponseEntity result;
         if (updatedProperty == null) {
             result = new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -144,8 +157,21 @@ public class PropertyController {
     }
 
     @PostMapping("/filteredList")
-    public ResponseEntity<List<Property>> getFilteredList(@RequestBody CreateFilteredCommand command) {
-        List<Property>filteredList = this.propertyService.getFilteredProperties(command);
+    public ResponseEntity<List<PropertyListItem>> getFilteredList(@RequestBody CreateFilteredCommand command) {
+        addValuesToNulLParameters(command);
+        List<PropertyListItem> filteredList = this.propertyService.getFilteredProperties(command);
         return new ResponseEntity<>(filteredList, HttpStatus.OK);
+    }
+
+    private void addValuesToNulLParameters(@RequestBody CreateFilteredCommand command) {
+        if(command.getMaxPrice() == null){
+            command.setMaxPrice(999999999);
+        }
+        if(command.getMaxSize() == null){
+            command.setMaxSize(999999.0);
+        }
+        if(command.getNumberOfRooms() == null){
+            command.setNumberOfRooms(100);
+        }
     }
 }

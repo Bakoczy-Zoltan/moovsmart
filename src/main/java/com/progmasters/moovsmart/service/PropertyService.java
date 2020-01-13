@@ -52,9 +52,9 @@ public class PropertyService {
     }
 
 
-    public Property updateProperty(PropertyForm propertyForm, Long id) {
+    public Property updateProperty(PropertyForm propertyForm, Long id, String mail) {
         Optional<Property> propertyOptional = propertyRepository.findById(id);
-        Optional<UserProperty>tempUser = this.userRepository.findUserPropertiesByMail(propertyForm.getOwner());
+        Optional<UserProperty>tempUser = this.userRepository.findUserPropertiesByMail(mail);
         UserProperty user = new UserProperty();
         if(tempUser.isPresent()){
             user = tempUser.get();
@@ -123,14 +123,19 @@ public class PropertyService {
        return user;
     }
 
-    public List<Property> getFilteredProperties(CreateFilteredCommand command) {
+    public List<PropertyListItem> getFilteredProperties(CreateFilteredCommand command) {
+        List<PropertyListItem>propertyListItemList = new ArrayList<>();
         List<Property>filteredList = this.propertyRepository.getFilteredProperties(
-                command.getMinArea(), command.getMaxArea(),
+                command.getMinSize(), command.getMaxSize(),
                 command.getMinPrice(), command.getMaxPrice(),
                 command.getPropertyState(), command.getPropertyType(),
                 command.getCity(), command.getNumberOfRooms()
         );
-        return filteredList;
+
+        for(Property property: filteredList){
+            propertyListItemList.add(new PropertyListItem(property));
+        }
+        return propertyListItemList;
     }
 
     public List<PropertyListItem> getOwnProperties(String userMail) {
@@ -153,7 +158,10 @@ public class PropertyService {
 
         }
 
-
         return ownProperties;
+    }
+
+    public List<String> getCityList() {
+        return this.propertyRepository.getAllCity();
     }
 }
