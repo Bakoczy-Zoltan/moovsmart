@@ -1,5 +1,6 @@
 <div class="container jumbotron">
-  <h2>Új ingatlan regisztrálása <i class="fas fa-home"></i></h2>
+  <h2 *ngIf="editing === false">Új ingatlan regisztrálása <i class="fas fa-home"></i></h2>
+  <h2 *ngIf="editing === true">Ingatlan szerkesztése <i class="fas fa-home"></i></h2>
   <hr/>
   <form (ngSubmit)="submit()" [formGroup]="propertyForm">
     <div class="form-group">
@@ -108,13 +109,14 @@
           >
             <option value="" disabled>&#45;&#45; Válasszon típust &#45;&#45;</option>
             <option *ngFor="let propertyType of propertyTypes, let i = index"
-                    value="{{propertyType.name}}">{{propertyType.displayName}}</option>
+                    [ngValue]="propertyType.displayName"
+                    [selected]="propertyType == propertyForm.get('propertyType')">{{propertyType.displayName}}</option>
           </select>
           <small
               class="text-danger"
               *ngIf="propertyForm.get('propertyType').invalid && propertyForm.get('propertyType').touched && !propertyForm.get('propertyType').errors?.serverError"
           >
-            Válasszon megyét
+            Válasszon típust
           </small>
           <small
               *ngIf="propertyForm.get('propertyType').errors?.serverError"
@@ -147,7 +149,8 @@
           >
             <option value="" disabled>&#45;&#45; Ingatlan állapota &#45;&#45;</option>
             <option *ngFor="let propertyState of propertyStates, let i = index"
-                    value="{{propertyState.name}}">{{propertyState.displayName}}</option>
+                    [ngValue]="propertyState.displayName"
+                    [selected]="propertyState == propertyForm.get('propertyState')">{{propertyState.displayName}}</option>
           </select>
           <small
               class="text-danger"
@@ -188,7 +191,8 @@
           >
             <option value="" disabled>&#45;&#45; Válasszon megyét &#45;&#45;</option>
             <option *ngFor="let county of counties, let i = index"
-                    value="{{county.name}}">{{county.displayName}}</option>
+                    [ngValue]="county.displayName"
+                    [selected]="county == propertyForm.get('county')">{{county.displayName}}</option>
           </select>
           <small
               class="text-danger"

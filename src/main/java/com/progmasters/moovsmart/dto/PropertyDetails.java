@@ -20,6 +20,7 @@ public class PropertyDetails {
     private String county;
     private Integer zipCode;
     private String street;
+    private String streetNumber;
     private String city;
 //    private String searchPosition;
     private Double lngCoord;
@@ -49,6 +50,7 @@ public class PropertyDetails {
         }
         this.zipCode = property.getZipCode();
         this.street = property.getStreet();
+        this.streetNumber = property.getStreetNumber();
 //        this.searchPosition = property.getSearchPosition();
         this.latCoord = property.getLatCoord();
         this.lngCoord = property.getLngCoord();
@@ -146,7 +148,15 @@ public class PropertyDetails {
         this.street = street;
     }
 
-//    public String getSearchPosition() {
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    //    public String getSearchPosition() {
 //        return searchPosition;
 //    }
 //
