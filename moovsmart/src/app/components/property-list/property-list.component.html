@@ -81,7 +81,7 @@
         <tbody>
             <tr *ngFor="let property of propertyListItemModels" id="mainRow">
                 <td>
-                    <div *ngIf="!property.imageUrl">
+                    <div *ngIf="property.imageUrl[0].length < 3">
                         <img [src]="defaultPicture" class="defaultPicture">
                     </div>
                     <div *ngIf="property.imageUrl">
