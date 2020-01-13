@@ -86,7 +86,7 @@
                     </div>
                     <div *ngIf="property.imageUrl">
                         <img (click)="details(property.id)" alt="ingatlan" class="room-list-item__image" width="200"
-                             src="{{property.imageUrl}}"/>
+                             src="{{property?.imageUrl[0]}}"/>
                     </div>
                 </td>
                 <td>

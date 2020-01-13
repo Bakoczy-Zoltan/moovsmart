@@ -9,9 +9,9 @@ import { validationHandler } from '../../utils/validationHandler';
 
 
 @Component({
-  selector: 'app-property-form',
-  templateUrl: './property-form.component.html',
-  styleUrls: ['./property-form.component.css']
+    selector: 'app-property-form',
+    templateUrl: './property-form.component.html',
+    styleUrls: ['./property-form.component.css'],
 })
 export class PropertyFormComponent implements OnInit {
 
@@ -31,8 +31,9 @@ export class PropertyFormComponent implements OnInit {
     lngCoord: number;
     latCoord: number;
     answer: string[];
-    answerPublicId: string[];
-    answerUrl: string[];
+    answerPublicId = [''];
+    answerUrl = [''];
+    actualUrlList = [];
     formData: any;
     editing: boolean = false;
 
@@ -51,7 +52,7 @@ export class PropertyFormComponent implements OnInit {
         'streetNumber': ['', Validators.compose([Validators.required, Validators.minLength(1)])],
         'description': ['', Validators.minLength(10)],
         'price': ['', Validators.min(1)],
-        'imageUrl': [[],],
+        'imageUrl': [['']],
     });
 
 
@@ -103,21 +104,27 @@ export class PropertyFormComponent implements OnInit {
         this.propertyService.fetchPropertyData(id).subscribe(
             (response: PropertyFormDataModel) => {
                 this.propertyForm.patchValue({
-                    name: response.name,
-                    area: response.area,
-                    numberOfRooms: response.numberOfRooms,
-                    buildingYear: response.buildingYear,
-                    propertyType: response.propertyType,
-                    propertyState: response.propertyState,
-                    county: response.county,
-                    city: response.city,
-                    zipCode: response.zipCode,
-                    street: response.street,
-                    streetNumber: response.streetNumber,
-                    description: response.description,
-                    price: response.price,
-                    imageUrl: response.imageUrl,
-                });
+                        name: response.name,
+                        area: response.area,
+                        numberOfRooms: response.numberOfRooms,
+                        buildingYear: response.buildingYear,
+                        propertyType: response.propertyType,
+                        propertyState: response.propertyState,
+                        county: response.county,
+                        city: response.city,
+                        zipCode: response.zipCode,
+                        street: response.street,
+                        streetNumber: response.streetNumber,
+                        description: response.description,
+                        price: response.price,
+                        imageUrl: [null],
+                    },
+                );
+                this.actualUrlList = response.imageUrl;
+            },
+            () => {},
+            () => {
+
             },
         );
     };
@@ -185,13 +192,18 @@ export class PropertyFormComponent implements OnInit {
                         (data) => {
                             this.answer = data;
 
-                            this.answerPublicId = [this.answer[0]];
-                            this.answerUrl = [this.answer[1]];
+                            this.answerPublicId[0] = this.answer[0];
+                            this.actualUrlList.push(this.answer[1]);
 
-                            this.formData.publicId = this.answerPublicId;
-                            this.formData.imageUrl = this.answerUrl;
+                            console.log(this.actualUrlList);
+                            debugger;
+
+                            this.formData.publicId = (this.answerPublicId);
+                            this.formData.imageUrl = this.actualUrlList;
 
                             console.log(this.formData.publicId);
+                            console.log(this.formData.imageUrl);
+                            debugger;
 
                             this.selectedFile = null;
                         },
@@ -204,7 +216,7 @@ export class PropertyFormComponent implements OnInit {
                 } else {
                     this.propertyId ? this.updateProperty(this.formData) : this.createNewProperty(this.formData);
                 }
-        });
+            });
     }
 
     openModalDialog() {
