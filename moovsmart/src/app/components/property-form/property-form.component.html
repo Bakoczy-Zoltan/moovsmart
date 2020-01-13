@@ -217,7 +217,7 @@
               formControlName="city"
               id="city"
               name="city"
-              [placeholder]="propertyForm.get('city')"
+              placeholder=""
           />
           <small *ngIf="propertyForm.get('city').invalid && propertyForm.get('city').touched
        && !propertyForm.get('city').errors?.serverError" class="text-danger">

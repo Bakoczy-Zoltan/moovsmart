@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Cloudinary } from '@cloudinary/angular-5.x';
 import { PropertyFormDataModel } from '../../models/propertyFormData.model';
 import { ImageService } from '../../services/image.service';
 import { PropertyService } from '../../services/property.service';
@@ -59,8 +58,7 @@ export class PropertyFormComponent implements OnInit {
                 private propertyService: PropertyService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private imageService: ImageService,
-                private cloudinary: Cloudinary) {
+                private imageService: ImageService) {
 
         this.geocoder = new google.maps.Geocoder();
 
