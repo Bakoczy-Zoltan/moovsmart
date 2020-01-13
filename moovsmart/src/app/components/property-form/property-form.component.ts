@@ -50,7 +50,7 @@ export class PropertyFormComponent implements OnInit {
         'streetNumber': ['', Validators.compose([Validators.required, Validators.minLength(1)])],
         'description': ['', Validators.minLength(10)],
         'price': ['', Validators.min(1)],
-        'imageUrl': [[''],],
+        'imageUrl': [[],],
     });
 
 
