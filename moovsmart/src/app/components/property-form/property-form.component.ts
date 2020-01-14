@@ -33,6 +33,7 @@ export class PropertyFormComponent implements OnInit {
     answerPublicId = [''];
     answerUrl = [''];
     actualUrlList = [];
+    actualPublicIdList = [];
     formData: any;
     editing: boolean = false;
 
@@ -91,7 +92,6 @@ export class PropertyFormComponent implements OnInit {
                 if (editablePropertyId) {
                     this.propertyId = +editablePropertyId;
                     this.getPropertyData(editablePropertyId);
-                    console.log(this.getPropertyData(editablePropertyId));
                     this.editing = true;
                 }
             },
@@ -122,6 +122,7 @@ export class PropertyFormComponent implements OnInit {
                     },
                 );
                 this.actualUrlList = response.imageUrl;
+                this.actualPublicIdList = response.publicId;
             },
             () => {},
             () => {
@@ -199,14 +200,23 @@ export class PropertyFormComponent implements OnInit {
                             this.answer = data;
 
                             this.answerPublicId[0] = this.answer[0];
-                            this.actualUrlList.push(this.answer[1]);
+
+                            if (this.actualPublicIdList.length < 1 || this.actualPublicIdList[0] === ''){
+                                this.actualPublicIdList[0] = this.answer[0];
+                            } else {
+                                this.actualPublicIdList.push(this.answer[0]);
+                            }
+
+                            if (this.actualUrlList.length < 1 || this.actualUrlList[0] === ''){
+                                this.actualUrlList[0] = this.answer[1]
+                            } else {
+                                this.actualUrlList.push(this.answer[1]);
+                            }
 
                             console.log(this.actualUrlList);
 
-                            this.formData.publicId = (this.answerPublicId);
+                            this.formData.publicId = this.actualPublicIdList;
                             this.formData.imageUrl = this.actualUrlList;
-
-                            console.log(this.formData.publicId);
 
                             this.selectedFile = null;
                         },

@@ -29,7 +29,7 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
             "AND p.propertyType like case when :propertyType is not null then :propertyType else '%' end " +
             "AND p.propertyState like case when :propertyState is not null then :propertyState else '%' end " +
             "AND p.city like case when :city is not null then :city else '%' end " +
-            "AND p.numberOfRooms = :numberOfRooms " +
+            "AND p.numberOfRooms =:numberOfRooms " +
             "AND p.isValid = true")
     List<Property> getFilteredProperties(
             @Param("minArea") double minArea, @Param("maxArea") double maxArea, @Param("minPrice") int minPrice,

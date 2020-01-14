@@ -86,6 +86,7 @@ public class PropertyService {
         property.setLngCoord(propertyForm.getLngCoord());
         property.setLatCoord(propertyForm.getLatCoord());
         property.setImageUrls(propertyForm.getImageUrl());
+        property.setPublicIds(propertyForm.getPublicId());
         property.setCity(propertyForm.getCity());
         property.setValid(true);
     }
