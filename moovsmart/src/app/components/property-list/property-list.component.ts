@@ -24,6 +24,8 @@ export class PropertyListComponent implements OnInit {
     registratedUser: boolean;
     filteredForm: FormGroup;
     filteredFormDatas: any;
+    needFilterList: boolean;
+    filterOpenMessage: string;
 
     constructor(private propertyService: PropertyService,
                 private router: Router,
@@ -37,9 +39,10 @@ export class PropertyListComponent implements OnInit {
                 'propertyState': new FormControl(null),
                 'propertyType': new FormControl(null),
                 'city': new FormControl(null),
-                'numberOfRooms': new FormControl(null),
+                'numberOfRooms': new FormControl(1),
             },
         );
+        this.needFilterList = false;
 
     }
 
@@ -48,20 +51,9 @@ export class PropertyListComponent implements OnInit {
         if (localStorage.getItem('user') != null) {
             this.registratedUser = true;
         }
-
+        this.filterOpenMessage = "Szűrni szeretnék";
         this.clearFilterFields();
 
-        this.propertyService.getInitialFormData().subscribe((formInitData: FormInitDataModel) => {
-            this.propertyTypes = formInitData.propertyTypes;
-            this.propertyStates = formInitData.propertyStates;
-        });
-
-        this.propertyService.getCityList().subscribe(
-            (data: string[]) => {
-                this.cities = data;
-                console.log(this.cities);
-            },
-        );
 
         this.propertyService.getPropertyList().subscribe(
             propertyListItems => this.propertyListItemModels = propertyListItems,
@@ -78,7 +70,7 @@ export class PropertyListComponent implements OnInit {
                 'propertyState': new FormControl(null),
                 'propertyType': new FormControl(null),
                 'city': new FormControl(null),
-                'numberOfRooms': new FormControl(null),
+                'numberOfRooms': new FormControl(0),
             },
         );
     }
@@ -98,4 +90,26 @@ export class PropertyListComponent implements OnInit {
         )
     }
 
+    makeFilterBar() {
+        if(this.needFilterList === false){
+            this.needFilterList = true;
+            this.filterOpenMessage = "Szűrés kikapcsolása";
+            this.propertyService.getInitialFormData().subscribe((formInitData: FormInitDataModel) => {
+                this.propertyTypes = formInitData.propertyTypes;
+                this.propertyStates = formInitData.propertyStates;
+            });
+
+            this.propertyService.getCityList().subscribe(
+                (data: string[]) => {
+                    this.cities = data;
+                    console.log(this.cities);
+                },
+            );
+
+        }else{
+            this.needFilterList = false;
+            this.filterOpenMessage = 'Szűrni szeretnék';
+        }
+
+    }
 }

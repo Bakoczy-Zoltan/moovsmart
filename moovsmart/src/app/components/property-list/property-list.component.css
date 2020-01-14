@@ -3,17 +3,27 @@
     background-color: white;
 }
 
+#filter-table{
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#property-name-td{
+    width: 200px;
+}
+
 #emptydb {
     top: 0;
     left: 0;
     text-align: center;
 
-    /* Preserve aspet ratio */
     min-width: 100%;
     min-height: 100%;
 }
 
-#mainDiv{
+#mainDiv {
+    margin-top: 0;
+    padding-top: 0;
     margin-right: auto;
     margin-left: auto;
 }
@@ -34,20 +44,68 @@
     max-height: 150px;
 }
 
-#emptyPicture{
+#emptyPicture {
     max-width: 90%;
     height: auto;
 }
 
-.btn {
-    background-color: #7E685A;
-    color: white;
-}
-
-#mainRow{
-    margin-top: 1%;
-    margin-bottom: 1%;
-}
-#filterButton{
+.btn-group{
     text-align: right;
 }
+
+#detail-button {
+    background-color: #7E685A;
+    color: white;
+    width: 150px;
+}
+
+#mainRow {
+    border-width:3px;
+    border-style:solid;
+    border-color: #C2B9B0;
+}
+
+#filter-button {
+    background-color: #E7717D;
+    color: white;
+}
+#clear-button, #filter-button, #button-filter-switch{
+    width: 170px;
+    margin-left: 1%;
+}
+#button-filter-switch{
+    background-color: #E7717D;
+    color: white;
+}
+#clear-button{
+    background-color: #AFD275;
+}
+#records-button {
+    text-align: right;
+    padding: 0;
+}
+
+#row-last-filter {
+    margin-top: 0;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 2px;
+    text-align: right;
+    background-color: white;
+    margin-bottom: 1%;
+}
+
+#switch-filter-button-div{
+    text-align: right;
+}
+
+#last-button-header{
+    text-align: right;
+    padding-right: 2%;
+}
+
+.row, h2{
+    margin-top: 0;
+    padding-top: 0;
+}
+

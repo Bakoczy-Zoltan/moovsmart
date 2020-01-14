@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PropertyFormDataModel } from '../../models/propertyFormData.model';
@@ -8,9 +8,9 @@ import { validationHandler } from '../../utils/validationHandler';
 
 
 @Component({
-  selector: 'app-property-form',
-  templateUrl: './property-form.component.html',
-  styleUrls: ['./property-form.component.css']
+    selector: 'app-property-form',
+    templateUrl: './property-form.component.html',
+    styleUrls: ['./property-form.component.css'],
 })
 export class PropertyFormComponent implements OnInit {
 
@@ -60,7 +60,8 @@ export class PropertyFormComponent implements OnInit {
                 private propertyService: PropertyService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private imageService: ImageService) {
+                private imageService: ImageService,
+                private ngZone: NgZone) {
 
         this.geocoder = new google.maps.Geocoder();
 
@@ -100,7 +101,6 @@ export class PropertyFormComponent implements OnInit {
     }
 
 
-
     getPropertyData = (id: string) => {
         this.propertyService.fetchPropertyData(id).subscribe(
             (response: PropertyFormDataModel) => {
@@ -128,7 +128,6 @@ export class PropertyFormComponent implements OnInit {
             },
             () => {},
             () => {
-
             },
         );
     };
@@ -146,7 +145,11 @@ export class PropertyFormComponent implements OnInit {
 
     createNewProperty(data: PropertyFormDataModel) {
         this.propertyService.createProperty(data).subscribe(
-            () => this.router.navigate(['property-list']),
+            () => {
+                console.log('created');
+                this.ngZone.run(() =>
+                    this.router.navigate(['property-list']));
+            },
             error => validationHandler(error, this.propertyForm),
         );
     }
@@ -173,8 +176,6 @@ export class PropertyFormComponent implements OnInit {
         this.geocoder.geocode(this.addressToDecode,
             (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
                 if (status === google.maps.GeocoderStatus.OK) {
-                    // this.locationCoordinates[0] = results[0].geometry.location.lat();
-                    // this.locationCoordinates[1] = results[0].geometry.location.lng();
                     this.lngCoord = results[0].geometry.location.lng();
                     this.latCoord = results[0].geometry.location.lat();
 
@@ -189,6 +190,8 @@ export class PropertyFormComponent implements OnInit {
                 this.formData.lngCoord = this.lngCoord;
                 this.formData.latCoord = this.latCoord;
 
+                console.log('latlong', this.latCoord, this.lngCoord);
+
                 this.formData.isValid = true;
 
                 if (this.selectedFile != null) {
@@ -198,14 +201,14 @@ export class PropertyFormComponent implements OnInit {
 
                             this.answerPublicId[0] = this.answer[0];
 
-                            if (this.actualPublicIdList.length < 1 || this.actualPublicIdList[0] === ''){
+                            if (this.actualPublicIdList.length < 1 || this.actualPublicIdList[0] === '') {
                                 this.actualPublicIdList[0] = this.answer[0];
                             } else {
                                 this.actualPublicIdList.push(this.answer[0]);
                             }
 
-                            if (this.actualUrlList.length < 1 || this.actualUrlList[0] === ''){
-                                this.actualUrlList[0] = this.answer[1]
+                            if (this.actualUrlList.length < 1 || this.actualUrlList[0] === '') {
+                                this.actualUrlList[0] = this.answer[1];
                             } else {
                                 this.actualUrlList.push(this.answer[1]);
                             }
@@ -219,14 +222,13 @@ export class PropertyFormComponent implements OnInit {
                         () => {},
                         () => {
                             console.log('COMPLETE', this.formData);
-                            debugger;
                             this.propertyId ? this.updateProperty(this.formData) : this.createNewProperty(this.formData);
                         },
                     );
                 } else {
                     this.propertyId ? this.updateProperty(this.formData) : this.createNewProperty(this.formData);
                 }
-        });
+            });
     }
 
     openModalDialog() {

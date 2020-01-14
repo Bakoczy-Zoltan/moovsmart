@@ -160,6 +160,9 @@ public class PropertyController {
     @PostMapping("/filteredList")
     public ResponseEntity<List<PropertyListItem>> getFilteredList(@RequestBody CreateFilteredCommand command) {
         addValuesToNulLParameters(command);
+        System.out.println("ROOMS => " + command.getNumberOfRooms());
+        System.out.println("MAXPrice => " + command.getMaxPrice());
+        System.out.println("MIN => " + command.getMaxSize());
         List<PropertyListItem> filteredList = this.propertyService.getFilteredProperties(command);
         return new ResponseEntity<>(filteredList, HttpStatus.OK);
     }
@@ -171,9 +174,7 @@ public class PropertyController {
         if (command.getMaxSize() == null) {
             command.setMaxSize(999999.0);
         }
-        if (command.getNumberOfRooms() == null) {
-            command.setNumberOfRooms(100);
-        }
+
     }
 
     @GetMapping("/{id}/images")

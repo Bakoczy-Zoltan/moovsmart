@@ -4,4 +4,7 @@ export interface PropertyListItemModel {
   numberOfRooms: number;
   price: number;
   imageUrl: string[];
+  userId: number;
+  time: string;
+  area: number;
 }
