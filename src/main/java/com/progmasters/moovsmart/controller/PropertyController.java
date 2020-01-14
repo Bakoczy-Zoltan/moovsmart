@@ -19,6 +19,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +53,8 @@ public class PropertyController {
     }
 
     @GetMapping("/getCityList")
-    public ResponseEntity<List<String>>getCityList(){
-        List<String>cityList = this.propertyService.getCityList();
+    public ResponseEntity<List<String>> getCityList() {
+        List<String> cityList = this.propertyService.getCityList();
         return new ResponseEntity<>(cityList, HttpStatus.OK);
     }
 
@@ -164,14 +165,35 @@ public class PropertyController {
     }
 
     private void addValuesToNulLParameters(@RequestBody CreateFilteredCommand command) {
-        if(command.getMaxPrice() == null){
+        if (command.getMaxPrice() == null) {
             command.setMaxPrice(999999999);
         }
-        if(command.getMaxSize() == null){
+        if (command.getMaxSize() == null) {
             command.setMaxSize(999999.0);
         }
-        if(command.getNumberOfRooms() == null){
+        if (command.getNumberOfRooms() == null) {
             command.setNumberOfRooms(100);
         }
+    }
+
+    @GetMapping("/{id}/images")
+    public ResponseEntity<PictureListItem> getPictures(@PathVariable Long id) {
+        logger.info("property pictures requested");
+        return new ResponseEntity<>(propertyService.getPropertyPictures(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/images")
+    public ResponseEntity deletePicture(@RequestBody String pictureIdToDelete,
+                                        @PathVariable Long id) throws IOException {
+        logger.info("image delete requested");
+        propertyService.deletePicture(pictureIdToDelete, id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/images/{id}")
+    public ResponseEntity updatePictureList(@RequestBody PictureListItem imageToDelete,
+                                            @PathVariable Long id) {
+        propertyService.updatePictureList(imageToDelete, id);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

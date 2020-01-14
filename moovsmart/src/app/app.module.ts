@@ -14,6 +14,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { SigninComponent } from './components/signin/signin.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { HttpRequestInterceptor } from './utils/httpRequestInterceptor';
+import { DeletePictureComponent } from './components/delete-picture/delete-picture.component';
 
 @NgModule({
     declarations: [
@@ -25,6 +26,7 @@ import { HttpRequestInterceptor } from './utils/httpRequestInterceptor';
         RegistrationComponent,
         SigninComponent,
         WelcomeComponent,
+        DeletePictureComponent,
     ],
     imports: [
         HttpClientModule,

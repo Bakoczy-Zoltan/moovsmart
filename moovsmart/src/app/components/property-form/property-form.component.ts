@@ -242,4 +242,8 @@ export class PropertyFormComponent implements OnInit {
         this.display = 'none';
         this.router.navigate(['property-list']);
     }
+
+    deletePicture = () => {
+        this.router.navigate(['property-details/' + this.propertyId + '/images'])
+    }
 }

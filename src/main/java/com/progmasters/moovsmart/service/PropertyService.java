@@ -1,10 +1,10 @@
 package com.progmasters.moovsmart.service;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.progmasters.moovsmart.domain.*;
-import com.progmasters.moovsmart.dto.CreateFilteredCommand;
-import com.progmasters.moovsmart.dto.PropertyDetails;
-import com.progmasters.moovsmart.dto.PropertyForm;
-import com.progmasters.moovsmart.dto.PropertyListItem;
+import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.repository.PropertyRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,11 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class PropertyService {
+
+    Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+            "cloud_name", "moovsmart",
+            "api_key", "214524436422785",
+            "api_secret", "ZyTQRXDv4vTFXIq8SEhQEcE0ebc"));
 
     private PropertyRepository propertyRepository;
     private UserRepository userRepository;
@@ -164,5 +170,21 @@ public class PropertyService {
 
     public List<String> getCityList() {
         return this.propertyRepository.getAllCity();
+    }
+
+    public PictureListItem getPropertyPictures(Long id) {
+        Property property = findById(id);
+        return new PictureListItem(property);
+    }
+
+    public void deletePicture(String pictureIdToDelete, Long id) throws IOException {
+        cloudinary.uploader().destroy(pictureIdToDelete, ObjectUtils.emptyMap());
+    }
+
+    public void updatePictureList(PictureListItem imageToDelete, Long id) {
+        Property property = findById(id);
+
+        property.setImageUrls(imageToDelete.getImageUrl());
+        property.setPublicIds(imageToDelete.getPublicId());
     }
 }

@@ -81,4 +81,16 @@ export class PropertyService {
     sendFilterList(datas: FilteredListModel): Observable<Array<PropertyListItemModel>> {
         return this.httpClient.post<Array<PropertyListItemModel>>(this.baseUrl + '/filteredList', datas);
     }
+
+    getPictures(idParam: number): Observable<PictureListItemModel> {
+        return this.httpClient.get<PictureListItemModel>(this.baseUrl + '/' + idParam + '/images');
+    }
+
+    deletePicture(pictureIdToDelete: string, propertyId: number): Observable<any> {
+        return this.httpClient.post<any>(this.baseUrl + '/' + propertyId + '/images', pictureIdToDelete);
+    }
+
+    updatePictureList(imageList: PictureListItemModel, propertyId: number): Observable<any> {
+        return this.httpClient.post<any>(this.baseUrl + '/images/' + propertyId, imageList);
+    }
 }
