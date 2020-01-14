@@ -22,6 +22,7 @@
             <small *ngIf="signInForm.get('userName').errors?.serverError" class="text-danger">
                 {{signInForm.get('userName').errors['serverError']}}
             </small>
+
         </div>
 
         <div class="form-group">
@@ -35,15 +36,13 @@
                 placeholder="Kérjük, adja meg egy jelszavát!"
                 required
             />
-            <small *ngIf="signInForm.get('password').invalid && signInForm.get('password').touched
-       && !signInForm.get('password').errors?.serverError" class="text-danger">
-                A jelszó tartalmazzon legalább egy nagybetűt, egy kisbetűt, egy számot és minimum 6 karakter legyen.
-            </small>
             <small *ngIf="signInForm.get('password').errors?.serverError" class="text-danger">
                 {{signInForm.get('password').errors['serverError']}}
             </small>
+            <small *ngIf="errorMessage" class="text-danger">
+                Érvénytelen felhasználó név vagy jelszó
+            </small>
         </div>
-
         <br/>
         <button class="btn" [disabled]="signInForm.invalid">Bejelentkezés</button>
     </form>

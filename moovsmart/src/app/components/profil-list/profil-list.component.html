@@ -1,0 +1,36 @@
+<div class="container jumbotron">
+    <div>
+        <table *ngIf="propertyListItemModels?.length !== 0" id="list-table" class="table table-borderless">
+            <thead>
+            </thead>
+            <tbody>
+                <div id="table-row" *ngFor="let property of propertyListItemModels" id="mainRow">
+                    <tr>
+                        <td>
+                            <div *ngIf="property?.imageUrl[0].length < 3">
+                                <img [src]="defaultPicture" class="defaultPicture" [alt]="defaultPicture">
+                            </div>
+                            <div *ngIf="property.imageUrl">
+                                <img (click)="details(property.id)" alt="ingatlan" class="room-list-item__image"
+                                     width="200"
+                                     src="{{property?.imageUrl[0]}}"/>
+                            </div>
+                        </td>
+                        <td id="property-name-td">
+                            <h3>{{property.name}}</h3>
+                            <p><strong>Szobák száma: </strong> {{property.numberOfRooms}}</p>
+                            <p><strong>Ár: </strong> {{property.price}}</p>
+                        </td>
+                        <td><strong>Terület:</strong> {{property.area}}m2</td>
+                        <td><strong>Hirdetés dátuma:</strong></td>
+                        <td>{{property.time}}</td>
+                        <td></td>
+                        <td class="btn-group">
+                            <button id="detail-button" class="btn" (click)="details(property.id)">Részletek</button>
+                        </td>
+                    </tr>
+                </div>
+            </tbody>
+        </table>
+    </div>
+</div>

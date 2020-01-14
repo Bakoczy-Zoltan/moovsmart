@@ -105,7 +105,6 @@ export class PropertyFormComponent implements OnInit {
         this.propertyService.fetchPropertyData(id).subscribe(
             (response: PropertyFormDataModel) => {
                 console.log(response);
-                debugger;
                 this.propertyForm.patchValue({
                         name: response.name,
                         area: response.area,

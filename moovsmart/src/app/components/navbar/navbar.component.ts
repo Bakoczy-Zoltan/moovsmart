@@ -11,7 +11,7 @@ import { PropertyService } from '../../services/property.service';
 export class NavbarComponent implements OnInit {
     BASE_URL: string;
     registratedUser: boolean;
-    id: string;
+    id: number;
 
     constructor(private http: HttpClient,
                 private router: Router,
@@ -19,12 +19,12 @@ export class NavbarComponent implements OnInit {
 
         this.BASE_URL = 'http://localhost:8080';
         this.registratedUser = (localStorage.getItem('user')!== null);
-
     }
 
 
     ngOnInit() {
         this.registratedUser = (localStorage.getItem('user')!== null);
+        this.id = this.propertyService.userId;
         this.propertyService.regisTrated.subscribe(
             name => this.registratedUser = name
         )
@@ -35,14 +35,16 @@ export class NavbarComponent implements OnInit {
         this.http.post(this.BASE_URL + '/logout', {}).subscribe(() => {
             localStorage.removeItem('user');
             this.router.navigateByUrl('/');
-           // this.propertyService.registratedUser = false;
             this.propertyService.regisTrated.next(false);
+            this.propertyService.userId = null;
         });
     }
 
     ownProperties() {
+        this.id = this.propertyService.userId;
+        console.log("Nav User " + this.id);
         if(this.id !== null){
-            this.router.navigate(['property-list', 'ownList'])
+            this.router.navigate(['profil-list', this.id])
         }
     }
 }

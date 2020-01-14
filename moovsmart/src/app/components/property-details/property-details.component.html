@@ -26,7 +26,28 @@
         </div>
     </div>
     <div>
-        <h3><strong>Ingatlan bemutatása</strong></h3><hr>
+
+        <div class="row">
+            <div class="col">
+            <h4><strong>Ingatlan bemutatása</strong></h4></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col">
+                <button *ngIf="reagistratedUser" type="button" class="btn btn-secondary" (click)="edit(propertyDetails.id)">
+                    Szerkesztés <i class="fas fa-pencil-alt"></i></button>
+            </div>
+
+        </div>
+        <div id="map-div">
+
+        </div>
+        <p>
+            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModal">
+                <strong>Mutassa térképen</strong>
+            </button>
+        </p>
+        <hr>
+
 
         <div class="row" id="description-div">
             <div class="col">
@@ -58,13 +79,11 @@
             </div>
         </div>
     </div>
-    <p></p><hr>
+    <p></p>
+    <hr>
     <p><strong>Részletes leírás:</strong></p>
     <p>{{propertyDetails?.description}}</p>
 
-    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModal">
-        <strong>Mutassa térképen</strong>
-    </button>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -86,8 +105,7 @@
         </div>
     </div>
     <div id="bottom-div">
-        <button *ngIf="reagistratedUser" type="button" class="btn btn-secondary" (click)="edit(propertyDetails.id)">
-            Szerkesztés <i class="fas fa-pencil-alt"></i></button>
+
         <button *ngIf="reagistratedUser" type="button" class="btn btn-info" (click)="delete(propertyDetails.id)">
             Törlés <i class="far fa-trash-alt"></i></button>
     </div>

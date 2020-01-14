@@ -1,12 +1,14 @@
 #img-holder-row {
-    background-color: #7E685A;
+    background-color: antiquewhite;
     max-height: 90%;
     width: auto;
     text-align: center;
 }
-#main-div-container{
+
+#main-div-container {
     margin-top: 1%;
     padding-top: 1%;
+    background-color: white;
 }
 
 .small-img {
@@ -19,29 +21,37 @@
 }
 
 
-.container{
+.container {
     max-width: 50%;
     margin-bottom: 2%;
-    background-color: antiquewhite;
+    background-color: white;
     padding-bottom: 3px;
 }
 
-#text-container{
-    background-color: antiquewhite;
+#text-container {
+    background-color: white;
 }
 
-#map{
+#map {
     height: 400px;
     width: 100%;
 }
 
-a{
+a {
     color: darkblue;
 }
-a:hover{
+
+a:hover {
     color: magenta;
 }
 
-#bottom-div{
+#bottom-div {
     margin-bottom: 3%;
+    text-align: right;
 }
+.row{
+    margin-top: 1%;
+}
+
+
+

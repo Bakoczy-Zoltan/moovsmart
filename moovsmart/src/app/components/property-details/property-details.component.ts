@@ -30,11 +30,8 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
                 private activatedRoute: ActivatedRoute,
                 private router: Router) {
 
-       // this.actualOwner = this.propertyService.userName2;
-       // this.checkValidUser(this.actualOwner);
         this.propertyService.userName.subscribe(
             (name) => {
-              //  this.actualOwner = name;
                 this.checkValidUser(name);
             },
         );

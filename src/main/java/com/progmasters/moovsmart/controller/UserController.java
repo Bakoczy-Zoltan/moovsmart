@@ -3,6 +3,7 @@ package com.progmasters.moovsmart.controller;
 import com.progmasters.moovsmart.domain.UserProperty;
 import com.progmasters.moovsmart.dto.CreateUserCommand;
 import com.progmasters.moovsmart.security.AuthenticatedUser;
+import com.progmasters.moovsmart.security.MyUserDetails;
 import com.progmasters.moovsmart.service.MailSenderService;
 import com.progmasters.moovsmart.service.UserService;
 import com.progmasters.moovsmart.validation.RegistrationValidator;
@@ -67,7 +68,7 @@ public class UserController {
     @GetMapping("/me")
     public ResponseEntity<AuthenticatedUser> authenticateUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails user = (UserDetails) authentication.getPrincipal();
+        MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         return new ResponseEntity<>(new AuthenticatedUser(user), HttpStatus.OK);
     }
 }
