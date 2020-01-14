@@ -3,6 +3,7 @@ package com.progmasters.moovsmart.domain;
 import com.progmasters.moovsmart.dto.PropertyForm;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 @Entity
@@ -12,6 +13,7 @@ public class Property {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private LocalDateTime localDateTime;
     private Integer numberOfRooms;
     private Integer price;
     private Integer buildingYear;
@@ -191,13 +193,13 @@ public class Property {
         this.publicIds = publicIds;
     }
 
-    //    public String getSearchPosition() {
-//        return searchPosition;
-//    }
-//
-//    public void setSearchPosition(String searchPosition) {
-//        this.searchPosition = searchPosition;
-//    }
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
+    }
 
     public UserProperty getOwner() {
         return owner;

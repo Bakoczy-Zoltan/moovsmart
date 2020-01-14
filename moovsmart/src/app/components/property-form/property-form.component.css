@@ -5,3 +5,7 @@
 #error-message{
     color: red;
 }
+
+#pictureDeleteButton {
+margin-left: 50px;
+}

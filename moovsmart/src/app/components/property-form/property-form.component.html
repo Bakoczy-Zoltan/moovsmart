@@ -349,7 +349,8 @@
             </small>
         </div>
         <button type="submit" class="btn btn-primary my-buttons" [disabled]="propertyForm.invalid">Mentés</button>
-    </form>
+        <button class="btn-secondary" id="pictureDeleteButton" (click)="deletePicture()">Kép törlése</button>
+  </form>
 </div>
 
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">

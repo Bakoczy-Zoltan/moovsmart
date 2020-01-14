@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DeletePictureComponent } from './components/delete-picture/delete-picture.component';
 import { PropertyDetailsComponent } from './components/property-details/property-details.component';
 import { PropertyFormComponent } from './components/property-form/property-form.component';
 import { PropertyListComponent } from './components/property-list/property-list.component';
@@ -10,6 +11,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 const routes: Routes = [
     {path: '', component: WelcomeComponent},
     {path: 'welcome', component: WelcomeComponent},
+    {path: 'property-details/:id/images', component: DeletePictureComponent},
     {path: 'property-list', component: PropertyListComponent},
     {path: 'property-list/:id', component: PropertyListComponent},
     {path: 'property-form', component: PropertyFormComponent},

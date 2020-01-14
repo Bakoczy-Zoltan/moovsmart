@@ -1,0 +1,19 @@
+<div class="container jumbotron">
+    <div *ngIf="pictureDetails === undefined || pictureDetails === null">
+        Sajnáljuk, de nincs kép feltöltve az ingatlanhoz!
+    </div>
+    <table *ngIf="pictureDetails">
+        <thead>
+            <tr>
+                <th colspan="3"><h1>Az ingatlanhoz tartozó képek:</h1></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let picture of pictureDetails.imageUrl; let i = index">
+                <img id="pictureForDelete" [src]="picture">
+                <button (click)="deletePicture(i)" id="buttonForDelete">Törlés</button>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

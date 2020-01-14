@@ -2,12 +2,14 @@
 .table {
     background-color: white;
 }
-.container jumbotron{
-    padding-top: 0;
-}
+
 #filter-table{
     margin-bottom: 0;
     padding-bottom: 0;
+}
+
+#property-name-td{
+    width: 200px;
 }
 
 #emptydb {
@@ -15,7 +17,6 @@
     left: 0;
     text-align: center;
 
-    /* Preserve aspet ratio */
     min-width: 100%;
     min-height: 100%;
 }
@@ -59,8 +60,9 @@
 }
 
 #mainRow {
-    margin-top: 1%;
-    margin-bottom: 1%;
+    border-width:3px;
+    border-style:solid;
+    border-color: #C2B9B0;
 }
 
 #filter-button {
