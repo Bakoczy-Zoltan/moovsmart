@@ -39,27 +39,4 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
     );
 }
 
-/*
-declare @min_area int
-declare @max_area int
-declare @min_price int
-declare @max_price int
-declare @property_state string
-declare @property_type string
-declare @city string
-declare @number_of_rooms int
 
-SELECT *
-FROM Property AS P
-WHERE P.Area BETWEEN @min_area AND @max_area
-        AND P.Price BETWEEN @min_price AND @max_price
-        AND P.Property_type = @property_type
-        AND P.Property_state = @property_state
-        AND P.City = @city
-        AND P.number_of_rooms = @number_of_rooms
-        AND P.isValid = true
-ORDER BY P.Date DESC;*/
-
-
-/*....AND (IF p.city IS NULL THEN p.city IN (SELECT city FROM property)
-            ELSE p.city = :city)   */

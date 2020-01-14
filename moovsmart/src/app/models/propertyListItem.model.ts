@@ -3,5 +3,5 @@ export interface PropertyListItemModel {
   name: string;
   numberOfRooms: number;
   price: number;
-  imageUrl: string;
+  imageUrl: string[];
 }

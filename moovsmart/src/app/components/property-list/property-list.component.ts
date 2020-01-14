@@ -49,6 +49,8 @@ export class PropertyListComponent implements OnInit {
             this.registratedUser = true;
         }
 
+        this.clearFilterFields();
+
         this.propertyService.getInitialFormData().subscribe((formInitData: FormInitDataModel) => {
             this.propertyTypes = formInitData.propertyTypes;
             this.propertyStates = formInitData.propertyStates;
@@ -65,6 +67,20 @@ export class PropertyListComponent implements OnInit {
             propertyListItems => this.propertyListItemModels = propertyListItems,
         );
 
+    }
+    clearFilterFields(){
+        this.filteredForm = new FormGroup(
+            {
+                'minPrice': new FormControl(0),
+                'maxPrice': new FormControl(null),
+                'minSize': new FormControl(0),
+                'maxSize': new FormControl(null),
+                'propertyState': new FormControl(null),
+                'propertyType': new FormControl(null),
+                'city': new FormControl(null),
+                'numberOfRooms': new FormControl(null),
+            },
+        );
     }
 
     details(id: number) {
