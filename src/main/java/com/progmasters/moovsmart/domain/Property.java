@@ -48,6 +48,10 @@ public class Property {
     @ElementCollection(targetClass = String.class)
     private List<String>imageUrls = new ArrayList<>();
 
+    @Column(name = "publicId")
+    @ElementCollection(targetClass = String.class)
+    private List<String> publicIds = new ArrayList<>();
+
     public Property() {
     }
 
@@ -179,7 +183,15 @@ public class Property {
         this.streetNumber = streetNumber;
     }
 
-//    public String getSearchPosition() {
+    public List<String> getPublicIds() {
+        return publicIds;
+    }
+
+    public void setPublicIds(List<String> publicIds) {
+        this.publicIds = publicIds;
+    }
+
+    //    public String getSearchPosition() {
 //        return searchPosition;
 //    }
 //

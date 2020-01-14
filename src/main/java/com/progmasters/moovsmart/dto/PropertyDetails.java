@@ -28,6 +28,7 @@ public class PropertyDetails {
 
     private String description;
     private List<String> imageUrl;
+    private List<String> publicId;
 
     public PropertyDetails() {
     }
@@ -56,6 +57,7 @@ public class PropertyDetails {
         this.lngCoord = property.getLngCoord();
         this.description = property.getDescription();
         this.imageUrl = property.getImageUrls();
+        this.publicId = property.getPublicIds();
         this.city = property.getCity();
     }
 
@@ -203,5 +205,13 @@ public class PropertyDetails {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public List<String> getPublicId() {
+        return publicId;
+    }
+
+    public void setPublicId(List<String> publicId) {
+        this.publicId = publicId;
     }
 }
