@@ -60,8 +60,9 @@
 }
 
 #mainRow {
-    margin-top: 1%;
-    margin-bottom: 1%;
+    border-width:3px;
+    border-style:solid;
+    border-color: #C2B9B0;
 }
 
 #filter-button {

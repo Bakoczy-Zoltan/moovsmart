@@ -96,7 +96,7 @@
             <tr>
                 <td>
                     <div *ngIf="property?.imageUrl[0].length < 3">
-                        <img [src]="defaultPicture" class="defaultPicture">
+                        <img [src]="defaultPicture" class="defaultPicture" [alt]="defaultPicture">
                     </div>
                     <div *ngIf="property.imageUrl">
                         <img (click)="details(property.id)" alt="ingatlan" class="room-list-item__image" width="200"
@@ -108,9 +108,9 @@
                     <p><strong>Szobák száma: </strong> {{property.numberOfRooms}}</p>
                     <p><strong>Ár: </strong> {{property.price}}</p>
                 </td>
-                <td></td>
-                <td>Ingatlan regisztráció dátum:</td>
-                <td></td>
+                <td><strong>Terület:</strong> {{property.area}}m2</td>
+                <td><strong>Hirdetés dátuma:</strong></td>
+                <td>{{property.time}}</td>
                 <td></td>
                 <td class="btn-group">
                         <button id="detail-button" class="btn" (click)="details(property.id)">Részletek</button>

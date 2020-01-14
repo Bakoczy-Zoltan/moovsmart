@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -70,6 +71,7 @@ public class PropertyService {
     }
 
     private void updateValues(PropertyForm propertyForm, Property property, UserProperty user) {
+        property.setLocalDateTime(LocalDateTime.now());
         property.setName(propertyForm.getName());
         property.setNumberOfRooms(propertyForm.getNumberOfRooms());
         property.setPrice(propertyForm.getPrice());
