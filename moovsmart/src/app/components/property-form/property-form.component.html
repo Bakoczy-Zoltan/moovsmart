@@ -109,7 +109,7 @@
           >
             <option value="" disabled>&#45;&#45; Válasszon típust &#45;&#45;</option>
             <option *ngFor="let propertyType of propertyTypes, let i = index"
-                    [ngValue]="propertyType.displayName"
+                    [ngValue]="propertyType.name"
                     [selected]="propertyType == propertyForm.get('propertyType')">{{propertyType.displayName}}</option>
           </select>
           <small
@@ -149,7 +149,7 @@
           >
             <option value="" disabled>&#45;&#45; Ingatlan állapota &#45;&#45;</option>
             <option *ngFor="let propertyState of propertyStates, let i = index"
-                    [ngValue]="propertyState.displayName"
+                    [ngValue]="propertyState.name"
                     [selected]="propertyState == propertyForm.get('propertyState')">{{propertyState.displayName}}</option>
           </select>
           <small
@@ -191,7 +191,7 @@
           >
             <option value="" disabled>&#45;&#45; Válasszon megyét &#45;&#45;</option>
             <option *ngFor="let county of counties, let i = index"
-                    [ngValue]="county.displayName"
+                    [ngValue]="county.name"
                     [selected]="county == propertyForm.get('county')">{{county.displayName}}</option>
           </select>
           <small

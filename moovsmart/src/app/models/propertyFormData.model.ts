@@ -15,6 +15,7 @@ export interface PropertyFormDataModel {
   // searchPosition: string;
   description: string;
   imageUrl: string[];
+  publicId: string[];
   owner: string;
   lngCoord: number;
   latCoord: number;

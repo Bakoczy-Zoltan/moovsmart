@@ -26,6 +26,7 @@ public class PropertyForm {
 
     private String description;
     private List<String> imageUrl;
+    private List<String> publicId;
 
     private String owner;
 
@@ -51,7 +52,7 @@ public class PropertyForm {
 //        this.searchPosition = property.getSearchPosition();
         this.description = property.getDescription();
         this.imageUrl = property.getImageUrls();
-
+        this.publicId = property.getPublicIds();
         this.lngCoord = property.getLngCoord();
         this.latCoord = property.getLatCoord();
         this.owner = property.getOwner().getMail();
@@ -199,5 +200,13 @@ public class PropertyForm {
 
     public void setLatCoord(Double latCoord) {
         this.latCoord = latCoord;
+    }
+
+    public List<String> getPublicId() {
+        return publicId;
+    }
+
+    public void setPublicId(List<String> publicId) {
+        this.publicId = publicId;
     }
 }

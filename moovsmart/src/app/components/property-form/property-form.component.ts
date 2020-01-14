@@ -33,6 +33,7 @@ export class PropertyFormComponent implements OnInit {
     answerPublicId = [''];
     answerUrl = [''];
     actualUrlList = [];
+    actualPublicIdList = [];
     formData: any;
     editing: boolean = false;
 
@@ -103,6 +104,8 @@ export class PropertyFormComponent implements OnInit {
     getPropertyData = (id: string) => {
         this.propertyService.fetchPropertyData(id).subscribe(
             (response: PropertyFormDataModel) => {
+                console.log(response);
+                debugger;
                 this.propertyForm.patchValue({
                         name: response.name,
                         area: response.area,
@@ -121,6 +124,7 @@ export class PropertyFormComponent implements OnInit {
                     },
                 );
                 this.actualUrlList = response.imageUrl;
+                this.actualPublicIdList = response.publicId;
             },
             () => {},
             () => {
@@ -192,21 +196,29 @@ export class PropertyFormComponent implements OnInit {
                             this.answer = data;
 
                             this.answerPublicId[0] = this.answer[0];
-                            this.actualUrlList.push(this.answer[1]);
 
-                            console.log(this.actualUrlList);
-                            debugger;
+                            if (this.actualPublicIdList.length < 1 || this.actualPublicIdList[0] === ''){
+                                this.actualPublicIdList[0] = this.answer[0];
+                            } else {
+                                this.actualPublicIdList.push(this.answer[0]);
+                            }
 
-                            this.formData.publicId = (this.answerPublicId);
+                            if (this.actualUrlList.length < 1 || this.actualUrlList[0] === ''){
+                                this.actualUrlList[0] = this.answer[1]
+                            } else {
+                                this.actualUrlList.push(this.answer[1]);
+                            }
+
+
+                            this.formData.publicId = this.actualPublicIdList;
                             this.formData.imageUrl = this.actualUrlList;
-
-                            console.log(this.formData.publicId);
 
                             this.selectedFile = null;
                         },
                         () => {},
                         () => {
                             console.log('COMPLETE', this.formData);
+                            debugger;
                             this.propertyId ? this.updateProperty(this.formData) : this.createNewProperty(this.formData);
                         },
                     );
