@@ -124,7 +124,6 @@ export class PropertyFormComponent implements OnInit {
             },
             () => {},
             () => {
-
             },
         );
     };
