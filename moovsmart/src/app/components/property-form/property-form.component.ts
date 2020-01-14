@@ -91,6 +91,7 @@ export class PropertyFormComponent implements OnInit {
                 if (editablePropertyId) {
                     this.propertyId = +editablePropertyId;
                     this.getPropertyData(editablePropertyId);
+                    console.log(this.getPropertyData(editablePropertyId));
                     this.editing = true;
                 }
             },
@@ -141,7 +142,12 @@ export class PropertyFormComponent implements OnInit {
     };
 
     createNewProperty(data: PropertyFormDataModel) {
-        this.propertyService.createProperty(data).subscribe(
+        const dataToSend = {...data};
+        dataToSend.propertyType = this.propertyTypes.filter(propertyType => propertyType.displayName === data.propertyType)[0].name;
+        dataToSend.propertyState = this.propertyStates.filter(propertyState => propertyState.displayName === data.propertyState)[0].name;
+        dataToSend.county = this.counties.filter(county => county.displayName === data.county)[0].name;
+
+        this.propertyService.createProperty(dataToSend).subscribe(
             () => this.router.navigate(['property-list']),
             error => validationHandler(error, this.propertyForm),
         );
@@ -196,7 +202,6 @@ export class PropertyFormComponent implements OnInit {
                             this.actualUrlList.push(this.answer[1]);
 
                             console.log(this.actualUrlList);
-                            debugger;
 
                             this.formData.publicId = (this.answerPublicId);
                             this.formData.imageUrl = this.actualUrlList;

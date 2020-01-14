@@ -109,8 +109,8 @@
           >
             <option value="" disabled>&#45;&#45; Válasszon típust &#45;&#45;</option>
             <option *ngFor="let propertyType of propertyTypes, let i = index"
-                    [ngValue]="propertyType.displayName"
-                    [selected]="propertyType == propertyForm.get('propertyType')">{{propertyType.displayName}}</option>
+                    [value]="propertyType.displayName"
+                    [selected]="propertyType === propertyForm.get('propertyType').value">{{propertyType.displayName}}</option>
           </select>
           <small
               class="text-danger"
@@ -149,14 +149,14 @@
           >
             <option value="" disabled>&#45;&#45; Ingatlan állapota &#45;&#45;</option>
             <option *ngFor="let propertyState of propertyStates, let i = index"
-                    [ngValue]="propertyState.displayName"
-                    [selected]="propertyState == propertyForm.get('propertyState')">{{propertyState.displayName}}</option>
+                    [value]="propertyState.displayName"
+                    [selected]="propertyState === propertyForm.get('propertyState').value">{{propertyState.displayName}}</option>
           </select>
           <small
               class="text-danger"
               *ngIf="propertyForm.get('propertyState').invalid && propertyForm.get('propertyState').touched && !propertyForm.get('propertyState').errors?.serverError"
           >
-            Válasszon megyét
+            Adja meg az ingatlan állapotát
           </small>
           <small
               *ngIf="propertyForm.get('propertyState').errors?.serverError"
@@ -191,8 +191,8 @@
           >
             <option value="" disabled>&#45;&#45; Válasszon megyét &#45;&#45;</option>
             <option *ngFor="let county of counties, let i = index"
-                    [ngValue]="county.displayName"
-                    [selected]="county == propertyForm.get('county')">{{county.displayName}}</option>
+                    [value]="county.displayName"
+                    [selected]="county === propertyForm.get('county').value">{{county.displayName}}</option>
           </select>
           <small
               class="text-danger"
