@@ -30,6 +30,7 @@ export class PropertyListComponent implements OnInit {
     filteredForm: FormGroup;
     filteredFormDatas: any;
     needFilterList: boolean;
+    filterOpenMessage: string;
 
     constructor(private propertyService: PropertyService,
                 private router: Router,
@@ -94,7 +95,7 @@ export class PropertyListComponent implements OnInit {
         return actualList;
     }
 
-    filterOpenMessage: string;
+
 
     details(id: number) {
         this.router.navigate(['property-details', id]);
@@ -142,7 +143,8 @@ export class PropertyListComponent implements OnInit {
             propertyListItems => {
                 this.propertyListItemModels = propertyListItems;
                 this.actualPageList = this.makingActualList(this.propertyListItemModels);
-                // console.log(this.actualPageList);
+
+                console.log(this.actualPageList);
             },
         );
         this.clearFilterFields();

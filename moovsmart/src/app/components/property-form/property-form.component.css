@@ -15,8 +15,8 @@
 
 #loadingCircle {
     position:fixed;
-    top: 50%;
-    left: 50%;
-    height: 80px;
-    width: 80px;
+    top: 40%;
+    left: 40%;
+    height: 180px;
+    width: 180px;
 }

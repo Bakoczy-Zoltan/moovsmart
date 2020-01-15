@@ -12,22 +12,20 @@ import { PropertyService } from '../../services/property.service';
 export class PropertyDetailsComponent implements OnInit, AfterViewInit {
 
     defaultPicture = 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg';
-    propertyDetails: PropertyDetailsModel;
+    propertyDetails: any;
     images: string[];
     reagistratedUser: boolean;
- //   actualOwner: string;
     map: google.maps.Map;
     lat: number;
     lng: number;
 
-    // lat = 47.545182;
-    // lng = 19.0419057;
     coordinates: google.maps.LatLng;
     mapOptions: google.maps.MapOptions;
     marker: google.maps.Marker;
 
     display = 'none';
     propertyToDelete: number;
+    storage:any;
 
     constructor(private propertyService: PropertyService,
                 private activatedRoute: ActivatedRoute,
@@ -41,9 +39,6 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        this.reagistratedUser = (localStorage.getItem('user') !== null);
-       // this.actualOwner = localStorage.getItem('user');
-
 
         this.activatedRoute.paramMap.subscribe(
             paramMap => {
@@ -56,6 +51,7 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
                         .subscribe(
                             proDetails => {
                                 this.propertyDetails = proDetails;
+                                this.checkOwnerOfProperty(this.propertyDetails);
                                 this.images = this.propertyDetails.imageUrl;
                                 if (this.images !== null) {
                                     this.changeDefaultImg(this.images[0]);
@@ -77,6 +73,21 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
                     ;
                 }
             });
+
+    }
+
+    checkOwnerOfProperty(data: PropertyDetailsModel){
+        this.reagistratedUser = (localStorage.getItem('user') !== null);
+        this.storage = JSON.parse(localStorage.getItem('user'));
+        console.log(data.userId + " owner ID");
+        console.log(data + " property ID");
+
+        if(this.storage != null && this.propertyDetails.userId != null){
+            console.log(this.propertyDetails.userId + " owner ID");
+            this.reagistratedUser = this.storage.userId == this.propertyDetails.userId;
+        }else{
+            this.reagistratedUser = false;
+        }
     }
 
     checkValidUser(name: string) {
@@ -118,10 +129,6 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
         } else {
             this.images[0] = this.defaultPicture;
         }
-    }
-
-    goBack() {
-        this.router.navigate(['property-list']);
     }
 
     delete(id: number) {
