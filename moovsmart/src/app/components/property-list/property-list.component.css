@@ -108,4 +108,20 @@
     margin-top: 0;
     padding-top: 0;
 }
+#pager{
+    text-align: center;
+    position: relative;
+}
 
+#pager div {
+    margin: 0 .5rem;
+}
+
+#leftArrow{
+    display: inline-block;
+
+}
+#rightArrow{
+    display: inline-block;
+
+}
