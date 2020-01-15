@@ -77,7 +77,7 @@
           />
           <small *ngIf="propertyForm.get('buildingYear').invalid && propertyForm.get('buildingYear').touched
           && !propertyForm.get('buildingYear').errors?.serverError" class="text-danger">
-            Az építés éve nem lehet negatív!
+            Az építés éve 0 és {{this.currentYear}} között lehet!
           </small>
           <small *ngIf="propertyForm.get('buildingYear').errors?.serverError" class="text-danger">
             {{propertyForm.get('buildingYear').errors['serverError']}}

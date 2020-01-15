@@ -37,13 +37,14 @@ export class PropertyFormComponent implements OnInit {
     actualPublicIdList = [];
     formData: any;
     editing: boolean = false;
+    currentYear = new Date().getFullYear();
 
     propertyForm = this.formBuilder.group({
         'name': ['', Validators.compose([Validators.required, Validators.minLength(3),
             Validators.maxLength(60)])],
         'area': ['', Validators.compose([Validators.required, Validators.min(1)])],
         'numberOfRooms': ['', Validators.compose([Validators.min(1), Validators.max(12)])],
-        'buildingYear': ['', Validators.min(0)],
+        'buildingYear': ['', Validators.compose([Validators.min(0), Validators.max(new Date().getFullYear())])],
         'propertyType': ['', Validators.required],
         'propertyState': ['', Validators.required],
         'county': ['', Validators.required],
