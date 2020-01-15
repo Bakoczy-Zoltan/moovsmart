@@ -7,10 +7,10 @@
                 <div *ngFor="let property of propertyListItemModels" id="mainRow">
                     <tr>
                         <td>
-                            <div *ngIf="property?.imageUrl[0].length < 3">
+                            <div *ngIf="property?.imageUrl[0]?.length < 3">
                                 <img [src]="defaultPicture" class="defaultPicture" [alt]="defaultPicture">
                             </div>
-                            <div *ngIf="property.imageUrl">
+                            <div *ngIf="property?.imageUrl[0]?.length >= 3">
                                 <img (click)="details(property.id)" alt="ingatlan" class="room-list-item__image"
                                      width="200"
                                      src="{{property?.imageUrl[0]}}"/>
@@ -25,7 +25,7 @@
                         <td><strong>Hirdetés dátuma:</strong></td>
                         <td>{{property.time}}</td>
                         <td></td>
-                        <td class="btn-group">
+                        <td class="btn-group" id="button-container">
                             <button id="detail-button" class="btn" (click)="details(property.id)">Részletek</button>
                         </td>
                     </tr>
