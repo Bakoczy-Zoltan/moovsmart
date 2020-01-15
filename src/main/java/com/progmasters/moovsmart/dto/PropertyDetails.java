@@ -29,6 +29,7 @@ public class PropertyDetails {
     private String description;
     private List<String> imageUrl;
     private List<String> publicId;
+    private Long userId;
 
     public PropertyDetails() {
     }
@@ -59,6 +60,7 @@ public class PropertyDetails {
         this.imageUrl = property.getImageUrls();
         this.publicId = property.getPublicIds();
         this.city = property.getCity();
+        this.userId = property.getOwner().getId();
     }
 
 
@@ -156,6 +158,14 @@ public class PropertyDetails {
 
     public void setStreetNumber(String streetNumber) {
         this.streetNumber = streetNumber;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     //    public String getSearchPosition() {

@@ -11,8 +11,9 @@ import { PropertyService } from '../../services/property.service';
 export class NavbarComponent implements OnInit {
     BASE_URL: string;
     registratedUser: boolean;
-    id: number;
+    id: number = null;
     userName: string;
+    storage: any;
 
     constructor(private http: HttpClient,
                 private router: Router,
@@ -25,11 +26,16 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit() {
         this.registratedUser = (localStorage.getItem('user')!== null);
-        const storage = JSON.parse(localStorage.getItem('user'));
-        this.userName = storage.name;
+        this.storage = JSON.parse(localStorage.getItem('user'));
+
+        if(this.storage != null){
+            this.userName = this.storage.name;
+            this.id = this.storage.userId;
+        }
+
         console.log("USER " + this.userName);
 
-        this.id = this.propertyService.userId;
+       // this.id = this.propertyService.userId;
         this.propertyService.regisTrated.subscribe(
             name => this.registratedUser = name
         );
@@ -48,15 +54,18 @@ export class NavbarComponent implements OnInit {
             this.propertyService.userName.next(
                 null
             )
-           // this.userName = null;
         });
     }
 
     ownProperties() {
-        this.id = this.propertyService.userId;
-        console.log("Nav User " + this.id);
-        if(this.id !== null){
+        this.storage = JSON.parse(localStorage.getItem('user'));
+        if(this.storage != null){
+            this.id = this.storage.userId;
+        }
+        if(this.id !== null && this.id !== undefined){
             this.router.navigate(['profil-list', this.id])
+        }else{
+            this.registratedUser = false;
         }
     }
 }
