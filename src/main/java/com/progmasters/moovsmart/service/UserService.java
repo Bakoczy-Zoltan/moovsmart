@@ -36,6 +36,7 @@ public class UserService {
             newUser.setPassword(password);
 
             this.userRepository.save(newUser);
+
             Optional<UserProperty> user = this.userRepository.findUserPropertiesByMail(command.getMail());
             if (user.isPresent()) {
                 id = user.get().getId();

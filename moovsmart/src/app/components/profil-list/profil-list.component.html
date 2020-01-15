@@ -4,7 +4,7 @@
             <thead>
             </thead>
             <tbody>
-                <div id="table-row" *ngFor="let property of propertyListItemModels" id="mainRow">
+                <div *ngFor="let property of propertyListItemModels" id="mainRow">
                     <tr>
                         <td>
                             <div *ngIf="property?.imageUrl[0].length < 3">

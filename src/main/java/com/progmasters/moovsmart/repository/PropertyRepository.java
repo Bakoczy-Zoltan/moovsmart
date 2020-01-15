@@ -40,3 +40,5 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
 }
 
 
+/*AND p.numberofrooms = CASE WHEN :numberofrooms IS NULL THEN p.numberofrooms ELSE :numberofrooms
+    END */
