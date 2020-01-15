@@ -40,7 +40,9 @@ public class Property {
     @Column(columnDefinition = "boolean default true")
     private boolean isValid;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+//    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
     private UserProperty owner;
 
     private Double lngCoord;

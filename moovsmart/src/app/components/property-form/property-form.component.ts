@@ -145,13 +145,17 @@ export class PropertyFormComponent implements OnInit {
     };
 
     createNewProperty(data: PropertyFormDataModel) {
-        this.propertyService.createProperty(data).subscribe(
+        const dataToSend = {...data};
+        dataToSend.propertyType = this.propertyTypes.filter(propertyType => propertyType.displayName === data.propertyType)[0].name;
+        dataToSend.propertyState = this.propertyStates.filter(propertyState => propertyState.displayName === data.propertyState)[0].name;
+        dataToSend.county = this.counties.filter(county => county.displayName === data.county)[0].name;
+
+        this.propertyService.createProperty(dataToSend).subscribe(
             () => {
                 this.displayLoadingCircle = false;
                 console.log('created');
                 this.ngZone.run(() =>
                     this.router.navigate(['property-list']));
-
             },
             error => validationHandler(error, this.propertyForm),
         );

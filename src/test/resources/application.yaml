@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:hsqldb:mem:test
+    url: jdbc:h2:mem:test;DATABASE_TO_UPPER=false
     username: root
     password: test1234
-    driver-class-name: org.hsqldb.jdbcDriver
+    driver-class-name: org.h2.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -11,7 +11,7 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.H2Dialect
     generate-ddl: true
   http:
     encoding:
