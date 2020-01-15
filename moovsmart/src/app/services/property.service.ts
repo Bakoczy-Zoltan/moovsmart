@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { FilteredListModel } from '../models/FilteredListModel';
 import { PropertyDetailsModel } from '../models/propertyDetails.model';
-import { PropertyListItemModel } from '../models/propertyListItem.model';
 import { PropertyFormDataModel } from '../models/propertyFormData.model';
+import { PropertyListItemModel } from '../models/propertyListItem.model';
 import { UserFormDataModel } from '../models/userFormData.model';
-import {environment} from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root',
@@ -14,12 +14,12 @@ import {environment} from "../../environments/environment";
 export class PropertyService {
 
     userName = new Subject<string>();
-    userName2 : string;
-    registratedUser: boolean;
+    userName2: string;
+    userId: number;
     regisTrated = new Subject<boolean>();
 
-    baseUrl = environment.apiUrl+'/properties';
-    baseUserUrl = environment.apiUrl+'/user';
+    baseUrl = environment.apiUrl + '/properties';
+    baseUserUrl = environment.apiUrl + '/user';
     url = 'localhost:8080/api/properties';
 
     constructor(private httpClient: HttpClient) {
@@ -30,7 +30,7 @@ export class PropertyService {
     }
 
     createProperty(roomFormData: PropertyFormDataModel): Observable<any> {
-        return this.httpClient.post(this.baseUrl + "/authUser", roomFormData);
+        return this.httpClient.post(this.baseUrl + '/authUser', roomFormData);
     }
 
     getPropertyList(): Observable<Array<PropertyListItemModel>> {
@@ -63,14 +63,14 @@ export class PropertyService {
         return this.httpClient.get<any>(this.baseUserUrl + '/validuser/' + id);
     }
 
-    signIn(credentials: any):Observable<any> {
-        const headers = new HttpHeaders( credentials? {
+    signIn(credentials: any): Observable<any> {
+        const headers = new HttpHeaders(credentials ? {
             authorization: 'Basic ' + btoa(credentials.userName + ':' + credentials.password),
         } : {});
-        return this.httpClient.get<any>(this.baseUserUrl + '/me', {headers:headers})
+        return this.httpClient.get<any>(this.baseUserUrl + '/me', {headers: headers});
     }
 
-    getMyPropertyList(id: string): Observable<Array<PropertyListItemModel>> {
+    getMyPropertyList(id: number): Observable<Array<PropertyListItemModel>> {
         return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl + '/authUser/myList');
     }
 

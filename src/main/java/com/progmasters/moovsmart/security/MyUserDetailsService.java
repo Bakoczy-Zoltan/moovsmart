@@ -42,13 +42,6 @@ public class MyUserDetailsService implements UserDetailsService {
 
             MyUserDetails principal = new MyUserDetails(realUser);
 
-
-//            UserDetails principal = org.springframework.security.core.userdetails.User
-//                    .withUsername(username)
-//                    .authorities(authorities)
-//                    .password(realUser.getPassword())
-//                    .build();
-
         return principal;
     }
 }

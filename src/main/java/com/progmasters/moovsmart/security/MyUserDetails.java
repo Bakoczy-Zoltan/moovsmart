@@ -12,10 +12,12 @@ import java.util.List;
 
 public class MyUserDetails implements UserDetails {
 
+    private String name;
     private String userName;
     private String password;
     private List<GrantedAuthority> roleList;
     private boolean isActive;
+    private Long userId;
 
     public MyUserDetails() {
     }
@@ -25,6 +27,8 @@ public class MyUserDetails implements UserDetails {
         this.password = user.getPassword();
         this.roleList = makeRoles(user.getRoleTypes());
         this.isActive = user.getIsActive();
+        this.userId = user.getId();
+        this.name = user.getUserName();
     }
 
     private List<GrantedAuthority> makeRoles(List<RoleType> roleTypes) {
@@ -96,5 +100,21 @@ public class MyUserDetails implements UserDetails {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

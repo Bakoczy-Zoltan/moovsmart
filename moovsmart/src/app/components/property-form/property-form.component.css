@@ -1,11 +1,22 @@
-.btn {
-    background-color: #7E685A;
-    color: white;
-}
-#error-message{
+#error-message {
     color: red;
 }
 
 #pictureDeleteButton {
-margin-left: 50px;
+    background-color: #E7717D;
+    color: white;
+    margin-left: 50px;
+}
+
+#saveButton {
+    background-color: #7E685A;
+    color: white;
+}
+
+#loadingCircle {
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    height: 80px;
+    width: 80px;
 }

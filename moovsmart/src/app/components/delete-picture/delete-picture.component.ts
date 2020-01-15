@@ -14,6 +14,8 @@ export class DeletePictureComponent implements OnInit {
     publicIds: string[];
     pictureIdToDelete: string;
     propertyId: number;
+    display = 'none';
+    pictureToDelete: number;
 
     constructor(private propertyService: PropertyService,
                 private activatedRoute: ActivatedRoute,
@@ -44,6 +46,7 @@ export class DeletePictureComponent implements OnInit {
     }
 
     deletePicture(index: number) {
+        this.display = 'none';
         this.pictureIdToDelete = this.pictureDetails.publicId[index];
         this.imageUrls.splice(index, 1);
         this.publicIds.splice(index, 1);
@@ -66,5 +69,14 @@ export class DeletePictureComponent implements OnInit {
             )
             },
         );
+    }
+
+    openConfirmation(i: number) {
+        this.pictureToDelete = i;
+        this.display = 'block';
+    }
+
+    closeDial() {
+        this.display = 'none';
     }
 }

@@ -15,8 +15,8 @@
 
       <a *ngIf="!registratedUser" class="nav-link" routerLink="/registration">Regisztráció <i class="far fa-edit"></i></a>
       <a *ngIf="!registratedUser" class="nav-link" routerLink="/signin">Bejelentkezés <i class="fas fa-sign-in-alt"></i></a>
-      <!--a *ngIf="registratedUser" class="nav-link" (click)="ownProperties()">Ingatlanaim</a-->
-      <a *ngIf="registratedUser" class="nav-link" (click)="logout()">Logout</a>
+      <a *ngIf="registratedUser" class="nav-link" (click)="ownProperties()">{{userName}}</a>
+      <a *ngIf="registratedUser" class="nav-link" (click)="logout()">Kijelentkezés</a>
     </div>
   </div>
 </nav>

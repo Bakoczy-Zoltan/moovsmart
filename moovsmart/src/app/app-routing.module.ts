@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DeletePictureComponent } from './components/delete-picture/delete-picture.component';
+import { ProfilListComponent } from './components/profil-list/profil-list.component';
 import { PropertyDetailsComponent } from './components/property-details/property-details.component';
 import { PropertyFormComponent } from './components/property-form/property-form.component';
 import { PropertyListComponent } from './components/property-list/property-list.component';
@@ -20,6 +21,8 @@ const routes: Routes = [
     {path: 'registration', component: RegistrationComponent},
     {path: 'signin', component: SigninComponent},
     {path: 'signin/:id', component: SigninComponent},
+    {path: 'profil-list', component: ProfilListComponent},
+    {path: 'profil-list/:id', component: ProfilListComponent},
 ];
 
 @NgModule({

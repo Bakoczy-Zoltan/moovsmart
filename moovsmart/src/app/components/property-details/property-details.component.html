@@ -26,7 +26,28 @@
         </div>
     </div>
     <div>
-        <h3><strong>Ingatlan bemutatása</strong></h3><hr>
+
+        <div class="row">
+            <div class="col">
+            <h4><strong>Ingatlan bemutatása</strong></h4></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col">
+                <button *ngIf="reagistratedUser" type="button" class="btn btn-secondary" (click)="edit(propertyDetails.id)">
+                    Szerkesztés <i class="fas fa-pencil-alt"></i></button>
+            </div>
+
+        </div>
+        <div id="map-div">
+
+        </div>
+        <p>
+            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModal">
+                <strong>Mutassa térképen</strong>
+            </button>
+        </p>
+        <hr>
+
 
         <div class="row" id="description-div">
             <div class="col">
@@ -58,13 +79,11 @@
             </div>
         </div>
     </div>
-    <p></p><hr>
+    <p></p>
+    <hr>
     <p><strong>Részletes leírás:</strong></p>
     <p>{{propertyDetails?.description}}</p>
 
-    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModal">
-        <strong>Mutassa térképen</strong>
-    </button>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -86,10 +105,32 @@
         </div>
     </div>
     <div id="bottom-div">
-        <button *ngIf="reagistratedUser" type="button" class="btn btn-secondary" (click)="edit(propertyDetails.id)">
-            Szerkesztés <i class="fas fa-pencil-alt"></i></button>
-        <button *ngIf="reagistratedUser" type="button" class="btn btn-info" (click)="delete(propertyDetails.id)">
+
+        <button *ngIf="reagistratedUser" type="button" class="btn buttonForDelete" (click)="openConfirmation(propertyDetails.id)">
             Törlés <i class="far fa-trash-alt"></i></button>
     </div>
 </div>
+
+<!-- Modal -->
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ingatlan törlése</h5>
+                <button type="button" class="close" data-dismiss="modal" (click)="closeDial()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="error-message">Biztos benne, hogy törölni szeretné az ingatlant?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn confirmationButton" data-dismiss="modal" (click)="delete(propertyToDelete)">Igen</button>
+                <button type="button" class="btn cancelButton" data-dismiss="modal" (click)="closeDial()">Nem</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
