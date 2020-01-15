@@ -12,6 +12,7 @@ export class NavbarComponent implements OnInit {
     BASE_URL: string;
     registratedUser: boolean;
     id: number;
+    userName: string;
 
     constructor(private http: HttpClient,
                 private router: Router,
@@ -24,10 +25,17 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit() {
         this.registratedUser = (localStorage.getItem('user')!== null);
+        const storage = JSON.parse(localStorage.getItem('user'));
+        this.userName = storage.name;
+        console.log("USER " + this.userName);
+
         this.id = this.propertyService.userId;
         this.propertyService.regisTrated.subscribe(
             name => this.registratedUser = name
-        )
+        );
+        this.propertyService.userName.subscribe(
+            name => this.userName = name
+        );
     }
 
     logout() {
@@ -37,6 +45,10 @@ export class NavbarComponent implements OnInit {
             this.router.navigateByUrl('/');
             this.propertyService.regisTrated.next(false);
             this.propertyService.userId = null;
+            this.propertyService.userName.next(
+                null
+            )
+           // this.userName = null;
         });
     }
 

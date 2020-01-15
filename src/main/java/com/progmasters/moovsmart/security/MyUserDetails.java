@@ -12,6 +12,7 @@ import java.util.List;
 
 public class MyUserDetails implements UserDetails {
 
+    private String name;
     private String userName;
     private String password;
     private List<GrantedAuthority> roleList;
@@ -27,6 +28,7 @@ public class MyUserDetails implements UserDetails {
         this.roleList = makeRoles(user.getRoleTypes());
         this.isActive = user.getIsActive();
         this.userId = user.getId();
+        this.name = user.getUserName();
     }
 
     private List<GrantedAuthority> makeRoles(List<RoleType> roleTypes) {
@@ -106,5 +108,13 @@ public class MyUserDetails implements UserDetails {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
