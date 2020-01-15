@@ -53,5 +53,19 @@ a:hover {
     margin-top: 1%;
 }
 
+.buttonForDelete {
+    background-color: #E7717D;
+    color: white;
+}
+
+.confirmationButton {
+    background-color: #E7717D;
+    color: white;
+}
+
+.cancelButton {
+    background-color: #C2B9B0;
+    color: white;
+}
 
 

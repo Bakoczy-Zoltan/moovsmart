@@ -11,9 +11,31 @@
         <tbody>
             <tr *ngFor="let picture of pictureDetails.imageUrl; let i = index">
                 <img id="pictureForDelete" [src]="picture">
-                <button class="btn btn-danger"(click)="deletePicture(i)" id="buttonForDelete">Törlés</button>
+                <button class="btn buttonForDelete"(click)="openConfirmation(i)" id="buttonForDelete">Törlés</button>
             </tr>
 
         </tbody>
     </table>
+</div>
+
+<!-- Modal -->
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kép törlése</h5>
+                <button type="button" class="close" data-dismiss="modal" (click)="closeDial()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="error-message">Biztos benne, hogy törölni szeretné a képet?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn confirmationButton" data-dismiss="modal" (click)="deletePicture(pictureToDelete)">Igen</button>
+                <button type="button" class="btn cancelButton" data-dismiss="modal" (click)="closeDial()">Nem</button>
+            </div>
+        </div>
+    </div>
 </div>
