@@ -14,11 +14,6 @@
 
 }
 
-#button-container {
-    left: calc(90% - 150px);
-    position: absolute;
-}
-
 .defaultPicture {
     width: 100%;
     max-width: 200px;
