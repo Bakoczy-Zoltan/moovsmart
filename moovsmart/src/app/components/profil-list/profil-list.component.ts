@@ -27,6 +27,7 @@ export class ProfilListComponent implements OnInit {
                     this.propertyService.getMyPropertyList(+userId).subscribe(
                         propertyListItems => {
                             this.propertyListItemModels = propertyListItems;
+                            this.refactorOfPrice(this.propertyListItemModels);
                             this.actualPageNumber = 1;
                         },
                     );
@@ -39,4 +40,12 @@ export class ProfilListComponent implements OnInit {
         this.router.navigate(['property-details', id]);
     }
 
+    refactorOfPrice(datas: PropertyListItemModel[]){
+        for(let i= 0; i < datas.length; i++){
+            const property = datas[i];
+            const formatedPrice = property.price / 1000000;
+            property.price = +formatedPrice.toPrecision(3);
+        }
+
+    }
 }

@@ -18,7 +18,7 @@ export class PropertyListComponent implements OnInit {
     propertyListItemModels: Array<PropertyListItemModel>;
     defaultPicture = 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg';
 
-    actualPageList: [PropertyListItemModel[]];
+    actualPageList: [PropertyListItemModel[]] = [[]];
     actualPageNumber: number;
 
     propertyTypes: PropertyTypeOptionModel[];
@@ -30,6 +30,7 @@ export class PropertyListComponent implements OnInit {
     filteredForm: FormGroup;
     filteredFormDatas: any;
     needFilterList: boolean;
+    filterOpenMessage: string;
 
     constructor(private propertyService: PropertyService,
                 private router: Router,
@@ -94,7 +95,7 @@ export class PropertyListComponent implements OnInit {
         return actualList;
     }
 
-    filterOpenMessage: string;
+
 
     details(id: number) {
         this.router.navigate(['property-details', id]);

@@ -46,8 +46,6 @@ export class SigninComponent implements OnInit {
                     storage.name
                 );
                 this.propertyService.userId = validUSer.userId;
-                // console.log(this.propertyService.userId + " service id");
-                // console.log(validUSer.userId + " USER");
                 this.router.navigate(['profil-list', validUSer.userId]);
             },
             (err) => {
