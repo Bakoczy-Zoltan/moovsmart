@@ -52,6 +52,8 @@ public class PropertyServiceIT {
         property.setPrice(10000000);
         property.setDescription("");
         property.setImageUrl(Arrays.asList("image.jpg"));
+        property.setLatCoord(47.507855);
+        property.setLngCoord(18.987466);
 
         UserProperty user = new UserProperty();
         user.setMail("xy@xy.com");

@@ -30,7 +30,10 @@ public class UserProperty {
     @OneToOne(mappedBy = "tokenUser")
     private TokenStorage tokenStorage;
 
-    @OneToMany(mappedBy = "owner")
+//    @OneToMany(mappedBy = "owner")
+    @OneToMany(cascade = CascadeType.ALL,
+        fetch = FetchType.LAZY,
+        mappedBy = "owner")
     private List<Property> properties = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)

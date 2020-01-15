@@ -8,24 +8,31 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 public class PropertyRepositoryTest {
 
-//    @Autowired
-//    private TestEntityManager entityManager;
-
     @Autowired
     private PropertyRepository propertyRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Test
-    public void testSaveAndFindAllByIsValid() {
+    public void testSave() {
         //given
+        UserProperty user = new UserProperty();
+        user.setMail("xy@xy.com");
+
+        userRepository.save(user);
+
         Property property = new Property();
         property.setName("Ház");
         property.setArea(150.0);
@@ -40,13 +47,14 @@ public class PropertyRepositoryTest {
         property.setZipCode(1125);
         property.setPrice(10000000);
         property.setDescription("");
-////        property.setOwner(new UserProperty());
+        property.setLatCoord(47.507855);
+        property.setLngCoord(18.987466);
         property.setValid(true);
+        property.setLocalDateTime(LocalDateTime.now());
+        property.setOwner(user);
         property.setImageUrls(Arrays.asList("image.jpg"));
-//
+
         propertyRepository.save(property);
-//        entityManager.persist(property);
-//        entityManager.flush();
 
         //when
         List<Property> properties = propertyRepository.findAllByIsValid();
@@ -70,33 +78,109 @@ public class PropertyRepositoryTest {
         assertEquals(property.getDescription(), properties.get(0).getDescription());
         assertEquals(property.isValid(), properties.get(0).isValid());
         assertEquals(property.getImageUrls(), properties.get(0).getImageUrls());
+        assertEquals(user.getMail(), property.getOwner().getMail());
     }
 
     @Test
+    public void testSaveAndFindAllByIsValid() {
+        Property property1 = new Property();
+        property1.setName("house1");
+        property1.setValid(true);
+        Property property2 = new Property();
+        property2.setName("house2");
+        property2.setValid(true);
+        Property property3 = new Property();
+        property3.setName("house3");
+        property3.setValid(false);
+
+        propertyRepository.save(property1);
+        propertyRepository.save(property2);
+        propertyRepository.save(property3);
+
+        List<Property> properties = propertyRepository.findAllByIsValid();
+
+        assertEquals(2, properties.size());
+    }
+
+
+        @Test
     public void testFindAllByOwner() {
         UserProperty user1 = new UserProperty();
-        user1.setId(1L);
-//        UserProperty user2 = new UserProperty();
-//        user2.setId(2L);
+        user1.setMail("user1@gmail.com");
+        UserProperty user2 = new UserProperty();
+        user1.setMail("user2@gmail.com");
+
+        userRepository.save(user1);
+        userRepository.save(user2);
+
         Property property1 = new Property();
         property1.setName("Ház1");
         property1.setOwner(user1);
-//        Property property2 = new Property();
-//        property2.setName("Ház2");
-//        property2.setOwner(user1);
-//        Property property3 = new Property();
-//        property3.setName("Ház3");
-//        property3.setOwner(user2);
+        Property property2 = new Property();
+        property2.setName("Ház2");
+        property2.setOwner(user1);
+        Property property3 = new Property();
+        property3.setName("Ház3");
+        property3.setOwner(user2);
 
         propertyRepository.save(property1);
-//        propertyRepository.save(property2);
-//        propertyRepository.save(property3);
+        propertyRepository.save(property2);
+        propertyRepository.save(property3);
 
         List<Property> propertyUser1 = propertyRepository.findAllByOwner(user1);
-//        List<Property> propertyUser2 = propertyRepository.findAllByOwner(user2);
+        List<Property> propertyUser2 = propertyRepository.findAllByOwner(user2);
 
-        assertEquals(1, propertyUser1.size());
-//        assertEquals(1, propertyUser2.size());
+        assertEquals(2, propertyUser1.size());
+        assertEquals(1, propertyUser2.size());
+    }
+
+    @Test
+    public void testGetAllCity() {
+        Property property1 = new Property();
+        property1.setCity("Budapest");
+        property1.setValid(true);
+        Property property2 = new Property();
+        property2.setCity("Vác");
+        property2.setValid(true);
+        Property property3 = new Property();
+        property3.setCity("Békéscsaba");
+        property3.setValid(true);
+
+        propertyRepository.save(property1);
+        propertyRepository.save(property2);
+        propertyRepository.save(property3);
+
+        List<String> cities = propertyRepository.getAllCity();
+
+        assertEquals(3, cities.size());
+        assertTrue(cities.contains(property1.getCity()));
+        assertTrue(cities.contains(property2.getCity()));
+        assertTrue(cities.contains(property3.getCity()));
+
+    }
+
+    @Test
+    public void testGetFilteredProperties() {
+        Property property = new Property();
+        property.setName("Ház");
+        property.setArea(150.0);
+        property.setNumberOfRooms(5);
+        property.setBuildingYear(1999);
+        property.setCounty(County.BUDAPEST);
+        property.setPropertyType(PropertyType.HOUSE);
+        property.setPropertyState(PropertyState.RENEWABLE);
+        property.setCity("Budapest");
+        property.setPrice(10000000);
+        property.setDescription("");
+        property.setValid(true);
+
+        propertyRepository.save(property);
+
+        List<Property> properties1 = propertyRepository.getFilteredProperties(50.0, 200.0,
+                1000000, 15000000, PropertyState.RENEWABLE, PropertyType.HOUSE,
+                "Budapest", 5);
+
+        assertEquals(1, properties1.size());
 
     }
 }
