@@ -26,6 +26,9 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     mapOptions: google.maps.MapOptions;
     marker: google.maps.Marker;
 
+    display = 'none';
+    propertyToDelete: number;
+
     constructor(private propertyService: PropertyService,
                 private activatedRoute: ActivatedRoute,
                 private router: Router) {
@@ -132,6 +135,15 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
 
     edit(id: number) {
         this.router.navigate(['property-form/', id]);
+    }
+
+    openConfirmation(id: number) {
+        this.propertyToDelete = id;
+        this.display = 'block';
+    }
+
+    closeDial() {
+        this.display = 'none';
     }
 }
 

@@ -5,5 +5,17 @@
 }
 
 #buttonForDelete {
+    background-color: #E7717D;
+    color: white;
     margin-left: 20px;
+}
+
+.confirmationButton {
+    background-color: #E7717D;
+    color: white;
+}
+
+.cancelButton {
+    background-color: #C2B9B0;
+    color: white;
 }

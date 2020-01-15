@@ -106,8 +106,31 @@
     </div>
     <div id="bottom-div">
 
-        <button *ngIf="reagistratedUser" type="button" class="btn btn-danger" (click)="delete(propertyDetails.id)">
+        <button *ngIf="reagistratedUser" type="button" class="btn buttonForDelete" (click)="openConfirmation(propertyDetails.id)">
             Törlés <i class="far fa-trash-alt"></i></button>
     </div>
 </div>
+
+<!-- Modal -->
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ingatlan törlése</h5>
+                <button type="button" class="close" data-dismiss="modal" (click)="closeDial()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="error-message">Biztos benne, hogy törölni szeretné az ingatlant?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn confirmationButton" data-dismiss="modal" (click)="delete(propertyToDelete)">Igen</button>
+                <button type="button" class="btn cancelButton" data-dismiss="modal" (click)="closeDial()">Nem</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 

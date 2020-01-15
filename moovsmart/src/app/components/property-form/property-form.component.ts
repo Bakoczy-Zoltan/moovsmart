@@ -18,6 +18,7 @@ export class PropertyFormComponent implements OnInit {
     propertyTypes: PropertyTypeOptionModel[];
     propertyStates: PropertyStateOptionModel[];
     display = 'none';
+    displayLoadingCircle = false;
 
     registratedUser: boolean;
     private propertyId: number;
@@ -132,6 +133,7 @@ export class PropertyFormComponent implements OnInit {
     };
 
     submit = () => {
+        this.displayLoadingCircle = true;
         this.formData = {...this.propertyForm.value};
         console.log(this.formData);
 
@@ -145,9 +147,11 @@ export class PropertyFormComponent implements OnInit {
     createNewProperty(data: PropertyFormDataModel) {
         this.propertyService.createProperty(data).subscribe(
             () => {
+                this.displayLoadingCircle = false;
                 console.log('created');
                 this.ngZone.run(() =>
                     this.router.navigate(['property-list']));
+
             },
             error => validationHandler(error, this.propertyForm),
         );
@@ -155,8 +159,10 @@ export class PropertyFormComponent implements OnInit {
 
     private updateProperty(data: PropertyFormDataModel) {
         this.propertyService.updateProperty(data, this.propertyId).subscribe(
-            () => this.router.navigate(['property-list']),
+            () => {this.displayLoadingCircle = false;
+                this.router.navigate(['property-list'])},
             error => validationHandler(error, this.propertyForm),
+
         );
     }
 
@@ -247,4 +253,5 @@ export class PropertyFormComponent implements OnInit {
     deletePicture = () => {
         this.router.navigate(['property-details/' + this.propertyId + '/images'])
     }
+
 }
