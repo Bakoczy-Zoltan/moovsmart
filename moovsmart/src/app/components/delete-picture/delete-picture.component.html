@@ -11,7 +11,7 @@
         <tbody>
             <tr *ngFor="let picture of pictureDetails.imageUrl; let i = index">
                 <img id="pictureForDelete" [src]="picture">
-                <button (click)="deletePicture(i)" id="buttonForDelete">Törlés</button>
+                <button class="btn btn-danger"(click)="deletePicture(i)" id="buttonForDelete">Törlés</button>
             </tr>
 
         </tbody>
