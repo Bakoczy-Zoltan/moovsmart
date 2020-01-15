@@ -10,7 +10,7 @@ import { PropertyService } from '../../services/property.service';
 })
 export class ProfilListComponent implements OnInit {
 
-    propertyListItemModels: PropertyListItemModel[];
+    propertyListItemModels: PropertyListItemModel[] = [];
     defaultPicture = 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg';
     actualPageList: PropertyListItemModel[];
     actualPageNumber: number;

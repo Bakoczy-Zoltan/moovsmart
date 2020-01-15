@@ -143,7 +143,8 @@ export class PropertyListComponent implements OnInit {
             propertyListItems => {
                 this.propertyListItemModels = propertyListItems;
                 this.actualPageList = this.makingActualList(this.propertyListItemModels);
-                // console.log(this.actualPageList);
+
+                console.log(this.actualPageList);
             },
         );
         this.clearFilterFields();
