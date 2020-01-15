@@ -59,6 +59,8 @@ public class PropertyServiceIT {
         user.setMail("xy@xy.com");
         user.setId(1L);
 
+        userRepository.save(user);
+
         propertyService.createProperty(property, user.getMail());
 
         List<PropertyListItem> properties = propertyService.getProperties();

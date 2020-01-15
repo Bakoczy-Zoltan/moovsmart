@@ -97,7 +97,7 @@
             <div *ngFor="let property of actualPageList[actualPageNumber-1]" id="mainRow">
                 <tr>
                     <td>
-                        <div *ngIf="property?.imageUrl[0].length < 3">
+                        <div *ngIf="property?.imageUrl[0]?.length < 3">
                             <img [src]="defaultPicture" class="defaultPicture" [alt]="defaultPicture">
                         </div>
                         <div *ngIf="property.imageUrl">

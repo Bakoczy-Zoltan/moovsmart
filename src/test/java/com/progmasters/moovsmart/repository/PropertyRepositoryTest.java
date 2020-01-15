@@ -161,20 +161,20 @@ public class PropertyRepositoryTest {
 
     @Test
     public void testGetFilteredProperties() {
-        Property property = new Property();
-        property.setName("Ház");
-        property.setArea(150.0);
-        property.setNumberOfRooms(5);
-        property.setBuildingYear(1999);
-        property.setCounty(County.BUDAPEST);
-        property.setPropertyType(PropertyType.HOUSE);
-        property.setPropertyState(PropertyState.RENEWABLE);
-        property.setCity("Budapest");
-        property.setPrice(10000000);
-        property.setDescription("");
-        property.setValid(true);
+        Property property1 = new Property();
+        property1.setName("Ház");
+        property1.setArea(150.0);
+        property1.setNumberOfRooms(5);
+        property1.setBuildingYear(1999);
+        property1.setCounty(County.BUDAPEST);
+        property1.setPropertyType(PropertyType.HOUSE);
+        property1.setPropertyState(PropertyState.RENEWABLE);
+        property1.setCity("Budapest");
+        property1.setPrice(10000000);
+        property1.setDescription("");
+        property1.setValid(true);
 
-        propertyRepository.save(property);
+        propertyRepository.save(property1);
 
         List<Property> properties1 = propertyRepository.getFilteredProperties(50.0, 200.0,
                 1000000, 15000000, PropertyState.RENEWABLE, PropertyType.HOUSE,
@@ -182,5 +182,16 @@ public class PropertyRepositoryTest {
 
         assertEquals(1, properties1.size());
 
+//        List<Property> properties2 = propertyRepository.getFilteredProperties(0.0, 0.0,
+//                0, 0, null, null,
+//                null, 5);
+//
+//        assertEquals(1, properties2.size());
+
+        List<Property> properties3 = propertyRepository.getFilteredProperties(0.0, 0.0,
+                0, 0, null, null,
+                null, 1);
+
+        assertEquals(0, properties3.size());
     }
 }

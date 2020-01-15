@@ -18,7 +18,7 @@ export class PropertyListComponent implements OnInit {
     propertyListItemModels: Array<PropertyListItemModel>;
     defaultPicture = 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg';
 
-    actualPageList: [PropertyListItemModel[]];
+    actualPageList: [PropertyListItemModel[]] = [[]];
     actualPageNumber: number;
 
     propertyTypes: PropertyTypeOptionModel[];
