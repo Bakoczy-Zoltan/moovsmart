@@ -2,9 +2,11 @@ package com.progmasters.moovsmart.controller;
 
 import com.progmasters.moovsmart.domain.Property;
 import com.progmasters.moovsmart.domain.PropertyType;
+import com.progmasters.moovsmart.domain.UserProperty;
 import com.progmasters.moovsmart.dto.PropertyListItem;
 import com.progmasters.moovsmart.exception.GlobalExceptionHandler;
 import com.progmasters.moovsmart.repository.PropertyRepository;
+import com.progmasters.moovsmart.repository.UserRepository;
 import com.progmasters.moovsmart.service.PropertyService;
 import com.progmasters.moovsmart.validation.PropertyFormValidator;
 import org.junit.jupiter.api.AfterEach;
@@ -19,6 +21,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -30,12 +35,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-//@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class)
 public class PropertyControllerTest {
     private MockMvc mockMvc;
 
     @Mock
     PropertyRepository propertyRepositoryMock;
+
+    @Mock
+    UserRepository userRepository;
 
     @Mock
     private PropertyService propertyServiceMock;
@@ -60,35 +68,46 @@ public class PropertyControllerTest {
     public void testGetProperties() throws Exception {
         // given
         Property property1 = new Property();
+        property1.setId(1L);
         property1.setName("House1");
-        property1.setPropertyType(PropertyType.HOUSE);
+        property1.setNumberOfRooms(2);
+        property1.setArea(50.0);
         property1.setPrice(10000000);
 
         Property property2 = new Property();
+        property2.setId(2L);
         property2.setName("House2");
-        property2.setPropertyType(PropertyType.APARTMENT);
+        property2.setNumberOfRooms(3);
+        property2.setArea(80.0);
+        property2.setPrice(30000000);
 
-//        List<PropertyListItem> properties = Stream.of(property1, property2)
-//                .map(PropertyListItem::new).collect(Collectors.toList());
+        List<PropertyListItem> properties = Stream.of(property1, property2).map(PropertyListItem::new).collect(Collectors.toList());
 
         // when
-//        when(propertyServiceMock.getProperties()).thenReturn(properties);
+        when(propertyServiceMock.getProperties()).thenReturn(properties);
 
         // then
-//        this.mockMvc.perform(get("/api/properties"))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$", hasSize(2)))
-//                .andExpect(jsonPath("$[0].name", is("House1")))
-//                .andExpect(jsonPath("$[0].propertyType", is("Ház")))
-//                .andExpect(jsonPath("$[0].price", is(10000000)))
-//                .andExpect(jsonPath("$[1].name", is("House2")))
-//                .andExpect(jsonPath("$[1].propertyType", is("Lakás")));
-//
-//        verify(propertyServiceMock, times(1)).getProperties();
-//        verifyNoMoreInteractions(propertyServiceMock);
+        this.mockMvc.perform(get("/api/properties"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].name", is("House1")))
+                .andExpect(jsonPath("$[0].price", is(10000000)))
+                .andExpect(jsonPath("$[0].numberOfRooms", is(2)))
+                .andExpect(jsonPath("$[0].area", is(50.0)))
+                .andExpect(jsonPath("$[1].name", is("House2")))
+                .andExpect(jsonPath("$[1].price", is(30000000)))
+                .andExpect(jsonPath("$[1].numberOfRooms", is(3)))
+                .andExpect(jsonPath("$[1].area", is(80.0)));
+
+        verify(propertyServiceMock, times(1)).getProperties();
+        verifyNoMoreInteractions(propertyServiceMock);
 
 
+
+    }
+
+    public void testGetPropertyDetails() {
 
     }
 

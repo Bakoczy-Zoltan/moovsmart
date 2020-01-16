@@ -19,7 +19,7 @@ import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-//@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class)
 public class PropertyServiceTest {
 
     private PropertyService propertyService;
@@ -27,7 +27,7 @@ public class PropertyServiceTest {
     @Mock
     private PropertyRepository propertyRepositoryMock;
 
-    @InjectMocks
+    @Mock
     private UserRepository userRepositoryMock;
 
     @BeforeEach
@@ -47,18 +47,20 @@ public class PropertyServiceTest {
         PropertyForm propertyForm = new PropertyForm();
         propertyForm.setName("updateHouse1");
         propertyForm.setPropertyState("RENEWED");
+        propertyForm.setPropertyType("HOUSE");
+        propertyForm.setCounty("BUDAPEST");
         propertyForm.setArea(75.0);
         propertyForm.setPrice(2000000);
 
-//        when(propertyRepositoryMock.findById(1L)).thenReturn(Optional.of(property));
-//        when(propertyRepositoryMock.save(any(Property.class))).thenAnswer(returnsFirstArg());
+        when(propertyRepositoryMock.findById(1L)).thenReturn(Optional.of(property));
+        when(propertyRepositoryMock.save(any(Property.class))).thenAnswer(returnsFirstArg());
 
         //when
-//        Property updatedProperty = propertyService.updateProperty(propertyForm, 1L, "xy@mail.com");
+        Property updatedProperty = propertyService.updateProperty(propertyForm, 1L, "xy@mail.com");
 
-        // then
-//        assertEquals("updateHouse1", updatedProperty.getName());
-//        assertEquals(PropertyState.RENEWED, updatedProperty.getPropertyState());
+         //then
+        assertEquals("updateHouse1", updatedProperty.getName());
+        assertEquals(PropertyState.RENEWED, updatedProperty.getPropertyState());
 
     }
 
