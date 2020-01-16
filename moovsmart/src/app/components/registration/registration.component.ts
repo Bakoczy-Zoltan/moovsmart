@@ -22,7 +22,8 @@ export class RegistrationComponent implements OnInit {
     "mail": ['', Validators.compose([Validators.required,
       Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")])],
     "password": ['', Validators.compose([Validators.required,
-      Validators.pattern("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}")])]
+      Validators.pattern("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}")])],
+    "check": ['', Validators.required]
   });
 
   constructor(private formBuilder: FormBuilder,

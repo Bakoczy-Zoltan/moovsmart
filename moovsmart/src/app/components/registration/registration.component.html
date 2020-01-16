@@ -59,9 +59,26 @@
                 {{registrationForm.get('password').errors['serverError']}}
             </small>
         </div>
-
-        <br/>
-        <button class="btn" [disabled]="registrationForm.invalid">Mentés</button>
+        <div>
+            <label for="password">Jelszó megerősítése</label>
+        <input
+            type="password"
+            class="form-control"
+            formControlName="check"
+            id="password-check"
+            name="password"
+            placeholder="Kérjük ismételje a jelszót!"
+            required
+        /></div>
+        <small *ngIf="registrationForm.get('password').value !== registrationForm.get('check').value" class="text-danger">
+           A jelszavak nem egyeznek meg!
+        </small>
+        <small *ngIf="registrationForm.get('password').value === registrationForm.get('check').value" class="text-info">
+            A jelszavak megegyeznek
+        </small>
+        <br/><br>
+        <button class="btn" [disabled]="registrationForm.invalid ||
+        registrationForm.get('check').value!== registrationForm.get('password').value">Mentés</button>
     </form>
 </div>
 

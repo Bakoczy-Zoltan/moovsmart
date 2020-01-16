@@ -14,7 +14,7 @@
       />
       <small *ngIf="propertyForm.get('name').invalid && propertyForm.get('name').touched
        && !propertyForm.get('name').errors?.serverError" class="text-danger">
-        Az ingatlan neve minimum 3, de maximum 60 karakter lehet.
+        Az ingatlan neve minimum 3, de maximum 20 karakter lehet.
       </small>
       <small *ngIf="propertyForm.get('name').errors?.serverError" class="text-danger">
         {{propertyForm.get('name').errors['serverError']}}
@@ -77,7 +77,7 @@
           />
           <small *ngIf="propertyForm.get('buildingYear').invalid && propertyForm.get('buildingYear').touched
           && !propertyForm.get('buildingYear').errors?.serverError" class="text-danger">
-            Az építés éve nem lehet negatív!
+            Az építés éve 0 és {{this.currentYear}} között lehet!
           </small>
           <small *ngIf="propertyForm.get('buildingYear').errors?.serverError" class="text-danger">
             {{propertyForm.get('buildingYear').errors['serverError']}}

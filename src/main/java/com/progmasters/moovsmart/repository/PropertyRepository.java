@@ -37,8 +37,17 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
             @Param("propertyState") PropertyState propertyState, @Param("propertyType") PropertyType propertyType,
             @Param("city") String city, @Param("numberOfRooms") int numberOfRooms
     );
+
+    @Query("SELECT p FROM Property p " +
+            "WHERE p.area BETWEEN :minArea AND :maxArea " +
+            "AND p.price BETWEEN :minPrice AND :maxPrice " +
+            "AND p.propertyType like case when :propertyType is not null then :propertyType else '%' end " +
+            "AND p.propertyState like case when :propertyState is not null then :propertyState else '%' end " +
+            "AND p.city like case when :city is not null then :city else '%' end " +
+            "AND p.isValid = true")
+    List<Property> getFilteredListWithoutRoom(@Param("minArea")Double minSize, @Param("maxArea")Double maxSize, @Param("minPrice")Integer minPrice,
+                                              @Param("maxPrice")Integer maxPrice, @Param("propertyState")PropertyState propertyState,
+                                              @Param("propertyType")PropertyType propertyType, @Param("city")String city);
 }
 
 
-/*AND p.numberofrooms = CASE WHEN :numberofrooms IS NULL THEN p.numberofrooms ELSE :numberofrooms
-    END */

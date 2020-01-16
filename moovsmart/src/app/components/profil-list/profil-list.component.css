@@ -1,12 +1,13 @@
-#mainRow{
-    border-width:3px;
-    border-style:solid;
+#mainRow {
+    border-width: 3px;
+    border-style: solid;
     border-color: #C2B9B0;
 }
 
-.table{
+.table {
     background-color: white;
 }
+
 #detail-button {
     background-color: #7E685A;
     color: white;
@@ -19,5 +20,9 @@
     max-width: 200px;
     height: 100%;
     max-height: 150px;
+}
+
+#button-new {
+    margin-bottom: 1%;
 }
 

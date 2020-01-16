@@ -146,6 +146,22 @@ public class PropertyService {
         }
         return propertyListItemList;
     }
+    public List<PropertyListItem> getFilteredPropertiesWithoutRooms(CreateFilteredCommand command) {
+
+        List<PropertyListItem>propertyListItemList = new ArrayList<>();
+        List<Property>filteredList = this.propertyRepository.getFilteredListWithoutRoom(
+                command.getMinSize(), command.getMaxSize(),
+                command.getMinPrice(), command.getMaxPrice(),
+                command.getPropertyState(), command.getPropertyType(),
+                command.getCity()
+        );
+
+        for(Property property: filteredList){
+            propertyListItemList.add(new PropertyListItem(property));
+        }
+        return propertyListItemList;
+
+    }
 
     public List<PropertyListItem> getOwnProperties(String userMail) {
         List<Property> properties = propertyRepository.findAllByIsValid();
@@ -189,4 +205,6 @@ public class PropertyService {
         property.setImageUrls(imageToDelete.getImageUrl());
         property.setPublicIds(imageToDelete.getPublicId());
     }
+
+
 }

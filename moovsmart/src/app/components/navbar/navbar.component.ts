@@ -55,6 +55,7 @@ export class NavbarComponent implements OnInit {
                 null
             )
         });
+
     }
 
     ownProperties() {

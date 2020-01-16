@@ -37,13 +37,15 @@ export class PropertyFormComponent implements OnInit {
     actualPublicIdList = [];
     formData: any;
     editing: boolean = false;
+    currentYear = new Date().getFullYear();
+    storage: any;
 
     propertyForm = this.formBuilder.group({
         'name': ['', Validators.compose([Validators.required, Validators.minLength(3),
-            Validators.maxLength(60)])],
+            Validators.maxLength(20)])],
         'area': ['', Validators.compose([Validators.required, Validators.min(1)])],
         'numberOfRooms': ['', Validators.compose([Validators.min(1), Validators.max(12)])],
-        'buildingYear': ['', Validators.min(0)],
+        'buildingYear': ['', Validators.compose([Validators.min(0), Validators.max(new Date().getFullYear())])],
         'propertyType': ['', Validators.required],
         'propertyState': ['', Validators.required],
         'county': ['', Validators.required],
@@ -74,6 +76,7 @@ export class PropertyFormComponent implements OnInit {
             this.propertyTypes = formInitData.propertyTypes;
             this.propertyStates = formInitData.propertyStates;
         });
+        this.storage = JSON.parse(localStorage.getItem('user'));
 
         this.actualUserName = this.propertyService.userName2;
         this.propertyService.userName.subscribe(
@@ -155,7 +158,7 @@ export class PropertyFormComponent implements OnInit {
                 this.displayLoadingCircle = false;
                 console.log('created');
                 this.ngZone.run(() =>
-                    this.router.navigate(['property-list']));
+                    this.router.navigate(['profil-list/', this.storage.userId]));
             },
             error => validationHandler(error, this.propertyForm),
         );
@@ -164,7 +167,7 @@ export class PropertyFormComponent implements OnInit {
     private updateProperty(data: PropertyFormDataModel) {
         this.propertyService.updateProperty(data, this.propertyId).subscribe(
             () => {this.displayLoadingCircle = false;
-                this.router.navigate(['property-list'])},
+                this.router.navigate(['profil-list/', this.storage.userId])},
             error => validationHandler(error, this.propertyForm),
 
         );

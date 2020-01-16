@@ -60,7 +60,9 @@ public class PropertyDetails {
         this.imageUrl = property.getImageUrls();
         this.publicId = property.getPublicIds();
         this.city = property.getCity();
-        this.userId = property.getOwner().getId();
+        if(property.getOwner() != null){
+            this.userId = property.getOwner().getId();
+        }
     }
 
 

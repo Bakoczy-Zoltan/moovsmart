@@ -31,6 +31,7 @@ export class PropertyListComponent implements OnInit {
     filteredFormDatas: any;
     needFilterList: boolean;
     filterOpenMessage: string;
+    storage: any;
 
     constructor(private propertyService: PropertyService,
                 private router: Router,
@@ -51,20 +52,21 @@ export class PropertyListComponent implements OnInit {
                 'propertyState': new FormControl(null),
                 'propertyType': new FormControl(null),
                 'city': new FormControl(null),
-                'numberOfRooms': new FormControl(2),
+                'numberOfRooms': new FormControl(null),
             },
         );
     }
     ngOnInit() {
 
-        if (localStorage.getItem('user') != null) {
-            this.registratedUser = true;
-        }
         this.filterOpenMessage = 'Szűrés';
         this.clearFilterFields();
         this.actualPageNumber = 1;
 
         this.refreshPropertyList();
+        this.storage = JSON.parse(localStorage.getItem('user'));
+        if (localStorage.getItem('user') != null) {
+            this.registratedUser = true;
+        }
 
     }
 
