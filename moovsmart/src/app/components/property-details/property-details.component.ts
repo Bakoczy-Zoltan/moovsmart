@@ -51,8 +51,12 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
                         .subscribe(
                             proDetails => {
                                 this.propertyDetails = proDetails;
+
+                                const formatedPrice = this.propertyDetails.price / 1000000;
+                                this.propertyDetails.price = +formatedPrice.toPrecision(3);
                                 this.checkOwnerOfProperty(this.propertyDetails);
                                 this.images = this.propertyDetails.imageUrl;
+
                                 if (this.images !== null) {
                                     this.changeDefaultImg(this.images[0]);
                                 }

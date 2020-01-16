@@ -51,7 +51,7 @@ export class PropertyListComponent implements OnInit {
                 'propertyState': new FormControl(null),
                 'propertyType': new FormControl(null),
                 'city': new FormControl(null),
-                'numberOfRooms': new FormControl(2),
+                'numberOfRooms': new FormControl(null),
             },
         );
     }
