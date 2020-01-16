@@ -1,8 +1,9 @@
 package com.progmasters.moovsmart.controller;
 
-import com.progmasters.moovsmart.domain.Property;
-import com.progmasters.moovsmart.domain.PropertyType;
-import com.progmasters.moovsmart.domain.UserProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.progmasters.moovsmart.domain.*;
+import com.progmasters.moovsmart.dto.PropertyDetails;
+import com.progmasters.moovsmart.dto.PropertyForm;
 import com.progmasters.moovsmart.dto.PropertyListItem;
 import com.progmasters.moovsmart.exception.GlobalExceptionHandler;
 import com.progmasters.moovsmart.repository.PropertyRepository;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.MessageSource;
@@ -21,9 +23,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -32,6 +31,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -102,13 +102,76 @@ public class PropertyControllerTest {
 
         verify(propertyServiceMock, times(1)).getProperties();
         verifyNoMoreInteractions(propertyServiceMock);
+   }
 
+    @Test
+    public void testGetPropertyDetails() throws Exception {
+        // given
+        UserProperty user = new UserProperty();
+        user.setMail("xy@xy.com");
+        user.setId(1L);
 
+        Property property1 = new Property();
+        property1.setId(1L);
+        property1.setName("House1");
+        property1.setNumberOfRooms(2);
+        property1.setArea(50.0);
+        property1.setPrice(10000000);
+        property1.setPropertyType(PropertyType.HOUSE);
+        property1.setCounty(County.BARANYA);
+        property1.setOwner(user);
+
+        PropertyDetails propertyDetails = new PropertyDetails(property1);
+
+        // when
+        when(propertyServiceMock.getPropertyDetails(any(Long.class))).thenReturn(propertyDetails);
+
+        // then
+        this.mockMvc.perform(get("/api/properties/authUser/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.name", is("House1")))
+                .andExpect(jsonPath("$.price", is(10000000)))
+                .andExpect(jsonPath("$.numberOfRooms", is(2)))
+                .andExpect(jsonPath("$.area", is(50.0)));
+
+        verify(propertyServiceMock, times(1)).getPropertyDetails(any(Long.class));
+        verifyNoMoreInteractions(propertyServiceMock);
 
     }
 
-    public void testGetPropertyDetails() {
+    @Test
+    public void testCreateProperty() throws Exception {
+        // given
+        UserProperty user = new UserProperty();
+        user.setMail("xy@xy.com");
+        user.setId(1L);
 
+        Property property1 = new Property();
+        property1.setId(1L);
+        property1.setName("House1");
+        property1.setNumberOfRooms(2);
+        property1.setArea(50.0);
+        property1.setPrice(10000000);
+        property1.setPropertyType(PropertyType.HOUSE);
+        property1.setPropertyState(PropertyState.RENEWABLE);
+        property1.setCounty(County.BARANYA);
+        property1.setDescription("Beautiful house");
+        property1.setOwner(user);
+
+        PropertyForm propertyForm = new PropertyForm(property1);
+
+//        doNothing().when(propertyServiceMock).createProperty(propertyForm, user.getMail());
+//
+//        this.mockMvc.perform(post("/api/properties/authUser")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(asJsonString(propertyForm)))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+//
+//        verify(propertyServiceMock, times(1)).createProperty(propertyForm, user.getMail());
+//        verifyNoMoreInteractions(propertyServiceMock);
+//        verifyNoInteractions(propertyServiceMock);
     }
 
     private MessageSource messageSource() {
@@ -118,5 +181,13 @@ public class PropertyControllerTest {
         messageSource.setUseCodeAsDefaultMessage(true);
 
         return messageSource;
+    }
+
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
