@@ -14,7 +14,7 @@
       />
       <small *ngIf="propertyForm.get('name').invalid && propertyForm.get('name').touched
        && !propertyForm.get('name').errors?.serverError" class="text-danger">
-        Az ingatlan neve minimum 3, de maximum 60 karakter lehet.
+        Az ingatlan neve minimum 3, de maximum 20 karakter lehet.
       </small>
       <small *ngIf="propertyForm.get('name').errors?.serverError" class="text-danger">
         {{propertyForm.get('name').errors['serverError']}}

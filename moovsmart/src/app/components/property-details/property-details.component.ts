@@ -39,12 +39,13 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-
         this.activatedRoute.paramMap.subscribe(
             paramMap => {
                 const idParam: number = +paramMap.get('id');
                 if (isNaN(idParam)) {
+                    console.log("INside a detail");
                     this.router.navigate(['property-list']);
+
                 } else {
                     this.propertyService
                         .getPropertyDetails(idParam)
@@ -83,8 +84,6 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     checkOwnerOfProperty(data: PropertyDetailsModel){
         this.reagistratedUser = (localStorage.getItem('user') !== null);
         this.storage = JSON.parse(localStorage.getItem('user'));
-        console.log(data.userId + " owner ID");
-        console.log(data + " property ID");
 
         if(this.storage != null && this.propertyDetails.userId != null){
             console.log(this.propertyDetails.userId + " owner ID");
@@ -138,7 +137,8 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
     delete(id: number) {
         this.propertyService.deleteProperty(id).subscribe(
             () => {
-                this.router.navigate(['property-list']);
+                const userId = this.storage.userId;
+                this.router.navigate(['profil-list/', userId]);
             },
             error => console.warn(error),
         );
