@@ -1,5 +1,9 @@
 <div class="container jumbotron">
-    <div><button class="btn btn-info" id="button-new" routerLink="/property-form">Új ingatlan létrehozása</button></div>
+    <div id="header-div">
+        <h3>Profil</h3><hr>
+    </div>
+    <div>
+        <button class="btn btn-info" id="button-new" routerLink="/property-form">Új ingatlan létrehozása</button></div>
     <div>
         <table *ngIf="propertyListItemModels?.length !== 0" id="list-table" class="table table-borderless">
             <thead>
@@ -29,7 +33,7 @@
                             <button id="detail-button" class="btn" (click)="details(property.id)">Részletek</button>
                         </td>
                         <td *ngIf="storage?.userId == property.userId">
-                            <i class="fas fa-wrench"></i>
+                            <a (click)="details(property.id)" title="Szerkesztés"> <i class="fas fa-wrench"></i></a>
                         </td>
                     </tr>
                 </div>
