@@ -59,10 +59,11 @@
     width: 150px;
 }
 
-#mainRow {
+.mainRow {
     border-width:3px;
     border-style:solid;
     border-color: #C2B9B0;
+    background-color: white;
 }
 
 #filter-button {
@@ -111,6 +112,7 @@
 #pager{
     text-align: center;
     position: relative;
+    margin-top: 3%;
 }
 
 #pager div {
@@ -123,5 +125,35 @@
 }
 #rightArrow{
     display: inline-block;
+}
+
+.room-list-item__image{
+    text-align: center;
+}
+.mainRow{
+    padding: 2%;
 
 }
+#detail-button-div{
+    margin-bottom: 25%;
+    margin-top: 5%;
+}
+
+#date-div{
+    text-align: right;
+}
+
+#img-holder-row{
+    text-align: center;
+    background-color:  antiquewhite;
+    padding: 3px;
+}
+
+#edit-icon{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+#area-div, #price-div{
+    margin-bottom: 5%;
+}
+

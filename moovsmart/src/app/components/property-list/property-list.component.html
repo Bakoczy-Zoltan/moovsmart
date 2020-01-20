@@ -1,4 +1,7 @@
 <div class="container" id="filter-form-bar" *ngIf="needFilterList">
+
+    <!-- filter bar -->
+
     <form [formGroup]="filteredForm" (ngSubmit)="filterProperties()">
         <table id="filter-table" class="table table-bordered">
 
@@ -8,13 +11,15 @@
                         <label class="form-control-label" for="sizeMin">Méret min:</label>
                         <input type="number" formControlName="minSize" class="form-control" id="sizeMin"
                                placeholder="0">
-                        <small class="text-danger" *ngIf="filteredForm.get('minSize').errors">Méret minimum 0 kell lenni</small>
+                        <small class="text-danger" *ngIf="filteredForm.get('minSize').errors">Méret minimum 0 kell
+                            lenni</small>
                     </td>
                     <td>
                         <label class="form-control-label" for="sizeMax">Méret max:</label>
                         <input type="number" formControlName="maxSize" class="form-control" id="sizeMax"
                                placeholder="mindegy">
-                        <small class="text-danger" *ngIf="filteredForm.get('maxSize').errors">Egész számot lehet megadni</small>
+                        <small class="text-danger" *ngIf="filteredForm.get('maxSize').errors">Egész számot lehet
+                            megadni</small>
                     </td>
                     <td>
                         <label class="form-control-label" for="priceMin">Ár min:</label>
@@ -26,7 +31,8 @@
                         <label class="form-control-label" for="priceMax">Ár max:</label>
                         <input type="number" formControlName="maxPrice" class="form-control" id="priceMax"
                                placeholder="mindegy">
-                        <small class="text-danger" *ngIf="filteredForm.get('maxPrice').errors">Egész számot kell megadni</small>
+                        <small class="text-danger" *ngIf="filteredForm.get('maxPrice').errors">Egész számot kell
+                            megadni</small>
                     </td>
                 </tr>
                 <tr>
@@ -62,7 +68,8 @@
                         <label class="form-control-label" for="rooms">Szobák száma</label>
                         <input type="number" formControlName="numberOfRooms" class="form-control" id="rooms"
                                placeholder="mindegy">
-                        <small class="text-danger" *ngIf="filteredForm.get('numberOfRooms').errors">Csak egész számot lehet megadni</small>
+                        <small class="text-danger" *ngIf="filteredForm.get('numberOfRooms').errors">Csak egész számot
+                            lehet megadni</small>
                     </td>
                 </tr>
             </tbody>
@@ -76,6 +83,7 @@
     </form>
 </div>
 
+
 <div class="container jumbotron">
     <div class="row">
         <div class="col">
@@ -86,6 +94,9 @@
                     (click)="makeFilterBar()">{{filterOpenMessage}}</button>
         </div>
     </div>
+
+    <!-- when database is empty -->
+
     <div id="mainDiv">
         <div *ngIf="propertyListItemModels === undefined || propertyListItemModels.length === 0" id="emptydb">
             <img
@@ -95,49 +106,60 @@
         </div>
     </div>
 
-    <table *ngIf="propertyListItemModels?.length !== 0" id="list-table" class="table table-borderless">
-        <thead>
-        </thead>
-        <tbody>
-            <div *ngFor="let property of actualPageList[actualPageNumber-1]" id="mainRow">
-                <tr>
-                    <td>
-                        <div *ngIf="property?.imageUrl[0]?.length < 3">
-                            <img [src]="defaultPicture" class="defaultPicture" [alt]="defaultPicture">
-                        </div>
-                        <div *ngIf="property?.imageUrl[0]?.length >= 3">
-                            <img (click)="details(property.id)" alt="ingatlan" class="room-list-item__image" width="200"
-                                 src="{{property?.imageUrl[0]}}"/>
-                        </div>
-                    </td>
-                    <td id="property-name-td">
-                        <h5>{{property.name}}</h5>
-                        <p><strong>Szobák száma: </strong> {{property.numberOfRooms}}</p>
-                        <p><strong>Ár: </strong> {{property.price}} M Ft</p>
-                    </td>
-                    <td><strong>Terület:</strong> {{property.area}}m<sup>2</sup></td>
-                    <td><strong>Hirdetés dátuma:</strong></td>
-                    <td>{{property.time}}</td>
-                    <td class="btn-group">
-                        <button id="detail-button" class="btn" (click)="details(property.id)">Részletek</button>
-                    </td>
-                    <td *ngIf="storage?.userId == property.userId">
-                       <a (click)="details(property.id)" title="Szerkesztés"> <i class="fas fa-wrench"></i></a>
-                    </td>
-                </tr>
-            </div>
-        </tbody>
+    <!-- Property list -->
 
-    </table>
+    <div *ngFor="let property of actualPageList[actualPageNumber-1]" class="mainRow">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3" id="img-holder-row">
+                    <div *ngIf="property?.imageUrl[0]?.length < 3">
+                        <img [src]="defaultPicture" class="defaultPicture" [alt]="defaultPicture">
+                    </div>
+                    <div *ngIf="property?.imageUrl[0]?.length >= 3">
+                        <img (click)="details(property.id)" alt="ingatlan" width="200"
+                             src="{{property?.imageUrl[0]}}"/>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <div class="row">
+                        <div class="col-sm">
+                            <h5>{{property.name}}</h5>
+                            <div id="area-div"><strong>Terület</strong>: {{property.area}} m<sup>2</sup></div>
+                            <div id="price-div"><strong>Ár</strong>: {{property.price}} M ft</div>
+                        </div>
+                        <div class="col-sm">
+                            <div>
+                                <strong>Szobák száma</strong>: {{property.numberOfRooms}}
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div id="detail-button-div" class="d-flex justify-content-center">
+                                <div>
+                                    <button id="detail-button" class="btn" (click)="details(property.id)">Részletek</button>
+                                </div>
+                                <div id="edit-icon">
+                                    <a *ngIf="storage?.userId == property.userId" (click)="details(property.id)"
+                                       title="Szerkesztés"> <i class="fas fa-wrench"></i></a>
+                                </div>
+                            </div>
+                            <div id="date-div">
+                                <strong>Regisztráció: </strong>{{property.time}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="pager" class="d-flex justify-content-center">
-        <div id="leftArrow" *ngIf="actualPageNumber > 1">
-            <i class="fas fa-angle-left" (click)="pageLeft()"></i>
+        <div id="leftArrow" *ngIf="actualPageNumber > 1" (click)="pageLeft()" title="lapozz">
+            <i class="fas fa-angle-left" ></i>
         </div>
         <div id="pagerNumbers">
             <strong> {{actualPageNumber}} </strong>
         </div>
-        <div id="rightArrow" *ngIf="actualPageNumber < actualPageList?.length">
-            <i class="fas fa-angle-right" (click)="pageRight()"></i>
+        <div id="rightArrow" *ngIf="actualPageNumber < actualPageList?.length" (click)="pageRight()" title="lapozz">
+            <i class="fas fa-angle-right"></i>
         </div>
     </div>
 </div>
