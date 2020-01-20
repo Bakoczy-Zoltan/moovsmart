@@ -29,6 +29,7 @@ public class PropertyForm {
     private List<String> publicId;
 
     private String owner;
+    private String status;
 
     private Double lngCoord;
     private Double latCoord;
@@ -55,7 +56,14 @@ public class PropertyForm {
         this.publicId = property.getPublicIds();
         this.lngCoord = property.getLngCoord();
         this.latCoord = property.getLatCoord();
-        this.owner = property.getOwner().getMail();
+
+        if(property.getOwner() != null){
+            this.owner = property.getOwner().getMail();
+        }
+        if(property.getStatus() != null){
+            this.status = property.getStatus().getDisplayName();
+        }
+
     }
 
     public String getName() {
@@ -170,14 +178,6 @@ public class PropertyForm {
         this.streetNumber = streetNumber;
     }
 
-//    public String getSearchPosition() {
-//        return searchPosition;
-//    }
-//
-//    public void setSearchPosition(String searchPosition) {
-//        this.searchPosition = searchPosition;
-//    }
-
     public String getOwner() {
         return owner;
     }
@@ -208,5 +208,13 @@ public class PropertyForm {
 
     public void setPublicId(List<String> publicId) {
         this.publicId = publicId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

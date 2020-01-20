@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -45,9 +46,22 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
             "AND p.propertyState like case when :propertyState is not null then :propertyState else '%' end " +
             "AND p.city like case when :city is not null then :city else '%' end " +
             "AND p.isValid = true")
-    List<Property> getFilteredListWithoutRoom(@Param("minArea")Double minSize, @Param("maxArea")Double maxSize, @Param("minPrice")Integer minPrice,
-                                              @Param("maxPrice")Integer maxPrice, @Param("propertyState")PropertyState propertyState,
-                                              @Param("propertyType")PropertyType propertyType, @Param("city")String city);
+    List<Property> getFilteredListWithoutRoom(@Param("minArea") Double minSize, @Param("maxArea") Double maxSize, @Param("minPrice") Integer minPrice,
+                                              @Param("maxPrice") Integer maxPrice, @Param("propertyState") PropertyState propertyState,
+                                              @Param("propertyType") PropertyType propertyType, @Param("city") String city);
+
+    @Query("SELECT p from Property p " +
+            "where p.status = 'HOLDING'")
+    List<Property> getAllHoldingProperty();
+
+
+    @Query("SELECT p from  Property p " +
+            "where p.localDateTime between :fromDate " +
+            "and :toDate " +
+            "and p.isValid = false"
+    )
+    List<Property> getAllArchivedPropertiesByDates(@Param("fromDate") LocalDateTime dateFrom, @Param("toDate") LocalDateTime dateTo);
+
 }
 
 

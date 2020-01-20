@@ -12,6 +12,8 @@ import { PropertyService } from '../../services/property.service';
 export class SigninComponent implements OnInit {
     id: number;
     errorMessage: boolean;
+    role: string[];
+
     signInForm = this.formBuilder.group({
         'userName': ['', Validators.compose([Validators.required,
             Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])],
@@ -27,7 +29,6 @@ export class SigninComponent implements OnInit {
     ngOnInit() {
         this.route.paramMap.subscribe(paramMap => {
                 const idParam = paramMap.get('id');
-                console.log('ID user: ' + paramMap.get('id'));
                 if (idParam) {
                     this.validateUser(idParam);
                 }
@@ -46,7 +47,13 @@ export class SigninComponent implements OnInit {
                     storage.name
                 );
                 this.propertyService.userId = validUSer.userId;
-                this.router.navigate(['profil-list', validUSer.userId]);
+                this.propertyService.role = validUSer.role;
+
+                if (this.propertyService.role.includes("ROLE_ADMIN")) {
+                    this.router.navigate(['admin']);
+                } else {
+                    this.router.navigate(['profil-list', validUSer.userId]);
+                }
             },
             (err) => {
                 this.errorMessage = true;

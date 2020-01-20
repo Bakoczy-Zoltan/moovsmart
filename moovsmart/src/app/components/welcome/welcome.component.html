@@ -21,15 +21,14 @@
             </div>
 
             <div id="right-img-holder">
-                <a routerLink="/signin">
+                <a (click)="signIn()" style="cursor: pointer">
                     <img src="assets/img/registrating.jpg" alt="picture" class="img-link-surfing"></a>
-                <p><a routerLink="/signin"><strong>Ingatlant szeretnék regisztrálni</strong></a></p>
+                <p><a (click)="signIn()" style="cursor: pointer"><strong>Ingatlant szeretnék regisztrálni</strong></a></p>
             </div>
-
             <div id="mid-img-holder">
-                <a routerLink="/signin">
+                <a (click)="signIn()" style="cursor: pointer">
                     <img src="assets/img/online_aukcio.jpg" alt="picture" class="img-link-surfing"></a>
-                <p><a routerLink="/signin"><strong>Ingatlanra akarok licitálni</strong></a></p>
+                <p><a style="cursor: pointer" (click)="signIn()"><strong>Ingatlanra akarok licitálni</strong></a></p>
             </div>
 
         </div>

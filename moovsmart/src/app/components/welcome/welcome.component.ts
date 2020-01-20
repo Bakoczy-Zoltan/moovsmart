@@ -8,6 +8,9 @@ import { PropertyService } from '../../services/property.service';
     styleUrls: ['./welcome.component.css'],
 })
 export class WelcomeComponent implements OnInit {
+    storage: any;
+    registratedUser: boolean;
+    userId: string;
 
     constructor(private propertyService: PropertyService,
                 private route: ActivatedRoute,
@@ -16,7 +19,6 @@ export class WelcomeComponent implements OnInit {
     ngOnInit() {
         this.route.paramMap.subscribe(paramMap => {
                 const idParam = paramMap.get('id');
-                console.log("ID user: " + paramMap.get('id'));
                 if (idParam) {
                     this.validateUser(idParam);
                 }
@@ -31,5 +33,25 @@ export class WelcomeComponent implements OnInit {
             },
             (err) => console.log(err),
         );
+    }
+
+    signIn() {
+        this.checkUser();
+        if (this.registratedUser !== true) {
+            this.router.navigate(['signin']);
+        } else {
+            this.router.navigate(['profil-list', this.userId]);
+        }
+    }
+
+    checkUser() {
+        if (localStorage != null && localStorage.getItem('user') != null) {
+            this.registratedUser = true;
+            this.storage = JSON.parse(localStorage.getItem('user'));
+            this.userId = this.storage.userId;
+        } else {
+            this.userId = null;
+            this.registratedUser = false;
+        }
     }
 }

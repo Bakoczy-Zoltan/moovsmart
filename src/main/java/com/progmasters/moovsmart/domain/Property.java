@@ -32,7 +32,6 @@ public class Property {
     private Integer zipCode;
     private String street;
     private String streetNumber;
-//    private String searchPosition;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -40,7 +39,9 @@ public class Property {
     @Column(columnDefinition = "boolean default true")
     private boolean isValid;
 
-//    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @Enumerated(EnumType.STRING)
+    private StatusOfProperty status;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private UserProperty owner;
@@ -225,5 +226,13 @@ public class Property {
 
     public void setLatCoord(Double latCoord) {
         this.latCoord = latCoord;
+    }
+
+    public StatusOfProperty getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusOfProperty status) {
+        this.status = status;
     }
 }

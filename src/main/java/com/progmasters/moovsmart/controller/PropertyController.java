@@ -110,6 +110,8 @@ public class PropertyController {
         return new ResponseEntity<>(propertyService.getPropertyDetails(id), HttpStatus.OK);
     }
 
+
+
     @PostMapping("/authUser")
     public ResponseEntity createProperty(@RequestBody @Valid PropertyForm propertyForm) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -198,5 +200,22 @@ public class PropertyController {
                                             @PathVariable Long id) {
         propertyService.updatePictureList(imageToDelete, id);
         return new ResponseEntity(HttpStatus.OK);
+    }
+    /*
+    * Admin's authorization methods
+    * */
+
+    @GetMapping("/admin/getAllHoldingProperty")
+    public ResponseEntity<List<PropertyForm>> getAllHoldingProperty(){
+        List<PropertyForm>listOfHoldingProperty = this.propertyService.getAllHoldingProperty();
+        return new ResponseEntity<>(listOfHoldingProperty, HttpStatus.OK);
+    }
+
+    @PostMapping("/admin/getArchivedProperties")
+    public ResponseEntity<List<PropertyForm>> getArchivedProperties(@RequestBody CreateQueryByDatesCommand command){
+        System.out.println("Date: ==> " + command.getDateFrom().toString() + " " + command.getDateTo().toString());
+
+        List<PropertyForm>listOfProperties = this.propertyService.getArchivedProperties(command);
+        return new ResponseEntity<>(listOfProperties, HttpStatus.OK);
     }
 }

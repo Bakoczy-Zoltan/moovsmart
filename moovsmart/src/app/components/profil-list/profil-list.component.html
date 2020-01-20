@@ -1,5 +1,9 @@
-<div class="container jumbotron">
-    <div><button class="btn btn-info" id="button-new" routerLink="/property-form">Új ingatlan létrehozása</button></div>
+<!--div class="container jumbotron">
+    <div id="header-div">
+        <h3>Profil</h3><hr>
+    </div>
+    <div>
+        <button class="btn btn-info" id="button-new" routerLink="/property-form">Új ingatlan létrehozása</button></div>
     <div>
         <table *ngIf="propertyListItemModels?.length !== 0" id="list-table" class="table table-borderless">
             <thead>
@@ -29,7 +33,7 @@
                             <button id="detail-button" class="btn" (click)="details(property.id)">Részletek</button>
                         </td>
                         <td *ngIf="storage?.userId == property.userId">
-                            <i class="fas fa-wrench"></i>
+                            <a (click)="details(property.id)" title="Szerkesztés"> <i class="fas fa-wrench"></i></a>
                         </td>
                     </tr>
                 </div>
@@ -39,4 +43,91 @@
     <div id="div-empty-ownlist" *ngIf="emptyList">
         <p>Jelenleg nincs ingatlan a saját listában</p>
     </div>
+</div-->
+
+<div class="container jumbotron">
+    <div id="header-div">
+        <h3>Profil</h3>
+        <hr>
+    </div>
+    <div>
+        <button class="btn btn-info" id="button-new" routerLink="/property-form">Új ingatlan létrehozása</button>
+    </div>
+    <div>
+
+        <div *ngFor="let property of actualPageList[actualPageNumber-1]" class="mainRow">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-3" id="img-holder-row">
+                        <div *ngIf="property?.imageUrl[0]?.length < 3">
+                            <img [src]="defaultPicture" class="defaultPicture" [alt]="defaultPicture">
+                        </div>
+                        <div *ngIf="property?.imageUrl[0]?.length >= 3">
+                            <img (click)="details(property.id)" alt="ingatlan" width="200"
+                                 src="{{property?.imageUrl[0]}}"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col-sm">
+                                <h5>{{property.name}}</h5>
+                                <div id="area-div"><strong>Terület</strong>: {{property.area}} m<sup>2</sup></div>
+                                <div id="price-div"><strong>Ár</strong>: {{property.price}} M ft</div>
+                            </div>
+                            <div class="col-sm">
+                                <div>
+                                    <strong>Szobák száma</strong>: {{property.numberOfRooms}}
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div id="detail-button-div" class="d-flex justify-content-center">
+                                    <div>
+                                        <button id="detail-button" class="btn" (click)="details(property.id)">Részletek
+                                        </button>
+                                    </div>
+                                    <div id="edit-icon">
+                                        <a *ngIf="storage?.userId == property.userId" (click)="details(property.id)"
+                                           title="Szerkesztés"> <i class="fas fa-wrench"></i></a>
+                                    </div>
+                                </div>
+                                <div id="date-div">
+                                    <strong>Regisztráció: </strong>{{property.time}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="div-empty-ownlist" *ngIf="emptyList">
+        <p>Jelenleg nincs ingatlan a saját listában</p>
+    </div>
+
+    <div id="pager" class="d-flex justify-content-center">
+        <div id="leftArrow" *ngIf="actualPageNumber > 1" (click)="pageLeft()" title="lapozz">
+            <i class="fas fa-angle-left"></i>
+        </div>
+        <div id="pagerNumbers">
+            <strong> {{actualPageNumber}} </strong>
+        </div>
+        <div id="rightArrow" *ngIf="actualPageNumber < actualPageList?.length" (click)="pageRight()"
+             title="lapozz">
+            <i class="fas fa-angle-right"></i>
+        </div>
+    </div>
 </div>
+
+    <!--div id="pager" class="d-flex justify-content-center">
+        <div id="leftArrow" *ngIf="actualPageNumber > 1" (click)="pageLeft()" title="lapozz">
+            <i class="fas fa-angle-left" ></i>
+        </div>
+        <div id="pagerNumbers">
+            <strong> {{actualPageNumber}} </strong>
+        </div>
+        <div id="rightArrow" *ngIf="actualPageNumber < actualPageList?.length" (click)="pageRight()" title="lapozz">
+            <i class="fas fa-angle-right"></i>
+        </div>
+    </div>
+    </div-->
