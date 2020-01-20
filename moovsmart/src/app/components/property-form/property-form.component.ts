@@ -168,6 +168,7 @@ export class PropertyFormComponent implements OnInit {
         dataToSend.propertyType = this.propertyTypes.filter(propertyType => propertyType.displayName === data.propertyType)[0].name;
         dataToSend.propertyState = this.propertyStates.filter(propertyState => propertyState.displayName === data.propertyState)[0].name;
         dataToSend.county = this.counties.filter(county => county.displayName === data.county)[0].name;
+
         this.propertyService.updateProperty(dataToSend, this.propertyId).subscribe(
             () => {this.displayLoadingCircle = false;
                 this.router.navigate(['profil-list/', this.storage.userId])},
@@ -241,6 +242,8 @@ export class PropertyFormComponent implements OnInit {
                         },
                     );
                 } else {
+                    this.formData.publicId = this.actualPublicIdList;
+                    this.formData.imageUrl = this.actualUrlList;
                     this.propertyId ? this.updateProperty(this.formData) : this.createNewProperty(this.formData);
                 }
             });

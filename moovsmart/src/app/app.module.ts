@@ -16,6 +16,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { HttpRequestInterceptor } from './utils/httpRequestInterceptor';
 import { ProfilListComponent } from './components/profil-list/profil-list.component';
 import { DeletePictureComponent } from './components/delete-picture/delete-picture.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
     declarations: [
@@ -29,6 +30,7 @@ import { DeletePictureComponent } from './components/delete-picture/delete-pictu
         WelcomeComponent,
         ProfilListComponent,
         DeletePictureComponent,
+        AdminComponent,
     ],
     imports: [
         HttpClientModule,

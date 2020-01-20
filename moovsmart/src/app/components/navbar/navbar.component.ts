@@ -31,6 +31,7 @@ export class NavbarComponent implements OnInit {
         if(this.storage != null){
             this.userName = this.storage.name;
             this.id = this.storage.userId;
+            console.log(this.role);
         }
 
        // this.id = this.propertyService.userId;
