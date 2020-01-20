@@ -17,6 +17,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/user")
@@ -46,7 +48,7 @@ public class UserController {
         Long id = this.userService.makeUser(command);
         if (id != null) {
            this.mailSenderService.sendMailByTokenRegistration(command.getUserName(), command.getMail());
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity(HttpStatus.CREATED);
         } else {
             logger.warn("Registration was not possible");
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -58,7 +60,12 @@ public class UserController {
         UserProperty user = this.mailSenderService.getUserByToken(token);
         if(user != null){
             user.setIsActive(true);
-            return this.userService.validateUser(user.getId());
+            List<String> roles = this.userService.validateUser(user.getId());
+            if (roles != null) {
+                return new ResponseEntity<>(roles, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -2,12 +2,12 @@ package com.progmasters.moovsmart.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.progmasters.moovsmart.domain.*;
+import com.progmasters.moovsmart.dto.CreateFilteredCommand;
 import com.progmasters.moovsmart.dto.PropertyDetails;
 import com.progmasters.moovsmart.dto.PropertyForm;
 import com.progmasters.moovsmart.dto.PropertyListItem;
 import com.progmasters.moovsmart.exception.GlobalExceptionHandler;
 import com.progmasters.moovsmart.repository.PropertyRepository;
-import com.progmasters.moovsmart.repository.UserRepository;
 import com.progmasters.moovsmart.service.PropertyService;
 import com.progmasters.moovsmart.validation.PropertyFormValidator;
 import org.junit.jupiter.api.AfterEach;
@@ -21,17 +21,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.security.Principal;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -48,10 +45,7 @@ public class PropertyControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    PropertyRepository propertyRepositoryMock;
-
-    @Mock
-    UserRepository userRepository;
+    private PropertyRepository propertyRepositoryMock;
 
     @Mock
     private PropertyService propertyServiceMock;
@@ -110,7 +104,99 @@ public class PropertyControllerTest {
 
         verify(propertyServiceMock, times(1)).getProperties();
         verifyNoMoreInteractions(propertyServiceMock);
-   }
+    }
+
+
+    @Test
+    public void testGetFilteredList_WithRoom() throws Exception {
+        // given
+        Property property1 = new Property();
+        property1.setId(1L);
+        property1.setName("House1");
+        property1.setNumberOfRooms(2);
+        property1.setArea(50.0);
+        property1.setPrice(10000000);
+
+        Property property2 = new Property();
+        property2.setId(2L);
+        property2.setName("House2");
+        property2.setNumberOfRooms(3);
+        property2.setArea(80.0);
+        property2.setPrice(30000000);
+
+        List<PropertyListItem> properties = Stream.of(property1).map(PropertyListItem::new).collect(Collectors.toList());
+
+        CreateFilteredCommand createFilteredCommand = new CreateFilteredCommand();
+        createFilteredCommand.setNumberOfRooms(2);
+
+        // when
+        when(propertyServiceMock.getFilteredProperties(any(CreateFilteredCommand.class)))
+                .thenReturn(properties);
+
+        // then
+        this.mockMvc.perform(post("/api/properties/filteredList")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(createFilteredCommand)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].name", is("House1")))
+                .andExpect(jsonPath("$[0].price", is(10000000)))
+                .andExpect(jsonPath("$[0].numberOfRooms", is(2)))
+                .andExpect(jsonPath("$[0].area", is(50.0)));
+
+        verify(propertyServiceMock, times(1))
+                .getFilteredProperties(any(CreateFilteredCommand.class));
+        verifyNoMoreInteractions(propertyServiceMock);
+    }
+
+    @Test
+    public void testGetFilteredList_WithoutRoom() throws Exception {
+        // given
+        Property property1 = new Property();
+        property1.setId(1L);
+        property1.setName("House1");
+        property1.setNumberOfRooms(2);
+        property1.setArea(50.0);
+        property1.setPrice(10000000);
+
+        Property property2 = new Property();
+        property2.setId(2L);
+        property2.setName("House2");
+        property2.setNumberOfRooms(3);
+        property2.setArea(80.0);
+        property2.setPrice(30000000);
+
+        List<PropertyListItem> properties = Stream.of(property1, property2).map(PropertyListItem::new).collect(Collectors.toList());
+
+        CreateFilteredCommand createFilteredCommand = new CreateFilteredCommand();
+        createFilteredCommand.setMinPrice(5000000);
+        createFilteredCommand.setMaxPrice(35000000);
+
+        // when
+        when(propertyServiceMock.getFilteredPropertiesWithoutRooms(any(CreateFilteredCommand.class)))
+                .thenReturn(properties);
+
+        // then
+        this.mockMvc.perform(post("/api/properties/filteredList")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(createFilteredCommand)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].name", is("House1")))
+                .andExpect(jsonPath("$[0].price", is(10000000)))
+                .andExpect(jsonPath("$[0].numberOfRooms", is(2)))
+                .andExpect(jsonPath("$[0].area", is(50.0)))
+                .andExpect(jsonPath("$[1].name", is("House2")))
+                .andExpect(jsonPath("$[1].price", is(30000000)))
+                .andExpect(jsonPath("$[1].numberOfRooms", is(3)))
+                .andExpect(jsonPath("$[1].area", is(80.0)));
+
+        verify(propertyServiceMock, times(1))
+                .getFilteredPropertiesWithoutRooms(any(CreateFilteredCommand.class));
+        verifyNoMoreInteractions(propertyServiceMock);
+    }
 
     @Test
     public void testGetOwnProperties() throws Exception {
@@ -356,7 +442,6 @@ public class PropertyControllerTest {
                 .deleteProperty(any(Long.class), any());
         verifyNoMoreInteractions(propertyServiceMock);
     }
-
 
     private MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
