@@ -112,7 +112,7 @@ public class PropertyController {
 
 
     @PostMapping("/authUser")
-    public ResponseEntity createProperty(@RequestBody @Valid PropertyForm propertyForm, Principal principal) {
+    public ResponseEntity createProperty(@RequestBody @Valid PropertyForm propertyForm) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails user = (UserDetails) authentication.getPrincipal();
         String userMail = user.getUsername();

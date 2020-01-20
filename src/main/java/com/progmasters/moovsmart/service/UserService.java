@@ -51,15 +51,15 @@ public class UserService {
         return id;
     }
 
-    public ResponseEntity<List<String>> validateUser(Long id) {
+    public List<String> validateUser(Long id) {
         Optional<UserProperty>user = this.userRepository.findById(id);
         if(user.isPresent()){
             UserProperty validUser = user.get();
             validUser.setIsActive(true);
             List<String>roleList = makeRoleList(validUser);
-            return new ResponseEntity<>(roleList,HttpStatus.CREATED);
+            return roleList;
         }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return null;
         }
     }
 
