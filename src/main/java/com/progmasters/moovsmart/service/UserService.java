@@ -114,7 +114,7 @@ public class UserService {
         List<Property>properties = this.propertyRepository.findAllByOwner(user);
         for(Property property: properties){
             property.setValid(true);
-            property.setStatus(StatusOfProperty.EXCEPTED);
+            property.setStatus(StatusOfProperty.ACCEPTED);
             this.propertyRepository.save(property);
         }
     }
