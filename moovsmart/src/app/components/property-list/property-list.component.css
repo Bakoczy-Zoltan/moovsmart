@@ -131,7 +131,7 @@
     text-align: center;
 }
 .mainRow{
-    padding: 1%;
+    padding: 2%;
 
 }
 #detail-button-div{
@@ -145,6 +145,8 @@
 
 #img-holder-row{
     text-align: center;
+    background-color:  antiquewhite;
+    padding: 3px;
 }
 
 #edit-icon{

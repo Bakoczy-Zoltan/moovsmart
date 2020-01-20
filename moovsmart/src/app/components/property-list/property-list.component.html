@@ -83,7 +83,8 @@
     </form>
 </div>
 
-<!--div class="container jumbotron">
+
+<div class="container jumbotron">
     <div class="row">
         <div class="col">
             <h2>Eladó ingatlanok</h2>
@@ -93,6 +94,9 @@
                     (click)="makeFilterBar()">{{filterOpenMessage}}</button>
         </div>
     </div>
+
+    <!-- when database is empty -->
+
     <div id="mainDiv">
         <div *ngIf="propertyListItemModels === undefined || propertyListItemModels.length === 0" id="emptydb">
             <img
@@ -102,66 +106,7 @@
         </div>
     </div>
 
-    <table *ngIf="propertyListItemModels?.length !== 0" id="list-table" class="table table-borderless">
-        <thead>
-        </thead>
-        <tbody>
-            <div *ngFor="let property of actualPageList[actualPageNumber-1]" class="mainRow">
-                <tr>
-                    <td>
-                        <div *ngIf="property?.imageUrl[0]?.length < 3">
-                            <img [src]="defaultPicture" class="defaultPicture" [alt]="defaultPicture">
-                        </div>
-                        <div *ngIf="property?.imageUrl[0]?.length >= 3">
-                            <img (click)="details(property.id)" alt="ingatlan" class="room-list-item__image" width="200"
-                                 src="{{property?.imageUrl[0]}}"/>
-                        </div>
-                    </td>
-                    <td id="property-name-td">
-                        <h5>{{property.name}}</h5>
-                        <p><strong>Szobák száma: </strong> {{property.numberOfRooms}}</p>
-                        <p><strong>Ár: </strong> {{property.price}} M Ft</p>
-                    </td>
-                    <td><strong>Terület:</strong> {{property.area}}m<sup>2</sup></td>
-                    <td><strong>Hirdetés dátuma:</strong></td>
-                    <td>{{property.time}}</td>
-                    <td class="btn-group">
-                        <button id="detail-button" class="btn" (click)="details(property.id)">Részletek</button>
-                    </td>
-                    <td *ngIf="storage?.userId == property.userId">
-                        <a (click)="details(property.id)" title="Szerkesztés"> <i class="fas fa-wrench"></i></a>
-                    </td>
-                </tr>
-            </div>
-        </tbody>
-
-    </table>
-    <div id="pager" class="d-flex justify-content-center">
-        <div id="leftArrow" *ngIf="actualPageNumber > 1">
-            <i class="fas fa-angle-left" (click)="pageLeft()"></i>
-        </div>
-        <div id="pagerNumbers">
-            <strong> {{actualPageNumber}} </strong>
-        </div>
-        <div id="rightArrow" *ngIf="actualPageNumber < actualPageList?.length">
-            <i class="fas fa-angle-right" (click)="pageRight()"></i>
-        </div>
-    </div>
-</div-->
-
-<div class="container jumbotron">
-
-
-
-    <div class="row">
-        <div class="col">
-            <h2>Eladó ingatlanok</h2>
-        </div>
-        <div class="col" id="last-button-header">
-            <button class="btn btn-warning" id="button-filter-switch"
-                    (click)="makeFilterBar()">{{filterOpenMessage}}</button>
-        </div>
-    </div>
+    <!-- Property list -->
 
     <div *ngFor="let property of actualPageList[actualPageNumber-1]" class="mainRow">
         <div class="container-fluid">
