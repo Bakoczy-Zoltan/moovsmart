@@ -165,6 +165,11 @@ export class PropertyFormComponent implements OnInit {
     }
 
     private updateProperty(data: PropertyFormDataModel) {
+        const dataToSend = {...data};
+        dataToSend.propertyType = this.propertyTypes.filter(propertyType => propertyType.displayName === data.propertyType)[0].name;
+        dataToSend.propertyState = this.propertyStates.filter(propertyState => propertyState.displayName === data.propertyState)[0].name;
+        dataToSend.county = this.counties.filter(county => county.displayName === data.county)[0].name;
+
         this.propertyService.updateProperty(data, this.propertyId).subscribe(
             () => {this.displayLoadingCircle = false;
                 this.router.navigate(['profil-list/', this.storage.userId])},

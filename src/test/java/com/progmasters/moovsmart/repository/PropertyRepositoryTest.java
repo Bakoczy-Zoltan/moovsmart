@@ -103,7 +103,7 @@ public class PropertyRepositoryTest {
     }
 
 
-        @Test
+    @Test
     public void testFindAllByOwner() {
         UserProperty user1 = new UserProperty();
         user1.setMail("user1@gmail.com");
