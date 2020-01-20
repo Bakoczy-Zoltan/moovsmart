@@ -1,6 +1,6 @@
 import { applySourceSpanToExpressionIfNeeded } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilteredListModel } from '../../models/FilteredListModel';
 import { PropertyListItemModel } from '../../models/propertyListItem.model';
@@ -45,14 +45,14 @@ export class PropertyListComponent implements OnInit {
     clearFilterFields() {
         this.filteredForm = new FormGroup(
             {
-                'minPrice': new FormControl(0),
-                'maxPrice': new FormControl(null),
-                'minSize': new FormControl(0),
-                'maxSize': new FormControl(null),
+                'minPrice': new FormControl(0, [Validators.min(0)]),
+                'maxPrice': new FormControl(null, [Validators.min(0)]),
+                'minSize': new FormControl(0, [Validators.min(0)]),
+                'maxSize': new FormControl(null, [Validators.min(0)]),
                 'propertyState': new FormControl(null),
                 'propertyType': new FormControl(null),
                 'city': new FormControl(null),
-                'numberOfRooms': new FormControl(null),
+                'numberOfRooms': new FormControl(0, [Validators.min(0), Validators.max(30)]),
             },
         );
     }
@@ -63,9 +63,10 @@ export class PropertyListComponent implements OnInit {
         this.actualPageNumber = 1;
 
         this.refreshPropertyList();
-        this.storage = JSON.parse(localStorage.getItem('user'));
-        if (localStorage.getItem('user') != null) {
+
+        if (localStorage != null && localStorage.getItem('user') != null) {
             this.registratedUser = true;
+            this.storage = JSON.parse(localStorage.getItem('user'));
         }
 
     }
@@ -121,7 +122,7 @@ export class PropertyListComponent implements OnInit {
     makeFilterBar() {
         if (this.needFilterList === false) {
             this.needFilterList = true;
-            this.filterOpenMessage = 'Szűrés kikapcsolása';
+            this.filterOpenMessage = 'Szűrés kikapcsolás';
             this.propertyService.getInitialFormData().subscribe((formInitData: FormInitDataModel) => {
                 this.propertyTypes = formInitData.propertyTypes;
                 this.propertyStates = formInitData.propertyStates;
@@ -130,7 +131,6 @@ export class PropertyListComponent implements OnInit {
             this.propertyService.getCityList().subscribe(
                 (data: string[]) => {
                     this.cities = data;
-                    console.log(this.cities);
                 },
             );
         } else {
@@ -146,7 +146,7 @@ export class PropertyListComponent implements OnInit {
                 this.propertyListItemModels = propertyListItems;
                 this.actualPageList = this.makingActualList(this.propertyListItemModels);
 
-                console.log(this.actualPageList);
+               // console.log(this.actualPageList);
             },
         );
         this.clearFilterFields();

@@ -33,8 +33,6 @@ export class NavbarComponent implements OnInit {
             this.id = this.storage.userId;
         }
 
-        console.log("USER " + this.userName);
-
        // this.id = this.propertyService.userId;
         this.propertyService.regisTrated.subscribe(
             name => this.registratedUser = name

@@ -82,7 +82,6 @@ export class PropertyFormComponent implements OnInit {
         this.propertyService.userName.subscribe(
             (name) => {
                 this.actualUserName = name;
-                console.log('NAME' + name);
                 this.registratedUser = name !== null;
                 if (this.actualUserName == null) {
                     this.openModalDialog();
@@ -138,7 +137,7 @@ export class PropertyFormComponent implements OnInit {
     submit = () => {
         this.displayLoadingCircle = true;
         this.formData = {...this.propertyForm.value};
-        console.log(this.formData);
+      //  console.log(this.formData);
 
         this.searchPosition = this.formData.zipCode + ' ' + this.formData.street + ' ' + this.formData.city + ' ' + this.formData.streetNumber;
         this.addressToDecode.address = this.searchPosition;
@@ -207,7 +206,7 @@ export class PropertyFormComponent implements OnInit {
                 this.formData.lngCoord = this.lngCoord;
                 this.formData.latCoord = this.latCoord;
 
-                console.log('latlong', this.latCoord, this.lngCoord);
+              //  console.log('latlong', this.latCoord, this.lngCoord);
 
                 this.formData.isValid = true;
 

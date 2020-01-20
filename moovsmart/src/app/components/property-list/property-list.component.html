@@ -8,21 +8,25 @@
                         <label class="form-control-label" for="sizeMin">Méret min:</label>
                         <input type="number" formControlName="minSize" class="form-control" id="sizeMin"
                                placeholder="0">
+                        <small class="text-danger" *ngIf="filteredForm.get('minSize').errors">Méret minimum 0 kell lenni</small>
                     </td>
                     <td>
                         <label class="form-control-label" for="sizeMax">Méret max:</label>
                         <input type="number" formControlName="maxSize" class="form-control" id="sizeMax"
                                placeholder="mindegy">
+                        <small class="text-danger" *ngIf="filteredForm.get('maxSize').errors">Egész számot lehet megadni</small>
                     </td>
                     <td>
                         <label class="form-control-label" for="priceMin">Ár min:</label>
                         <input type="number" formControlName="minPrice" class="form-control" id="priceMin"
                                placeholder="0">
+                        <small class="text-danger" *ngIf="filteredForm.get('minPrice').errors">Minimum ár 0 ft</small>
                     </td>
                     <td>
                         <label class="form-control-label" for="priceMax">Ár max:</label>
                         <input type="number" formControlName="maxPrice" class="form-control" id="priceMax"
                                placeholder="mindegy">
+                        <small class="text-danger" *ngIf="filteredForm.get('maxPrice').errors">Egész számot kell megadni</small>
                     </td>
                 </tr>
                 <tr>
@@ -58,6 +62,7 @@
                         <label class="form-control-label" for="rooms">Szobák száma</label>
                         <input type="number" formControlName="numberOfRooms" class="form-control" id="rooms"
                                placeholder="mindegy">
+                        <small class="text-danger" *ngIf="filteredForm.get('numberOfRooms').errors">Csak egész számot lehet megadni</small>
                     </td>
                 </tr>
             </tbody>
@@ -113,12 +118,11 @@
                     <td><strong>Terület:</strong> {{property.area}}m<sup>2</sup></td>
                     <td><strong>Hirdetés dátuma:</strong></td>
                     <td>{{property.time}}</td>
-                    <!--td></td-->
                     <td class="btn-group">
                         <button id="detail-button" class="btn" (click)="details(property.id)">Részletek</button>
                     </td>
                     <td *ngIf="storage?.userId == property.userId">
-                        <i class="fas fa-wrench"></i>
+                       <a (click)="details(property.id)" title="Szerkesztés"> <i class="fas fa-wrench"></i></a>
                     </td>
                 </tr>
             </div>

@@ -31,7 +31,7 @@ export class ProfilListComponent implements OnInit {
                         propertyListItems => {
                             this.propertyListItemModels = propertyListItems;
                             this.emptyList = this.propertyListItemModels.length === 0;
-                            console.log(this.propertyListItemModels.length + " hossz");
+                         //   console.log(this.propertyListItemModels.length + " hossz");
 
                             this.refactorOfPrice(this.propertyListItemModels);
                             this.actualPageNumber = 1;
