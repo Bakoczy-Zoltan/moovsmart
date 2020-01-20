@@ -12,4 +12,15 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
   }
 
+    moveToApproval() {
+
+    }
+
+  moveToUserHandling() {
+
+  }
+
+  moveToArchived() {
+
+  }
 }

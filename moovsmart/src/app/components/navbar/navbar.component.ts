@@ -14,7 +14,6 @@ export class NavbarComponent implements OnInit {
     id: number = null;
     userName: string;
     storage: any;
-    role: string;
 
     constructor(private http: HttpClient,
                 private router: Router,
@@ -32,7 +31,6 @@ export class NavbarComponent implements OnInit {
         if(this.storage != null){
             this.userName = this.storage.name;
             this.id = this.storage.userId;
-            this.role = this.storage.role[0];
             console.log(this.role);
         }
 

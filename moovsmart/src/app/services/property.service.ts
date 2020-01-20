@@ -17,6 +17,7 @@ export class PropertyService {
     userName2: string;
     userId: number;
     regisTrated = new Subject<boolean>();
+    role: string[];
 
     baseUrl = environment.apiUrl + '/properties';
     baseUserUrl = environment.apiUrl + '/user';
