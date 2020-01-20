@@ -12,34 +12,62 @@ export class ProfilListComponent implements OnInit {
 
     propertyListItemModels: PropertyListItemModel[] = [];
     defaultPicture = 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg';
-    actualPageList: PropertyListItemModel[];
     actualPageNumber: number;
     storage: any;
     emptyList: boolean;
+    actualPageList: [PropertyListItemModel[]] = [[]];
 
     constructor(private propertyService: PropertyService,
                 private route: ActivatedRoute,
                 private router: Router) { }
 
     ngOnInit() {
+        this.actualPageNumber = 1;
         this.storage = JSON.parse(localStorage.getItem('user'));
         this.route.paramMap.subscribe(
             paramMap => {
                 const userId = paramMap.get('id');
                 if (userId) {
-                    this.propertyService.getMyPropertyList(+userId).subscribe(
-                        propertyListItems => {
-                            this.propertyListItemModels = propertyListItems;
-                            this.emptyList = this.propertyListItemModels.length === 0;
-                         //   console.log(this.propertyListItemModels.length + " hossz");
-
-                            this.refactorOfPrice(this.propertyListItemModels);
-                            this.actualPageNumber = 1;
-                        },
-                    );
+                    this.refreshPropertyList(+userId);
                 }
             },
         );
+    }
+
+    refreshPropertyList(usId: number){
+        this.propertyService.getMyPropertyList(usId).subscribe(
+            propertyListItems => {
+                this.propertyListItemModels = propertyListItems;
+                this.actualPageList = this.makingActualList(this.propertyListItemModels);
+            },
+        );
+    }
+
+    private makingActualList(propertyListItemModels: Array<PropertyListItemModel>) {
+        const listSize = propertyListItemModels.length;
+        const miniListSize = 5;
+        let actualList: [PropertyListItemModel[]] = [[]];
+        let tempList: PropertyListItemModel[] = [];
+
+        let indexBig = 0;
+        for (let i = 0; i < listSize; i++) {
+            let indexMini = 1;
+            const property = propertyListItemModels[i];
+            const formatedPrice = property.price / 1000000;
+            property.price = +formatedPrice.toPrecision(3);
+            tempList.push(property);
+
+            if (i!== 0 && ((i+1) % miniListSize) === 0) {
+                actualList.push(tempList);
+                indexBig++;
+                tempList = [];
+                indexMini = 0;
+            }
+            indexMini++;
+        }
+        actualList.push(tempList);
+        actualList.shift();
+        return actualList;
     }
 
     details(id: number) {
@@ -53,5 +81,13 @@ export class ProfilListComponent implements OnInit {
             property.price = +formatedPrice.toPrecision(3);
         }
 
+    }
+
+    pageLeft() {
+        this.actualPageNumber--;
+    }
+
+    pageRight() {
+        this.actualPageNumber++;
     }
 }
