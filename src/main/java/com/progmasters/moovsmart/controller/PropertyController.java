@@ -111,7 +111,6 @@ public class PropertyController {
     }
 
 
-
     @PostMapping("/authUser")
     public ResponseEntity createProperty(@RequestBody @Valid PropertyForm propertyForm) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -202,20 +201,42 @@ public class PropertyController {
         return new ResponseEntity(HttpStatus.OK);
     }
     /*
-    * Admin's authorization methods
-    * */
+     * Admin's authorization methods
+     * */
 
     @GetMapping("/admin/getAllHoldingProperty")
-    public ResponseEntity<List<PropertyForm>> getAllHoldingProperty(){
-        List<PropertyForm>listOfHoldingProperty = this.propertyService.getAllHoldingProperty();
+    public ResponseEntity<List<PropertyForm>> getAllHoldingProperty() {
+        List<PropertyForm> listOfHoldingProperty = this.propertyService.getAllHoldingProperty();
         return new ResponseEntity<>(listOfHoldingProperty, HttpStatus.OK);
     }
 
     @PostMapping("/admin/getArchivedProperties")
-    public ResponseEntity<List<PropertyForm>> getArchivedProperties(@RequestBody CreateQueryByDatesCommand command){
+    public ResponseEntity<List<PropertyForm>> getArchivedProperties(@RequestBody CreateQueryByDatesCommand command) {
         System.out.println("Date: ==> " + command.getDateFrom().toString() + " " + command.getDateTo().toString());
 
-        List<PropertyForm>listOfProperties = this.propertyService.getArchivedProperties(command);
+        List<PropertyForm> listOfProperties = this.propertyService.getArchivedProperties(command);
         return new ResponseEntity<>(listOfProperties, HttpStatus.OK);
     }
+
+    @GetMapping("/admin/getPropertyLIstByUserMail/{id}")
+    public ResponseEntity getPropertyListByUserMail(@PathVariable("id") String mail) {
+        ResponseEntity response = this.propertyService.getAllPropertyByMail(mail);
+        return response;
+    }
+
+    @PutMapping("/admin/activateProperty/{id}")
+    public ResponseEntity makePropertyActivated(@PathVariable("id") Long id) {
+        Boolean successActivating = this.propertyService.activateProperty(id);
+        if (successActivating) {
+            this.logger.info("Property of Id: " + id + " is activated");
+            return new ResponseEntity(HttpStatus.OK);
+        } else {
+            this.logger.warn("Property with id of " + id + " not found");
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+
+
 }

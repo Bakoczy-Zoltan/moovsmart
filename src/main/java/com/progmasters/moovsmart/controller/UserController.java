@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -77,5 +76,30 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         return new ResponseEntity<>(new AuthenticatedUser(user), HttpStatus.OK);
+    }
+
+    /*
+    * Admin authorization methods*/
+
+    @PutMapping("/admin/banUser/{id}")
+    public ResponseEntity banUserById(@PathVariable("id")Long id){
+        ResponseEntity response = this.userService.banUserById(id);
+        if(response.getStatusCode().equals(HttpStatus.OK)){
+            this.logger.info("User by id of: " + id + " is forbidden");
+        }else {
+            this.logger.warn("User by id of: " + id + " is Not Found");
+        }
+        return response;
+    }
+
+    @PutMapping("/admin/permitUser/{id}")
+    public ResponseEntity permitUserById(@PathVariable("id")Long id){
+        ResponseEntity response = this.userService.permitUserById(id);
+        if(response.getStatusCode().equals(HttpStatus.OK)){
+            this.logger.info("User by id of: " + id + " is permitted");
+        }else {
+            this.logger.warn("User by id of: " + id + " is Not Found");
+        }
+        return response;
     }
 }
