@@ -97,6 +97,7 @@ public class PropertyService {
         property.setPublicIds(propertyForm.getPublicId());
         property.setCity(propertyForm.getCity());
         property.setValid(true);
+        property.setStateForAdmin(propertyForm.getStateForAdmin());
     }
 
     public boolean deleteProperty(Long id, String userMail) {
@@ -207,4 +208,8 @@ public class PropertyService {
     }
 
 
+    public List<PropertyListItem> getPropertiesForApproval() {
+        List<Property> properties = propertyRepository.findAllForApproval();
+        return properties.stream().map(PropertyListItem::new).collect(Collectors.toList());
+    }
 }

@@ -152,6 +152,7 @@ export class PropertyFormComponent implements OnInit {
         dataToSend.propertyState = this.propertyStates.filter(propertyState => propertyState.displayName === data.propertyState)[0].name;
         dataToSend.county = this.counties.filter(county => county.displayName === data.county)[0].name;
 
+
         this.propertyService.createProperty(dataToSend).subscribe(
             () => {
                 this.displayLoadingCircle = false;
@@ -233,6 +234,9 @@ export class PropertyFormComponent implements OnInit {
                             this.formData.publicId = this.actualPublicIdList;
                             this.formData.imageUrl = this.actualUrlList;
 
+                            this.propertyId ? this.formData.stateForAdmin = 'Approval after edit' :
+                                this.formData.stateForAdmin = 'Approval after create';
+
                             this.selectedFile = null;
                         },
                         () => {},
@@ -242,6 +246,8 @@ export class PropertyFormComponent implements OnInit {
                         },
                     );
                 } else {
+                    this.propertyId ? this.formData.stateForAdmin = 'Approval after edit' :
+                        this.formData.stateForAdmin = 'Approval after create';
                     this.formData.publicId = this.actualPublicIdList;
                     this.formData.imageUrl = this.actualUrlList;
                     this.propertyId ? this.updateProperty(this.formData) : this.createNewProperty(this.formData);

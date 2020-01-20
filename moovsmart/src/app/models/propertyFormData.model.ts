@@ -19,4 +19,5 @@ export interface PropertyFormDataModel {
   owner: string;
   lngCoord: number;
   latCoord: number;
+  stateForAdmin: string;
 }

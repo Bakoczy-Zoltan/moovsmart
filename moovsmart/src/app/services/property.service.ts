@@ -21,6 +21,7 @@ export class PropertyService {
 
     baseUrl = environment.apiUrl + '/properties';
     baseUserUrl = environment.apiUrl + '/user';
+    adminUrl = environment.apiUrl + '/admin';
     url = 'localhost:8080/api/properties';
 
     constructor(private httpClient: HttpClient) {
@@ -93,5 +94,9 @@ export class PropertyService {
 
     updatePictureList(imageList: PictureListItemModel, propertyId: number): Observable<any> {
         return this.httpClient.post<any>(this.baseUrl + '/images/' + propertyId, imageList);
+    }
+
+    getPropertyListForApproval(): Observable<any> {
+        return this.httpClient.get<Array<PropertyListItemModel>>(this.adminUrl);
     }
 }

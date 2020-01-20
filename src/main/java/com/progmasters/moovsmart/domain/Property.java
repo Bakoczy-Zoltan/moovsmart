@@ -18,6 +18,7 @@ public class Property {
     private Integer price;
     private Integer buildingYear;
     private Double area;
+    private String stateForAdmin;
 
     @Enumerated(EnumType.STRING)
     private PropertyType propertyType;
@@ -225,5 +226,13 @@ public class Property {
 
     public void setLatCoord(Double latCoord) {
         this.latCoord = latCoord;
+    }
+
+    public String getStateForAdmin() {
+        return stateForAdmin;
+    }
+
+    public void setStateForAdmin(String stateForAdmin) {
+        this.stateForAdmin = stateForAdmin;
     }
 }

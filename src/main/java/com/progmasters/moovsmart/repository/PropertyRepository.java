@@ -48,6 +48,11 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
     List<Property> getFilteredListWithoutRoom(@Param("minArea")Double minSize, @Param("maxArea")Double maxSize, @Param("minPrice")Integer minPrice,
                                               @Param("maxPrice")Integer maxPrice, @Param("propertyState")PropertyState propertyState,
                                               @Param("propertyType")PropertyType propertyType, @Param("city")String city);
+
+    @Query("SELECT p FROM Property p " +
+            "WHERE p.stateForAdmin = 'Approval after edit' OR " +
+            "p.stateForAdmin = 'Approval after create'")
+    List<Property> findAllForApproval();
 }
 
 

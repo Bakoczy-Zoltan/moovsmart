@@ -22,6 +22,7 @@ public class PropertyForm {
     private Integer zipCode;
     private String street;
     private String streetNumber;
+    private String stateForAdmin;
 //    private String searchPosition;
 
     private String description;
@@ -49,6 +50,7 @@ public class PropertyForm {
         this.zipCode = property.getZipCode();
         this.street = property.getStreet();
         this.streetNumber = property.getStreetNumber();
+        this.stateForAdmin = property.getStateForAdmin();
 //        this.searchPosition = property.getSearchPosition();
         this.description = property.getDescription();
         this.imageUrl = property.getImageUrls();
@@ -208,5 +210,13 @@ public class PropertyForm {
 
     public void setPublicId(List<String> publicId) {
         this.publicId = publicId;
+    }
+
+    public String getStateForAdmin() {
+        return stateForAdmin;
+    }
+
+    public void setStateForAdmin(String stateForAdmin) {
+        this.stateForAdmin = stateForAdmin;
     }
 }
