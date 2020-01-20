@@ -2,7 +2,6 @@ package com.progmasters.moovsmart.service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.progmasters.moovsmart.domain.*;
 import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.repository.PropertyRepository;
@@ -54,7 +53,7 @@ public class PropertyService {
             user = tempUser.get();
         }
         Property property = new Property();
-        updateValues(propertyForm, property, user);
+        updateValues(propertyForm, property, user, StatusOfProperty.valueOf("HOLDING"));
         propertyRepository.save(property);
     }
 
@@ -68,7 +67,7 @@ public class PropertyService {
         }
         if (propertyOptional.isPresent()) {
             Property property = propertyOptional.get();
-            updateValues(propertyForm, property, user);
+            updateValues(propertyForm, property, user, StatusOfProperty.valueOf("EXCEPTED"));
             propertyRepository.save(property);
             return property;
         } else {
@@ -76,7 +75,7 @@ public class PropertyService {
         }
     }
 
-    private void updateValues(PropertyForm propertyForm, Property property, UserProperty user) {
+    private void updateValues(PropertyForm propertyForm, Property property, UserProperty user, StatusOfProperty status) {
         property.setLocalDateTime(LocalDateTime.now());
         property.setName(propertyForm.getName());
         property.setNumberOfRooms(propertyForm.getNumberOfRooms());
@@ -97,6 +96,7 @@ public class PropertyService {
         property.setPublicIds(propertyForm.getPublicId());
         property.setCity(propertyForm.getCity());
         property.setValid(true);
+        property.setStatus(status);
     }
 
     public boolean deleteProperty(Long id, String userMail) {
@@ -207,4 +207,21 @@ public class PropertyService {
     }
 
 
+    public List<PropertyForm> getAllHoldingProperty() {
+        List<PropertyForm>propertyFormList = new ArrayList<>();
+        List<Property>allHoldingProperty = this.propertyRepository.getAllHoldingProperty();
+        for(Property property: allHoldingProperty){
+            propertyFormList.add(new PropertyForm(property));
+        }
+        return propertyFormList;
+    }
+
+    public List<PropertyForm> getArchivedProperties (CreateQueryByDatesCommand command) {
+        List<PropertyForm>propertyFormList = new ArrayList<>();
+        List<Property>allPropertiesByDates = this.propertyRepository.getAllArchivedPropertiesByDates(command.getDateFrom(), command.getDateTo());
+        for(Property property : allPropertiesByDates){
+            propertyFormList.add(new PropertyForm(property));
+        }
+        return propertyFormList;
+    }
 }
