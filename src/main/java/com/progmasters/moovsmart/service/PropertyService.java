@@ -240,9 +240,22 @@ public class PropertyService {
             }
 
             return new ResponseEntity<>(propertyFormList, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(propertyFormList, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public Boolean activateProperty(Long id) {
+        Optional<Property> tempProperty = this.propertyRepository.findById(id);
+        if (tempProperty.isPresent()) {
+            Property property = tempProperty.get();
+            property.setStatus(StatusOfProperty.valueOf("EXCEPTED"));
+            property.setValid(true);
+            this.propertyRepository.save(property);
+            return true;
         }
         else {
-            return new ResponseEntity<>(propertyFormList, HttpStatus.NOT_FOUND);
+            return false;
         }
     }
 }

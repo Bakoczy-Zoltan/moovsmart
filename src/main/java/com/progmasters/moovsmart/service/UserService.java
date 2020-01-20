@@ -64,4 +64,30 @@ public class UserService {
         }
         return roles;
     }
+
+    public ResponseEntity banUserById(Long id) {
+        Optional<UserProperty>tempUser = this.userRepository.findById(id);
+        if(tempUser.isPresent()){
+            UserProperty user = tempUser.get();
+            user.setIsActive(false);
+            this.userRepository.save(user);
+
+            return new ResponseEntity(HttpStatus.OK);
+        }else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    public ResponseEntity permitUserById(Long id) {
+        Optional<UserProperty>tempUser = this.userRepository.findById(id);
+        if(tempUser.isPresent()){
+            UserProperty user = tempUser.get();
+            user.setIsActive(true);
+            this.userRepository.save(user);
+
+            return new ResponseEntity(HttpStatus.OK);
+        }else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
 }

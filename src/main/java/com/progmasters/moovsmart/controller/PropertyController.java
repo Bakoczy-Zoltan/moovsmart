@@ -224,4 +224,19 @@ public class PropertyController {
         return response;
     }
 
+    @PutMapping("/admin/activateProperty/{id}")
+    public ResponseEntity makePropertyActivated(@PathVariable("id") Long id) {
+        Boolean successActivating = this.propertyService.activateProperty(id);
+        if (successActivating) {
+            this.logger.info("Property of Id: " + id + " is activated");
+            return new ResponseEntity(HttpStatus.OK);
+        } else {
+            this.logger.warn("Property with id of " + id + " not found");
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+
+
 }
