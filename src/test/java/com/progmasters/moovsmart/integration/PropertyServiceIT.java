@@ -1,6 +1,7 @@
 package com.progmasters.moovsmart.integration;
 
 import com.progmasters.moovsmart.domain.*;
+import com.progmasters.moovsmart.dto.PropertyDetails;
 import com.progmasters.moovsmart.dto.PropertyForm;
 import com.progmasters.moovsmart.dto.PropertyListItem;
 import com.progmasters.moovsmart.repository.PropertyRepository;
@@ -36,7 +37,29 @@ public class PropertyServiceIT {
     }
 
     @Test
-    public void testGetProperties(){
+    public void testGetPropertyDetails(){
+        PropertyForm property = new PropertyForm();
+        property.setName("Ház");
+        property.setCounty("BUDAPEST");
+        property.setPropertyType("HOUSE");
+        property.setPropertyState("RENEWABLE");
+
+        UserProperty user = new UserProperty();
+        user.setMail("xy@xy.com");
+        user.setId(1L);
+
+        userRepository.save(user);
+        propertyService.createProperty(property, user.getMail());
+
+        PropertyDetails propertyDetails = propertyService.getPropertyDetails(1L);
+
+        assertEquals("Ház", propertyDetails.getName());
+        assertEquals("Budapest", propertyDetails.getCounty());
+        assertEquals("Felújítandó", propertyDetails.getPropertyState());
+    }
+
+    @Test
+    public void testCreateAndGetProperties(){
         PropertyForm property = new PropertyForm();
         property.setName("Ház");
         property.setArea(150.0);
@@ -59,6 +82,8 @@ public class PropertyServiceIT {
         user.setMail("xy@xy.com");
         user.setId(1L);
 
+        userRepository.save(user);
+
         propertyService.createProperty(property, user.getMail());
 
         List<PropertyListItem> properties = propertyService.getProperties();
@@ -66,5 +91,39 @@ public class PropertyServiceIT {
         assertEquals(1, properties.size());
         assertEquals("Ház", properties.get(0).getName());
         assertEquals("image.jpg", properties.get(0).getImageUrl().get(0));
+    }
+
+    @Test
+    public void testUpdateProperty() {
+        PropertyForm property = new PropertyForm();
+        property.setName("Ház");
+        property.setArea(150.0);
+        property.setBuildingYear(1999);
+        property.setCounty("PEST");
+        property.setPropertyType("HOUSE");
+        property.setPropertyState("RENEWABLE");
+
+        UserProperty user = new UserProperty();
+        user.setMail("xy@xy.com");
+        user.setId(1L);
+
+        userRepository.save(user);
+        propertyService.createProperty(property, user.getMail());
+
+        PropertyForm propUpdate = new PropertyForm();
+        propUpdate.setName("Nagy ház");
+        propUpdate.setArea(150.0);
+        propUpdate.setBuildingYear(1999);
+        propUpdate.setCounty("BUDAPEST");
+        propUpdate.setPropertyType("HOUSE");
+        propUpdate.setPropertyState("RENEWED");
+
+        Property updatedProperty = propertyService.updateProperty(propUpdate, 1L, user.getMail());
+
+        assertEquals(propUpdate.getName(), updatedProperty.getName());
+        assertEquals("Budapest", updatedProperty.getCounty().getDisplayName());
+        assertEquals("Ház", updatedProperty.getPropertyType().getDisplayName());
+        assertEquals("Felújított", updatedProperty.getPropertyState().getDisplayName());
+
     }
 }

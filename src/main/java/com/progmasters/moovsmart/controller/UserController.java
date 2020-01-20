@@ -13,9 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -46,7 +47,7 @@ public class UserController {
         Long id = this.userService.makeUser(command);
         if (id != null) {
            this.mailSenderService.sendMailByTokenRegistration(command.getUserName(), command.getMail());
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity(HttpStatus.CREATED);
         } else {
             logger.warn("Registration was not possible");
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -58,7 +59,12 @@ public class UserController {
         UserProperty user = this.mailSenderService.getUserByToken(token);
         if(user != null){
             user.setIsActive(true);
-            return this.userService.validateUser(user.getId());
+            List<String> roles = this.userService.validateUser(user.getId());
+            if (roles != null) {
+                return new ResponseEntity<>(roles, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -70,5 +76,30 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         return new ResponseEntity<>(new AuthenticatedUser(user), HttpStatus.OK);
+    }
+
+    /*
+    * Admin authorization methods*/
+
+    @PutMapping("/admin/banUser/{id}")
+    public ResponseEntity banUserById(@PathVariable("id")Long id){
+        ResponseEntity response = this.userService.banUserById(id);
+        if(response.getStatusCode().equals(HttpStatus.OK)){
+            this.logger.info("User by id of: " + id + " is forbidden");
+        }else {
+            this.logger.warn("User by id of: " + id + " is Not Found");
+        }
+        return response;
+    }
+
+    @PutMapping("/admin/permitUser/{id}")
+    public ResponseEntity permitUserById(@PathVariable("id")Long id){
+        ResponseEntity response = this.userService.permitUserById(id);
+        if(response.getStatusCode().equals(HttpStatus.OK)){
+            this.logger.info("User by id of: " + id + " is permitted");
+        }else {
+            this.logger.warn("User by id of: " + id + " is Not Found");
+        }
+        return response;
     }
 }

@@ -82,6 +82,7 @@ export class PropertyFormComponent implements OnInit {
         this.propertyService.userName.subscribe(
             (name) => {
                 this.actualUserName = name;
+                console.log('NAME' + name);
                 this.registratedUser = name !== null;
                 if (this.actualUserName == null) {
                     this.openModalDialog();

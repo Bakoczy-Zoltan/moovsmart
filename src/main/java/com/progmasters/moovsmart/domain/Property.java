@@ -18,7 +18,6 @@ public class Property {
     private Integer price;
     private Integer buildingYear;
     private Double area;
-    private String stateForAdmin;
 
     @Enumerated(EnumType.STRING)
     private PropertyType propertyType;
@@ -33,7 +32,6 @@ public class Property {
     private Integer zipCode;
     private String street;
     private String streetNumber;
-//    private String searchPosition;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -41,7 +39,9 @@ public class Property {
     @Column(columnDefinition = "boolean default true")
     private boolean isValid;
 
-//    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @Enumerated(EnumType.STRING)
+    private StatusOfProperty status;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private UserProperty owner;
@@ -228,11 +228,11 @@ public class Property {
         this.latCoord = latCoord;
     }
 
-    public String getStateForAdmin() {
-        return stateForAdmin;
+    public StatusOfProperty getStatus() {
+        return status;
     }
 
-    public void setStateForAdmin(String stateForAdmin) {
-        this.stateForAdmin = stateForAdmin;
+    public void setStatus(StatusOfProperty status) {
+        this.status = status;
     }
 }

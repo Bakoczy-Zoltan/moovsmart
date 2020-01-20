@@ -22,7 +22,6 @@ public class PropertyForm {
     private Integer zipCode;
     private String street;
     private String streetNumber;
-    private String stateForAdmin;
 //    private String searchPosition;
 
     private String description;
@@ -30,6 +29,7 @@ public class PropertyForm {
     private List<String> publicId;
 
     private String owner;
+    private String status;
 
     private Double lngCoord;
     private Double latCoord;
@@ -37,7 +37,7 @@ public class PropertyForm {
     public PropertyForm() {
     }
 
-    PropertyForm(Property property) {
+    public PropertyForm(Property property) {
         this.name = property.getName();
         this.numberOfRooms = property.getNumberOfRooms();
         this.price = property.getPrice();
@@ -50,14 +50,20 @@ public class PropertyForm {
         this.zipCode = property.getZipCode();
         this.street = property.getStreet();
         this.streetNumber = property.getStreetNumber();
-        this.stateForAdmin = property.getStateForAdmin();
 //        this.searchPosition = property.getSearchPosition();
         this.description = property.getDescription();
         this.imageUrl = property.getImageUrls();
         this.publicId = property.getPublicIds();
         this.lngCoord = property.getLngCoord();
         this.latCoord = property.getLatCoord();
-        this.owner = property.getOwner().getMail();
+
+        if(property.getOwner() != null){
+            this.owner = property.getOwner().getMail();
+        }
+        if(property.getStatus() != null){
+            this.status = property.getStatus().getDisplayName();
+        }
+
     }
 
     public String getName() {
@@ -172,14 +178,6 @@ public class PropertyForm {
         this.streetNumber = streetNumber;
     }
 
-//    public String getSearchPosition() {
-//        return searchPosition;
-//    }
-//
-//    public void setSearchPosition(String searchPosition) {
-//        this.searchPosition = searchPosition;
-//    }
-
     public String getOwner() {
         return owner;
     }
@@ -212,11 +210,11 @@ public class PropertyForm {
         this.publicId = publicId;
     }
 
-    public String getStateForAdmin() {
-        return stateForAdmin;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStateForAdmin(String stateForAdmin) {
-        this.stateForAdmin = stateForAdmin;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

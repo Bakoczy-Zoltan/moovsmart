@@ -8,10 +8,10 @@ import java.util.List;
 
 public class PropertyListItem {
 
-    private long id;
+    private Long id;
     private String name;
-    private int numberOfRooms;
-    private int price;
+    private Integer numberOfRooms;
+    private Integer price;
     private List<String> imageUrl;
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm")
     private LocalDateTime time;
@@ -36,11 +36,11 @@ public class PropertyListItem {
         }
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -52,19 +52,19 @@ public class PropertyListItem {
         this.name = name;
     }
 
-    public int getNumberOfRooms() {
+    public Integer getNumberOfRooms() {
         return numberOfRooms;
     }
 
-    public void setNumberOfRooms(int numberOfRooms) {
+    public void setNumberOfRooms(Integer numberOfRooms) {
         this.numberOfRooms = numberOfRooms;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 

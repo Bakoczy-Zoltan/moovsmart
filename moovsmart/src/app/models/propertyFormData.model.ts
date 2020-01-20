@@ -5,19 +5,22 @@ export interface PropertyFormDataModel {
   price: number;
   buildingYear: number;
   area: number;
+
   propertyType: string;
   propertyState: string;
+
   county: string;
   city: string;
   zipCode: number;
   street: string;
   streetNumber: string;
-  // searchPosition: string;
   description: string;
   imageUrl: string[];
   publicId: string[];
+
   owner: string;
+  status: string;
+
   lngCoord: number;
   latCoord: number;
-  stateForAdmin: string;
 }
