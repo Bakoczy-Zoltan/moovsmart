@@ -21,6 +21,21 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="buttonPushed === 3" id="header-div-3">
+            <h3>Archivált ingatlanok</h3>
+            <hr>
+            <form>
+                <input class="dateInput" type="date" name="dateFrom">
+                <input class="dateInput" type="date" name="dateTo">
+                <button type="submit" (click)="submit()" class="btn">Lekérdezés</button>
+            </form>
+            <div id="emptyArchiveMessage">
+                <div *ngIf="propertyListItemModels === undefined || propertyListItemModels.length === 0"
+                     id="emptyArchive">
+                    <div id="noArchives">Jelenleg nincs archivált ingatlan.</div>
+                </div>
+            </div>
+        </div>
         <div *ngIf="buttonPushed === 1 || buttonPushed === 3">
             <div *ngIf="propertyListItemModels !== undefined && propertyListItemModels.length > 0">
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PropertyListItemModel } from '../../models/propertyListItem.model';
 import { Router } from '@angular/router';
 import { PropertyService } from '../../services/property.service';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-admin',
@@ -16,9 +17,16 @@ export class AdminComponent implements OnInit {
     images: string[];
     actualPageNumber: number;
     actualPageList: [PropertyListItemModel[]] = [[]];
+    formData: any;
+
+    dateForm = this.formBuilder.group({
+        'dateFrom': [''],
+        'dateTo': [''],
+    })
 
     constructor(private propertyService: PropertyService,
-                private router: Router) { }
+                private router: Router,
+private formBuilder: FormBuilder) { }
 
     ngOnInit() {
       this.buttonPushed = 0;
@@ -96,4 +104,16 @@ export class AdminComponent implements OnInit {
                 this.actualPageList = this.makingActualList(this.propertyListItemModels);            },
         );
     }
+
+
+    submit = () => {
+    this.formData = {...this.dateForm.value};
+    this.propertyService.getArchivedProperties(this.formData).subscribe(
+        propertyListItems => {
+            this.propertyListItemModels = propertyListItems;
+            this.actualPageList = this.makingActualList(this.propertyListItemModels);
+        }
+    )
+}
+
 }

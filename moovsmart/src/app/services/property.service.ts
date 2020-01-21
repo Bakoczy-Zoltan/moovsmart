@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { DateIntervalModel } from '../models/DateInterval.model';
 import { FilteredListModel } from '../models/FilteredListModel';
 import { PropertyDetailsModel } from '../models/propertyDetails.model';
 import { PropertyFormDataModel } from '../models/propertyFormData.model';
@@ -108,8 +109,13 @@ export class PropertyService {
 
     }
 
+    setPropertyToForbidden(propertyToDelete: number): Observable<any> {
+        return this.httpClient.put<any>(this.baseUrl + '/admin/forbiddenProperty/' +propertyToDelete
+            , propertyToDelete);
+    }
 
-    setPropertyToForbidden(propertyToDelete: number) {
-
+    getArchivedProperties(formData: DateIntervalModel): Observable<any> {
+        return this.httpClient.post<PropertyFormDataModel>(this.baseUrl
+            + 'admin/getArchivedProperties', formData);
     }
 }

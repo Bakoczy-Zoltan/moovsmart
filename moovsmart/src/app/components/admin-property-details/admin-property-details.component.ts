@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { error } from 'util';
 import { PropertyService } from '../../services/property.service';
 
 @Component({
@@ -68,6 +69,9 @@ export class AdminPropertyDetailsComponent implements OnInit {
     this.propertyService.setPropertyToForbidden(propertyToDelete).subscribe(
         () => {
             this.router.navigate(['admin']);
+        },
+        error => {
+            console.warn(error);
         }
     );
   }
@@ -81,8 +85,9 @@ export class AdminPropertyDetailsComponent implements OnInit {
 
     }
 
-    askingForSure(id: any) {
+    askingForSure(id: number) {
         this.propertyToDelete = id;
+        console.log(this.propertyToDelete);
         this.display = 'block';
     }
 }
