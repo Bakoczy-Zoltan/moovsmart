@@ -5,6 +5,7 @@ import com.progmasters.moovsmart.domain.RoleType;
 import com.progmasters.moovsmart.domain.StatusOfProperty;
 import com.progmasters.moovsmart.domain.UserProperty;
 import com.progmasters.moovsmart.dto.CreateUserCommand;
+import com.progmasters.moovsmart.dto.UserDetails;
 import com.progmasters.moovsmart.repository.PropertyRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -117,5 +118,10 @@ public class UserService {
             property.setStatus(StatusOfProperty.ACCEPTED);
             this.propertyRepository.save(property);
         }
+    }
+
+    public UserDetails getUserByMail(String mail) {
+        UserDetails user = this.userRepository.findAllByMail(mail);
+        return user;
     }
 }

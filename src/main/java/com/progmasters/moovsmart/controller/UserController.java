@@ -2,6 +2,7 @@ package com.progmasters.moovsmart.controller;
 
 import com.progmasters.moovsmart.domain.UserProperty;
 import com.progmasters.moovsmart.dto.CreateUserCommand;
+import com.progmasters.moovsmart.dto.UserDetails;
 import com.progmasters.moovsmart.security.AuthenticatedUser;
 import com.progmasters.moovsmart.security.MyUserDetails;
 import com.progmasters.moovsmart.service.MailSenderService;
@@ -76,6 +77,16 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
         return new ResponseEntity<>(new AuthenticatedUser(user), HttpStatus.OK);
+    }
+
+    @GetMapping("/getUserByUserMail/{mail}")
+    public ResponseEntity<UserDetails> getUserByMail(@PathVariable("mail") String mail){
+        UserDetails user = this.userService.getUserByMail(mail);
+        if (user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     /*

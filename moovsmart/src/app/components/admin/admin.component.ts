@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PropertyListItemModel } from '../../models/propertyListItem.model';
 import { Router } from '@angular/router';
+import { UserFormDataModel } from '../../models/userFormData.model';
 import { PropertyService } from '../../services/property.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -18,6 +19,7 @@ export class AdminComponent implements OnInit {
     actualPageNumber: number;
     actualPageList: [PropertyListItemModel[]] = [[]];
     formData: any;
+    userForHandling: UserFormDataModel;
 
 
     dateForm = this.formBuilder.group({
@@ -129,7 +131,9 @@ export class AdminComponent implements OnInit {
     submitEmail = () => {
         this.formData = {...this.emailForm.value};
         this.propertyService.getUserByMail(this.formData).subscribe(
-
+            user => {
+                this.userForHandling = user;
+            }
         )
     };
 }
