@@ -16,26 +16,29 @@ export class ProfilListComponent implements OnInit {
     storage: any;
     emptyList: boolean;
     actualPageList: [PropertyListItemModel[]] = [[]];
+    queryStatus: boolean = true;
 
     constructor(private propertyService: PropertyService,
                 private route: ActivatedRoute,
                 private router: Router) { }
 
     ngOnInit() {
+        this.queryStatus = true;
         this.actualPageNumber = 1;
         this.storage = JSON.parse(localStorage.getItem('user'));
         this.route.paramMap.subscribe(
             paramMap => {
                 const userId = paramMap.get('id');
                 if (userId) {
-                    this.refreshPropertyList(+userId);
+                    this.refreshPropertyList();
                 }
             },
         );
     }
 
-    refreshPropertyList(usId: number){
-        this.propertyService.getMyPropertyList(usId).subscribe(
+    refreshPropertyList(){
+        this.queryStatus = false;
+        this.propertyService.getMyPropertyList().subscribe(
             propertyListItems => {
                 this.propertyListItemModels = propertyListItems;
                 this.actualPageList = this.makingActualList(this.propertyListItemModels);
@@ -84,6 +87,13 @@ export class ProfilListComponent implements OnInit {
     }
 
     getHoldingList() {
+        this.queryStatus = true;
+        this.propertyService.getMyHoldingPropertyList().subscribe(
+            dataList => {
+                this.propertyListItemModels = dataList;
+                this.actualPageList = this.makingActualList(this.propertyListItemModels);
+            }
+        )
 
     }
 }

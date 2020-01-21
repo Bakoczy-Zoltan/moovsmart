@@ -71,8 +71,12 @@ export class PropertyService {
         return this.httpClient.get<any>(this.baseUserUrl + '/me', {headers: headers});
     }
 
-    getMyPropertyList(id: number): Observable<Array<PropertyListItemModel>> {
+    getMyPropertyList(): Observable<Array<PropertyListItemModel>> {
         return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl + '/authUser/myList');
+    }
+
+    getMyHoldingPropertyList(): Observable<Array<PropertyListItemModel>> {
+        return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl + '/authUser/myHoldingList');
     }
 
     getCityList(): Observable<string[]> {
