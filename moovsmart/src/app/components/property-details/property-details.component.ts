@@ -43,7 +43,7 @@ export class PropertyDetailsComponent implements OnInit, AfterViewInit {
             paramMap => {
                 const idParam: number = +paramMap.get('id');
                 if (isNaN(idParam)) {
-                    console.log("INside a detail");
+                    console.log("Inside a detail");
                     this.router.navigate(['property-list']);
 
                 } else {

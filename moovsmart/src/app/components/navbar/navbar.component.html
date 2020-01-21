@@ -15,7 +15,7 @@
 
       <a *ngIf="!registratedUser" class="nav-link" routerLink="/registration">Regisztráció <i class="far fa-edit"></i></a>
       <a *ngIf="!registratedUser" class="nav-link" routerLink="/signin">Bejelentkezés <i class="fas fa-sign-in-alt"></i></a>
-      <a *ngIf="role.includes('ROLE_ADMIN')" class="nav-link" routerLink="/admin">Admin felület</a>
+      <a *ngIf="role.includes('ROLE_ADMIN') && registratedUser" class="nav-link" routerLink="/admin">Admin felület</a>
       <a *ngIf="registratedUser" id="profil-link" title="Saját profil" class="nav-link" (click)="ownProperties()">{{userName}}</a>
       <a *ngIf="registratedUser" class="nav-link" style="cursor: pointer" (click)="logout()">Kijelentkezés</a>
     </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PropertyListItemModel } from '../../models/propertyListItem.model';
+import { Router } from '@angular/router';
 import { PropertyService } from '../../services/property.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class AdminComponent implements OnInit {
     actualPageNumber: number;
     actualPageList: [PropertyListItemModel[]] = [[]];
 
-    constructor(private propertyService: PropertyService) { }
+    constructor(private propertyService: PropertyService,
+                private router: Router) { }
 
     ngOnInit() {
       this.buttonPushed = 0;
@@ -84,7 +86,7 @@ export class AdminComponent implements OnInit {
   }
 
     details(id: number) {
-
+        this.router.navigate(['admin/details', id]);
     }
 
     refreshPropertyList(){
