@@ -208,7 +208,7 @@ public class PropertyService {
                 propertyFormList.add(new PropertyForm(property));
             }
         }
-        return propertyFormList;
+        return new ResponseEntity(propertyFormList, HttpStatus.OK);
     }
 
     public Boolean activateProperty(Long id) {

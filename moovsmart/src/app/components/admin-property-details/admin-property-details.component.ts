@@ -65,7 +65,11 @@ export class AdminPropertyDetailsComponent implements OnInit {
   }
 
   delete(propertyToDelete: number) {
-
+    this.propertyService.setPropertyToForbidden(propertyToDelete).subscribe(
+        () => {
+            this.router.navigate(['admin']);
+        }
+    );
   }
 
     approve(id: number) {

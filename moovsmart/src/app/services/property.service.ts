@@ -108,7 +108,7 @@ export class PropertyService {
 
     }
 
-    setPropertyToForbidden(propertyToDelete: number) {
-
-    }
+  //  setPropertyToForbidden(propertyToDelete: number): Observable<any> {
+  //      return this.httpClient.put<any>(this.baseUrl + '/' + propertyToDelete, propertyToDelete);
+  //  }
 }
