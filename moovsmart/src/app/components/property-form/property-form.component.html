@@ -31,7 +31,7 @@
                         formControlName="area"
                         id="area"
                         placeholder=""
-                        type="number"
+                        type="text"
                     />
                     <small *ngIf="propertyForm.get('area').invalid && propertyForm.get('area').touched
           && !propertyForm.get('area').errors?.serverError" class="text-danger">
@@ -52,7 +52,7 @@
                         formControlName="numberOfRooms"
                         id="numberOfRooms"
                         placeholder=""
-                        type="number"
+                        type="text"
                     />
                     <small *ngIf="propertyForm.get('numberOfRooms').invalid && propertyForm.get('numberOfRooms').touched
           && !propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
@@ -73,7 +73,7 @@
                         formControlName="buildingYear"
                         id="buildingYear"
                         placeholder=""
-                        type="number"
+                        type="text"
                     />
                     <small *ngIf="propertyForm.get('buildingYear').invalid && propertyForm.get('buildingYear').touched
           && !propertyForm.get('buildingYear').errors?.serverError" class="text-danger">
@@ -240,7 +240,7 @@
                         formControlName="zipCode"
                         id="zipCode"
                         placeholder=""
-                        type="number"
+                        type="text"
                     />
                     <small *ngIf="propertyForm.get('zipCode').invalid && propertyForm.get('zipCode').touched
         && !propertyForm.get('zipCode').errors?.serverError" class="text-danger">
@@ -320,10 +320,9 @@
                 formControlName="price"
                 id="price"
                 placeholder=""
-                type="number"
+                type="text"
             />
-            <small *ngIf="propertyForm.get('price').invalid && propertyForm.get('price').touched
-      && !propertyForm.get('price').errors?.serverError" class="text-danger">
+            <small *ngIf="propertyForm.get('price').invalid && propertyForm.get('price').touched" class="text-danger">
                 Kérjük, adjon az ingatlannak nullánál nagyobb kikiáltási árat!
             </small>
             <small *ngIf="propertyForm.get('price').errors?.serverError" class="text-danger">

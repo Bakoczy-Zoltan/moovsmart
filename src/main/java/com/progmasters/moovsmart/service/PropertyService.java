@@ -134,37 +134,7 @@ public class PropertyService {
         return user;
     }
 
-    public List<PropertyListItem> getFilteredProperties(CreateFilteredCommand command) {
-        List<PropertyListItem> propertyListItemList = new ArrayList<>();
-        List<Property> filteredList = this.propertyRepository.getFilteredProperties(
-                command.getMinSize(), command.getMaxSize(),
-                command.getMinPrice(), command.getMaxPrice(),
-                command.getPropertyState(), command.getPropertyType(),
-                command.getCity(), command.getNumberOfRooms()
-        );
 
-        for (Property property : filteredList) {
-            propertyListItemList.add(new PropertyListItem(property));
-        }
-        return propertyListItemList;
-    }
-
-    public List<PropertyListItem> getFilteredPropertiesWithoutRooms(CreateFilteredCommand command) {
-
-        List<PropertyListItem> propertyListItemList = new ArrayList<>();
-        List<Property> filteredList = this.propertyRepository.getFilteredListWithoutRoom(
-                command.getMinSize(), command.getMaxSize(),
-                command.getMinPrice(), command.getMaxPrice(),
-                command.getPropertyState(), command.getPropertyType(),
-                command.getCity()
-        );
-
-        for (Property property : filteredList) {
-            propertyListItemList.add(new PropertyListItem(property));
-        }
-        return propertyListItemList;
-
-    }
 
     public List<PropertyListItem> getOwnProperties(String userMail) {
         List<Property> properties = propertyRepository.findAllByIsValid();
@@ -257,5 +227,62 @@ public class PropertyService {
         else {
             return false;
         }
+    }
+
+    /*
+    * Filtering of properties*/
+
+    public List<PropertyListItem> makeFilterList(CreateFilteredCommand command) {
+        if (command.getMaxPrice() == null) {
+            command.setMaxPrice(999999999);
+        }
+        if (command.getMaxSize() == null) {
+            command.setMaxSize(999999.0);
+        }
+        return filterListByParamaters(command);
+    }
+
+    private List<PropertyListItem> filterListByParamaters(CreateFilteredCommand command) {
+        List<PropertyListItem>listOfFilteredProperty = new ArrayList<>();
+
+        if (command.getNumberOfRooms() == null || command.getNumberOfRooms() == 0) {
+            listOfFilteredProperty = getFilteredPropertiesWithoutRooms(command);
+        } else {
+            System.out.println("ROOM Number " + command.getNumberOfRooms());
+            listOfFilteredProperty = getFilteredProperties(command);
+        }
+        return listOfFilteredProperty;
+    }
+
+    public List<PropertyListItem> getFilteredProperties(CreateFilteredCommand command) {
+        List<PropertyListItem> propertyListItemList = new ArrayList<>();
+        List<Property> filteredList = this.propertyRepository.getFilteredProperties(
+                command.getMinSize(), command.getMaxSize(),
+                command.getMinPrice(), command.getMaxPrice(),
+                command.getPropertyState(), command.getPropertyType(),
+                command.getCity(), command.getNumberOfRooms()
+        );
+
+        for (Property property : filteredList) {
+            propertyListItemList.add(new PropertyListItem(property));
+        }
+        return propertyListItemList;
+    }
+
+    public List<PropertyListItem> getFilteredPropertiesWithoutRooms(CreateFilteredCommand command) {
+
+        List<PropertyListItem> propertyListItemList = new ArrayList<>();
+        List<Property> filteredList = this.propertyRepository.getFilteredListWithoutRoom(
+                command.getMinSize(), command.getMaxSize(),
+                command.getMinPrice(), command.getMaxPrice(),
+                command.getPropertyState(), command.getPropertyType(),
+                command.getCity()
+        );
+
+        for (Property property : filteredList) {
+            propertyListItemList.add(new PropertyListItem(property));
+        }
+        return propertyListItemList;
+
     }
 }

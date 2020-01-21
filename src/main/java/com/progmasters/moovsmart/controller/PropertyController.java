@@ -160,25 +160,11 @@ public class PropertyController {
 
     @PostMapping("/filteredList")
     public ResponseEntity<List<PropertyListItem>> getFilteredList(@RequestBody CreateFilteredCommand command) {
-        List<PropertyListItem> filteredList = addValuesToNulLParameters(command);
+        List<PropertyListItem> filteredList = this.propertyService.makeFilterList(command);
         return new ResponseEntity<>(filteredList, HttpStatus.OK);
     }
 
-    private List<PropertyListItem> addValuesToNulLParameters(@RequestBody CreateFilteredCommand command) {
-        if (command.getMaxPrice() == null) {
-            command.setMaxPrice(999999999);
-        }
-        if (command.getMaxSize() == null) {
-            command.setMaxSize(999999.0);
-        }
 
-        if (command.getNumberOfRooms() == null || command.getNumberOfRooms() == 0) {
-            return this.propertyService.getFilteredPropertiesWithoutRooms(command);
-        } else {
-            System.out.println("ROOM Number " + command.getNumberOfRooms());
-            return this.propertyService.getFilteredProperties(command);
-        }
-    }
 
     @GetMapping("/{id}/images")
     public ResponseEntity<PictureListItem> getPictures(@PathVariable Long id) {
@@ -200,41 +186,6 @@ public class PropertyController {
         propertyService.updatePictureList(imageToDelete, id);
         return new ResponseEntity(HttpStatus.OK);
     }
-    /*
-     * Admin's authorization methods
-     * */
-
-//    @GetMapping("/admin/propertyListForApproval")
-//    public ResponseEntity<List<PropertyForm>> getAllHoldingProperty() {
-//        List<PropertyForm> listOfHoldingProperty = this.propertyService.getAllHoldingProperty();
-//        return new ResponseEntity<>(listOfHoldingProperty, HttpStatus.OK);
-//    }
-//
-//    @PostMapping("/admin/getArchivedProperties")
-//    public ResponseEntity<List<PropertyForm>> getArchivedProperties(@RequestBody CreateQueryByDatesCommand command) {
-//        List<PropertyForm> listOfProperties = this.propertyService.getArchivedProperties(command);
-//        return new ResponseEntity<>(listOfProperties, HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/admin/getPropertyLIstByUserMail/{id}")
-//    public ResponseEntity getPropertyListByUserMail(@PathVariable("id") String mail) {
-//        ResponseEntity response = this.propertyService.getAllPropertyByMail(mail);
-//        return response;
-//    }
-//
-//    @PutMapping("/admin/activateProperty/{id}")
-//    public ResponseEntity makePropertyActivated(@PathVariable("id") Long id) {
-//        Boolean successActivating = this.propertyService.activateProperty(id);
-//        if (successActivating) {
-//            this.logger.info("Property of Id: " + id + " is activated");
-//            return new ResponseEntity(HttpStatus.OK);
-//        } else {
-//            this.logger.warn("Property with id of " + id + " not found");
-//            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-//        }
-//    }
-
-
 
 
 }
