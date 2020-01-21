@@ -235,9 +235,6 @@ export class PropertyFormComponent implements OnInit {
                             this.formData.publicId = this.actualPublicIdList;
                             this.formData.imageUrl = this.actualUrlList;
 
-                            this.propertyId ? this.formData.stateForAdmin = 'Approval after edit' :
-                                this.formData.stateForAdmin = 'Approval after create';
-
                             this.selectedFile = null;
                         },
                         () => {},
@@ -247,8 +244,6 @@ export class PropertyFormComponent implements OnInit {
                         },
                     );
                 } else {
-                    this.propertyId ? this.formData.stateForAdmin = 'Approval after edit' :
-                        this.formData.stateForAdmin = 'Approval after create';
                     this.formData.publicId = this.actualPublicIdList;
                     this.formData.imageUrl = this.actualUrlList;
                     this.propertyId ? this.updateProperty(this.formData) : this.createNewProperty(this.formData);

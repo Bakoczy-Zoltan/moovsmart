@@ -22,8 +22,4 @@ public class AdminController {
         this.propertyService = propertyService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<PropertyListItem>> getPropertiesForApproval() {
-        return new ResponseEntity<>(propertyService.getPropertiesForApproval(), HttpStatus.OK);
-    }
 }
