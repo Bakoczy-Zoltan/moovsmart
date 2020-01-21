@@ -108,7 +108,7 @@ public class PropertyService {
 
         if (propertyOptional.isPresent()) {
             Property property = propertyOptional.get();
-          //  System.out.println("ID PROP: " + property.getId());
+            //  System.out.println("ID PROP: " + property.getId());
             user = property.getOwner();
 
             if (!(user.getMail().equals(userMail))) {
@@ -126,16 +126,6 @@ public class PropertyService {
                 .orElseThrow(EntityNotFoundException::new);
     }
 
-//    private UserProperty findUserPropertiesByMail(String mail) {
-//        UserProperty user = new UserProperty();
-//        Optional<UserProperty> tempUser = this.userRepository.findUserPropertiesByMail(mail);
-//        if (tempUser.isPresent()) {
-//            user = tempUser.get();
-//        }
-//        return user;
-//    }
-
-
     public List<PropertyListItem> getOwnProperties(String userMail) {
         List<Property> properties = propertyRepository.findAllByIsValid();
         List<PropertyListItem> ownProperties = new ArrayList<>();
@@ -145,7 +135,6 @@ public class PropertyService {
 
         if (tempUser.isPresent()) {
             ownUser = tempUser.get();
-            System.out.println("USER " + ownUser.getMail());
             for (Property property : properties) {
                 if (property.getOwner() != null) {
                     if (property.getOwner().getId().equals(ownUser.getId())) {
@@ -153,7 +142,25 @@ public class PropertyService {
                     }
                 }
             }
+        }
+        return ownProperties;
+    }
+    public List<PropertyListItem> getOwnHoldingProperties(String userMail) {
+        List<Property> properties = propertyRepository.findAllByIsHolding();
+        List<PropertyListItem> ownProperties = new ArrayList<>();
 
+        Optional<UserProperty> tempUser = this.userRepository.findUserPropertiesByMail(userMail);
+        UserProperty ownUser = null;
+
+        if (tempUser.isPresent()) {
+            ownUser = tempUser.get();
+            for (Property property : properties) {
+                if (property.getOwner() != null) {
+                    if (property.getOwner().getId().equals(ownUser.getId())) {
+                        ownProperties.add(new PropertyListItem(property));
+                    }
+                }
+            }
         }
         return ownProperties;
     }
@@ -297,4 +304,5 @@ public class PropertyService {
             return false;
         }
     }
+
 }

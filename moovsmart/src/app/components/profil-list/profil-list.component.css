@@ -1,6 +1,10 @@
 #header-div{
     text-align: center;
 }
+.btn{
+    width: 150px;
+}
+
 hr{
     max-width: 75%;
     text-align: center;
@@ -20,11 +24,21 @@ hr{
 }
 
 #button-holding-list{
-    background-color: lightgray;
+    background-color: white;
 }
 
-#button-accepted-button{
+.button-touched{
     background-color: white;
+    color: darkslategray;
+    width: 150%;
+}
+
+#button-new-adding {
+    background-color: lightgrey;
+    color: blue;
+}
+.btn-btn-light{
+    background-color: lightslategrey;
 }
 
 #mainBoard-div{
@@ -48,15 +62,14 @@ hr{
     width: 150px;
 }
 
+.btn-btn-ligth{
+}
+
 .defaultPicture {
     width: 100%;
     max-width: 200px;
     height: 100%;
     max-height: 150px;
-}
-
-#button-new-adding {
-    background-color: #AFD275;
 }
 
 #mainDiv {
@@ -87,10 +100,6 @@ hr{
     height: auto;
 }
 
-.btn-group{
-    text-align: right;
-}
-
 #detail-button {
     background-color: #7E685A;
     color: white;
@@ -102,26 +111,7 @@ hr{
     border-style:solid;
     border-color: #C2B9B0;
     background-color: white;
-}
-
-#filter-button {
-    background-color: #E7717D;
-    color: white;
-}
-#clear-button, #filter-button, #button-filter-switch{
-    width: 170px;
-    margin-left: 1%;
-}
-#button-filter-switch{
-    background-color: #E7717D;
-    color: white;
-}
-#clear-button{
-    background-color: #AFD275;
-}
-#records-button {
-    text-align: right;
-    padding: 0;
+    padding: 2%;
 }
 
 #row-last-filter {
@@ -132,10 +122,6 @@ hr{
     text-align: right;
     background-color: white;
     margin-bottom: 1%;
-}
-
-#switch-filter-button-div{
-    text-align: right;
 }
 
 #last-button-header{
@@ -168,13 +154,10 @@ hr{
 .room-list-item__image{
     text-align: center;
 }
-.mainRow{
-    padding: 2%;
 
-}
 #detail-button-div{
-    margin-bottom: 25%;
-    margin-top: 5%;
+    margin-bottom: 15%;
+    margin-top: 15%;
 }
 
 #date-div{

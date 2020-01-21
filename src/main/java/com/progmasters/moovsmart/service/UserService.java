@@ -5,6 +5,7 @@ import com.progmasters.moovsmart.domain.RoleType;
 import com.progmasters.moovsmart.domain.StatusOfProperty;
 import com.progmasters.moovsmart.domain.UserProperty;
 import com.progmasters.moovsmart.dto.CreateUserCommand;
+import com.progmasters.moovsmart.dto.UserDetails;
 import com.progmasters.moovsmart.repository.PropertyRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -116,6 +117,17 @@ public class UserService {
             property.setValid(true);
             property.setStatus(StatusOfProperty.ACCEPTED);
             this.propertyRepository.save(property);
+        }
+    }
+
+    public ResponseEntity getUserByMail(String mail) {
+        Optional<UserProperty> tempUser = this.userRepository.findAllByMail(mail);
+        if (tempUser.isPresent()){
+            UserProperty user = tempUser.get();
+            UserDetails userToSend = new UserDetails(user);
+            return new ResponseEntity(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
 }

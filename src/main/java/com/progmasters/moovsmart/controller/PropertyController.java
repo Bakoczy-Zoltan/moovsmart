@@ -95,6 +95,13 @@ public class PropertyController {
         return new ResponseEntity<>(propertyService.getOwnProperties(userMail), HttpStatus.OK);
     }
 
+    @GetMapping("/authUser/myHoldingList")
+    public ResponseEntity<List<PropertyListItem>> getOwnHoldingProperties(Principal principal) {
+        String userMail = principal.getName();
+        logger.info("Get own properties-list");
+        return new ResponseEntity<>(propertyService.getOwnHoldingProperties(userMail), HttpStatus.OK);
+    }
+
     @GetMapping("/authUser/{id}")
     public ResponseEntity<PropertyDetails> getPropertyDetailsForEdit(@PathVariable Long id) {
 

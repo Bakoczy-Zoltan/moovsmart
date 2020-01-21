@@ -11,8 +11,12 @@
     background-color: white;
 }
 
-.small-img {
+#list-holder-div{
+    padding: 20px;
+    background-color: red;
+}
 
+.small-img {
     max-height: 70px;
     width: auto;
 }
