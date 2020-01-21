@@ -53,6 +53,7 @@ public class PropertyRepositoryTest {
         property.setLocalDateTime(LocalDateTime.now());
         property.setOwner(user);
         property.setImageUrls(Arrays.asList("image.jpg"));
+        property.setStatus(StatusOfProperty.ACCEPTED);
 
         propertyRepository.save(property);
 
@@ -86,12 +87,15 @@ public class PropertyRepositoryTest {
         Property property1 = new Property();
         property1.setName("house1");
         property1.setValid(true);
+        property1.setStatus(StatusOfProperty.ACCEPTED);
         Property property2 = new Property();
         property2.setName("house2");
         property2.setValid(true);
+        property2.setStatus(StatusOfProperty.ACCEPTED);
         Property property3 = new Property();
         property3.setName("house3");
         property3.setValid(false);
+        property3.setStatus(StatusOfProperty.ACCEPTED);
 
         propertyRepository.save(property1);
         propertyRepository.save(property2);
@@ -173,6 +177,7 @@ public class PropertyRepositoryTest {
         property1.setPrice(10000000);
         property1.setDescription("");
         property1.setValid(true);
+        property1.setStatus(StatusOfProperty.ACCEPTED);
 
         propertyRepository.save(property1);
 
