@@ -197,7 +197,7 @@ public class PropertyService {
         return propertyFormList;
     }
 
-    public List<PropertyForm> getAllPropertyByMail(String mail) {
+    public ResponseEntity getAllPropertyByMail(String mail) {
         List<PropertyForm> propertyFormList = new ArrayList<>();
         Optional<UserProperty> tempUser = this.userRepository.findUserPropertiesByMail(mail);
 
