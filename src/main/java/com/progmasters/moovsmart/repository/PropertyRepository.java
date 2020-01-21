@@ -20,6 +20,10 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
             "and p.status = 'ACCEPTED' order by p.id desc")
     List<Property> findAllByIsValid();
 
+    @Query("SELECT p FROM Property p " +
+            "WHERE p.isValid = true " +
+            "and p.status = 'HOLDING' order by p.id desc")
+    List<Property> findAllByIsHolding();
 
     List<Property> findAllByOwner(UserProperty user);
 
