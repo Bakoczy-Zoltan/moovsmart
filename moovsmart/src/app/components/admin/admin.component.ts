@@ -20,6 +20,7 @@ export class AdminComponent implements OnInit {
     actualPageList: [PropertyListItemModel[]] = [[]];
     formData: any;
     userForHandling: UserFormDataModel;
+    display = 'none';
 
 
     dateForm = this.formBuilder.group({
@@ -130,9 +131,10 @@ export class AdminComponent implements OnInit {
 
     submitEmail = () => {
         this.formData = {...this.emailForm.value};
-        this.propertyService.getUserByMail(this.formData).subscribe(
+        this.propertyService.getUserByMail(this.formData.userEmail).subscribe(
             user => {
                 this.userForHandling = user;
+                this.display = 'block';
             }
         )
     };

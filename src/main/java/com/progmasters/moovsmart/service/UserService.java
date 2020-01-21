@@ -120,8 +120,14 @@ public class UserService {
         }
     }
 
-    public UserDetails getUserByMail(String mail) {
-        UserDetails user = this.userRepository.findAllByMail(mail);
-        return user;
+    public ResponseEntity getUserByMail(String mail) {
+        Optional<UserProperty> tempUser = this.userRepository.findAllByMail(mail);
+        if (tempUser.isPresent()){
+            UserProperty user = tempUser.get();
+            UserDetails userToSend = new UserDetails(user);
+            return new ResponseEntity(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 }

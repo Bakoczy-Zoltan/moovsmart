@@ -26,11 +26,11 @@
             <hr>
             <h3>Archivált ingatlanok</h3>
             <hr>
-        <form (ngSubmit)="submit()" [formGroup]="dateForm">
+            <form (ngSubmit)="submit()" [formGroup]="dateForm">
                 <input class="dateInput" type="datetime-local" formControlName="dateFrom">
                 <input class="dateInput" type="datetime-local" formControlName="dateTo">
                 <button type="submit" class="btn submit-button">Lekérdezés</button>
-        </form>
+            </form>
             <div id="emptyArchiveMessage">
                 <div *ngIf="propertyListItemModels === undefined || propertyListItemModels.length === 0"
                      id="emptyArchive">
@@ -47,8 +47,15 @@
                 <button type="submit" class="btn submit-button">Lekérdezés</button>
             </form>
         </div>
-        <div>
+        <div *ngIf="buttonPushed === 2">
+            <div>Név:</div>
             {{userForHandling?.userName}}
+            <hr>
+            <div [ngStyle]="{'display':display}">
+                <button class="btn">Felhasználó ingatlanjainak listázása</button>
+                <button *ngIf="userForHandling.isActive" class="btn">Felhasználó tiltása</button>
+                <button *ngIf="!userForHandling.isActive" class="btn">Tiltás feloldása</button>
+            </div>
         </div>
         <div>
             <div *ngIf="propertyListItemModels !== undefined && propertyListItemModels.length > 0">

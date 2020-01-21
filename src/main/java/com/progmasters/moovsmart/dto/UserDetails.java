@@ -7,6 +7,7 @@ public class UserDetails {
     private Long id;
     private String mail;
     private String userName;
+    private boolean isActive;
 
     public UserDetails() {
     }
@@ -15,6 +16,7 @@ public class UserDetails {
         this.id = userProperty.getId();
         this.mail = userProperty.getMail();
         this.userName = userProperty.getUserName();
+        this.isActive = userProperty.getIsActive();
     }
 
     public Long getId() {
@@ -39,5 +41,13 @@ public class UserDetails {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

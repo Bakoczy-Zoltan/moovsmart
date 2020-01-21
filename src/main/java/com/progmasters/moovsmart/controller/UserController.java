@@ -96,7 +96,7 @@ public class UserController {
     public ResponseEntity banUserById(@PathVariable("id")Long id){
         ResponseEntity response = this.userService.banUserById(id);
         if(response.getStatusCode().equals(HttpStatus.OK)){
-            this.logger.info("User by id of: " + id + " is forbidden");
+            this.logger.info("User by id of: " + id + " is banned");
         }else {
             this.logger.warn("User by id of: " + id + " is Not Found");
         }
