@@ -27,7 +27,7 @@
     width: 200px;
 }
 
-#emptydb {
+#emptydb, #emptyArchive {
     top: 0;
     left: 0;
     text-align: center;
@@ -43,7 +43,7 @@
     margin-left: auto;
 }
 
-#emptydbmessage {
+#emptydbmessage, #emptyArchiveMessage {
     position: absolute;
     font-size: 20px;
     font-weight: bold;
@@ -182,5 +182,15 @@
     background-color: #E7717D;
     color: white;
     display: inline-block;
+}
+
+.dateInput {
+    margin: 3px;
+}
+
+.submit-button {
+    background-color: #7E685A;
+    color: white;
+    margin: 3px;
 }
 

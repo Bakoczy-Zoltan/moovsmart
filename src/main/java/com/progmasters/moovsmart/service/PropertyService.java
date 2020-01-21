@@ -204,7 +204,7 @@ public class PropertyService {
         return propertyFormList;
     }
 
-    public ResponseEntity getAllPropertyByMail(String mail) {
+    public List<PropertyForm> getAllPropertyByMail(String mail) {
         List<PropertyForm> propertyFormList = new ArrayList<>();
         Optional<UserProperty> tempUser = this.userRepository.findUserPropertiesByMail(mail);
 
@@ -215,7 +215,7 @@ public class PropertyService {
                 propertyFormList.add(new PropertyForm(property));
             }
         }
-        return new ResponseEntity(propertyFormList, HttpStatus.OK);
+        return propertyFormList;
     }
 
     public Boolean activateProperty(Long id) {
