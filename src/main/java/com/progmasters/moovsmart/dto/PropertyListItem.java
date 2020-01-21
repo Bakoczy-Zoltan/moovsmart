@@ -17,7 +17,7 @@ public class PropertyListItem {
     private LocalDateTime time;
     private Long userId;
     private Double area;
-    private String stateForAdmin;
+    private String status;
 
     public PropertyListItem() {
     }
@@ -30,6 +30,7 @@ public class PropertyListItem {
         this.imageUrl = property.getImageUrls();
         this.time = property.getLocalDateTime();
         this.area = property.getArea();
+        this.status = property.getStatus().getDisplayName();
         if(property.getOwner() != null){
             this.userId = property.getOwner().getId();
         }
@@ -99,11 +100,11 @@ public class PropertyListItem {
         this.area = area;
     }
 
-    public String getStateForAdmin() {
-        return stateForAdmin;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStateForAdmin(String stateForAdmin) {
-        this.stateForAdmin = stateForAdmin;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -69,7 +69,7 @@ public class PropertyService {
         }
         if (propertyOptional.isPresent()) {
             Property property = propertyOptional.get();
-            updateValues(propertyForm, property, user, StatusOfProperty.valueOf("EXCEPTED"));
+            updateValues(propertyForm, property, user, StatusOfProperty.ACCEPTED);
             propertyRepository.save(property);
             return property;
         } else {
