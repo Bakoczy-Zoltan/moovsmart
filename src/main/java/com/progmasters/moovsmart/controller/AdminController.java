@@ -60,4 +60,17 @@ public class AdminController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PutMapping("/forbiddenProperty/{id}")
+    public ResponseEntity forbiddenProperty(@PathVariable("id") Long id){
+        Boolean successForbidden = this.propertyService.forbiddenProperty(id);
+        if (successForbidden) {
+            this.logger.info("Property of Id: " + id + " is forbidden");
+            return new ResponseEntity(HttpStatus.OK);
+        } else {
+            this.logger.warn("Property with id of " + id + " not found");
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+    }
 }

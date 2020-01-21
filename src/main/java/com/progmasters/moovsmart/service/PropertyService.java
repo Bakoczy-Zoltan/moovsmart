@@ -284,4 +284,17 @@ public class PropertyService {
         Property property = findById(id);
         return new PropertyForm(property);
     }
+
+    public Boolean forbiddenProperty(Long id) {
+        Optional<Property> tempProperty = this.propertyRepository.findById(id);
+        if (tempProperty.isPresent()) {
+            Property property = tempProperty.get();
+            property.setStatus(StatusOfProperty.valueOf("FORBIDDEN"));
+            property.setValid(false);
+            this.propertyRepository.save(property);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

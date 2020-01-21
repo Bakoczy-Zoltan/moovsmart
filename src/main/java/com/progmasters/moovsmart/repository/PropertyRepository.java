@@ -15,8 +15,11 @@ import java.util.List;
 @Repository
 public interface PropertyRepository extends JpaRepository<Property, Long> {
 
-    @Query("SELECT p FROM Property p WHERE p.isValid = true order by p.id desc")
+    @Query("SELECT p FROM Property p " +
+            "WHERE p.isValid = true " +
+            "and p.status = 'ACCEPTED' order by p.id desc")
     List<Property> findAllByIsValid();
+
 
     List<Property> findAllByOwner(UserProperty user);
 
