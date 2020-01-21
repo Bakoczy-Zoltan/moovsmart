@@ -2,7 +2,10 @@ package com.progmasters.moovsmart.domain;
 
 public enum StatusOfProperty {
 
-    ARCHIVED("archivált"), FORBIDDEN("tiltott"), ACCEPTED("elfogadott"), HOLDING("elfogadásra vár");
+    ARCHIVED("archivált"),
+    FORBIDDEN("tiltott"),
+    HOLDING("elfogadásra vár"),
+    ACCEPTED("elfogadott");
 
     private String displayName;
 

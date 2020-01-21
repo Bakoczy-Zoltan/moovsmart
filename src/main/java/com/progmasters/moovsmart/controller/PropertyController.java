@@ -146,13 +146,15 @@ public class PropertyController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails user = (UserDetails) authentication.getPrincipal();
         String userMail = user.getUsername();
+
         boolean isDeleteSuccessful = propertyService.deleteProperty(id, userMail);
         ResponseEntity result;
+
         if (isDeleteSuccessful) {
             result = new ResponseEntity<>(HttpStatus.OK);
             this.logger.info("Property (id: " + id + ") deleted");
         } else {
-            result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            result = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             this.logger.info("Property (id: " + id + ") not found");
         }
         return result;
@@ -160,25 +162,11 @@ public class PropertyController {
 
     @PostMapping("/filteredList")
     public ResponseEntity<List<PropertyListItem>> getFilteredList(@RequestBody CreateFilteredCommand command) {
-        List<PropertyListItem> filteredList = addValuesToNulLParameters(command);
+        List<PropertyListItem> filteredList = this.propertyService.makeFilterList(command);
         return new ResponseEntity<>(filteredList, HttpStatus.OK);
     }
 
-    private List<PropertyListItem> addValuesToNulLParameters(@RequestBody CreateFilteredCommand command) {
-        if (command.getMaxPrice() == null) {
-            command.setMaxPrice(999999999);
-        }
-        if (command.getMaxSize() == null) {
-            command.setMaxSize(999999.0);
-        }
 
-        if (command.getNumberOfRooms() == null || command.getNumberOfRooms() == 0) {
-            return this.propertyService.getFilteredPropertiesWithoutRooms(command);
-        } else {
-            System.out.println("ROOM Number " + command.getNumberOfRooms());
-            return this.propertyService.getFilteredProperties(command);
-        }
-    }
 
     @GetMapping("/{id}/images")
     public ResponseEntity<PictureListItem> getPictures(@PathVariable Long id) {
@@ -200,47 +188,6 @@ public class PropertyController {
         propertyService.updatePictureList(imageToDelete, id);
         return new ResponseEntity(HttpStatus.OK);
     }
-    /*
-     * Admin's authorization methods
-     * */
-
-    @GetMapping("/admin/getAllHoldingProperty")
-    public ResponseEntity<List<PropertyForm>> getAllHoldingProperty() {
-        List<PropertyForm> listOfHoldingProperty = this.propertyService.getAllHoldingProperty();
-        return new ResponseEntity<>(listOfHoldingProperty, HttpStatus.OK);
-    }
-
-    @PostMapping("/admin/getArchivedProperties")
-    public ResponseEntity<List<PropertyForm>> getArchivedProperties(@RequestBody CreateQueryByDatesCommand command) {
-        System.out.println("Date: ==> " + command.getDateFrom().toString() + " " + command.getDateTo().toString());
-
-        List<PropertyForm> listOfProperties = this.propertyService.getArchivedProperties(command);
-        return new ResponseEntity<>(listOfProperties, HttpStatus.OK);
-    }
-
-    @GetMapping("/admin/getPropertyLIstByUserMail/{id}")
-    public ResponseEntity<List<PropertyForm>> getPropertyListByUserMail(@PathVariable("id") String mail) {
-        List<PropertyForm> propertyForms = this.propertyService.getAllPropertyByMail(mail);
-        if (propertyForms != null) {
-            return new ResponseEntity<>(propertyForms, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(propertyForms, HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @PutMapping("/admin/activateProperty/{id}")
-    public ResponseEntity makePropertyActivated(@PathVariable("id") Long id) {
-        Boolean successActivating = this.propertyService.activateProperty(id);
-        if (successActivating) {
-            this.logger.info("Property of Id: " + id + " is activated");
-            return new ResponseEntity(HttpStatus.OK);
-        } else {
-            this.logger.warn("Property with id of " + id + " not found");
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-    }
-
-
 
 
 }

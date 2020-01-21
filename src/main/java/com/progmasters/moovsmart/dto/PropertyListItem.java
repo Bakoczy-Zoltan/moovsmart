@@ -17,6 +17,7 @@ public class PropertyListItem {
     private LocalDateTime time;
     private Long userId;
     private Double area;
+    private String status;
 
     public PropertyListItem() {
     }
@@ -29,6 +30,9 @@ public class PropertyListItem {
         this.imageUrl = property.getImageUrls();
         this.time = property.getLocalDateTime();
         this.area = property.getArea();
+        if(property.getStatus() != null) {
+            this.status = property.getStatus().getDisplayName();
+        }
         if(property.getOwner() != null){
             this.userId = property.getOwner().getId();
         }
@@ -96,5 +100,13 @@ public class PropertyListItem {
 
     public void setArea(Double area) {
         this.area = area;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

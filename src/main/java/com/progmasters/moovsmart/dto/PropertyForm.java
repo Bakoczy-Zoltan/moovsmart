@@ -10,6 +10,7 @@ import java.util.List;
 
 public class PropertyForm {
 
+    private Long id;
     private String name;
     private Integer numberOfRooms;
     private Integer price;
@@ -56,6 +57,7 @@ public class PropertyForm {
         this.publicId = property.getPublicIds();
         this.lngCoord = property.getLngCoord();
         this.latCoord = property.getLatCoord();
+        this.id = property.getId();
 
         if(property.getOwner() != null){
             this.owner = property.getOwner().getMail();
@@ -216,5 +218,13 @@ public class PropertyForm {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

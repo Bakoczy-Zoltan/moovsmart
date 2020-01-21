@@ -12,3 +12,163 @@
     background-color: #7E685A;
     color: white;
 }
+
+
+.table {
+    background-color: white;
+}
+
+#filter-table{
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#property-name-td{
+    width: 200px;
+}
+
+#emptydb {
+    top: 0;
+    left: 0;
+    text-align: center;
+
+    min-width: 100%;
+    min-height: 100%;
+}
+
+#mainDiv {
+    margin-top: 0;
+    padding-top: 0;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#emptydbmessage {
+    position: absolute;
+    font-size: 20px;
+    font-weight: bold;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.defaultPicture {
+    width: 100%;
+    max-width: 200px;
+    height: 100%;
+    max-height: 150px;
+}
+
+#emptyPicture {
+    max-width: 90%;
+    height: auto;
+}
+
+.btn-group{
+    text-align: right;
+}
+
+#detail-button {
+    background-color: #7E685A;
+    color: white;
+    width: 150px;
+}
+
+.mainRow {
+    border-width:3px;
+    border-style:solid;
+    border-color: #C2B9B0;
+    background-color: white;
+}
+
+#filter-button {
+    background-color: #E7717D;
+    color: white;
+}
+#clear-button, #filter-button, #button-filter-switch{
+    width: 170px;
+    margin-left: 1%;
+}
+#button-filter-switch{
+    background-color: #E7717D;
+    color: white;
+}
+#clear-button{
+    background-color: #AFD275;
+}
+#records-button {
+    text-align: right;
+    padding: 0;
+}
+
+#row-last-filter {
+    margin-top: 0;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 2px;
+    text-align: right;
+    background-color: white;
+    margin-bottom: 1%;
+}
+
+#switch-filter-button-div{
+    text-align: right;
+}
+
+#last-button-header{
+    text-align: right;
+    padding-right: 2%;
+}
+
+.row, h2{
+    margin-top: 0;
+    padding-top: 0;
+}
+#pager{
+    text-align: center;
+    position: relative;
+    margin-top: 3%;
+}
+
+#pager div {
+    margin: 0 .5rem;
+}
+
+#leftArrow{
+    display: inline-block;
+
+}
+#rightArrow{
+    display: inline-block;
+}
+
+.room-list-item__image{
+    text-align: center;
+}
+.mainRow{
+    padding: 2%;
+}
+
+#detail-button-div{
+    margin-bottom: 25%;
+    margin-top: 5%;
+}
+
+#date-div{
+    text-align: right;
+}
+
+#img-holder-row{
+    text-align: center;
+    background-color:  antiquewhite;
+    padding: 3px;
+}
+
+#edit-icon{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+#area-div, #price-div{
+    margin-bottom: 5%;
+}
+

@@ -43,18 +43,22 @@ export class PropertyFormComponent implements OnInit {
     propertyForm = this.formBuilder.group({
         'name': ['', Validators.compose([Validators.required, Validators.minLength(3),
             Validators.maxLength(20)])],
-        'area': ['', Validators.compose([Validators.required, Validators.min(1)])],
-        'numberOfRooms': ['', Validators.compose([Validators.min(1), Validators.max(12)])],
-        'buildingYear': ['', Validators.compose([Validators.min(0), Validators.max(new Date().getFullYear())])],
+        'area': ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern('^[0-9]+$')])],
+        'numberOfRooms': ['', Validators.compose([Validators.min(1), Validators.max(12), Validators.pattern('^[0-9]+$')])],
+        'buildingYear': ['', Validators.compose([Validators.min(0), Validators.pattern('^[0-9]+$'),
+            Validators.max(new Date().getFullYear())])],
+
         'propertyType': ['', Validators.required],
         'propertyState': ['', Validators.required],
         'county': ['', Validators.required],
         'city': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
-        'zipCode': ['', Validators.compose([Validators.required, Validators.min(1000), Validators.max(9999)])],
+        'zipCode': ['', Validators.compose([Validators.required, Validators.min(1000),
+            Validators.max(9999), Validators.pattern('^[0-9]+$')])],
+
         'street': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
         'streetNumber': ['', Validators.compose([Validators.required, Validators.minLength(1)])],
         'description': ['', Validators.minLength(10)],
-        'price': ['', Validators.min(1)],
+        'price': [null, [Validators.required, Validators.min(1), Validators.pattern('^[0-9]+$')]],
         'imageUrl': [['']],
     });
 
@@ -138,7 +142,7 @@ export class PropertyFormComponent implements OnInit {
     submit = () => {
         this.displayLoadingCircle = true;
         this.formData = {...this.propertyForm.value};
-      //  console.log(this.formData);
+        //  console.log(this.formData);
 
         this.searchPosition = this.formData.zipCode + ' ' + this.formData.street + ' ' + this.formData.city + ' ' + this.formData.streetNumber;
         this.addressToDecode.address = this.searchPosition;
@@ -152,6 +156,7 @@ export class PropertyFormComponent implements OnInit {
         dataToSend.propertyType = this.propertyTypes.filter(propertyType => propertyType.displayName === data.propertyType)[0].name;
         dataToSend.propertyState = this.propertyStates.filter(propertyState => propertyState.displayName === data.propertyState)[0].name;
         dataToSend.county = this.counties.filter(county => county.displayName === data.county)[0].name;
+
 
         this.propertyService.createProperty(dataToSend).subscribe(
             () => {
@@ -171,10 +176,11 @@ export class PropertyFormComponent implements OnInit {
         dataToSend.county = this.counties.filter(county => county.displayName === data.county)[0].name;
 
         this.propertyService.updateProperty(dataToSend, this.propertyId).subscribe(
-            () => {this.displayLoadingCircle = false;
-                this.router.navigate(['profil-list/', this.storage.userId])},
+            () => {
+                this.displayLoadingCircle = false;
+                this.router.navigate(['profil-list/', this.storage.userId]);
+            },
             error => validationHandler(error, this.propertyForm),
-
         );
     }
 
@@ -207,7 +213,7 @@ export class PropertyFormComponent implements OnInit {
                 this.formData.lngCoord = this.lngCoord;
                 this.formData.latCoord = this.latCoord;
 
-              //  console.log('latlong', this.latCoord, this.lngCoord);
+                //  console.log('latlong', this.latCoord, this.lngCoord);
 
                 this.formData.isValid = true;
 
@@ -265,7 +271,7 @@ export class PropertyFormComponent implements OnInit {
     }
 
     deletePicture = () => {
-        this.router.navigate(['property-details/' + this.propertyId + '/images'])
-    }
+        this.router.navigate(['property-details/' + this.propertyId + '/images']);
+    };
 
 }

@@ -1,8 +1,11 @@
 package com.progmasters.moovsmart.service;
 
+import com.progmasters.moovsmart.domain.Property;
 import com.progmasters.moovsmart.domain.RoleType;
+import com.progmasters.moovsmart.domain.StatusOfProperty;
 import com.progmasters.moovsmart.domain.UserProperty;
 import com.progmasters.moovsmart.dto.CreateUserCommand;
+import com.progmasters.moovsmart.repository.PropertyRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +22,16 @@ import java.util.Optional;
 public class UserService {
 
     private UserRepository userRepository;
-
+    private PropertyRepository propertyRepository;
 
     private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder,
+                       PropertyRepository propertyRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.propertyRepository = propertyRepository;
     }
 
     public Long makeUser(CreateUserCommand command) {
@@ -70,6 +76,8 @@ public class UserService {
         if(tempUser.isPresent()){
             UserProperty user = tempUser.get();
             user.setIsActive(false);
+            makePropertiesOfBannedUserInvalid(user);
+
             this.userRepository.save(user);
 
             return new ResponseEntity(HttpStatus.OK);
@@ -78,16 +86,36 @@ public class UserService {
         }
     }
 
+    private void makePropertiesOfBannedUserInvalid(UserProperty user) {
+        List<Property>properties = this.propertyRepository.findAllByOwner(user);
+        for(Property property: properties){
+            property.setValid(false);
+            property.setStatus(StatusOfProperty.FORBIDDEN);
+            this.propertyRepository.save(property);
+        }
+    }
+
     public ResponseEntity permitUserById(Long id) {
         Optional<UserProperty>tempUser = this.userRepository.findById(id);
         if(tempUser.isPresent()){
             UserProperty user = tempUser.get();
             user.setIsActive(true);
+            makePropertiesOfPermittedUserValid(user);
+
             this.userRepository.save(user);
 
             return new ResponseEntity(HttpStatus.OK);
         }else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    private void makePropertiesOfPermittedUserValid(UserProperty user) {
+        List<Property>properties = this.propertyRepository.findAllByOwner(user);
+        for(Property property: properties){
+            property.setValid(true);
+            property.setStatus(StatusOfProperty.ACCEPTED);
+            this.propertyRepository.save(property);
         }
     }
 }

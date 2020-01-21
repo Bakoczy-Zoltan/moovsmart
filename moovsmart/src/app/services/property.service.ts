@@ -94,4 +94,12 @@ export class PropertyService {
     updatePictureList(imageList: PictureListItemModel, propertyId: number): Observable<any> {
         return this.httpClient.post<any>(this.baseUrl + '/images/' + propertyId, imageList);
     }
+
+    getPropertyListForApproval(): Observable<any> {
+        return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl + '/admin/propertyListForApproval');
+    }
+
+    getPropertyDetailsForApproval = (idParam: number): Observable<PropertyFormDataModel> => {
+        return this.httpClient.get<PropertyFormDataModel>(this.baseUrl + '/admin/propertyDetailsForApproval/' + idParam);
+    };
 }
