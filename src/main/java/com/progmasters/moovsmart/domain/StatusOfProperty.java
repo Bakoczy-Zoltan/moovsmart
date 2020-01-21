@@ -4,7 +4,6 @@ public enum StatusOfProperty {
 
     ARCHIVED("archivált"),
     FORBIDDEN("tiltott"),
-    EXCEPTED("elfogadott"),
     HOLDING("elfogadásra vár"),
     ACCEPTED("elfogadott");
 

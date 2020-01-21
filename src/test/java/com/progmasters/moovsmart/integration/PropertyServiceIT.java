@@ -1,6 +1,7 @@
 package com.progmasters.moovsmart.integration;
 
 import com.progmasters.moovsmart.domain.*;
+import com.progmasters.moovsmart.dto.CreateFilteredCommand;
 import com.progmasters.moovsmart.dto.PropertyDetails;
 import com.progmasters.moovsmart.dto.PropertyForm;
 import com.progmasters.moovsmart.dto.PropertyListItem;
@@ -16,8 +17,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -50,8 +55,10 @@ public class PropertyServiceIT {
 
         userRepository.save(user);
         propertyService.createProperty(property, user.getMail());
+        List<PropertyListItem> properties = propertyService.getProperties();
+        Long propertyId = properties.get(0).getId();
 
-        PropertyDetails propertyDetails = propertyService.getPropertyDetails(1L);
+        PropertyDetails propertyDetails = propertyService.getPropertyDetails(propertyId);
 
         assertEquals("Ház", propertyDetails.getName());
         assertEquals("Budapest", propertyDetails.getCounty());
@@ -110,6 +117,9 @@ public class PropertyServiceIT {
         userRepository.save(user);
         propertyService.createProperty(property, user.getMail());
 
+        List<PropertyListItem> properties = propertyService.getProperties();
+        Long propertyId = properties.get(0).getId();
+
         PropertyForm propUpdate = new PropertyForm();
         propUpdate.setName("Nagy ház");
         propUpdate.setArea(150.0);
@@ -118,12 +128,188 @@ public class PropertyServiceIT {
         propUpdate.setPropertyType("HOUSE");
         propUpdate.setPropertyState("RENEWED");
 
-        Property updatedProperty = propertyService.updateProperty(propUpdate, 1L, user.getMail());
+        Property updatedProperty = propertyService.updateProperty(propUpdate, propertyId, user.getMail());
 
         assertEquals(propUpdate.getName(), updatedProperty.getName());
         assertEquals("Budapest", updatedProperty.getCounty().getDisplayName());
         assertEquals("Ház", updatedProperty.getPropertyType().getDisplayName());
         assertEquals("Felújított", updatedProperty.getPropertyState().getDisplayName());
 
+    }
+
+    @Test
+    public void testDeleteProperty() {
+        PropertyForm property = new PropertyForm();
+        property.setName("Ház");
+        property.setArea(150.0);
+        property.setBuildingYear(1999);
+        property.setCounty("PEST");
+        property.setPropertyType("HOUSE");
+        property.setPropertyState("RENEWABLE");
+
+        UserProperty user = new UserProperty();
+        user.setMail("xy@xy.com");
+        user.setId(1L);
+
+        userRepository.save(user);
+        propertyService.createProperty(property, user.getMail());
+
+        List<PropertyListItem> properties = propertyService.getProperties();
+        Long propertyId = properties.get(0).getId();
+
+        boolean isDeleted = propertyService.deleteProperty(propertyId, user.getMail());
+
+        assertTrue(isDeleted);
+        assertFalse(userRepository.findUserPropertiesByMail(user.getMail()).get().getIsActive());
+    }
+
+    @Test
+    public void testGetFilteredList_WithoutRoom() throws Exception {
+        UserProperty user = new UserProperty();
+        user.setMail("xy@xy.com");
+        user.setId(1L);
+        userRepository.save(user);
+
+        PropertyForm property1 = new PropertyForm();
+        property1.setName("House1");
+        property1.setNumberOfRooms(2);
+        property1.setArea(50.0);
+        property1.setPrice(10000000);
+        property1.setPropertyType("HOUSE");
+        property1.setPropertyState("NEW");
+        property1.setCity("Budapest");
+        property1.setCounty("BUDAPEST");
+
+        propertyService.createProperty(property1, user.getMail());
+
+        PropertyForm property2 = new PropertyForm();
+        property2.setName("House2");
+        property2.setNumberOfRooms(3);
+        property2.setArea(80.0);
+        property2.setPrice(30000000);
+        property2.setPropertyType("HOUSE");
+        property2.setPropertyState("NEW");
+        property2.setCounty("FEJER");
+        property2.setCity("Székesfehérvár");
+
+        propertyService.createProperty(property2, user.getMail());
+
+        CreateFilteredCommand createFilteredCommand = new CreateFilteredCommand();
+        createFilteredCommand.setMinPrice(5000000);
+        createFilteredCommand.setMaxPrice(35000000);
+        createFilteredCommand.setMinSize(40.0);
+        createFilteredCommand.setMaxSize(100.0);
+//        createFilteredCommand.setPropertyState(PropertyState.NEW);
+//        createFilteredCommand.setPropertyType(PropertyType.HOUSE);
+        List<PropertyListItem> propertyListItems = propertyService.getFilteredPropertiesWithoutRooms(createFilteredCommand);
+        assertEquals(2, propertyListItems.size());
+
+        createFilteredCommand.setCity("Székesfehérvár");
+        propertyListItems = propertyService.getFilteredPropertiesWithoutRooms(createFilteredCommand);
+        assertEquals(1, propertyListItems.size());
+
+    }
+
+    @Test
+    public void testGetFilteredList() throws Exception {
+        UserProperty user = new UserProperty();
+        user.setMail("xy@xy.com");
+        user.setId(1L);
+        userRepository.save(user);
+
+        PropertyForm property1 = new PropertyForm();
+        property1.setName("House1");
+        property1.setNumberOfRooms(2);
+        property1.setArea(50.0);
+        property1.setPrice(10000000);
+        property1.setPropertyType("HOUSE");
+        property1.setPropertyState("NEW");
+        property1.setCity("Budapest");
+        property1.setCounty("BUDAPEST");
+
+        propertyService.createProperty(property1, user.getMail());
+
+        PropertyForm property2 = new PropertyForm();
+        property2.setName("House2");
+        property2.setNumberOfRooms(3);
+        property2.setArea(80.0);
+        property2.setPrice(30000000);
+        property2.setPropertyType("HOUSE");
+        property2.setPropertyState("NEW");
+        property2.setCounty("FEJER");
+        property2.setCity("Székesfehérvár");
+
+        propertyService.createProperty(property2, user.getMail());
+
+        CreateFilteredCommand createFilteredCommand = new CreateFilteredCommand();
+        createFilteredCommand.setMinPrice(5000000);
+        createFilteredCommand.setMaxPrice(35000000);
+        createFilteredCommand.setMinSize(40.0);
+        createFilteredCommand.setMaxSize(100.0);
+        createFilteredCommand.setNumberOfRooms(3);
+
+        List<PropertyListItem> propertyListItems = propertyService.getFilteredProperties(createFilteredCommand);
+        assertEquals(1, propertyListItems.size());
+
+        createFilteredCommand.setCity("Budapest");
+        propertyListItems = propertyService.getFilteredProperties(createFilteredCommand);
+        assertEquals(0, propertyListItems.size());
+
+    }
+
+    @Test
+    public void testGetOwnProperties() {
+        PropertyForm property1 = new PropertyForm();
+        property1.setName("Ház");
+        property1.setCounty("BUDAPEST");
+        property1.setPropertyType("HOUSE");
+        property1.setPropertyState("RENEWABLE");
+
+        PropertyForm property2 = new PropertyForm();
+        property2.setName("Ház2");
+        property2.setCounty("BARANYA");
+        property2.setPropertyType("APARTMENT");
+        property2.setPropertyState("RENEWED");
+
+        UserProperty user = new UserProperty();
+        user.setMail("xy@xy.com");
+        user.setId(1L);
+
+        userRepository.save(user);
+
+        propertyService.createProperty(property1, user.getMail());
+        propertyService.createProperty(property2, user.getMail());
+
+        List<PropertyListItem> properties = propertyService.getOwnProperties(user.getMail());
+
+        assertEquals(2, properties.size());
+    }
+
+    @Test
+    public void testGetAllHoldingProperty() {
+        PropertyForm property1 = new PropertyForm();
+        property1.setName("Ház");
+        property1.setCounty("BUDAPEST");
+        property1.setPropertyType("HOUSE");
+        property1.setPropertyState("RENEWABLE");
+
+        UserProperty user = new UserProperty();
+        user.setMail("xy@xy.com");
+        user.setId(1L);
+
+        userRepository.save(user);
+
+        propertyService.createProperty(property1, user.getMail());
+
+        List<PropertyForm> properties = propertyService.getAllHoldingProperty();
+
+        assertEquals(1, properties.size());
+
+        Long propertyId = propertyService.getProperties().get(0).getId();
+        propertyService.activateProperty(propertyId);
+
+        properties = propertyService.getAllHoldingProperty();
+
+        assertEquals(0, properties.size());
     }
 }
