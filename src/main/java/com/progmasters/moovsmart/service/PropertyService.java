@@ -104,18 +104,19 @@ public class PropertyService {
     public boolean deleteProperty(Long id, String userMail) {
         boolean result = false;
         Optional<Property> propertyOptional = propertyRepository.findById(id);
-        //  UserProperty user = null;
+        UserProperty user = null;
+
         if (propertyOptional.isPresent()) {
             Property property = propertyOptional.get();
-            System.out.println("ID PROP: " + property.getId());
-//            user = property.getOwner();
-//            if(!user.getMail().equals(userMail)){
-//                return result;
-//            }
+          //  System.out.println("ID PROP: " + property.getId());
+            user = property.getOwner();
+
+            if (!(user.getMail().equals(userMail))) {
+                return result;
+            }
             property.setValid(false);
             result = true;
         }
-
         return result;
     }
 
@@ -125,15 +126,14 @@ public class PropertyService {
                 .orElseThrow(EntityNotFoundException::new);
     }
 
-    private UserProperty findUserPropertiesByMail(String mail) {
-        UserProperty user = new UserProperty();
-        Optional<UserProperty> tempUser = this.userRepository.findUserPropertiesByMail(mail);
-        if (tempUser.isPresent()) {
-            user = tempUser.get();
-        }
-        return user;
-    }
-
+//    private UserProperty findUserPropertiesByMail(String mail) {
+//        UserProperty user = new UserProperty();
+//        Optional<UserProperty> tempUser = this.userRepository.findUserPropertiesByMail(mail);
+//        if (tempUser.isPresent()) {
+//            user = tempUser.get();
+//        }
+//        return user;
+//    }
 
 
     public List<PropertyListItem> getOwnProperties(String userMail) {
@@ -155,7 +155,6 @@ public class PropertyService {
             }
 
         }
-
         return ownProperties;
     }
 
@@ -223,14 +222,12 @@ public class PropertyService {
             property.setValid(true);
             this.propertyRepository.save(property);
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
-    /*
-    * Filtering of properties*/
+    /* <==    Filtering of Properties    ==> */
 
     public List<PropertyListItem> makeFilterList(CreateFilteredCommand command) {
         if (command.getMaxPrice() == null) {
@@ -243,7 +240,7 @@ public class PropertyService {
     }
 
     private List<PropertyListItem> filterListByParamaters(CreateFilteredCommand command) {
-        List<PropertyListItem>listOfFilteredProperty = new ArrayList<>();
+        List<PropertyListItem> listOfFilteredProperty = new ArrayList<>();
 
         if (command.getNumberOfRooms() == null || command.getNumberOfRooms() == 0) {
             listOfFilteredProperty = getFilteredPropertiesWithoutRooms(command);
