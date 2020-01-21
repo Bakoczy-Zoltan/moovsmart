@@ -197,7 +197,7 @@ public class PropertyService {
         return propertyFormList;
     }
 
-    public List<PropertyForm> getAllPropertyByMail(String mail) {
+    public ResponseEntity getAllPropertyByMail(String mail) {
         List<PropertyForm> propertyFormList = new ArrayList<>();
         Optional<UserProperty> tempUser = this.userRepository.findUserPropertiesByMail(mail);
 
@@ -208,7 +208,7 @@ public class PropertyService {
                 propertyFormList.add(new PropertyForm(property));
             }
         }
-        return propertyFormList;
+        return new ResponseEntity(propertyFormList, HttpStatus.OK);
     }
 
     public Boolean activateProperty(Long id) {
@@ -283,5 +283,18 @@ public class PropertyService {
     public PropertyForm getPropertyDetailsForApproval(Long id) {
         Property property = findById(id);
         return new PropertyForm(property);
+    }
+
+    public Boolean forbiddenProperty(Long id) {
+        Optional<Property> tempProperty = this.propertyRepository.findById(id);
+        if (tempProperty.isPresent()) {
+            Property property = tempProperty.get();
+            property.setStatus(StatusOfProperty.valueOf("FORBIDDEN"));
+            property.setValid(false);
+            this.propertyRepository.save(property);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

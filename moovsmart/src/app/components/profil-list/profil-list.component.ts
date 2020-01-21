@@ -82,4 +82,8 @@ export class ProfilListComponent implements OnInit {
     pageRight() {
         this.actualPageNumber++;
     }
+
+    getHoldingList() {
+
+    }
 }

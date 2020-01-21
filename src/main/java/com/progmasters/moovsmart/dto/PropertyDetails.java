@@ -22,7 +22,6 @@ public class PropertyDetails {
     private String street;
     private String streetNumber;
     private String city;
-//    private String searchPosition;
     private Double lngCoord;
     private Double latCoord;
 
@@ -53,7 +52,6 @@ public class PropertyDetails {
         this.zipCode = property.getZipCode();
         this.street = property.getStreet();
         this.streetNumber = property.getStreetNumber();
-//        this.searchPosition = property.getSearchPosition();
         this.latCoord = property.getLatCoord();
         this.lngCoord = property.getLngCoord();
         this.description = property.getDescription();

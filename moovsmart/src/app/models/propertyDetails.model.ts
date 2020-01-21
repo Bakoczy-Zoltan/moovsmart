@@ -19,4 +19,5 @@ export interface PropertyDetailsModel {
     imageUrl: string[];
     publicId: string[];
     userId: number;
+    status: string;
 }
