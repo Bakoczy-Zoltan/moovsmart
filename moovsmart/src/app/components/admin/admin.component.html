@@ -13,6 +13,7 @@
     </div>
     <div class="container">
         <div *ngIf="buttonPushed === 1" id="header-div">
+            <hr>
             <h3>Jóváhagyásra váró ingatlanok</h3>
             <hr>
             <div id="mainDiv">
@@ -22,13 +23,14 @@
             </div>
         </div>
         <div *ngIf="buttonPushed === 3" id="header-div-3">
+            <hr>
             <h3>Archivált ingatlanok</h3>
             <hr>
-            <form>
-                <input class="dateInput" type="date" name="dateFrom">
-                <input class="dateInput" type="date" name="dateTo">
-                <button type="submit" (click)="submit()" class="btn">Lekérdezés</button>
-            </form>
+        <form (ngSubmit)="submit()" [formGroup]="dateForm">
+                <input class="dateInput" type="datetime-local" formControlName="dateFrom">
+                <input class="dateInput" type="datetime-local" formControlName="dateTo">
+                <button type="submit" class="btn submit-button">Lekérdezés</button>
+        </form>
             <div id="emptyArchiveMessage">
                 <div *ngIf="propertyListItemModels === undefined || propertyListItemModels.length === 0"
                      id="emptyArchive">
@@ -36,7 +38,16 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="buttonPushed === 1 || buttonPushed === 3">
+        <div *ngIf="buttonPushed === 2" id="header-div-2">
+            <hr>
+            <h3>Kérem, írja be a felhasználó email címét!</h3>
+            <hr>
+            <form (ngSubmit)="submitEmail()" [formGroup]="emailForm">
+                <input type="email" formControlName="userEmail">
+                <button type="submit" class="btn submit-button">Lekérdezés</button>
+            </form>
+        </div>
+        <div>
             <div *ngIf="propertyListItemModels !== undefined && propertyListItemModels.length > 0">
 
                 <!-- Property list -->

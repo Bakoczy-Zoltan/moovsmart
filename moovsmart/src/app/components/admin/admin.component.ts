@@ -19,14 +19,19 @@ export class AdminComponent implements OnInit {
     actualPageList: [PropertyListItemModel[]] = [[]];
     formData: any;
 
+
     dateForm = this.formBuilder.group({
         'dateFrom': [''],
         'dateTo': [''],
-    })
+    });
+
+    emailForm = this.formBuilder.group( {
+        'userEmail': [''],
+    });
 
     constructor(private propertyService: PropertyService,
                 private router: Router,
-private formBuilder: FormBuilder) { }
+                private formBuilder: FormBuilder) { }
 
     ngOnInit() {
       this.buttonPushed = 0;
@@ -55,6 +60,7 @@ private formBuilder: FormBuilder) { }
         this.buttonPushed = 0;
       } else {
         this.buttonPushed = 3;
+        this.propertyListItemModels = [];
       }
     }
 
@@ -108,6 +114,8 @@ private formBuilder: FormBuilder) { }
 
     submit = () => {
     this.formData = {...this.dateForm.value};
+    console.log(this.formData);
+    debugger;
     this.propertyService.getArchivedProperties(this.formData).subscribe(
         propertyListItems => {
             this.propertyListItemModels = propertyListItems;
@@ -116,4 +124,11 @@ private formBuilder: FormBuilder) { }
     )
 }
 
+
+    submitEmail = () => {
+        this.formData = {...this.emailForm.value};
+        this.propertyService.getUserByMail(this.formData).subscribe(
+
+        )
+    };
 }

@@ -116,6 +116,10 @@ export class PropertyService {
 
     getArchivedProperties(formData: DateIntervalModel): Observable<any> {
         return this.httpClient.post<PropertyFormDataModel>(this.baseUrl
-            + 'admin/getArchivedProperties', formData);
+            + '/admin/getArchivedProperties', formData);
+    }
+
+    getUserByMail(formData: string): Observable<any> {
+        return this.httpClient.get()
     }
 }
