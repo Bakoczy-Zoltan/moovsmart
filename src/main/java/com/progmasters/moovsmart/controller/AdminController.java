@@ -44,9 +44,13 @@ public class AdminController {
     }
 
     @GetMapping("/getPropertyLIstByUserMail/{id}")
-    public ResponseEntity getPropertyListByUserMail(@PathVariable("id") String mail) {
-        ResponseEntity response = this.propertyService.getAllPropertyByMail(mail);
-        return response;
+    public ResponseEntity<List<PropertyForm>> getPropertyListByUserMail(@PathVariable("id") String mail) {
+        List<PropertyForm> propertyForms = this.propertyService.getAllPropertyByMail(mail);
+        if (propertyForms != null) {
+            return new ResponseEntity<>(propertyForms, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(propertyForms, HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/activateProperty/{id}")

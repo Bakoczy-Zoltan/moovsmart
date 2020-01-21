@@ -167,7 +167,6 @@ public class PropertyController {
     }
 
 
-
     @GetMapping("/{id}/images")
     public ResponseEntity<PictureListItem> getPictures(@PathVariable Long id) {
         logger.info("property pictures requested");

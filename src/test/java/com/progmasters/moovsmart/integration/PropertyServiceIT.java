@@ -1,10 +1,7 @@
 package com.progmasters.moovsmart.integration;
 
 import com.progmasters.moovsmart.domain.*;
-import com.progmasters.moovsmart.dto.CreateFilteredCommand;
-import com.progmasters.moovsmart.dto.PropertyDetails;
-import com.progmasters.moovsmart.dto.PropertyForm;
-import com.progmasters.moovsmart.dto.PropertyListItem;
+import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.repository.PropertyRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import com.progmasters.moovsmart.service.PropertyService;
@@ -15,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -311,5 +310,41 @@ public class PropertyServiceIT {
         properties = propertyService.getAllHoldingProperty();
 
         assertEquals(0, properties.size());
+    }
+
+    @Test
+    public void testGetArchivedProperties() {
+        Property property1 = new Property();
+        property1.setName("Ház");
+        property1.setCounty(County.valueOf("BUDAPEST"));
+        property1.setPropertyType(PropertyType.valueOf("HOUSE"));
+        property1.setPropertyState(PropertyState.valueOf("RENEWABLE"));
+        PropertyForm pf1 = new PropertyForm(property1);
+
+        UserProperty user = new UserProperty();
+        user.setMail("xy@xy.com");
+        user.setId(1L);
+
+        userRepository.save(user);
+
+        propertyService.createProperty(pf1, user.getMail());
+
+        CreateQueryByDatesCommand command = new CreateQueryByDatesCommand(
+                LocalDateTime.of(2020, Month.JANUARY, 01, 19, 30, 40),
+                LocalDateTime.of(2020, Month.JANUARY, 15, 19, 30, 40));
+
+        List<PropertyForm> archivedProperties = propertyService.getArchivedProperties(command);
+
+        assertEquals(0, archivedProperties.size());
+
+        List<PropertyListItem> properties = propertyService.getProperties();
+        Property property = propertyRepository.findById(properties.get(0).getId()).get();
+        property.setLocalDateTime(LocalDateTime.of(2020, Month.JANUARY, 5, 19, 30, 40));
+        property.setValid(false);
+        propertyRepository.save(property);
+
+        archivedProperties = propertyService.getArchivedProperties(command);
+
+        assertEquals(1, archivedProperties.size());
     }
 }
