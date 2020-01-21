@@ -38,6 +38,7 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
             "AND p.propertyState like case when :propertyState is not null then :propertyState else '%' end " +
             "AND p.city like case when :city is not null then :city else '%' end " +
             "AND p.numberOfRooms =:numberOfRooms " +
+            "AND p.status = 'ACCEPTED' " +
             "AND p.isValid = true")
     List<Property> getFilteredProperties(
             @Param("minArea") double minArea, @Param("maxArea") double maxArea, @Param("minPrice") int minPrice,
@@ -52,6 +53,7 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
             "AND p.propertyType like case when :propertyType is not null then :propertyType else '%' end " +
             "AND p.propertyState like case when :propertyState is not null then :propertyState else '%' end " +
             "AND p.city like case when :city is not null then :city else '%' end " +
+            "AND p.status = 'ACCEPTED' " +
             "AND p.isValid = true")
     List<Property> getFilteredListWithoutRoom(@Param("minArea") Double minSize, @Param("maxArea") Double maxSize, @Param("minPrice") Integer minPrice,
                                               @Param("maxPrice") Integer maxPrice, @Param("propertyState") PropertyState propertyState,
@@ -65,6 +67,7 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
     @Query("SELECT p from  Property p " +
             "where p.localDateTime between :fromDate " +
             "and :toDate " +
+            "AND p.status = 'ACCEPTED' " +
             "and p.isValid = false"
     )
     List<Property> getAllArchivedPropertiesByDates(@Param("fromDate") LocalDateTime dateFrom, @Param("toDate") LocalDateTime dateTo);
