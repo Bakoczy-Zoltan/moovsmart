@@ -21,7 +21,6 @@ export class PropertyService {
 
     baseUrl = environment.apiUrl + '/properties';
     baseUserUrl = environment.apiUrl + '/user';
-    adminUrl = environment.apiUrl + '/admin';
     url = 'localhost:8080/api/properties';
 
     constructor(private httpClient: HttpClient) {
@@ -97,6 +96,10 @@ export class PropertyService {
     }
 
     getPropertyListForApproval(): Observable<any> {
-        return this.httpClient.get<Array<PropertyListItemModel>>(this.adminUrl);
+        return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl + '/admin/propertyListForApproval');
     }
+
+    getPropertyDetailsForApproval = (idParam: number): Observable<PropertyDetailsModel> => {
+        return this.httpClient.get<PropertyDetailsModel>(this.baseUrl + '/admin/propertyDetailsForApproval' + idParam);
+    };
 }

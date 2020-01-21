@@ -30,7 +30,7 @@ public class PropertyListItem {
         this.imageUrl = property.getImageUrls();
         this.time = property.getLocalDateTime();
         this.area = property.getArea();
-        if(property.getStatus()!= null){
+        if(property.getStatus() != null) {
             this.status = property.getStatus().getDisplayName();
         }
         if(property.getOwner() != null){

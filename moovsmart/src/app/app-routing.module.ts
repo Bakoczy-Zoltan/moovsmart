@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminPropertyDetailsComponent } from './components/admin-property-details/admin-property-details.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { DeletePictureComponent } from './components/delete-picture/delete-picture.component';
 import { ProfilListComponent } from './components/profil-list/profil-list.component';
@@ -25,6 +26,8 @@ const routes: Routes = [
     {path: 'profil-list', component: ProfilListComponent},
     {path: 'profil-list/:id', component: ProfilListComponent},
     {path: 'admin', component: AdminComponent},
+    {path: 'admin/details/:id', component: AdminPropertyDetailsComponent},
+
 ];
 
 @NgModule({
