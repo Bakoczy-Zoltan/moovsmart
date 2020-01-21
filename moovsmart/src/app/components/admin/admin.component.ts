@@ -52,6 +52,7 @@ export class AdminComponent implements OnInit {
           this.buttonPushed = 0;
         } else {
           this.buttonPushed = 2;
+          this.propertyListItemModels = [];
         }
     }
 
