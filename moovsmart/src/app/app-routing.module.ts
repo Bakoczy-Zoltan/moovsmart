@@ -27,7 +27,6 @@ const routes: Routes = [
     {path: 'profil-list/:id', component: ProfilListComponent},
     {path: 'admin', component: AdminComponent},
     {path: 'admin/details/:id', component: AdminPropertyDetailsComponent},
-
 ];
 
 @NgModule({

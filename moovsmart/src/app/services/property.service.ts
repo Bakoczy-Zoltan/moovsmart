@@ -99,7 +99,7 @@ export class PropertyService {
         return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl + '/admin/propertyListForApproval');
     }
 
-    getPropertyDetailsForApproval = (idParam: number): Observable<PropertyDetailsModel> => {
-        return this.httpClient.get<PropertyDetailsModel>(this.baseUrl + '/admin/propertyDetailsForApproval' + idParam);
+    getPropertyDetailsForApproval = (idParam: number): Observable<PropertyFormDataModel> => {
+        return this.httpClient.get<PropertyFormDataModel>(this.baseUrl + '/admin/propertyDetailsForApproval' + idParam);
     };
 }

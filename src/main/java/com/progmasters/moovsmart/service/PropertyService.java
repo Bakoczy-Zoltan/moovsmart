@@ -285,4 +285,9 @@ public class PropertyService {
         return propertyListItemList;
 
     }
+
+    public PropertyForm getPropertyDetailsForApproval(Long id) {
+        Property property = findById(id);
+        return new PropertyForm(property);
+    }
 }
