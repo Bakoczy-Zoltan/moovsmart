@@ -13,16 +13,39 @@ hr{
     border-style: solid;
     border-color: #C2B9B0;
 }
-
-.table {
-    background-color: white;
-}
-
 #detail-button {
     background-color: #7E685A;
     color: white;
     width: 150px;
+}
 
+#button-holding-list{
+    background-color: lightgray;
+}
+
+#button-accepted-button{
+    background-color: white;
+}
+
+#mainBoard-div{
+    background-color: white;
+}
+
+#status-div{
+    text-align: right;
+    margin-right: 5%;
+    margin-bottom: 2%;
+}
+
+.status-message-accepted{
+    color: green;
+}
+.status-message-holding{
+    color:  #E7717D;
+}
+
+.btn{
+    width: 150px;
 }
 
 .defaultPicture {
@@ -32,8 +55,8 @@ hr{
     max-height: 150px;
 }
 
-#button-new {
-    margin-bottom: 1%;
+#button-new-adding {
+    background-color: #AFD275;
 }
 
 #mainDiv {

@@ -172,3 +172,15 @@
     margin-bottom: 5%;
 }
 
+.accept-button {
+    background-color: #AFD275;
+    color: white;
+    display: inline-block;
+}
+
+.reject-button {
+    background-color: #E7717D;
+    color: white;
+    display: inline-block;
+}
+

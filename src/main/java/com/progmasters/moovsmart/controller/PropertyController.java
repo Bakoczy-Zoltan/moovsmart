@@ -116,6 +116,7 @@ public class PropertyController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails user = (UserDetails) authentication.getPrincipal();
         String userMail = user.getUsername();
+
         propertyService.createProperty(propertyForm, userMail);
         this.logger.info("New Property created");
         return new ResponseEntity(HttpStatus.CREATED);

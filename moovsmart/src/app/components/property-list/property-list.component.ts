@@ -70,6 +70,24 @@ export class PropertyListComponent implements OnInit {
         }
 
     }
+    details(id: number) {
+        this.router.navigate(['property-details', id]);
+    }
+
+    filterProperties() {
+        this.filteredFormDatas = this.filteredForm.value;
+        this.sendFilterFieldList(this.filteredFormDatas);
+    }
+
+    private sendFilterFieldList(filteredFormDatas: FilteredListModel) {
+        this.propertyService.sendFilterList(filteredFormDatas).subscribe(
+            (filteredProperties) => {
+                this.propertyListItemModels = filteredProperties;
+                this.actualPageList = this.makingActualList(this.propertyListItemModels);
+                this.actualPageNumber = 1;
+            },
+        );
+    }
 
     private makingActualList(propertyListItemModels: Array<PropertyListItemModel>) {
         const listSize = propertyListItemModels.length;
@@ -96,27 +114,6 @@ export class PropertyListComponent implements OnInit {
         actualList.push(tempList);
         actualList.shift();
         return actualList;
-    }
-
-
-
-    details(id: number) {
-        this.router.navigate(['property-details', id]);
-    }
-
-    filterProperties() {
-        this.filteredFormDatas = this.filteredForm.value;
-        this.sendFilterFieldList(this.filteredFormDatas);
-    }
-
-    private sendFilterFieldList(filteredFormDatas: FilteredListModel) {
-        this.propertyService.sendFilterList(filteredFormDatas).subscribe(
-            (filteredProperties) => {
-                this.propertyListItemModels = filteredProperties;
-                this.actualPageList = this.makingActualList(this.propertyListItemModels);
-                this.actualPageNumber = 1;
-            },
-        );
     }
 
     makeFilterBar() {

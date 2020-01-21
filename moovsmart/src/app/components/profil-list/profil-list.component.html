@@ -1,97 +1,64 @@
-<!--div class="container jumbotron">
+<div class="container jumbotron">
     <div id="header-div">
-        <h3>Profil</h3><hr>
+        <h3>Profil <i class="fas fa-user-edit"></i></h3>
+        <hr>
     </div>
     <div>
-        <button class="btn btn-info" id="button-new" routerLink="/property-form">Új ingatlan létrehozása</button></div>
-    <div>
-        <table *ngIf="propertyListItemModels?.length !== 0" id="list-table" class="table table-borderless">
-            <thead>
-            </thead>
-            <tbody>
-                <div *ngFor="let property of propertyListItemModels" id="mainRow">
-                    <tr>
-                        <td>
+        <button class="btn btn-light" id="button-accepted-button">Hirdetéseim</button>
+        <button class="btn btn-light" id="button-holding-list" (click)="getHoldingList()">Elfogadásra vár</button>
+        <button class="btn btn-info" id="button-new-adding" routerLink="/property-form">Új hirdetés</button>
+        <div *ngFor="let property of actualPageList[actualPageNumber-1]" id="mainBoard-div">
+            <!--div id="status-div">
+               <strong>
+                   <span>Statusz: </span><span class="status-message-accepted">{{property.status}}</span>
+               </strong>
+            </div-->
+
+
+            <div class="mainRow">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-3" id="img-holder-row">
                             <div *ngIf="property?.imageUrl[0]?.length < 3">
                                 <img [src]="defaultPicture" class="defaultPicture" [alt]="defaultPicture">
                             </div>
                             <div *ngIf="property?.imageUrl[0]?.length >= 3">
-                                <img (click)="details(property.id)" alt="ingatlan" class="room-list-item__image"
-                                     width="200"
+                                <img (click)="details(property.id)" alt="ingatlan" width="200"
                                      src="{{property?.imageUrl[0]}}"/>
                             </div>
-                        </td>
-                        <td id="property-name-td">
-                            <h5>{{property.name}}</h5>
-                            <p><strong>Szobák száma: </strong> {{property.numberOfRooms}}</p>
-                            <p><strong>Ár: </strong> {{property.price}}M Ft</p>
-                        </td>
-                        <td><strong>Terület:</strong> {{property.area}}m<sup>2</sup></td>
-                        <td><strong>Hirdetés dátuma:</strong></td>
-                        <td>{{property.time}}</td>
-                        <td class="btn-group" id="button-container">
-                            <button id="detail-button" class="btn" (click)="details(property.id)">Részletek</button>
-                        </td>
-                        <td *ngIf="storage?.userId == property.userId">
-                            <a (click)="details(property.id)" title="Szerkesztés"> <i class="fas fa-wrench"></i></a>
-                        </td>
-                    </tr>
-                </div>
-            </tbody>
-        </table>
-    </div>
-    <div id="div-empty-ownlist" *ngIf="emptyList">
-        <p>Jelenleg nincs ingatlan a saját listában</p>
-    </div>
-</div-->
-
-<div class="container jumbotron">
-    <div id="header-div">
-        <h3>Profil</h3>
-        <hr>
-    </div>
-    <div>
-        <button class="btn btn-info" id="button-new" routerLink="/property-form">Új ingatlan létrehozása</button>
-    </div>
-    <div>
-
-        <div *ngFor="let property of actualPageList[actualPageNumber-1]" class="mainRow">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-3" id="img-holder-row">
-                        <div *ngIf="property?.imageUrl[0]?.length < 3">
-                            <img [src]="defaultPicture" class="defaultPicture" [alt]="defaultPicture">
                         </div>
-                        <div *ngIf="property?.imageUrl[0]?.length >= 3">
-                            <img (click)="details(property.id)" alt="ingatlan" width="200"
-                                 src="{{property?.imageUrl[0]}}"/>
-                        </div>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="row">
-                            <div class="col-sm">
-                                <h5>{{property.name}}</h5>
-                                <div id="area-div"><strong>Terület</strong>: {{property.area}} m<sup>2</sup></div>
-                                <div id="price-div"><strong>Ár</strong>: {{property.price}} M ft</div>
-                            </div>
-                            <div class="col-sm">
-                                <div>
-                                    <strong>Szobák száma</strong>: {{property.numberOfRooms}}
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <h5>{{property.name}}</h5>
+                                    <div id="area-div"><strong>Terület</strong>: {{property.area}} m<sup>2</sup></div>
+                                    <div id="price-div"><strong>Ár</strong>: {{property.price}} M ft</div>
                                 </div>
-                            </div>
-                            <div class="col-sm">
-                                <div id="detail-button-div" class="d-flex justify-content-center">
+                                <div class="col-sm">
                                     <div>
-                                        <button id="detail-button" class="btn" (click)="details(property.id)">Részletek
-                                        </button>
-                                    </div>
-                                    <div id="edit-icon">
-                                        <a *ngIf="storage?.userId == property.userId" (click)="details(property.id)"
-                                           title="Szerkesztés"> <i class="fas fa-wrench"></i></a>
+                                        <strong>Szobák száma</strong>: {{property.numberOfRooms}}
                                     </div>
                                 </div>
-                                <div id="date-div">
-                                    <strong>Regisztráció: </strong>{{property.time}}
+                                <div class="col-sm">
+                                    <div class="status-div">
+                                        <strong>
+                                            <span>Hirdetés statusz: </span><span class="status-message-accepted">{{property.status}}</span>
+                                        </strong>
+                                    </div>
+                                    <div id="detail-button-div" class="d-flex justify-content-center">
+                                        <div>
+                                            <button id="detail-button" class="btn" (click)="details(property.id)">
+                                                Részletek
+                                            </button>
+                                        </div>
+                                        <div id="edit-icon">
+                                            <a *ngIf="storage?.userId == property.userId" (click)="details(property.id)"
+                                               title="Szerkesztés"> <i class="fas fa-wrench"></i></a>
+                                        </div>
+                                    </div>
+                                    <div id="date-div">
+                                        <strong>Regisztráció: </strong>{{property.time}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -118,16 +85,3 @@
         </div>
     </div>
 </div>
-
-    <!--div id="pager" class="d-flex justify-content-center">
-        <div id="leftArrow" *ngIf="actualPageNumber > 1" (click)="pageLeft()" title="lapozz">
-            <i class="fas fa-angle-left" ></i>
-        </div>
-        <div id="pagerNumbers">
-            <strong> {{actualPageNumber}} </strong>
-        </div>
-        <div id="rightArrow" *ngIf="actualPageNumber < actualPageList?.length" (click)="pageRight()" title="lapozz">
-            <i class="fas fa-angle-right"></i>
-        </div>
-    </div>
-    </div-->

@@ -102,4 +102,14 @@ export class PropertyService {
     getPropertyDetailsForApproval = (idParam: number): Observable<PropertyFormDataModel> => {
         return this.httpClient.get<PropertyFormDataModel>(this.baseUrl + '/admin/propertyDetailsForApproval/' + idParam);
     };
+
+    setPropertyToAccepted(id: number): Observable<any> {
+        return this.httpClient.put<any>(this.baseUrl + '/admin/activateProperty/' +id, id);
+
+    }
+
+
+    setPropertyToForbidden(propertyToDelete: number) {
+
+    }
 }

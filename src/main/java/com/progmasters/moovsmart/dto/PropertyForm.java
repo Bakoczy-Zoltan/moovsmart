@@ -1,11 +1,14 @@
 package com.progmasters.moovsmart.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.progmasters.moovsmart.domain.*;
+import com.progmasters.moovsmart.domain.Property;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class PropertyForm {
@@ -32,6 +35,9 @@ public class PropertyForm {
     private String owner;
     private String status;
 
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm")
+    private LocalDateTime time;
+
     private Double lngCoord;
     private Double latCoord;
 
@@ -39,6 +45,7 @@ public class PropertyForm {
     }
 
     public PropertyForm(Property property) {
+        this.id = property.getId();
         this.name = property.getName();
         this.numberOfRooms = property.getNumberOfRooms();
         this.price = property.getPrice();
@@ -58,14 +65,23 @@ public class PropertyForm {
         this.lngCoord = property.getLngCoord();
         this.latCoord = property.getLatCoord();
         this.id = property.getId();
+        this.time = property.getLocalDateTime();
 
-        if(property.getOwner() != null){
+        if (property.getOwner() != null) {
             this.owner = property.getOwner().getMail();
         }
-        if(property.getStatus() != null){
+        if (property.getStatus() != null) {
             this.status = property.getStatus().getDisplayName();
         }
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -220,11 +236,12 @@ public class PropertyForm {
         this.status = status;
     }
 
-    public Long getId() {
-        return id;
+
+    public LocalDateTime getTime() {
+        return time;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 }

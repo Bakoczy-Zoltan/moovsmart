@@ -67,4 +67,18 @@ export class AdminPropertyDetailsComponent implements OnInit {
   delete(propertyToDelete: number) {
 
   }
+
+    approve(id: number) {
+        this.propertyService.setPropertyToAccepted(id).subscribe(
+            () => {
+                this.router.navigate(['admin']);
+            }
+        );
+
+    }
+
+    askingForSure(id: any) {
+        this.propertyToDelete = id;
+        this.display = 'block';
+    }
 }

@@ -7,4 +7,5 @@ export interface PropertyListItemModel {
   userId: number;
   time: string;
   area: number;
+  status: string;
 }

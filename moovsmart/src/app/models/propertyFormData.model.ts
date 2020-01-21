@@ -23,4 +23,6 @@ export interface PropertyFormDataModel {
 
   lngCoord: number;
   latCoord: number;
+
+  time: string;
 }
