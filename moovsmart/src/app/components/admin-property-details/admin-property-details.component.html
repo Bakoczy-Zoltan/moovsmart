@@ -31,9 +31,6 @@
             <div class="col">
                 <h5><strong>Jóváhagyásra váró ingatlan részletei</strong></h5></div>
             <div class="col"></div>
-            <div class="col" id="col-button">
-                <button></button>
-            </div>
 
         <hr>
 
@@ -101,10 +98,8 @@
             </div>
         </div>
     </div>
-    <div id="bottom-div">
-
-        <button></button>
-    </div>
+        <button class="btn accept-button" (click)="approve(propertyDetails?.id)">Jóváhagyás</button>
+        <button class="btn reject-button" (click)="askingForSure(propertyDetails?.id)">Elutasítás</button>
 </div>
 
 <!-- Modal -->

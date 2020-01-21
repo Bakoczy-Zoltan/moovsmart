@@ -218,7 +218,7 @@ public class PropertyService {
         Optional<Property> tempProperty = this.propertyRepository.findById(id);
         if (tempProperty.isPresent()) {
             Property property = tempProperty.get();
-            property.setStatus(StatusOfProperty.valueOf("EXCEPTED"));
+            property.setStatus(StatusOfProperty.valueOf("ACCEPTED"));
             property.setValid(true);
             this.propertyRepository.save(property);
             return true;

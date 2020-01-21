@@ -1,11 +1,13 @@
 package com.progmasters.moovsmart.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.progmasters.moovsmart.domain.*;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class PropertyForm {
@@ -31,6 +33,9 @@ public class PropertyForm {
 
     private String owner;
     private String status;
+
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm")
+    private LocalDateTime time;
 
     private Double lngCoord;
     private Double latCoord;
@@ -58,6 +63,7 @@ public class PropertyForm {
         this.lngCoord = property.getLngCoord();
         this.latCoord = property.getLatCoord();
         this.id = property.getId();
+        this.time = property.getLocalDateTime();
 
         if(property.getOwner() != null){
             this.owner = property.getOwner().getMail();
@@ -226,5 +232,13 @@ public class PropertyForm {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 }
