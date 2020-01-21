@@ -55,9 +55,4 @@ public class AdminController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
-
-//    @GetMapping
-//    public ResponseEntity<List<PropertyListItem>> getPropertiesForApproval() {
-//        return new ResponseEntity<>(propertyService.getPropertiesForApproval(), HttpStatus.OK);
-//    }
 }

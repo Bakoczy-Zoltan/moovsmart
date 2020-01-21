@@ -146,13 +146,15 @@ public class PropertyController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails user = (UserDetails) authentication.getPrincipal();
         String userMail = user.getUsername();
+
         boolean isDeleteSuccessful = propertyService.deleteProperty(id, userMail);
         ResponseEntity result;
+
         if (isDeleteSuccessful) {
             result = new ResponseEntity<>(HttpStatus.OK);
             this.logger.info("Property (id: " + id + ") deleted");
         } else {
-            result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            result = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             this.logger.info("Property (id: " + id + ") not found");
         }
         return result;
