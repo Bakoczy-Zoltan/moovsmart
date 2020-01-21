@@ -125,7 +125,7 @@ public class UserService {
         if (tempUser.isPresent()){
             UserProperty user = tempUser.get();
             UserDetails userToSend = new UserDetails(user);
-            return new ResponseEntity(user, HttpStatus.OK);
+            return new ResponseEntity(userToSend, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
