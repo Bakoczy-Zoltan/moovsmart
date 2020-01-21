@@ -35,6 +35,7 @@ public class PropertyServiceIT {
     UserRepository userRepository;
 
     private PropertyService propertyService;
+    private  Long propertyId;
     private UserProperty user;
 
     @BeforeEach
@@ -45,34 +46,7 @@ public class PropertyServiceIT {
         user.setMail("xy@xy.com");
         user.setId(1L);
         userRepository.save(user);
-    }
 
-    @AfterEach
-    public void clean() {
-        userRepository.delete(user);
-    }
-
-    @Test
-    public void testGetPropertyDetails(){
-        PropertyForm property = new PropertyForm();
-        property.setName("Ház");
-        property.setCounty("BUDAPEST");
-        property.setPropertyType("HOUSE");
-        property.setPropertyState("RENEWABLE");
-        propertyService.createProperty(property, user.getMail());
-
-        List<Property> props = propertyRepository.findAllByIsHolding();
-        Long propertyId = props.get(0).getId();
-
-        PropertyDetails propertyDetails = propertyService.getPropertyDetails(propertyId);
-
-        assertEquals("Ház", propertyDetails.getName());
-        assertEquals("Budapest", propertyDetails.getCounty());
-        assertEquals("Felújítandó", propertyDetails.getPropertyState());
-    }
-
-    @Test
-    public void testCreateAndGetProperties(){
         PropertyForm property = new PropertyForm();
         property.setName("Ház");
         property.setArea(150.0);
@@ -93,10 +67,29 @@ public class PropertyServiceIT {
         propertyService.createProperty(property, user.getMail());
 
         List<Property> props = propertyRepository.findAllByIsHolding();
-        for (Property p : props) {
-            p.setStatus(StatusOfProperty.ACCEPTED);
-        }
 
+        propertyId = props.get(0).getId();
+
+        propertyRepository.findById(propertyId).get().setStatus(StatusOfProperty.ACCEPTED);
+
+    }
+
+    @AfterEach
+    public void clean(){
+        userRepository.delete(user);
+    }
+
+    @Test
+    public void testGetPropertyDetails(){
+        PropertyDetails propertyDetails = propertyService.getPropertyDetails(propertyId);
+
+        assertEquals("Ház", propertyDetails.getName());
+        assertEquals("Budapest", propertyDetails.getCounty());
+        assertEquals("Felújítandó", propertyDetails.getPropertyState());
+    }
+
+    @Test
+    public void testCreateAndGetProperties(){
         List<PropertyListItem> properties = propertyService.getProperties();
 
         assertEquals(1, properties.size());
@@ -105,19 +98,6 @@ public class PropertyServiceIT {
 
     @Test
     public void testUpdateProperty() {
-        PropertyForm property = new PropertyForm();
-        property.setName("Ház");
-        property.setArea(150.0);
-        property.setBuildingYear(1999);
-        property.setCounty("PEST");
-        property.setPropertyType("HOUSE");
-        property.setPropertyState("RENEWABLE");
-
-        propertyService.createProperty(property, user.getMail());
-
-        List<Property> props = propertyRepository.findAllByIsHolding();
-        Long propertyId = props.get(0).getId();
-
         PropertyForm propUpdate = new PropertyForm();
         propUpdate.setName("Nagy ház");
         propUpdate.setArea(150.0);
@@ -137,24 +117,6 @@ public class PropertyServiceIT {
 
     @Test
     public void testDeleteProperty() {
-        PropertyForm property = new PropertyForm();
-        property.setName("Ház");
-        property.setArea(150.0);
-        property.setBuildingYear(1999);
-        property.setCounty("PEST");
-        property.setPropertyType("HOUSE");
-        property.setPropertyState("RENEWABLE");
-
-        propertyService.createProperty(property, user.getMail());
-
-        List<Property> props = propertyRepository.findAllByIsHolding();
-        for (Property p : props) {
-            p.setStatus(StatusOfProperty.ACCEPTED);
-        }
-
-        List<PropertyListItem> properties = propertyService.getProperties();
-        Long propertyId = properties.get(0).getId();
-
         boolean isDeleted = propertyService.deleteProperty(propertyId, user.getMail());
 
         assertTrue(isDeleted);
@@ -163,7 +125,6 @@ public class PropertyServiceIT {
 
     @Test
     public void testGetFilteredList_WithoutRoom() {
-
         PropertyForm property1 = new PropertyForm();
         property1.setName("House1");
         property1.setNumberOfRooms(2);
@@ -269,20 +230,20 @@ public class PropertyServiceIT {
 
     @Test
     public void testGetOwnProperties() {
-        PropertyForm property1 = new PropertyForm();
-        property1.setName("Ház");
-        property1.setCounty("BUDAPEST");
-        property1.setPropertyType("HOUSE");
-        property1.setPropertyState("RENEWABLE");
-
         PropertyForm property2 = new PropertyForm();
-        property2.setName("Ház2");
-        property2.setCounty("BARANYA");
-        property2.setPropertyType("APARTMENT");
-        property2.setPropertyState("RENEWED");
+        property2.setName("Ház");
+        property2.setCounty("BUDAPEST");
+        property2.setPropertyType("HOUSE");
+        property2.setPropertyState("RENEWABLE");
 
-        propertyService.createProperty(property1, user.getMail());
+        PropertyForm property3 = new PropertyForm();
+        property3.setName("Ház2");
+        property3.setCounty("BARANYA");
+        property3.setPropertyType("APARTMENT");
+        property3.setPropertyState("RENEWED");
+
         propertyService.createProperty(property2, user.getMail());
+        propertyService.createProperty(property3, user.getMail());
 
         List<Property> props = propertyRepository.findAllByIsHolding();
         for (Property p : props) {
@@ -291,7 +252,7 @@ public class PropertyServiceIT {
 
         List<PropertyListItem> properties = propertyService.getOwnProperties(user.getMail());
 
-        assertEquals(2, properties.size());
+        assertEquals(3, properties.size());
     }
 
     @Test
@@ -320,20 +281,6 @@ public class PropertyServiceIT {
 
     @Test
     public void testGetArchivedProperties() {
-        Property property1 = new Property();
-        property1.setName("Ház");
-        property1.setCounty(County.valueOf("BUDAPEST"));
-        property1.setPropertyType(PropertyType.valueOf("HOUSE"));
-        property1.setPropertyState(PropertyState.valueOf("RENEWABLE"));
-        PropertyForm pf1 = new PropertyForm(property1);
-
-        propertyService.createProperty(pf1, user.getMail());
-
-        List<Property> props = propertyRepository.findAllByIsHolding();
-        for (Property p : props) {
-            p.setStatus(StatusOfProperty.ACCEPTED);
-        }
-
         CreateQueryByDatesCommand command = new CreateQueryByDatesCommand(
                 LocalDateTime.of(2020, Month.JANUARY, 01, 19, 30, 40),
                 LocalDateTime.of(2020, Month.JANUARY, 15, 19, 30, 40));
@@ -342,8 +289,7 @@ public class PropertyServiceIT {
 
         assertEquals(0, archivedProperties.size());
 
-        List<PropertyListItem> properties = propertyService.getProperties();
-        Property property = propertyRepository.findById(properties.get(0).getId()).get();
+        Property property = propertyRepository.findById(propertyId).get();
         property.setLocalDateTime(LocalDateTime.of(2020, Month.JANUARY, 5, 19, 30, 40));
         property.setValid(false);
         propertyRepository.save(property);
