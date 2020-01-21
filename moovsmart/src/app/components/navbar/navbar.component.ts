@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
     id: number = null;
     userName: string;
     storage: any;
-    role: string[];
+    role: string[] = [];
 
     constructor(private http: HttpClient,
                 private router: Router,
