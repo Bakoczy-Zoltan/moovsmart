@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { PropertyListItemModel } from '../../models/propertyListItem.model';
 import { Router } from '@angular/router';
 import { UserDetailsModel } from '../../models/userDetails.model';
-import { UserFormDataModel } from '../../models/userFormData.model';
 import { PropertyService } from '../../services/property.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -27,7 +26,7 @@ export class AdminComponent implements OnInit {
     inquiryButtonPushed = false;
     yesterday: any;
     today: any;
-    noUserWithEmailMessage = '';
+    propertyForApprove: number;
 
 
     dateForm = this.formBuilder.group({
@@ -46,6 +45,7 @@ export class AdminComponent implements OnInit {
     ngOnInit() {
         this.buttonPushed = 0;
         this.actualPageNumber = 1;
+        this.moveToApproval();
     }
 
     moveToApproval() {
@@ -123,6 +123,7 @@ export class AdminComponent implements OnInit {
         this.propertyService.getPropertyListForApproval().subscribe(
             propertyListItems => {
                 this.propertyListItemModels = propertyListItems;
+                this.propertyForApprove = this.propertyListItemModels.length;
                 this.actualPageList = this.makingActualList(this.propertyListItemModels);
             },
         );

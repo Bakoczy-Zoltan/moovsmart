@@ -1,16 +1,19 @@
 .approval {
     background-color: #AFD275;
     color: white;
+    margin: 2px;
 }
 
 .userHandling {
     background-color: #E7717D;
     color: white;
+    margin: 2px;
 }
 
 .archiveList {
     background-color: #7E685A;
     color: white;
+    margin: 2px;
 }
 
 
@@ -198,5 +201,15 @@
     background-color: #7E685A;
     color: white;
     margin: 3px;
+}
+
+.center {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#bold {
+    font-weight: bold;
 }
 
