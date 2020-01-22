@@ -214,18 +214,18 @@ public class PropertyService {
         return propertyFormList;
     }
 
-    public List<PropertyForm> getAllPropertyByMail(String mail) {
-        List<PropertyForm> propertyFormList = new ArrayList<>();
+    public List<PropertyListItem> getAllPropertyByMail(String mail) {
+        List<PropertyListItem> propertyListItems = new ArrayList<>();
         Optional<UserProperty> tempUser = this.userRepository.findUserPropertiesByMail(mail);
 
         if (tempUser.isPresent()) {
             UserProperty user = tempUser.get();
             List<Property> properties = this.propertyRepository.findAllByOwner(user);
             for (Property property : properties) {
-                propertyFormList.add(new PropertyForm(property));
+                propertyListItems.add(new PropertyListItem(property));
             }
         }
-        return propertyFormList;
+        return propertyListItems;
     }
 
     public Boolean activateProperty(Long id) {

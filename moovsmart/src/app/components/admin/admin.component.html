@@ -41,7 +41,7 @@
             <div *ngIf="userForHandling?.active === false">Inaktív</div>
 
             <div [ngStyle]="{'display':display}">
-                <button class="btn">Felhasználó ingatlanjainak listázása</button>
+                <button class="btn" (click)="listPropertiesOfUser(userForHandling.mail)">Felhasználó ingatlanjainak listázása</button>
                 <button *ngIf="userForHandling?.active === true" class="btn" (click)="askForBanUser(userForHandling?.id)">Felhasználó tiltása</button>
                 <button *ngIf="userForHandling?.active === false" class="btn" (click)="unBanUser(userForHandling?.id)">Tiltás feloldása</button>
             </div>
@@ -89,6 +89,8 @@
                                         <div id="area-div"><strong>Terület</strong>: {{property.area}} m<sup>2</sup>
                                         </div>
                                         <div id="price-div"><strong>Ár</strong>: {{property.price}} M ft</div>
+                                        <div><strong>Státusz</strong>: {{property.status}}
+                                        </div>
                                     </div>
                                     <div class="col-sm">
                                         <div>

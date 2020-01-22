@@ -2,6 +2,7 @@ package com.progmasters.moovsmart.controller;
 
 import com.progmasters.moovsmart.dto.CreateQueryByDatesCommand;
 import com.progmasters.moovsmart.dto.PropertyForm;
+import com.progmasters.moovsmart.dto.PropertyListItem;
 import com.progmasters.moovsmart.service.MailSenderService;
 import com.progmasters.moovsmart.service.PropertyService;
 import org.slf4j.Logger;
@@ -52,9 +53,9 @@ public class AdminController {
         return new ResponseEntity<>(listOfProperties, HttpStatus.OK);
     }
 
-    @GetMapping("/getPropertyLIstByUserMail/{id}")
-    public ResponseEntity<List<PropertyForm>> getPropertyListByUserMail(@PathVariable("id") String mail) {
-        List<PropertyForm> propertyForms = this.propertyService.getAllPropertyByMail(mail);
+    @GetMapping("/getPropertyListByUserMail/{id}")
+    public ResponseEntity<List<PropertyListItem>> getPropertyListByUserMail(@PathVariable("id") String mail) {
+        List<PropertyListItem> propertyForms = this.propertyService.getAllPropertyByMail(mail);
         if (propertyForms != null) {
             return new ResponseEntity<>(propertyForms, HttpStatus.OK);
         } else {

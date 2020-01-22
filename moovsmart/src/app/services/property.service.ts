@@ -146,4 +146,9 @@ export class PropertyService {
         return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl +
         '/admin/getArchivedProperties');
     }
+
+    getPropertyListByMail(mail: string): Observable<any> {
+        return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl
+            + '/admin/getPropertyListByUserMail/' + mail);
+    }
 }

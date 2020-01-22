@@ -142,6 +142,20 @@ export class AdminComponent implements OnInit {
     };
 
 
+    listPropertiesOfUser(mail: string) {
+        this.propertyService.getPropertyListByMail(mail).subscribe(
+            propertyList => {
+                this.propertyListItemModels = propertyList;
+                this.actualPageList = this.makingActualList(this.propertyListItemModels);
+                console.log("Property list by mail succeeded.")
+            },
+            () => {
+                console.warn("Error occured during property list request.")
+            }
+        );
+    }
+
+
     askForBanUser(id: number) {
         this.displayBan = 'block';
         this.userIdForBan = id;
@@ -206,4 +220,5 @@ export class AdminComponent implements OnInit {
             },
         );
     };
+
 }
