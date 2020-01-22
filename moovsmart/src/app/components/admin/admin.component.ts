@@ -127,9 +127,9 @@ export class AdminComponent implements OnInit {
 
 
     submitEmail = () => {
-        this.formData = {...this.emailForm.value};
-        this.propertyService.getUserByMail(this.formData).subscribe(
-
-        )
+        // this.formData = {...this.emailForm.value}
+        // //this.propertyService.getUserByMail(this.formData).subscribe(
+        //
+        // )
     };
 }

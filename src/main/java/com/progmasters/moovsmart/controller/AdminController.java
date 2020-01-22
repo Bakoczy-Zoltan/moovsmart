@@ -2,7 +2,7 @@ package com.progmasters.moovsmart.controller;
 
 import com.progmasters.moovsmart.dto.CreateQueryByDatesCommand;
 import com.progmasters.moovsmart.dto.PropertyForm;
-import com.progmasters.moovsmart.dto.PropertyListItem;
+import com.progmasters.moovsmart.service.MailSenderService;
 import com.progmasters.moovsmart.service.PropertyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -18,12 +20,13 @@ import java.util.List;
 public class AdminController {
 
     private PropertyService propertyService;
+    private MailSenderService mailSenderService;
     private Logger logger = LoggerFactory.getLogger(PropertyController.class);
 
-
     @Autowired
-    public AdminController(PropertyService propertyService) {
+    public AdminController(PropertyService propertyService, MailSenderService mailSenderService) {
         this.propertyService = propertyService;
+        this.mailSenderService = mailSenderService;
     }
 
     @GetMapping("/propertyListForApproval")
@@ -66,7 +69,7 @@ public class AdminController {
     }
 
     @PutMapping("/forbiddenProperty/{id}")
-    public ResponseEntity forbiddenProperty(@PathVariable("id") Long id){
+    public ResponseEntity forbiddenProperty(@PathVariable("id") Long id) {
         Boolean successForbidden = this.propertyService.forbiddenProperty(id);
         if (successForbidden) {
             this.logger.info("Property of Id: " + id + " is forbidden");
@@ -75,6 +78,19 @@ public class AdminController {
             this.logger.warn("Property with id of " + id + " not found");
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/saveDatabase")
+    public ResponseEntity saveDatabase() {
+        try {
+            this.mailSenderService.saveDB();
+        } catch (SQLException | IOException | ClassNotFoundException f) {
+            this.logger.warn(f.getMessage());
+            this.logger.warn("Database saving failed");
+        }
+        this.logger.info("DataBase saved");
+        return new ResponseEntity(HttpStatus.OK);
 
     }
+
 }

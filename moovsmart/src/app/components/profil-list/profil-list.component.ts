@@ -88,6 +88,7 @@ export class ProfilListComponent implements OnInit {
 
     getHoldingList() {
         this.queryStatus = true;
+        this.actualPageNumber = 1;
         this.propertyService.getMyHoldingPropertyList().subscribe(
             dataList => {
                 this.propertyListItemModels = dataList;

@@ -123,7 +123,7 @@ export class PropertyService {
             + '/admin/getArchivedProperties', formData);
     }
 
-    getUserByMail(formData: string): Observable<any> {
-        return this.httpClient.get()
-    }
+    // getUserByMail(formData: string): Observable<any> {
+    //     return this.httpClient.get(formData)
+    // }
 }
