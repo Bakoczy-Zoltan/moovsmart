@@ -72,6 +72,11 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
     )
     List<Property> getAllArchivedPropertiesByDates(@Param("fromDate") LocalDateTime dateFrom, @Param("toDate") LocalDateTime dateTo);
 
+    @Query("SELECT p from Property p " +
+           "where p.status = 'ACCEPTED' " +
+            "and p.isValid = false"
+    )
+    List<Property> findAllByIsInvalid();
 }
 
 

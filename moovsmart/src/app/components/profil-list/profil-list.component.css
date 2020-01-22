@@ -1,11 +1,12 @@
-#header-div{
+#header-div {
     text-align: center;
 }
-.btn{
+
+.btn {
     width: 150px;
 }
 
-hr{
+hr {
     max-width: 75%;
     text-align: center;
     margin-left: auto;
@@ -17,52 +18,56 @@ hr{
     border-style: solid;
     border-color: #C2B9B0;
 }
+
 #detail-button {
     background-color: #7E685A;
     color: white;
     width: 150px;
 }
 
-#button-holding-list{
+#button-holding-list {
     background-color: white;
 }
 
-.button-touched{
+.button-touched {
     background-color: white;
     color: darkslategray;
     width: 150%;
 }
 
 #button-new-adding {
-    background-color: lightgrey;
+    background-color: lightslategrey;
     color: blue;
 }
-.btn-btn-light{
-    background-color: lightslategrey;
+
+.btn-btn-light {
+    background-color: lightgrey;
 }
 
-#mainBoard-div{
+.btn-btn-info {
+    background-color: lightgrey;
+}
+
+#mainBoard-div {
     background-color: white;
 }
 
-#status-div{
+#status-div {
     text-align: right;
     margin-right: 5%;
     margin-bottom: 2%;
 }
 
-.status-message-accepted{
+.status-message-accepted {
     color: green;
 }
-.status-message-holding{
-    color:  #E7717D;
+
+.status-message-holding {
+    color: #E7717D;
 }
 
-.btn{
+.btn {
     width: 150px;
-}
-
-.btn-btn-ligth{
 }
 
 .defaultPicture {
@@ -107,8 +112,8 @@ hr{
 }
 
 .mainRow {
-    border-width:3px;
-    border-style:solid;
+    border-width: 3px;
+    border-style: solid;
     border-color: #C2B9B0;
     background-color: white;
     padding: 2%;
@@ -124,16 +129,17 @@ hr{
     margin-bottom: 1%;
 }
 
-#last-button-header{
+#last-button-header {
     text-align: right;
     padding-right: 2%;
 }
 
-.row, h2{
+.row, h2 {
     margin-top: 0;
     padding-top: 0;
 }
-#pager{
+
+#pager {
     text-align: center;
     position: relative;
     margin-top: 3%;
@@ -143,38 +149,40 @@ hr{
     margin: 0 .5rem;
 }
 
-#leftArrow{
+#leftArrow {
     display: inline-block;
 
 }
-#rightArrow{
+
+#rightArrow {
     display: inline-block;
 }
 
-.room-list-item__image{
+.room-list-item__image {
     text-align: center;
 }
 
-#detail-button-div{
+#detail-button-div {
     margin-bottom: 15%;
     margin-top: 15%;
 }
 
-#date-div{
+#date-div {
     text-align: right;
 }
 
-#img-holder-row{
+#img-holder-row {
     text-align: center;
-    background-color:  antiquewhite;
+    background-color: antiquewhite;
     padding: 3px;
 }
 
-#edit-icon{
+#edit-icon {
     margin-left: 5%;
     margin-right: 5%;
 }
-#area-div, #price-div{
+
+#area-div, #price-div {
     margin-bottom: 5%;
 }
 

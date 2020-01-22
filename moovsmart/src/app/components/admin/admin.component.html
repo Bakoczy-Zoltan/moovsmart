@@ -22,22 +22,7 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="buttonPushed === 3" id="header-div-3">
-            <hr>
-            <h3>Archivált ingatlanok</h3>
-            <hr>
-            <form (ngSubmit)="submit()" [formGroup]="dateForm">
-                <input class="dateInput" type="datetime-local" formControlName="dateFrom">
-                <input class="dateInput" type="datetime-local" formControlName="dateTo">
-                <button type="submit" class="btn submit-button">Lekérdezés</button>
-            </form>
-            <div id="emptyArchiveMessage">
-                <div *ngIf="propertyListItemModels === undefined || propertyListItemModels.length === 0"
-                     id="emptyArchive">
-                    <div id="noArchives">Jelenleg nincs archivált ingatlan.</div>
-                </div>
-            </div>
-        </div>
+
         <div *ngIf="buttonPushed === 2" id="header-div-2">
             <hr>
             <h3>Kérem, írja be a felhasználó email címét!</h3>
@@ -56,12 +41,31 @@
             <div *ngIf="userForHandling?.active === false">Inaktív</div>
 
             <div [ngStyle]="{'display':display}">
-                <button class="btn">Felhasználó ingatlanjainak listázása</button>
+                <button class="btn" (click)="listPropertiesOfUser(userForHandling.mail)">Felhasználó ingatlanjainak listázása</button>
                 <button *ngIf="userForHandling?.active === true" class="btn" (click)="askForBanUser(userForHandling?.id)">Felhasználó tiltása</button>
                 <button *ngIf="userForHandling?.active === false" class="btn" (click)="unBanUser(userForHandling?.id)">Tiltás feloldása</button>
             </div>
         </div>
-        <div>
+
+        <div *ngIf="buttonPushed === 3" id="header-div-3">
+            <hr>
+            <h3>Archivált ingatlanok</h3>
+            <hr>
+            <form (ngSubmit)="submit()" [formGroup]="dateForm">
+                <input class="dateInput" type="datetime-local" formControlName="dateFrom">
+                <input class="dateInput" type="datetime-local" formControlName="dateTo">
+
+                <button type="submit" class="btn submit-button">Lekérdezés</button>
+            </form>
+            <div id="emptyArchiveMessage">
+                <div *ngIf="propertyListItemModels === undefined || propertyListItemModels.length === 0"
+                     id="emptyArchive">
+                    <div id="noArchives">Jelenleg nincs archivált ingatlan.</div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="buttonPushed > 0">
             <div *ngIf="propertyListItemModels !== undefined && propertyListItemModels.length > 0">
 
                 <!-- Property list -->
@@ -85,6 +89,8 @@
                                         <div id="area-div"><strong>Terület</strong>: {{property.area}} m<sup>2</sup>
                                         </div>
                                         <div id="price-div"><strong>Ár</strong>: {{property.price}} M ft</div>
+                                        <div><strong>Státusz</strong>: {{property.status}}
+                                        </div>
                                     </div>
                                     <div class="col-sm">
                                         <div>
@@ -93,9 +99,14 @@
                                     </div>
                                     <div class="col-sm">
                                         <div id="detail-button-div" class="d-flex justify-content-center">
-                                            <div>
+                                            <div *ngIf="(buttonPushed === 1 || buttonPushed === 2) && property.status === 'elfogadásra vár'">
                                                 <button id="detail-button" class="btn" (click)="details(property.id)">
                                                     Részletek
+                                                </button>
+                                            </div>
+                                            <div *ngIf="buttonPushed === 3">
+                                                <button id="reAccepted-button" class="btn" (click)="reactivateProperty(property.id)">
+                                                    Visszahelyezés
                                                 </button>
                                             </div>
                                         </div>

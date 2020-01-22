@@ -137,4 +137,18 @@ export class PropertyService {
     unBanUser(id: number) {
         return this.httpClient.put(this.baseUserUrl + '/admin/permitUser/' + id, id);
     }
+
+    reactivateProperty(id: number) {
+        return this.httpClient.put(this.baseUrl + '/admin/activateProperty/' + id, id);
+    }
+
+    refreshArchivedPropertyList(): Observable<any> {
+        return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl +
+        '/admin/getArchivedProperties');
+    }
+
+    getPropertyListByMail(mail: string): Observable<any> {
+        return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl
+            + '/admin/getPropertyListByUserMail/' + mail);
+    }
 }

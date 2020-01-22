@@ -1,19 +1,13 @@
 package com.progmasters.moovsmart.security;
 
 
-import com.progmasters.moovsmart.domain.RoleType;
 import com.progmasters.moovsmart.domain.UserProperty;
 import com.progmasters.moovsmart.repository.UserRepository;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,14 +28,6 @@ public class MyUserDetailsService implements UserDetailsService {
         }
             UserProperty realUser = user.get();
 
-
-            List<GrantedAuthority> authorities = new ArrayList<>();
-            for(RoleType role: realUser.getRoleTypes()){
-                authorities.add(new SimpleGrantedAuthority(role.toString()));
-            }
-
-            MyUserDetails principal = new MyUserDetails(realUser);
-
-        return principal;
+        return new MyUserDetails(realUser);
     }
 }

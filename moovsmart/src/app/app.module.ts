@@ -18,6 +18,7 @@ import { ProfilListComponent } from './components/profil-list/profil-list.compon
 import { DeletePictureComponent } from './components/delete-picture/delete-picture.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminPropertyDetailsComponent } from './components/admin-property-details/admin-property-details.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { AdminPropertyDetailsComponent } from './components/admin-property-detai
         DeletePictureComponent,
         AdminComponent,
         AdminPropertyDetailsComponent,
+        FooterComponent,
     ],
     imports: [
         HttpClientModule,
