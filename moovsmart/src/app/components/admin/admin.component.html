@@ -99,7 +99,7 @@
                                     </div>
                                     <div class="col-sm">
                                         <div id="detail-button-div" class="d-flex justify-content-center">
-                                            <div *ngIf="buttonPushed === 1">
+                                            <div *ngIf="(buttonPushed === 1 || buttonPushed === 2) && property.status === 'elfogadásra vár'">
                                                 <button id="detail-button" class="btn" (click)="details(property.id)">
                                                     Részletek
                                                 </button>

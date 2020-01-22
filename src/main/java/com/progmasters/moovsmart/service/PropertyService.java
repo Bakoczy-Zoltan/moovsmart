@@ -115,6 +115,7 @@ public class PropertyService {
                 return result;
             }
             property.setValid(false);
+            property.setStatus(StatusOfProperty.ARCHIVED);
             result = true;
         }
         return result;
