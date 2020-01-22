@@ -52,8 +52,8 @@
             <h3>Archivált ingatlanok</h3>
             <hr>
             <form (ngSubmit)="submit()" [formGroup]="dateForm">
-                <input class="dateInput" type="datetime-local" formControlName="dateFrom">
-                <input class="dateInput" type="datetime-local" formControlName="dateTo">
+                <input class="dateInput" type="datetime-local" [value]="yesterday" formControlName="dateFrom">
+                <input class="dateInput" type="datetime-local" [value]="today" formControlName="dateTo">
 
                 <button type="submit" class="btn submit-button">Lekérdezés</button>
             </form>

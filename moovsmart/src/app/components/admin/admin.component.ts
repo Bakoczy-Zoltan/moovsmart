@@ -24,6 +24,8 @@ export class AdminComponent implements OnInit {
     display = 'none';
     displayBan = 'none';
     userIdForBan: number;
+    yesterday: any;
+    today: any;
 
 
     dateForm = this.formBuilder.group({
@@ -67,6 +69,8 @@ export class AdminComponent implements OnInit {
             this.buttonPushed = 0;
         } else {
             this.buttonPushed = 3;
+            this.yesterday = ( d => new Date(d.setDate(d.getDate()-1)).toISOString().slice(0, 16) )(new Date);
+            this.today = new Date().toISOString().slice(0, 16);
             this.propertyListItemModels = [];
         }
     }
