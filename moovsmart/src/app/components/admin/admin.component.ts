@@ -24,8 +24,10 @@ export class AdminComponent implements OnInit {
     display = 'none';
     displayBan = 'none';
     userIdForBan: number;
+    inquiryButtonPushed = false;
     yesterday: any;
     today: any;
+    noUserWithEmailMessage = '';
 
 
     dateForm = this.formBuilder.group({
@@ -34,7 +36,7 @@ export class AdminComponent implements OnInit {
     });
 
     emailForm = this.formBuilder.group({
-        'userEmail': [''],
+        'userEmail': ['', Validators.required],
     });
 
     constructor(private propertyService: PropertyService,
@@ -51,6 +53,7 @@ export class AdminComponent implements OnInit {
             this.buttonPushed = 0;
         } else {
             this.buttonPushed = 1;
+            this.inquiryButtonPushed = false;
             this.refreshPropertyList();
         }
     }
@@ -60,6 +63,7 @@ export class AdminComponent implements OnInit {
             this.buttonPushed = 0;
         } else {
             this.buttonPushed = 2;
+            this.inquiryButtonPushed = false;
             this.propertyListItemModels = [];
         }
     }
@@ -67,6 +71,7 @@ export class AdminComponent implements OnInit {
     moveToArchived() {
         if (this.buttonPushed === 3) {
             this.buttonPushed = 0;
+            this.inquiryButtonPushed = false;
         } else {
             this.buttonPushed = 3;
             this.yesterday = ( d => new Date(d.setDate(d.getDate()-1)).toISOString().slice(0, 16) )(new Date);
@@ -125,11 +130,14 @@ export class AdminComponent implements OnInit {
 
 
     submit = () => {
+        this.inquiryButtonPushed = true;
         this.formData = {...this.dateForm.value};
         this.propertyService.getArchivedProperties(this.formData).subscribe(
             propertyListItems => {
                 this.propertyListItemModels = propertyListItems;
                 this.actualPageList = this.makingActualList(this.propertyListItemModels);
+                console.log(this.inquiryButtonPushed);
+                console.log(this.propertyListItemModels.length);
             },
         );
     };

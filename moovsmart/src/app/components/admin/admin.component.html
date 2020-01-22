@@ -18,7 +18,7 @@
             <hr>
             <div id="mainDiv">
                 <div *ngIf="propertyListItemModels === undefined || propertyListItemModels.length === 0" id="emptydb">
-                    <div id="emptydbmessage">Jelenleg nincs jóváhagyásra váró ingatlan.</div>
+                    <div id="emptydbmessage">Ebben az idősávban nincs jóváhagyásra váró ingatlan.</div>
                 </div>
             </div>
         </div>
@@ -28,7 +28,11 @@
             <h3>Kérem, írja be a felhasználó email címét!</h3>
             <hr>
             <form (ngSubmit)="submitEmail()" [formGroup]="emailForm">
-                <input type="email" formControlName="userEmail">
+                <input type="email" formControlName="userEmail"><br>
+                <small *ngIf="emailForm.get('userEmail').invalid && emailForm.get('userEmail').touched"
+                       class="text-danger">
+                    Email kitöltése kötelező!
+                <br></small>
                 <button type="submit" class="btn submit-button">Lekérdezés</button>
             </form>
         </div>
@@ -52,17 +56,17 @@
             <h3>Archivált ingatlanok</h3>
             <hr>
             <form (ngSubmit)="submit()" [formGroup]="dateForm">
-                <input class="dateInput" type="datetime-local" [value]="yesterday" formControlName="dateFrom">
-                <input class="dateInput" type="datetime-local" [value]="today" formControlName="dateTo">
+                <input class="dateInput" type="datetime-local" formControlName="dateFrom">
+                <input class="dateInput" type="datetime-local" formControlName="dateTo">
 
                 <button type="submit" class="btn submit-button">Lekérdezés</button>
             </form>
-            <div id="emptyArchiveMessage">
-                <div *ngIf="propertyListItemModels === undefined || propertyListItemModels.length === 0"
-                     id="emptyArchive">
-                    <div id="noArchives">Jelenleg nincs archivált ingatlan.</div>
+
+                <div *ngIf="(propertyListItemModels === undefined || propertyListItemModels.length === 0)
+                        && inquiryButtonPushed === true" id="emptyArchiveMessage">
+                    Ebben az idősávban nincs archivált ingatlan.
                 </div>
-            </div>
+
         </div>
 
         <div *ngIf="buttonPushed > 0">

@@ -43,7 +43,7 @@
     margin-left: auto;
 }
 
-#emptydbmessage, #emptyArchiveMessage {
+#emptydbmessage{
     position: absolute;
     font-size: 20px;
     font-weight: bold;
@@ -52,7 +52,13 @@
     transform: translate(-50%, -50%);
 }
 
-.defaultPicture {
+#emptyArchiveMessage{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+  .defaultPicture {
     width: 100%;
     max-width: 200px;
     height: 100%;
