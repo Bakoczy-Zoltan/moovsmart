@@ -31,7 +31,7 @@ export class AdminComponent implements OnInit {
         'dateTo': [''],
     });
 
-    emailForm = this.formBuilder.group( {
+    emailForm = this.formBuilder.group({
         'userEmail': [''],
     });
 
@@ -40,8 +40,8 @@ export class AdminComponent implements OnInit {
                 private formBuilder: FormBuilder) { }
 
     ngOnInit() {
-      this.buttonPushed = 0;
-      this.actualPageNumber = 1;
+        this.buttonPushed = 0;
+        this.actualPageNumber = 1;
     }
 
     moveToApproval() {
@@ -55,20 +55,21 @@ export class AdminComponent implements OnInit {
 
     moveToUserHandling() {
         if (this.buttonPushed === 2) {
-          this.buttonPushed = 0;
+            this.buttonPushed = 0;
         } else {
-          this.buttonPushed = 2;
-          this.propertyListItemModels = [];
+            this.buttonPushed = 2;
+            this.propertyListItemModels = [];
         }
     }
 
     moveToArchived() {
-      if (this.buttonPushed === 3) {
-        this.buttonPushed = 0;
-      } else {
-        this.buttonPushed = 3;
-        this.propertyListItemModels = [];
-      }
+        if (this.buttonPushed === 3) {
+            this.buttonPushed = 0;
+        } else {
+            this.buttonPushed = 3;
+            console.log(this.currentDate);
+            this.propertyListItemModels = [];
+        }
     }
 
     private makingActualList(propertyListItemModels: Array<PropertyListItemModel>) {
@@ -85,7 +86,7 @@ export class AdminComponent implements OnInit {
             property.price = +formatedPrice.toPrecision(3);
             tempList.push(property);
 
-            if (i!== 0 && ((i+1) % miniListSize) === 0) {
+            if (i !== 0 && ((i + 1) % miniListSize) === 0) {
                 actualList.push(tempList);
                 indexBig++;
                 tempList = [];
@@ -98,36 +99,37 @@ export class AdminComponent implements OnInit {
         return actualList;
     }
 
-  pageLeft() {
-    this.actualPageNumber--;
-  }
+    pageLeft() {
+        this.actualPageNumber--;
+    }
 
-  pageRight() {
-    this.actualPageNumber++;
-  }
+    pageRight() {
+        this.actualPageNumber++;
+    }
 
     details(id: number) {
         this.router.navigate(['admin/details', id]);
     }
 
-    refreshPropertyList(){
+    refreshPropertyList() {
         this.propertyService.getPropertyListForApproval().subscribe(
             propertyListItems => {
                 this.propertyListItemModels = propertyListItems;
-                this.actualPageList = this.makingActualList(this.propertyListItemModels);            },
+                this.actualPageList = this.makingActualList(this.propertyListItemModels);
+            },
         );
     }
 
 
     submit = () => {
-    this.formData = {...this.dateForm.value};
-    this.propertyService.getArchivedProperties(this.formData).subscribe(
-        propertyListItems => {
-            this.propertyListItemModels = propertyListItems;
-            this.actualPageList = this.makingActualList(this.propertyListItemModels);
-        }
-    )
-};
+        this.formData = {...this.dateForm.value};
+        this.propertyService.getArchivedProperties(this.formData).subscribe(
+            propertyListItems => {
+                this.propertyListItemModels = propertyListItems;
+                this.actualPageList = this.makingActualList(this.propertyListItemModels);
+            },
+        );
+    };
 
 
     submitEmail = () => {
@@ -136,10 +138,9 @@ export class AdminComponent implements OnInit {
             user => {
                 this.userForHandling = user;
                 this.display = 'block';
-            }
-        )
+            },
+        );
     };
-
 
 
     askForBanUser(id: number) {
@@ -156,11 +157,11 @@ export class AdminComponent implements OnInit {
                 this.userIdForBan = null;
                 this.userForHandling = null;
                 this.display = 'none';
-                console.log("User with id " + userIdForBan + ' banned.')
+                console.log('User with id ' + userIdForBan + ' banned.');
             },
             () => {
-                console.warn("Ban wasn't successful.")
-            }
+                console.warn('Ban wasn\'t successful.');
+            },
         );
     }
 
@@ -171,14 +172,39 @@ export class AdminComponent implements OnInit {
                 this.userIdForBan = null;
                 this.userForHandling = null;
                 this.display = 'none';
-                console.log("Unbanning was successful.");
+                console.log('Unbanning was successful.');
             },
             () => {
-                console.warn("Unban wasn't successful.")
-            }
-        )
+                console.warn('Unban wasn\'t successful.');
+            },
+        );
     }
+
     closeDial() {
         this.displayBan = 'none';
     }
+
+    reactivateProperty = (id: number) => {
+        this.propertyService.reactivateProperty(id).subscribe(
+            () => {
+
+                this.propertyService.refreshArchivedPropertyList().subscribe(
+                    propertyListItems => {
+                        this.propertyListItemModels = propertyListItems;
+                        this.actualPageList = this.makingActualList(this.propertyListItemModels);
+                        console.log("Refreshing archived properties");
+                    },
+                    () => {
+                        console.warn("Error during refresh archives");
+                    }
+                );
+
+
+                console.log('Reactivation successful!');
+            },
+            () => {
+                console.warn('Reactivation failed.');
+            },
+        );
+    };
 }

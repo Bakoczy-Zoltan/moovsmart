@@ -195,6 +195,16 @@ public class PropertyService {
         return propertyFormList;
     }
 
+
+    public List<PropertyListItem> getAllArchiveds() {
+        List<PropertyListItem> propertyListItems = new ArrayList<>();
+        List<Property> allPropertiesArchived = this.propertyRepository.findAllByIsInvalid();
+        for (Property property : allPropertiesArchived) {
+            propertyListItems.add(new PropertyListItem(property));
+        }
+        return propertyListItems;
+    }
+
     public List<PropertyForm> getArchivedProperties(CreateQueryByDatesCommand command) {
         List<PropertyForm> propertyFormList = new ArrayList<>();
         List<Property> allPropertiesByDates = this.propertyRepository.getAllArchivedPropertiesByDates(command.getDateFrom(), command.getDateTo());

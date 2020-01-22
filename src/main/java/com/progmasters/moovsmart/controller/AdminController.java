@@ -37,6 +37,12 @@ public class AdminController {
         return new ResponseEntity<>(this.propertyService.getPropertyDetailsForApproval(id), HttpStatus.OK);
     }
 
+    @GetMapping("getArchivedProperties")
+    public ResponseEntity<List<PropertyListItem>> getArchivedProperties() {
+        List<PropertyListItem> listOfArchiveds = this.propertyService.getAllArchiveds();
+        return new ResponseEntity<>(listOfArchiveds, HttpStatus.OK);
+    }
+
     @PostMapping("/getArchivedProperties")
     public ResponseEntity<List<PropertyForm>> getArchivedProperties(@RequestBody CreateQueryByDatesCommand command) {
         List<PropertyForm> listOfProperties = this.propertyService.getArchivedProperties(command);
