@@ -72,7 +72,7 @@ public class UserService {
         return roles;
     }
 
-    public ResponseEntity banUserById(Long id) {
+    public Boolean banUserById(Long id) {
         Optional<UserProperty>tempUser = this.userRepository.findById(id);
         if(tempUser.isPresent()){
             UserProperty user = tempUser.get();
@@ -81,9 +81,9 @@ public class UserService {
 
             makePropertiesOfBannedUserInvalid(id);
 
-            return new ResponseEntity(HttpStatus.OK);
+            return true;
         }else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return false;
         }
     }
 
@@ -105,7 +105,7 @@ public class UserService {
 
     }
 
-    public ResponseEntity permitUserById(Long id) {
+    public Boolean permitUserById(Long id) {
         Optional<UserProperty>tempUser = this.userRepository.findById(id);
         if(tempUser.isPresent()){
             UserProperty user = tempUser.get();
@@ -114,32 +114,30 @@ public class UserService {
 
             makePropertiesOfPermittedUserValid(user);
 
-            return new ResponseEntity(HttpStatus.OK);
+            return true;
         }else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return false;
         }
     }
 
     private void makePropertiesOfPermittedUserValid(UserProperty user) {
-        List<Property>properties = this.propertyRepository.findAllByOwner(user);
-        if(properties != null && properties.size()>0){
-            for(Property property: properties){
+        List<Property> properties = this.propertyRepository.findAllByOwner(user);
+        if (properties != null && properties.size() > 0) {
+            for (Property property : properties) {
                 property.setValid(true);
                 property.setStatus(StatusOfProperty.ACCEPTED);
                 this.propertyRepository.save(property);
             }
         }
-
     }
 
-    public ResponseEntity getUserByMail(String mail) {
+    public UserDetails getUserByMail(String mail) {
         Optional<UserProperty> tempUser = this.userRepository.findAllByMail(mail);
+        UserDetails userToSend = null;
         if (tempUser.isPresent()){
             UserProperty user = tempUser.get();
-            UserDetails userToSend = new UserDetails(user);
-            return new ResponseEntity(userToSend, HttpStatus.OK);
-        } else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            userToSend = new UserDetails(user);
         }
+        return userToSend;
     }
 }

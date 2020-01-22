@@ -298,4 +298,31 @@ public class PropertyServiceIT {
 
         assertEquals(1, archivedProperties.size());
     }
+
+    @Test
+    public void testActivateProperty() {
+        PropertyForm property2 = new PropertyForm();
+        property2.setName("Ház");
+        property2.setCounty("BUDAPEST");
+        property2.setPropertyType("HOUSE");
+        property2.setPropertyState("RENEWABLE");
+
+        PropertyForm property3 = new PropertyForm();
+        property3.setName("Ház2");
+        property3.setCounty("BARANYA");
+        property3.setPropertyType("APARTMENT");
+        property3.setPropertyState("RENEWED");
+
+        propertyService.createProperty(property2, user.getMail());
+        propertyService.createProperty(property3, user.getMail());
+
+        List<Property> props = propertyRepository.findAllByIsHolding();
+        for (Property p : props) {
+            propertyService.activateProperty(p.getId());
+        }
+
+        List<PropertyListItem> properties = propertyService.getProperties();
+
+        assertEquals(3, properties.size());
+    }
 }

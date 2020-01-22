@@ -5,6 +5,7 @@ import com.progmasters.moovsmart.domain.UserProperty;
 import com.progmasters.moovsmart.repository.TokenStorageRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import com.progmasters.moovsmart.security.TokenStorage;
+import com.progmasters.moovsmart.util.DataBaseSaver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,11 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,6 +31,8 @@ public class MailSenderService {
     private JavaMailSender javaMailSender;
     private UserRepository userRepository;
     private TokenStorageRepository tokenStorageRepository;
+
+    private DataBaseSaver dataBaseSaver;
 
     @Value("${spring.mail.url}")
     private String actualUrl;
@@ -84,5 +92,27 @@ public class MailSenderService {
              user = tempToken.get().getTokenUser();
         }
         return user;
+    }
+
+    public void saveDB() throws SQLException, IOException, ClassNotFoundException {
+        this.dataBaseSaver = new DataBaseSaver();
+        dataBaseSaver.getMysqlExportService().export();
+
+        File file = dataBaseSaver.getMysqlExportService().getGeneratedZipFile();
+        makeCopyOfFile(file);
+    }
+
+    private void makeCopyOfFile (File file){
+        try (FileInputStream input = new FileInputStream(file.getPath());
+             FileOutputStream output = new FileOutputStream(
+                     "C:\\Users\\zolta\\IdeaProjects\\mainProject\\angular-moovsmart\\src\\main\\resources\\db_saver\\" + file.getName())) {
+            int byteSource;
+            while ((byteSource = input.read()) != -1) {
+                output.write(byteSource);
+            }
+            System.out.println("copy of " + file.getName() + ": done");
+        } catch (Exception e) {
+            System.out.println("Invalid path or file or target");
+        }
     }
 }

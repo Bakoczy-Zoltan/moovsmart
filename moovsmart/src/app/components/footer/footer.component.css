@@ -1,0 +1,23 @@
+
+#left-holder-div, #mid-holder-div, #right-holder-div {
+    background-color: #7E685A;
+    color: white;
+}
+#end-div {
+    background-color: darkslategray;
+    color: #ECF0F3;
+}
+ #end-p{
+     text-align: center;
+     font-size: 12px;
+ }
+
+ #left-holder-div, #mid-holder-div {
+     border-right-width:2px;
+     border-right-style:solid;
+     border-right-color:antiquewhite;
+ }
+
+ .tag-p{
+     font-size: 12px;
+ }

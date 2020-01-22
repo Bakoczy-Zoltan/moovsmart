@@ -11,7 +11,7 @@
             <button class="btn btn-secondary" [class.button-touched]="queryStatus"
                     (click)="getHoldingList()">Elfogadásra vár
             </button>
-            <button class="btn btn-light" id="button-new-adding" routerLink="/property-form">Új hirdetés</button>
+            <button class="btn btn-info" routerLink="/property-form">Új hirdetés</button>
         </div>
 
         <div id="list-holder-div">
@@ -42,7 +42,13 @@
                                         </div>
                                     </div>
                                     <div class="col-sm">
-                                        <div class="status-div" *ngIf="queryStatus">
+                                        <div class="status-div" *ngIf="queryStatus" >
+                                            <strong>
+                                                <span>Státusz: </span><span style="color: #E7717D"
+                                                class="status-message-accepted">{{property.status}}</span>
+                                            </strong>
+                                        </div>
+                                        <div class="status-div" *ngIf="!queryStatus">
                                             <strong>
                                                 <span>Státusz: </span><span
                                                 class="status-message-accepted">{{property.status}}</span>
