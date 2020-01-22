@@ -9,6 +9,7 @@ import com.progmasters.moovsmart.dto.CreateQueryByDatesCommand;
 import com.progmasters.moovsmart.dto.PropertyForm;
 import com.progmasters.moovsmart.dto.PropertyListItem;
 import com.progmasters.moovsmart.exception.GlobalExceptionHandler;
+import com.progmasters.moovsmart.service.MailSenderService;
 import com.progmasters.moovsmart.service.PropertyService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,8 +34,7 @@ import java.util.stream.Stream;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -45,13 +45,17 @@ public class AdminControllerTest {
     @Mock
     private PropertyService propertyServiceMock;
 
+    @Mock
+    private MailSenderService mailSenderServiceMock;
+
     @BeforeEach
     public void setUp() {
-        AdminController adminController = new AdminController(propertyServiceMock);
+        AdminController adminController = new AdminController(propertyServiceMock, mailSenderServiceMock);
 
         mockMvc = MockMvcBuilders.standaloneSetup(adminController)
                 .setControllerAdvice(new GlobalExceptionHandler(messageSource()))
                 .build();
+
     }
 
     @AfterEach
@@ -171,8 +175,9 @@ public class AdminControllerTest {
 
         //when
 //        when(propertyServiceMock.getArchivedProperties(createQueryByDatesCommand)).thenReturn(propertyForms);
-//
-//        // then
+
+        // then
+
 //        this.mockMvc.perform(post("/api/properties/admin/getArchivedProperties")
 //                .contentType(MediaType.APPLICATION_JSON)
 //                .content(asJsonString(createQueryByDatesCommand)))
@@ -187,9 +192,69 @@ public class AdminControllerTest {
 //                .andExpect(jsonPath("$[1].price", is(30000000)))
 //                .andExpect(jsonPath("$[1].numberOfRooms", is(3)))
 //                .andExpect(jsonPath("$[1].area", is(80.0)));
-//
+
 //        verify(propertyServiceMock, times(1)).getArchivedProperties(createQueryByDatesCommand);
 //        verifyNoMoreInteractions(propertyServiceMock);
+    }
+
+    @Test
+    public void testGetPropertyListByUserMail() throws Exception {
+        Property property1 = new Property();
+        property1.setId(1L);
+        property1.setName("House1");
+        property1.setNumberOfRooms(2);
+        property1.setArea(50.0);
+        property1.setPrice(10000000);
+
+        Property property2 = new Property();
+        property2.setId(2L);
+        property2.setName("House2");
+        property2.setNumberOfRooms(3);
+        property2.setArea(80.0);
+        property2.setPrice(30000000);
+
+        List<PropertyListItem> properties = Stream.of(property1, property2).map(PropertyListItem::new)
+                .collect(Collectors.toList());
+
+        // when
+        when(propertyServiceMock.getAllPropertyByMail(any(String.class))).thenReturn(properties);
+
+        // then
+        this.mockMvc.perform(get("/api/properties/admin/getPropertyListByUserMail/xxx"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].name", is("House1")))
+                .andExpect(jsonPath("$[0].price", is(10000000)))
+                .andExpect(jsonPath("$[0].numberOfRooms", is(2)))
+                .andExpect(jsonPath("$[0].area", is(50.0)))
+                .andExpect(jsonPath("$[1].name", is("House2")))
+                .andExpect(jsonPath("$[1].price", is(30000000)))
+                .andExpect(jsonPath("$[1].numberOfRooms", is(3)))
+                .andExpect(jsonPath("$[1].area", is(80.0)));
+
+        verify(propertyServiceMock, times(1)).getAllPropertyByMail(any(String.class));
+        verifyNoMoreInteractions(propertyServiceMock);
+    }
+
+    @Test
+    public void testMakePropertyActivated() throws Exception {
+        when(propertyServiceMock.activateProperty(any(Long.class))).thenReturn(true);
+
+        this.mockMvc.perform(put("/api/properties/admin/activateProperty/1"))
+                .andExpect(status().isOk());
+
+        verify(propertyServiceMock, times(1)).activateProperty(any(Long.class));
+    }
+
+    @Test
+    public void testForbiddenProperty() throws Exception {
+        when(propertyServiceMock.forbiddenProperty(any(Long.class))).thenReturn(true);
+
+        this.mockMvc.perform(put("/api/properties/admin/forbiddenProperty/1"))
+                .andExpect(status().isOk());
+
+        verify(propertyServiceMock, times(1)).forbiddenProperty(any(Long.class));
     }
 
 
