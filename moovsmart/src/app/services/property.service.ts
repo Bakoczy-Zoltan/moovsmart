@@ -7,6 +7,7 @@ import { FilteredListModel } from '../models/FilteredListModel';
 import { PropertyDetailsModel } from '../models/propertyDetails.model';
 import { PropertyFormDataModel } from '../models/propertyFormData.model';
 import { PropertyListItemModel } from '../models/propertyListItem.model';
+import { UserDetailsModel } from '../models/userDetails.model';
 import { UserFormDataModel } from '../models/userFormData.model';
 
 @Injectable({
@@ -123,7 +124,17 @@ export class PropertyService {
             + '/admin/getArchivedProperties', formData);
     }
 
-    // getUserByMail(formData: string): Observable<any> {
-    //     return this.httpClient.get(formData)
-    // }
+    getUserByMail(formData: string): Observable<any> {
+        return this.httpClient.get<UserDetailsModel>(this.baseUserUrl
+            + '/getUserByUserMail/' + formData);
+    }
+
+    banUser(userIdForBan: number): Observable<any> {
+        return this.httpClient.put(this.baseUserUrl + '/admin/banUser/' + userIdForBan,
+            userIdForBan);
+    }
+
+    unBanUser(id: number) {
+        return this.httpClient.put(this.baseUserUrl + '/admin/permitUser/' + id, id);
+    }
 }

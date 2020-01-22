@@ -5,6 +5,7 @@ import com.progmasters.moovsmart.domain.RoleType;
 import com.progmasters.moovsmart.domain.StatusOfProperty;
 import com.progmasters.moovsmart.domain.UserProperty;
 import com.progmasters.moovsmart.dto.CreateUserCommand;
+import com.progmasters.moovsmart.dto.UserDetails;
 import com.progmasters.moovsmart.repository.PropertyRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -71,51 +72,72 @@ public class UserService {
         return roles;
     }
 
-    public ResponseEntity banUserById(Long id) {
+    public Boolean banUserById(Long id) {
         Optional<UserProperty>tempUser = this.userRepository.findById(id);
         if(tempUser.isPresent()){
             UserProperty user = tempUser.get();
             user.setIsActive(false);
-            makePropertiesOfBannedUserInvalid(user);
-
             this.userRepository.save(user);
 
-            return new ResponseEntity(HttpStatus.OK);
+            makePropertiesOfBannedUserInvalid(id);
+
+            return true;
         }else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return false;
         }
     }
 
-    private void makePropertiesOfBannedUserInvalid(UserProperty user) {
-        List<Property>properties = this.propertyRepository.findAllByOwner(user);
-        for(Property property: properties){
-            property.setValid(false);
-            property.setStatus(StatusOfProperty.FORBIDDEN);
-            this.propertyRepository.save(property);
+    private void makePropertiesOfBannedUserInvalid(Long id) {
+        Optional<UserProperty>tempUser = this.userRepository.findById(id);
+        if(tempUser.isPresent()){
+            UserProperty user = tempUser.get();
+            List<Property>properties = this.propertyRepository.findAllByOwner(user);
+
+            if(properties!= null && properties.size() > 0){
+                for(Property property: properties){
+                    property.setValid(false);
+                    property.setStatus(StatusOfProperty.FORBIDDEN);
+                    this.propertyRepository.save(property);
+                }
+            }
+
         }
+
     }
 
-    public ResponseEntity permitUserById(Long id) {
+    public Boolean permitUserById(Long id) {
         Optional<UserProperty>tempUser = this.userRepository.findById(id);
         if(tempUser.isPresent()){
             UserProperty user = tempUser.get();
             user.setIsActive(true);
-            makePropertiesOfPermittedUserValid(user);
-
             this.userRepository.save(user);
 
-            return new ResponseEntity(HttpStatus.OK);
+            makePropertiesOfPermittedUserValid(user);
+
+            return true;
         }else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return false;
         }
     }
 
     private void makePropertiesOfPermittedUserValid(UserProperty user) {
-        List<Property>properties = this.propertyRepository.findAllByOwner(user);
-        for(Property property: properties){
-            property.setValid(true);
-            property.setStatus(StatusOfProperty.ACCEPTED);
-            this.propertyRepository.save(property);
+        List<Property> properties = this.propertyRepository.findAllByOwner(user);
+        if (properties != null && properties.size() > 0) {
+            for (Property property : properties) {
+                property.setValid(true);
+                property.setStatus(StatusOfProperty.ACCEPTED);
+                this.propertyRepository.save(property);
+            }
         }
+    }
+
+    public UserDetails getUserByMail(String mail) {
+        Optional<UserProperty> tempUser = this.userRepository.findAllByMail(mail);
+        UserDetails userToSend = null;
+        if (tempUser.isPresent()){
+            UserProperty user = tempUser.get();
+            userToSend = new UserDetails(user);
+        }
+        return userToSend;
     }
 }

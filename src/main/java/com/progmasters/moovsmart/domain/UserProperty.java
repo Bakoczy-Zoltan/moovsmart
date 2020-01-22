@@ -25,7 +25,7 @@ public class UserProperty {
     @Pattern(regexp="(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}")
     private String password;
 
-    private boolean isActive;
+    private Boolean isActive;
 
     @OneToOne(mappedBy = "tokenUser")
     private TokenStorage tokenStorage;
@@ -91,7 +91,7 @@ public class UserProperty {
         this.password = password;
     }
 
-    public boolean getIsActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 

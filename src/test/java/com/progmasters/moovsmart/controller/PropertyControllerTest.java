@@ -106,9 +106,8 @@ public class PropertyControllerTest {
         verifyNoMoreInteractions(propertyServiceMock);
     }
 
-
     @Test
-    public void testGetFilteredList_WithRoom() throws Exception {
+    public void testGetFilteredList() throws Exception {
         // given
         Property property1 = new Property();
         property1.setId(1L);
@@ -116,6 +115,7 @@ public class PropertyControllerTest {
         property1.setNumberOfRooms(2);
         property1.setArea(50.0);
         property1.setPrice(10000000);
+        property1.setStatus(StatusOfProperty.ACCEPTED);
 
         Property property2 = new Property();
         property2.setId(2L);
@@ -123,49 +123,7 @@ public class PropertyControllerTest {
         property2.setNumberOfRooms(3);
         property2.setArea(80.0);
         property2.setPrice(30000000);
-
-        List<PropertyListItem> properties = Stream.of(property1).map(PropertyListItem::new).collect(Collectors.toList());
-
-        CreateFilteredCommand createFilteredCommand = new CreateFilteredCommand();
-        createFilteredCommand.setNumberOfRooms(2);
-
-        // when
-        when(propertyServiceMock.getFilteredProperties(any(CreateFilteredCommand.class)))
-                .thenReturn(properties);
-
-        // then
-        this.mockMvc.perform(post("/api/properties/filteredList")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(createFilteredCommand)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name", is("House1")))
-                .andExpect(jsonPath("$[0].price", is(10000000)))
-                .andExpect(jsonPath("$[0].numberOfRooms", is(2)))
-                .andExpect(jsonPath("$[0].area", is(50.0)));
-
-        verify(propertyServiceMock, times(1))
-                .getFilteredProperties(any(CreateFilteredCommand.class));
-        verifyNoMoreInteractions(propertyServiceMock);
-    }
-
-    @Test
-    public void testGetFilteredList_WithoutRoom() throws Exception {
-        // given
-        Property property1 = new Property();
-        property1.setId(1L);
-        property1.setName("House1");
-        property1.setNumberOfRooms(2);
-        property1.setArea(50.0);
-        property1.setPrice(10000000);
-
-        Property property2 = new Property();
-        property2.setId(2L);
-        property2.setName("House2");
-        property2.setNumberOfRooms(3);
-        property2.setArea(80.0);
-        property2.setPrice(30000000);
+        property2.setStatus(StatusOfProperty.ACCEPTED);
 
         List<PropertyListItem> properties = Stream.of(property1, property2).map(PropertyListItem::new).collect(Collectors.toList());
 
@@ -174,7 +132,7 @@ public class PropertyControllerTest {
         createFilteredCommand.setMaxPrice(35000000);
 
         // when
-        when(propertyServiceMock.getFilteredPropertiesWithoutRooms(any(CreateFilteredCommand.class)))
+        when(propertyServiceMock.makeFilterList(any(CreateFilteredCommand.class)))
                 .thenReturn(properties);
 
         // then
@@ -194,7 +152,7 @@ public class PropertyControllerTest {
                 .andExpect(jsonPath("$[1].area", is(80.0)));
 
         verify(propertyServiceMock, times(1))
-                .getFilteredPropertiesWithoutRooms(any(CreateFilteredCommand.class));
+                .makeFilterList(any(CreateFilteredCommand.class));
         verifyNoMoreInteractions(propertyServiceMock);
     }
 
@@ -436,7 +394,7 @@ public class PropertyControllerTest {
 
         this.mockMvc.perform(delete("/api/properties/authUser/1")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isBadRequest());
 
         verify(propertyServiceMock, times(1))
                 .deleteProperty(any(Long.class), any());
