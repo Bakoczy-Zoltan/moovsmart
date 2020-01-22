@@ -23,6 +23,8 @@ export class PropertyService {
 
     baseUrl = environment.apiUrl + '/properties';
     baseUserUrl = environment.apiUrl + '/user';
+    baseImageUrl = environment.apiUrl + '/images';
+
     url = 'localhost:8080/api/properties';
 
     constructor(private httpClient: HttpClient) {
@@ -150,5 +152,12 @@ export class PropertyService {
     getPropertyListByMail(mail: string): Observable<any> {
         return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl
             + '/admin/getPropertyListByUserMail/' + mail);
+    }
+    public uploadImage(image: File): Observable<any> {
+        const uploadData = new FormData();
+        uploadData.append('myPicture', image);
+        console.log(this.baseUrl + " service url");
+        const imageServiceReturn = this.httpClient.post(this.baseImageUrl, uploadData);
+        return imageServiceReturn;
     }
 }

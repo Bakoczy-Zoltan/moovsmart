@@ -29,6 +29,7 @@ public class PropertyDetails {
     private List<String> imageUrl;
     private List<String> publicId;
     private Long userId;
+    private String status;
 
     public PropertyDetails() {
     }
@@ -60,6 +61,9 @@ public class PropertyDetails {
         this.city = property.getCity();
         if(property.getOwner() != null){
             this.userId = property.getOwner().getId();
+        }
+        if(property.getStatus()!= null){
+            this.status = property.getStatus().getDisplayName();
         }
     }
 
@@ -168,14 +172,6 @@ public class PropertyDetails {
         this.userId = userId;
     }
 
-    //    public String getSearchPosition() {
-//        return searchPosition;
-//    }
-//
-//    public void setSearchPosition(String searchPosition) {
-//        this.searchPosition = searchPosition;
-//    }
-
 
     public Double getLngCoord() {
         return lngCoord;
@@ -223,5 +219,13 @@ public class PropertyDetails {
 
     public void setPublicId(List<String> publicId) {
         this.publicId = publicId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
