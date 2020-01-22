@@ -7,7 +7,7 @@ public class UserDetails {
     private Long id;
     private String mail;
     private String userName;
-    private boolean isActive;
+    private Boolean isActive;
 
     public UserDetails() {
     }
@@ -43,11 +43,11 @@ public class UserDetails {
         this.userName = userName;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         isActive = active;
     }
 }

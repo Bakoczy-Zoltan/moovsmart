@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PropertyListItemModel } from '../../models/propertyListItem.model';
 import { Router } from '@angular/router';
+import { UserDetailsModel } from '../../models/userDetails.model';
 import { UserFormDataModel } from '../../models/userFormData.model';
 import { PropertyService } from '../../services/property.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -19,8 +20,10 @@ export class AdminComponent implements OnInit {
     actualPageNumber: number;
     actualPageList: [PropertyListItemModel[]] = [[]];
     formData: any;
-    userForHandling: UserFormDataModel;
+    userForHandling: UserDetailsModel;
     display = 'none';
+    displayBan = 'none';
+    userIdForBan: number;
 
 
     dateForm = this.formBuilder.group({
@@ -118,15 +121,13 @@ export class AdminComponent implements OnInit {
 
     submit = () => {
     this.formData = {...this.dateForm.value};
-    console.log(this.formData);
-    debugger;
     this.propertyService.getArchivedProperties(this.formData).subscribe(
         propertyListItems => {
             this.propertyListItemModels = propertyListItems;
             this.actualPageList = this.makingActualList(this.propertyListItemModels);
         }
     )
-}
+};
 
 
     submitEmail = () => {
@@ -138,4 +139,46 @@ export class AdminComponent implements OnInit {
             }
         )
     };
+
+
+
+    askForBanUser(id: number) {
+        this.displayBan = 'block';
+        this.userIdForBan = id;
+    }
+
+
+    banUser(userIdForBan: number) {
+        this.displayBan = 'none';
+        this.propertyService.banUser(userIdForBan).subscribe(
+            () => {
+                this.buttonPushed = 0;
+                this.userIdForBan = null;
+                this.userForHandling = null;
+                this.display = 'none';
+                console.log("User with id " + userIdForBan + ' banned.')
+            },
+            () => {
+                console.warn("Ban wasn't successful.")
+            }
+        );
+    }
+
+    unBanUser(id: number) {
+        this.propertyService.unBanUser(id).subscribe(
+            () => {
+                this.buttonPushed = 0;
+                this.userIdForBan = null;
+                this.userForHandling = null;
+                this.display = 'none';
+                console.log("Unbanning was successful.");
+            },
+            () => {
+                console.warn("Unban wasn't successful.")
+            }
+        )
+    }
+    closeDial() {
+        this.displayBan = 'none';
+    }
 }

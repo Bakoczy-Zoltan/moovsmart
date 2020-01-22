@@ -81,12 +81,7 @@ public class UserController {
 
     @GetMapping("/getUserByUserMail/{mail}")
     public ResponseEntity<UserDetails> getUserByMail(@PathVariable("mail") String mail){
-        UserDetails user = this.userService.getUserByMail(mail);
-        if (user != null) {
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return this.userService.getUserByMail(mail);
     }
 
     /*

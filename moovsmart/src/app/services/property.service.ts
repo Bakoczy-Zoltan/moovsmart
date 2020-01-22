@@ -128,4 +128,13 @@ export class PropertyService {
         return this.httpClient.get<UserDetailsModel>(this.baseUserUrl
             + '/getUserByUserMail/' + formData);
     }
+
+    banUser(userIdForBan: number): Observable<any> {
+        return this.httpClient.put(this.baseUserUrl + '/admin/banUser/' + userIdForBan,
+            userIdForBan);
+    }
+
+    unBanUser(id: number) {
+        return this.httpClient.put(this.baseUserUrl + '/admin/permitUser/' + id, id);
+    }
 }
