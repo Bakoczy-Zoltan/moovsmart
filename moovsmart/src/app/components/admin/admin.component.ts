@@ -67,7 +67,6 @@ export class AdminComponent implements OnInit {
             this.buttonPushed = 0;
         } else {
             this.buttonPushed = 3;
-            console.log(this.currentDate);
             this.propertyListItemModels = [];
         }
     }
