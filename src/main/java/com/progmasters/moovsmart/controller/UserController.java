@@ -94,23 +94,25 @@ public class UserController {
 
     @PutMapping("/admin/banUser/{id}")
     public ResponseEntity banUserById(@PathVariable("id")Long id){
-        ResponseEntity response = this.userService.banUserById(id);
-        if(response.getStatusCode().equals(HttpStatus.OK)){
+        Boolean response = this.userService.banUserById(id);
+        if(response){
             this.logger.info("User by id of: " + id + " is banned");
+            return new ResponseEntity(HttpStatus.OK);
         }else {
             this.logger.warn("User by id of: " + id + " is Not Found");
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        return response;
     }
 
     @PutMapping("/admin/permitUser/{id}")
     public ResponseEntity permitUserById(@PathVariable("id")Long id){
-        ResponseEntity response = this.userService.permitUserById(id);
-        if(response.getStatusCode().equals(HttpStatus.OK)){
+        Boolean response = this.userService.permitUserById(id);
+        if(response){
             this.logger.info("User by id of: " + id + " is permitted");
+            return new ResponseEntity(HttpStatus.OK);
         }else {
             this.logger.warn("User by id of: " + id + " is Not Found");
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        return response;
     }
 }

@@ -72,7 +72,7 @@ public class UserService {
         return roles;
     }
 
-    public ResponseEntity banUserById(Long id) {
+    public Boolean banUserById(Long id) {
         Optional<UserProperty>tempUser = this.userRepository.findById(id);
         if(tempUser.isPresent()){
             UserProperty user = tempUser.get();
@@ -81,9 +81,9 @@ public class UserService {
 
             this.userRepository.save(user);
 
-            return new ResponseEntity(HttpStatus.OK);
+            return true;
         }else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return false;
         }
     }
 
@@ -96,7 +96,7 @@ public class UserService {
         }
     }
 
-    public ResponseEntity permitUserById(Long id) {
+    public Boolean permitUserById(Long id) {
         Optional<UserProperty>tempUser = this.userRepository.findById(id);
         if(tempUser.isPresent()){
             UserProperty user = tempUser.get();
@@ -105,9 +105,9 @@ public class UserService {
 
             this.userRepository.save(user);
 
-            return new ResponseEntity(HttpStatus.OK);
+            return true;
         }else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return false;
         }
     }
 
