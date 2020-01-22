@@ -34,23 +34,29 @@
                 <small *ngIf="emailForm.get('userEmail').invalid && emailForm.get('userEmail').touched"
                        class="text-danger">
                     Email kitöltése kötelező!
-                <br></small>
-                <button type="submit" class="btn submit-button">Lekérdezés</button>
+                    <br></small>
+                <button type="submit" class="btn submit-button">Lekérdezés</button><br>
             </form>
         </div>
         <div *ngIf="buttonPushed === 2">
-            <div>Név:</div><div id="bold" [ngStyle]="userForHandling?.active && {'color':'green'} ||
+            <div>Név:<span id="bold" [ngStyle]="userForHandling?.active && {'color':'green'} ||
            !userForHandling?.active && {'color':'#E7717D'}">
-            {{userForHandling?.userName}}</div>
+                {{userForHandling?.userName}}</span></div>
             <hr>
-            <div>Státusz:</div>
-            <div *ngIf="userForHandling?.active">Aktív</div>
-            <div *ngIf="userForHandling?.active === false">Inaktív</div>
-
+            <div>Státusz:
+                <span *ngIf="userForHandling?.active" style="color: green">Aktív</span>
+                <span *ngIf="userForHandling?.active === false" style="color: #E7717D">Inaktív</span>
+            </div>
             <div [ngStyle]="{'display':display}">
-                <button class="btn archiveList" (click)="listPropertiesOfUser(userForHandling.mail)">Felhasználó ingatlanjainak listázása</button>
-                <button *ngIf="userForHandling?.active === true" class="btn userHandling" (click)="askForBanUser(userForHandling?.id)">Felhasználó tiltása</button>
-                <button *ngIf="userForHandling?.active === false" class="btn approval" (click)="unBanUser(userForHandling?.id)">Tiltás feloldása</button>
+                <button class="btn archiveList" (click)="listPropertiesOfUser(userForHandling.mail)">Felhasználó
+                    ingatlanjainak listázása
+                </button>
+                <button *ngIf="userForHandling?.active === true" class="btn userHandling"
+                        (click)="askForBanUser(userForHandling?.id)">Felhasználó tiltása
+                </button>
+                <button *ngIf="userForHandling?.active === false" class="btn approval"
+                        (click)="unBanUser(userForHandling?.id)">Tiltás feloldása
+                </button>
             </div>
         </div>
 
@@ -65,10 +71,10 @@
                 <button type="submit" class="btn submit-button">Lekérdezés</button>
             </form>
 
-                <div *ngIf="(propertyListItemModels === undefined || propertyListItemModels.length === 0)
+            <div *ngIf="(propertyListItemModels === undefined || propertyListItemModels.length === 0)
                         && inquiryButtonPushed === true" id="emptyArchiveMessage">
-                    Ebben az idősávban nincs archivált ingatlan.
-                </div>
+                Ebben az idősávban nincs archivált ingatlan.
+            </div>
 
         </div>
 
@@ -106,13 +112,15 @@
                                     </div>
                                     <div class="col-sm">
                                         <div id="detail-button-div" class="d-flex justify-content-center">
-                                            <div *ngIf="(buttonPushed === 1 || buttonPushed === 2) && property.status === 'elfogadásra vár'">
+                                            <div
+                                                *ngIf="(buttonPushed === 1 || buttonPushed === 2) && property.status === 'elfogadásra vár'">
                                                 <button id="detail-button" class="btn" (click)="details(property.id)">
                                                     Részletek
                                                 </button>
                                             </div>
                                             <div *ngIf="buttonPushed === 3">
-                                                <button id="reAccepted-button" class="btn" (click)="reactivateProperty(property.id)">
+                                                <button id="reAccepted-button" class="btn"
+                                                        (click)="reactivateProperty(property.id)">
                                                     Visszahelyezés
                                                 </button>
                                             </div>
