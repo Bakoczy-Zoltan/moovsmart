@@ -32,37 +32,37 @@
                 <h5><strong>Jóváhagyásra váró ingatlan részletei</strong></h5></div>
             <div class="col"></div>
 
-        <hr>
+            <hr>
 
-        <div class="row" id="description-div">
-            <div class="col">
-                <strong>Ingatlan:</strong> {{propertyDetails?.name + " "}}
+            <div class="row" id="description-div">
+                <div class="col">
+                    <strong>Ingatlan:</strong> {{propertyDetails?.name + " "}}
+                </div>
+                <div class="col">
+                    <strong>Típus:</strong> {{propertyDetails?.propertyType + " "}}
+                </div>
+                <div class="col">
+                    <strong>Szobák száma:</strong> {{propertyDetails?.numberOfRooms}}
+                </div>
+                <div class="col">
+                    <strong>Ár:</strong> {{propertyDetails?.price}} M Ft
+                </div>
             </div>
-            <div class="col">
-                <strong>Típus:</strong> {{propertyDetails?.propertyType + " "}}
-            </div>
-            <div class="col">
-                <strong>Szobák száma:</strong> {{propertyDetails?.numberOfRooms}}
-            </div>
-            <div class="col">
-                <strong>Ár:</strong> {{propertyDetails?.price}} M Ft
-            </div>
-        </div>
-        <div class="row" id="details-div">
+            <div class="row" id="details-div">
 
-            <div class="col">
-                <strong>Megye:</strong> {{propertyDetails?.county}}
+                <div class="col">
+                    <strong>Megye:</strong> {{propertyDetails?.county}}
+                </div>
+                <div class="col">
+                    <strong>Város:</strong> {{propertyDetails?.city}}
+                </div>
+                <div class="col">
+                    <strong>Állapot:</strong> {{propertyDetails?.propertyState}}
+                </div>
+                <div class="col">
+                    <strong>Építés éve:</strong> {{propertyDetails?.buildingYear + " "}}
+                </div>
             </div>
-            <div class="col">
-                <strong>Város:</strong> {{propertyDetails?.city}}
-            </div>
-            <div class="col">
-                <strong>Állapot:</strong> {{propertyDetails?.propertyState}}
-            </div>
-            <div class="col">
-                <strong>Építés éve:</strong> {{propertyDetails?.buildingYear + " "}}
-            </div>
-        </div>
             <div class="row">
                 <div class="col">
                     <strong>Utca:</strong> {{propertyDetails?.street}}
@@ -72,34 +72,35 @@
                 </div>
             </div>
 
-    </div>
-    <p></p>
-    <hr>
-    <p><strong>Részletes leírás:</strong></p>
-    <p>{{propertyDetails?.description}}</p>
+        </div>
+        <p></p>
+        <hr>
+        <p><strong>Részletes leírás:</strong></p>
+        <p>{{propertyDetails?.description}}</p>
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Bezárás</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Bezárás</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
         <button class="btn accept-button" (click)="approve(propertyDetails?.id)">Jóváhagyás</button>
         <button class="btn reject-button" (click)="askingForSure(propertyDetails?.id)">Elutasítás</button>
+    </div>
 </div>
 
 <!-- Modal -->
@@ -117,7 +118,9 @@
                 <p id="error-message">Biztos benne, hogy nem hagyja jóvá az ingatlant?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn confirmationButton" data-dismiss="modal" (click)="delete(propertyToDelete)">Igen</button>
+                <button type="button" class="btn confirmationButton" data-dismiss="modal"
+                        (click)="delete(propertyToDelete)">Igen
+                </button>
                 <button type="button" class="btn cancelButton" data-dismiss="modal" (click)="closeDial()">Nem</button>
             </div>
         </div>

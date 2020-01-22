@@ -77,9 +77,9 @@ public class UserService {
         if(tempUser.isPresent()){
             UserProperty user = tempUser.get();
             user.setIsActive(false);
-            makePropertiesOfBannedUserInvalid(user);
-
             this.userRepository.save(user);
+
+            makePropertiesOfBannedUserInvalid(id);
 
             return new ResponseEntity(HttpStatus.OK);
         }else {
@@ -87,13 +87,22 @@ public class UserService {
         }
     }
 
-    private void makePropertiesOfBannedUserInvalid(UserProperty user) {
-        List<Property>properties = this.propertyRepository.findAllByOwner(user);
-        for(Property property: properties){
-            property.setValid(false);
-            property.setStatus(StatusOfProperty.FORBIDDEN);
-            this.propertyRepository.save(property);
+    private void makePropertiesOfBannedUserInvalid(Long id) {
+        Optional<UserProperty>tempUser = this.userRepository.findById(id);
+        if(tempUser.isPresent()){
+            UserProperty user = tempUser.get();
+            List<Property>properties = this.propertyRepository.findAllByOwner(user);
+
+            if(properties!= null && properties.size() > 0){
+                for(Property property: properties){
+                    property.setValid(false);
+                    property.setStatus(StatusOfProperty.FORBIDDEN);
+                    this.propertyRepository.save(property);
+                }
+            }
+
         }
+
     }
 
     public ResponseEntity permitUserById(Long id) {
@@ -101,9 +110,9 @@ public class UserService {
         if(tempUser.isPresent()){
             UserProperty user = tempUser.get();
             user.setIsActive(true);
-            makePropertiesOfPermittedUserValid(user);
-
             this.userRepository.save(user);
+
+            makePropertiesOfPermittedUserValid(user);
 
             return new ResponseEntity(HttpStatus.OK);
         }else {
@@ -113,11 +122,14 @@ public class UserService {
 
     private void makePropertiesOfPermittedUserValid(UserProperty user) {
         List<Property>properties = this.propertyRepository.findAllByOwner(user);
-        for(Property property: properties){
-            property.setValid(true);
-            property.setStatus(StatusOfProperty.ACCEPTED);
-            this.propertyRepository.save(property);
+        if(properties != null && properties.size()>0){
+            for(Property property: properties){
+                property.setValid(true);
+                property.setStatus(StatusOfProperty.ACCEPTED);
+                this.propertyRepository.save(property);
+            }
         }
+
     }
 
     public ResponseEntity getUserByMail(String mail) {

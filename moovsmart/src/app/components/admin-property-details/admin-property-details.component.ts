@@ -87,7 +87,6 @@ export class AdminPropertyDetailsComponent implements OnInit {
 
     askingForSure(id: number) {
         this.propertyToDelete = id;
-        console.log(this.propertyToDelete);
         this.display = 'block';
     }
 }
