@@ -67,13 +67,13 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
     @Query("SELECT p from  Property p " +
             "where p.localDateTime between :fromDate " +
             "and :toDate " +
-            "AND p.status = 'ACCEPTED' " +
+            "AND p.status = 'ARCHIVED' " +
             "and p.isValid = false"
     )
     List<Property> getAllArchivedPropertiesByDates(@Param("fromDate") LocalDateTime dateFrom, @Param("toDate") LocalDateTime dateTo);
 
     @Query("SELECT p from Property p " +
-           "where p.status = 'ACCEPTED' " +
+           "where p.status = 'ARCHIVED' " +
             "and p.isValid = false"
     )
     List<Property> findAllByIsInvalid();
