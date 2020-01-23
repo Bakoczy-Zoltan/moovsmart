@@ -77,6 +77,8 @@ export class AdminComponent implements OnInit {
             this.buttonPushed = 3;
             this.yesterday = ( d => new Date(d.setDate(d.getDate()-1)).toISOString().slice(0, 16) )(new Date);
             this.today = new Date().toISOString().slice(0, 16);
+            console.log("Yesterday: " + this.yesterday);
+            console.log("Today: " + this.today);
             this.propertyListItemModels = [];
         }
     }
@@ -134,6 +136,7 @@ export class AdminComponent implements OnInit {
     submit = () => {
         this.inquiryButtonPushed = true;
         this.formData = {...this.dateForm.value};
+        console.log("Elküldött dátumok: " + this.formData);
         this.propertyService.getArchivedProperties(this.formData).subscribe(
             propertyListItems => {
                 this.propertyListItemModels = propertyListItems;

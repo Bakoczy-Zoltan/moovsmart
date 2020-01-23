@@ -65,17 +65,17 @@
             <h3>Archivált ingatlanok</h3>
             <hr>
             <form (ngSubmit)="submit()" [formGroup]="dateForm">
-                <input class="dateInput" type="datetime-local" formControlName="dateFrom">
-                <input class="dateInput" type="datetime-local" formControlName="dateTo">
+                <input class="dateInput" type="datetime-local" formControlName="dateFrom" [value]="yesterday">
+                <input class="dateInput" type="datetime-local" formControlName="dateTo" [value]="today">
 
                 <button type="submit" class="btn submit-button">Lekérdezés</button>
             </form>
-
-            <div *ngIf="(propertyListItemModels === undefined || propertyListItemModels.length === 0)
-                        && inquiryButtonPushed === true" id="emptyArchiveMessage">
+            <div>
+            <div id="emptyArchiveMessage" *ngIf="(propertyListItemModels === undefined || propertyListItemModels.length === 0)
+                        && inquiryButtonPushed === true">
                 Ebben az idősávban nincs archivált ingatlan.
             </div>
-
+            </div>
         </div>
 
         <div *ngIf="buttonPushed > 0">
@@ -119,12 +119,12 @@
                                                     Részletek
                                                 </button>
                                             </div>
-                                            <div *ngIf="buttonPushed === 3">
-                                                <button id="reAccepted-button" class="btn"
-                                                        (click)="reactivateProperty(property.id)">
-                                                    Visszahelyezés
-                                                </button>
-                                            </div>
+                                        </div>
+                                        <div *ngIf="buttonPushed === 3" id="replace-button-div">
+                                            <button id="reAccepted-button" id="replace-button" class="btn"
+                                                    (click)="reactivateProperty(property.id)">
+                                                Visszahelyezés
+                                            </button>
                                         </div>
                                         <div id="date-div">
                                             <strong>Regisztráció: </strong>{{property.time}}
@@ -140,7 +140,7 @@
                     <div id="leftArrow" *ngIf="actualPageNumber > 1" (click)="pageLeft()" title="lapozz">
                         <i class="fas fa-angle-left"></i>
                     </div>
-                    <div id="pagerNumbers">
+                    <div id="pagerNumbers" *ngIf="propertyListItemModels !== undefined && propertyListItemModels.length !== 0">
                         <strong> {{actualPageNumber}} </strong>
                     </div>
                     <div id="rightArrow" *ngIf="actualPageNumber < actualPageList?.length" (click)="pageRight()"
