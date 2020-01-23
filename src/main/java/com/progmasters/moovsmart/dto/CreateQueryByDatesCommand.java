@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 public class CreateQueryByDatesCommand {
 
-
     private LocalDateTime dateFrom;
     private LocalDateTime dateTo;
 

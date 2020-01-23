@@ -20,9 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -120,7 +118,7 @@ public class PropertyServiceIT {
         boolean isDeleted = propertyService.deleteProperty(propertyId, user.getMail());
 
         assertTrue(isDeleted);
-        assertFalse(userRepository.findUserPropertiesByMail(user.getMail()).get().getIsActive());
+        assertFalse(propertyRepository.findById(propertyId).get().isValid());
     }
 
     @Test
@@ -291,6 +289,7 @@ public class PropertyServiceIT {
 
         Property property = propertyRepository.findById(propertyId).get();
         property.setLocalDateTime(LocalDateTime.of(2020, Month.JANUARY, 5, 19, 30, 40));
+        property.setStatus(StatusOfProperty.ARCHIVED);
         property.setValid(false);
         propertyRepository.save(property);
 
