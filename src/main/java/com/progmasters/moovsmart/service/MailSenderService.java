@@ -96,13 +96,20 @@ public class MailSenderService {
         return user;
     }
 
-//    @Scheduled(fixedRate = 60*60*1000)
-//    public void checkDate(){
-//        if(LocalTime.now() > LocalTime.of(00, 00, 00)){
-//
-//        }
-//
-//    }
+    @Scheduled(fixedRate = 3600000)
+    public void checkDate(){
+        if(LocalTime.now().isAfter(LocalTime.parse("09:58")) &&
+        LocalTime.now().isBefore(LocalTime.parse("23:59"))){
+            try {
+                saveDB();
+            }catch (SQLException | IOException | ClassNotFoundException f) {
+                this.logger.warn(f.getMessage());
+                this.logger.warn("Database saving failed");
+            }
+            this.logger.info("Database saved");
+        }
+
+    }
 
     public void saveDB() throws SQLException, IOException, ClassNotFoundException {
         this.dataBaseSaver = new DataBaseSaver();
