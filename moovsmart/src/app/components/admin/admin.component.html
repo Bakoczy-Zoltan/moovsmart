@@ -30,7 +30,7 @@
             <h3>Kérem, írja be a felhasználó email címét!</h3>
             <hr>
             <form (ngSubmit)="submitEmail()" [formGroup]="emailForm">
-                <input type="email" formControlName="userEmail"><br>
+                <input type="email" id="emailInput" size="35" formControlName="userEmail"><br>
                 <small *ngIf="emailForm.get('userEmail').invalid && emailForm.get('userEmail').touched"
                        class="text-danger">
                     Email kitöltése kötelező!
@@ -92,13 +92,13 @@
                                     <img [src]="defaultPicture" class="defaultPicture" [alt]="defaultPicture">
                                 </div>
                                 <div *ngIf="property?.imageUrl[0]?.length >= 3">
-                                    <img (click)="details(property.id)" alt="ingatlan" width="200"
+                                    <img id="picture" (click)="details(property.id)" alt="ingatlan" width="200"
                                          src="{{property?.imageUrl[0]}}"/>
                                 </div>
                             </div>
                             <div class="col-sm-9">
                                 <div class="row">
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-6">
                                         <h5>{{property.name}}</h5>
                                         <div id="area-div"><strong>Terület</strong>: {{property.area}} m<sup>2</sup>
                                         </div>
@@ -108,14 +108,12 @@
                                             {'color':'#E7717D'} || property.status === 'elfogadott'&&
                                             {'color':'green'} || property.status === 'tiltott' && {'font-weight':'bold'}">{{property.status}}</span>
                                         </div>
+                                        <div id="rooms-div">
+                                            <strong>Szobák száma</strong>: {{property.numberOfRooms}}
+                                        </div>
                                         <div *ngIf="buttonPushed === 1 || buttonPushed === 3" id="email-div"><strong>Email</strong>: {{property.owner}}</div>
                                     </div>
                                     <div class="col-sm-3">
-                                        <div>
-                                            <strong>Szobák száma</strong>: {{property.numberOfRooms}}
-                                        </div>
-                                    </div>
-                                    <div class="col-sm">
                                         <div id="detail-button-div" class="d-flex justify-content-center">
                                             <div
                                                 *ngIf="(buttonPushed > 0)">
@@ -131,7 +129,7 @@
                                             </button>
                                         </div>
                                         <div id="date-div">
-                                            <strong>Regisztráció: </strong>{{property.time}}
+                                            <strong>Regisztráció: </strong><br>{{property.time}}
                                         </div>
                                     </div>
                                 </div>

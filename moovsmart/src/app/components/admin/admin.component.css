@@ -60,10 +60,14 @@
 }
 
   .defaultPicture {
-    width: 100%;
-    max-width: 200px;
-    height: 100%;
-    max-height: 150px;
+      max-width: 200px;
+      max-height: 220px;
+      position: absolute;
+      margin: auto;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
 }
 
 #emptyPicture {
@@ -167,6 +171,8 @@
 }
 
 #img-holder-row{
+    display: flex;
+    justify-content: center;
     text-align: center;
     background-color:  antiquewhite;
     padding: 3px;
@@ -176,7 +182,7 @@
     margin-left: 5%;
     margin-right: 5%;
 }
-#area-div, #price-div, #status-div, #email-div{
+#area-div, #price-div, #status-div, #email-div, #rooms-div{
     margin-bottom: 5%;
 }
 
@@ -212,3 +218,13 @@
     font-weight: bold;
 }
 
+#picture {
+    max-width: 200px;
+    max-height: 220px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
