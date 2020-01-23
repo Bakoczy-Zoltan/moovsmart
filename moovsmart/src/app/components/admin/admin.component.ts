@@ -184,6 +184,7 @@ export class AdminComponent implements OnInit {
                 this.userForHandling = null;
                 this.display = 'none';
                 console.log('User with id ' + userIdForBan + ' banned.');
+                this.propertyListItemModels = [];
                 this.submitEmail();
             },
             () => {
@@ -199,6 +200,7 @@ export class AdminComponent implements OnInit {
                 this.userForHandling = null;
                 this.display = 'none';
                 console.log('Unbanning was successful.');
+                this.propertyListItemModels = [];
                 this.submitEmail();
             },
             () => {
