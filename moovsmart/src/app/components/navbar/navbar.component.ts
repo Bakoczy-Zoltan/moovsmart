@@ -42,6 +42,8 @@ export class NavbarComponent implements OnInit {
         this.propertyService.userName.subscribe(
             name => this.userName = name
         );
+
+        console.log(this.role);
     }
 
     logout() {
