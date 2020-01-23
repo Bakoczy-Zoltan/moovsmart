@@ -180,11 +180,11 @@ export class AdminComponent implements OnInit {
         this.displayBan = 'none';
         this.propertyService.banUser(userIdForBan).subscribe(
             () => {
-                this.buttonPushed = 0;
                 this.userIdForBan = null;
                 this.userForHandling = null;
                 this.display = 'none';
                 console.log('User with id ' + userIdForBan + ' banned.');
+                this.submitEmail();
             },
             () => {
                 console.warn('Ban wasn\'t successful.');
@@ -195,11 +195,11 @@ export class AdminComponent implements OnInit {
     unBanUser(id: number) {
         this.propertyService.unBanUser(id).subscribe(
             () => {
-                this.buttonPushed = 0;
                 this.userIdForBan = null;
                 this.userForHandling = null;
                 this.display = 'none';
                 console.log('Unbanning was successful.');
+                this.submitEmail();
             },
             () => {
                 console.warn('Unban wasn\'t successful.');
