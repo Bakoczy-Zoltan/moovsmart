@@ -104,7 +104,6 @@ public class PropertyController {
 
     @GetMapping("/authUser/{id}")
     public ResponseEntity<PropertyDetails> getPropertyDetailsForEdit(@PathVariable Long id) {
-
         logger.info("property-details for edit requested");
         return new ResponseEntity<>(propertyService.getPropertyDetails(id), HttpStatus.OK);
     }
@@ -112,7 +111,6 @@ public class PropertyController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PropertyDetails> getPropertyDetails(@PathVariable Long id) {
-
         logger.info("property-details requested");
         return new ResponseEntity<>(propertyService.getPropertyDetails(id), HttpStatus.OK);
     }

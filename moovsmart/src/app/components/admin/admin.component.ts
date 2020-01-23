@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { PropertyListItemModel } from '../../models/propertyListItem.model';
 import { Router } from '@angular/router';
 import { UserDetailsModel } from '../../models/userDetails.model';
-import { UserFormDataModel } from '../../models/userFormData.model';
 import { PropertyService } from '../../services/property.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -24,6 +23,10 @@ export class AdminComponent implements OnInit {
     display = 'none';
     displayBan = 'none';
     userIdForBan: number;
+    inquiryButtonPushed = false;
+    yesterday: any;
+    today: any;
+    propertyForApprove: number;
 
 
     dateForm = this.formBuilder.group({
@@ -32,7 +35,7 @@ export class AdminComponent implements OnInit {
     });
 
     emailForm = this.formBuilder.group({
-        'userEmail': [''],
+        'userEmail': ['', Validators.required],
     });
 
     constructor(private propertyService: PropertyService,
@@ -42,6 +45,7 @@ export class AdminComponent implements OnInit {
     ngOnInit() {
         this.buttonPushed = 0;
         this.actualPageNumber = 1;
+        this.moveToApproval();
     }
 
     moveToApproval() {
@@ -49,6 +53,7 @@ export class AdminComponent implements OnInit {
             this.buttonPushed = 0;
         } else {
             this.buttonPushed = 1;
+            this.inquiryButtonPushed = false;
             this.refreshPropertyList();
         }
     }
@@ -58,6 +63,7 @@ export class AdminComponent implements OnInit {
             this.buttonPushed = 0;
         } else {
             this.buttonPushed = 2;
+            this.inquiryButtonPushed = false;
             this.propertyListItemModels = [];
         }
     }
@@ -65,8 +71,11 @@ export class AdminComponent implements OnInit {
     moveToArchived() {
         if (this.buttonPushed === 3) {
             this.buttonPushed = 0;
+            this.inquiryButtonPushed = false;
         } else {
             this.buttonPushed = 3;
+            this.yesterday = ( d => new Date(d.setDate(d.getDate()-1)).toISOString().slice(0, 16) )(new Date);
+            this.today = new Date().toISOString().slice(0, 16);
             this.propertyListItemModels = [];
         }
     }
@@ -114,6 +123,7 @@ export class AdminComponent implements OnInit {
         this.propertyService.getPropertyListForApproval().subscribe(
             propertyListItems => {
                 this.propertyListItemModels = propertyListItems;
+                this.propertyForApprove = this.propertyListItemModels.length;
                 this.actualPageList = this.makingActualList(this.propertyListItemModels);
             },
         );
@@ -121,11 +131,14 @@ export class AdminComponent implements OnInit {
 
 
     submit = () => {
+        this.inquiryButtonPushed = true;
         this.formData = {...this.dateForm.value};
         this.propertyService.getArchivedProperties(this.formData).subscribe(
             propertyListItems => {
                 this.propertyListItemModels = propertyListItems;
                 this.actualPageList = this.makingActualList(this.propertyListItemModels);
+                console.log(this.inquiryButtonPushed);
+                console.log(this.propertyListItemModels.length);
             },
         );
     };

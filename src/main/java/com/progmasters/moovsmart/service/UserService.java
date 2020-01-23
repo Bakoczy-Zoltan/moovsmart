@@ -95,8 +95,10 @@ public class UserService {
 
             if(properties!= null && properties.size() > 0){
                 for(Property property: properties){
-                    property.setValid(false);
-                    property.setStatus(StatusOfProperty.FORBIDDEN);
+                    if(!property.getStatus().equals(StatusOfProperty.ARCHIVED)){
+                        property.setStatus(StatusOfProperty.FORBIDDEN);
+                        property.setValid(false);
+                    }
                     this.propertyRepository.save(property);
                 }
             }
@@ -124,8 +126,11 @@ public class UserService {
         List<Property> properties = this.propertyRepository.findAllByOwner(user);
         if (properties != null && properties.size() > 0) {
             for (Property property : properties) {
-                property.setValid(true);
-                property.setStatus(StatusOfProperty.ACCEPTED);
+
+                if (property.getStatus().equals(StatusOfProperty.FORBIDDEN)) {
+                    property.setValid(true);
+                    property.setStatus(StatusOfProperty.HOLDING);
+                }
                 this.propertyRepository.save(property);
             }
         }

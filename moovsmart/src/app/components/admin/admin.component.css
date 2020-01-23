@@ -1,16 +1,19 @@
 .approval {
     background-color: #AFD275;
     color: white;
+    margin: 2px;
 }
 
 .userHandling {
     background-color: #E7717D;
     color: white;
+    margin: 2px;
 }
 
 .archiveList {
     background-color: #7E685A;
     color: white;
+    margin: 2px;
 }
 
 
@@ -43,7 +46,7 @@
     margin-left: auto;
 }
 
-#emptydbmessage, #emptyArchiveMessage {
+#emptydbmessage{
     position: absolute;
     font-size: 20px;
     font-weight: bold;
@@ -52,7 +55,13 @@
     transform: translate(-50%, -50%);
 }
 
-.defaultPicture {
+#emptyArchiveMessage{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+  .defaultPicture {
     width: 100%;
     max-width: 200px;
     height: 100%;
@@ -192,5 +201,15 @@
     background-color: #7E685A;
     color: white;
     margin: 3px;
+}
+
+.center {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#bold {
+    font-weight: bold;
 }
 

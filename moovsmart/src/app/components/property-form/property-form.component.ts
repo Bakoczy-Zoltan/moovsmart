@@ -218,7 +218,7 @@ export class PropertyFormComponent implements OnInit {
                 this.formData.isValid = true;
 
                 if (this.selectedFile != null) {
-                    this.imageService.uploadImage(this.selectedFile).subscribe(
+                    this.propertyService.uploadImage(this.selectedFile).subscribe(
                         (data) => {
                             this.answer = data;
 
