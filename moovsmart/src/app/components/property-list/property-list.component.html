@@ -151,7 +151,7 @@
             </div>
         </div>
     </div>
-    <div id="pager" class="d-flex justify-content-center">
+    <div *ngIf="propertyListItemModels.length > 0" id="pager" class="d-flex justify-content-center">
         <div id="leftArrow" *ngIf="actualPageNumber > 1" (click)="pageLeft()" title="lapozz">
             <i class="fas fa-angle-left" ></i>
         </div>
