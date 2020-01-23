@@ -35,7 +35,7 @@
                     />
                     <small *ngIf="propertyForm.get('area').invalid && propertyForm.get('area').touched
           && !propertyForm.get('area').errors?.serverError" class="text-danger">
-                        Az alapterület nem lehet kisebb, mint 1!
+                        Az alapterület nem lehet kisebb, mint 1, és csak számjegyekből állhat!
                     </small>
                     <small *ngIf="propertyForm.get('area').errors?.serverError" class="text-danger">
                         {{propertyForm.get('area').errors['serverError']}}
@@ -56,7 +56,7 @@
                     />
                     <small *ngIf="propertyForm.get('numberOfRooms').invalid && propertyForm.get('numberOfRooms').touched
           && !propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
-                        A szobák száma minimum 1 és maximum 12 lehet!
+                        A szobák száma minimum 1 és maximum 12 lehet, és csak számjegyekből állhat!
                     </small>
                     <small *ngIf="propertyForm.get('numberOfRooms').errors?.serverError" class="text-danger">
                         {{propertyForm.get('numberOfRooms').errors['serverError']}}
@@ -77,7 +77,7 @@
                     />
                     <small *ngIf="propertyForm.get('buildingYear').invalid && propertyForm.get('buildingYear').touched
           && !propertyForm.get('buildingYear').errors?.serverError" class="text-danger">
-                        Az építés éve 0 és {{this.currentYear}} között lehet!
+                        Az építés éve 0 és {{this.currentYear}} között lehet, és csak számjegyekből állhat!
                     </small>
                     <small *ngIf="propertyForm.get('buildingYear').errors?.serverError" class="text-danger">
                         {{propertyForm.get('buildingYear').errors['serverError']}}
@@ -244,7 +244,7 @@
                     />
                     <small *ngIf="propertyForm.get('zipCode').invalid && propertyForm.get('zipCode').touched
         && !propertyForm.get('zipCode').errors?.serverError" class="text-danger">
-                        Az irányítószám négyjegyű szám lehet!
+                        Az irányítószám négyjegyű szám lehet, és csak számjegyekből állhat!
                     </small>
                     <small *ngIf="propertyForm.get('zipCode').errors?.serverError" class="text-danger">
                         {{propertyForm.get('zipCode').errors['serverError']}}
