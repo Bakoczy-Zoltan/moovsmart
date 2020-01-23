@@ -51,8 +51,8 @@ public class PropertyForm {
         this.price = property.getPrice();
         this.buildingYear = property.getBuildingYear();
         this.area = property.getArea();
-        this.propertyType = property.getPropertyType().name();
-        this.propertyState = property.getPropertyState().name();
+        this.propertyType = property.getPropertyType().getDisplayName();
+        this.propertyState = property.getPropertyState().getDisplayName();
         this.county = property.getCounty().name();
         this.city = property.getCity();
         this.zipCode = property.getZipCode();

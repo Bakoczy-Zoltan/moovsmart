@@ -6,6 +6,7 @@ import { DateIntervalModel } from '../models/DateInterval.model';
 import { FilteredListModel } from '../models/FilteredListModel';
 import { PropertyDetailsModel } from '../models/propertyDetails.model';
 import { PropertyFormDataModel } from '../models/propertyFormData.model';
+import { PropertyListByAdmin } from '../models/propertyListByAdmin.model';
 import { PropertyListItemModel } from '../models/propertyListItem.model';
 import { UserDetailsModel } from '../models/userDetails.model';
 import { UserFormDataModel } from '../models/userFormData.model';
@@ -79,8 +80,8 @@ export class PropertyService {
         return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl + '/authUser/myList');
     }
 
-    getMyHoldingPropertyList(): Observable<Array<PropertyListItemModel>> {
-        return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl + '/authUser/myHoldingList');
+    getMyHoldingPropertyList(): Observable<Array<PropertyListByAdmin>> {
+        return this.httpClient.get<Array<PropertyListByAdmin>>(this.baseUrl + '/authUser/myHoldingList');
     }
 
     getCityList(): Observable<string[]> {
@@ -104,7 +105,7 @@ export class PropertyService {
     }
 
     getPropertyListForApproval(): Observable<any> {
-        return this.httpClient.get<Array<PropertyListItemModel>>(this.baseUrl + '/admin/propertyListForApproval');
+        return this.httpClient.get<Array<PropertyListByAdmin>>(this.baseUrl + '/admin/propertyListForApproval');
     }
 
     getPropertyDetailsForApproval = (idParam: number): Observable<PropertyFormDataModel> => {

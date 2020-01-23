@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { error } from 'util';
+import { PropertyFormDataModel } from '../../models/propertyFormData.model';
 import { PropertyService } from '../../services/property.service';
 
 @Component({
@@ -32,7 +33,7 @@ export class AdminPropertyDetailsComponent implements OnInit {
                 } else {this.propertyService
                         .getPropertyDetailsForApproval(idParam)
                         .subscribe(
-                            proDetails => {
+                            (proDetails: PropertyFormDataModel) => {
                                 this.propertyDetails = proDetails;
 
                                 const formatedPrice = this.propertyDetails.price / 1000000;
