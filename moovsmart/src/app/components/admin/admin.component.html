@@ -35,7 +35,8 @@
                        class="text-danger">
                     Email kitöltése kötelező!
                     <br></small>
-                <button type="submit" class="btn submit-button">Lekérdezés</button><br>
+                <button type="submit" class="btn submit-button">Lekérdezés</button>
+                <br>
             </form>
         </div>
         <div *ngIf="buttonPushed === 2">
@@ -65,16 +66,16 @@
             <h3>Archivált ingatlanok</h3>
             <hr>
             <form (ngSubmit)="submit()" [formGroup]="dateForm">
-                <input class="dateInput" type="datetime-local" formControlName="dateFrom" [value]="yesterday">
-                <input class="dateInput" type="datetime-local" formControlName="dateTo" [value]="today">
+                <input class="dateInput" type="datetime-local" formControlName="dateFrom">
+                <input class="dateInput" type="datetime-local" formControlName="dateTo">
 
                 <button type="submit" class="btn submit-button">Lekérdezés</button>
             </form>
             <div>
-            <div id="emptyArchiveMessage" *ngIf="(propertyListItemModels === undefined || propertyListItemModels.length === 0)
+                <div id="emptyArchiveMessage" *ngIf="(propertyListItemModels === undefined || propertyListItemModels.length === 0)
                         && inquiryButtonPushed === true">
-                Ebben az idősávban nincs archivált ingatlan.
-            </div>
+                    Ebben az idősávban nincs archivált ingatlan.
+                </div>
             </div>
         </div>
 
@@ -102,9 +103,12 @@
                                         <div id="area-div"><strong>Terület</strong>: {{property.area}} m<sup>2</sup>
                                         </div>
                                         <div id="price-div"><strong>Ár</strong>: {{property.price}} M ft</div>
-                                        <div id="status-div"><strong>Státusz</strong>: {{property.status}}
+                                        <div id="status-div"><strong>Státusz</strong>:
+                                            <span [ngStyle]="property.status === 'elfogadásra vár' &&
+                                            {'color':'#E7717D'} || property.status === 'elfogadott'&&
+                                            {'color':'green'} || property.status === 'tiltott' && {'font-weight':'bold'}">{{property.status}}</span>
                                         </div>
-                                        <div id="email-div"><strong>Email</strong>: {{property.owner}}</div>
+                                        <div *ngIf="buttonPushed === 1 || buttonPushed === 3" id="email-div"><strong>Email</strong>: {{property.owner}}</div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div>
@@ -140,7 +144,8 @@
                     <div id="leftArrow" *ngIf="actualPageNumber > 1" (click)="pageLeft()" title="lapozz">
                         <i class="fas fa-angle-left"></i>
                     </div>
-                    <div id="pagerNumbers" *ngIf="propertyListItemModels !== undefined && propertyListItemModels.length !== 0">
+                    <div id="pagerNumbers"
+                         *ngIf="propertyListItemModels !== undefined && propertyListItemModels.length !== 0">
                         <strong> {{actualPageNumber}} </strong>
                     </div>
                     <div id="rightArrow" *ngIf="actualPageNumber < actualPageList?.length" (click)="pageRight()"
