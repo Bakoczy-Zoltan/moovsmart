@@ -136,7 +136,6 @@ export class AdminComponent implements OnInit {
     submit = () => {
         this.inquiryButtonPushed = true;
         this.formData = {...this.dateForm.value};
-        console.log("Elküldött dátumok: " + this.formData);
         this.propertyService.getArchivedProperties(this.formData).subscribe(
             propertyListItems => {
                 this.propertyListItemModels = propertyListItems;
