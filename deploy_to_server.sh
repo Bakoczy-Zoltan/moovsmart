@@ -2,7 +2,7 @@
 set -x
 set -e
 cd moovsmart
-ng build --prod="true"
+ng build --prod
 cd ..
 mvn package
 chmod 600 2019augPrivateAWSKey.pem

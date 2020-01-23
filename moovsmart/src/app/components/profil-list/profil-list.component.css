@@ -67,7 +67,7 @@ hr {
 }
 
 .btn {
-    width: 150px;
+    width: 180px;
 }
 
 .defaultPicture {
@@ -173,7 +173,7 @@ hr {
 
 #img-holder-row {
     text-align: center;
-    background-color: antiquewhite;
+    background-color: lightgrey;
     padding: 3px;
 }
 

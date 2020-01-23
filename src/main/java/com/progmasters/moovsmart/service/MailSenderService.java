@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -93,6 +95,14 @@ public class MailSenderService {
         }
         return user;
     }
+
+//    @Scheduled(fixedRate = 60*60*1000)
+//    public void checkDate(){
+//        if(LocalTime.now() > LocalTime.of(00, 00, 00)){
+//
+//        }
+//
+//    }
 
     public void saveDB() throws SQLException, IOException, ClassNotFoundException {
         this.dataBaseSaver = new DataBaseSaver();

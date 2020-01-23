@@ -6,13 +6,15 @@ import { environment } from '../../environments/environment';
 @Injectable({providedIn: 'root'})
 export class ImageService {
 
+    baseUrl = environment.apiUrl + '/images';
+
     constructor(private http: HttpClient) {}
 
     public uploadImage(image: File): Observable<any> {
         const uploadData = new FormData();
         uploadData.append('myPicture', image);
-
-        const imageServiceReturn = this.http.post('http://localhost:8080/api/images', uploadData);
+        console.log(this.baseUrl + " service url");
+        const imageServiceReturn = this.http.post(this.baseUrl, uploadData);
         return imageServiceReturn;
     }
 }
