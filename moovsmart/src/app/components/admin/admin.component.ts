@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PropertyListByAdmin } from '../../models/propertyListByAdmin.model';
 import { PropertyListItemModel } from '../../models/propertyListItem.model';
 import { Router } from '@angular/router';
 import { UserDetailsModel } from '../../models/userDetails.model';
@@ -12,12 +13,12 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class AdminComponent implements OnInit {
 
-    propertyListItemModels: Array<PropertyListItemModel>;
+    propertyListItemModels: Array<PropertyListByAdmin>;
     buttonPushed: number;
     defaultPicture = 'https://atasouthport.com/wp-content/uploads/2017/04/default-image.jpg';
     images: string[];
     actualPageNumber: number;
-    actualPageList: [PropertyListItemModel[]] = [[]];
+    actualPageList: [PropertyListByAdmin[]] = [[]];
     formData: any;
     userForHandling: UserDetailsModel;
     display = 'none';
@@ -80,11 +81,11 @@ export class AdminComponent implements OnInit {
         }
     }
 
-    private makingActualList(propertyListItemModels: Array<PropertyListItemModel>) {
+    private makingActualList(propertyListItemModels: Array<PropertyListByAdmin>) {
         const listSize = propertyListItemModels.length;
         const miniListSize = 5;
-        let actualList: [PropertyListItemModel[]] = [[]];
-        let tempList: PropertyListItemModel[] = [];
+        let actualList: [PropertyListByAdmin[]] = [[]];
+        let tempList: PropertyListByAdmin[] = [];
 
         let indexBig = 0;
         for (let i = 0; i < listSize; i++) {
@@ -137,8 +138,6 @@ export class AdminComponent implements OnInit {
             propertyListItems => {
                 this.propertyListItemModels = propertyListItems;
                 this.actualPageList = this.makingActualList(this.propertyListItemModels);
-                console.log(this.inquiryButtonPushed);
-                console.log(this.propertyListItemModels.length);
             },
         );
     };
