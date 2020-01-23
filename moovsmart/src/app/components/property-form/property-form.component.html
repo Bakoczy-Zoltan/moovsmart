@@ -323,7 +323,7 @@
                 type="text"
             />
             <small *ngIf="propertyForm.get('price').invalid && propertyForm.get('price').touched" class="text-danger">
-                Kérjük, adjon az ingatlannak nullánál nagyobb kikiáltási árat!
+                Az ár nagyobb kell legyen, mint 0 és ne használjon szóközt vagy speciális karaktert!
             </small>
             <small *ngIf="propertyForm.get('price').errors?.serverError" class="text-danger">
                 {{propertyForm.get('price').errors['serverError']}}

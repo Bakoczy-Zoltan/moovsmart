@@ -2,7 +2,7 @@ package com.progmasters.moovsmart.domain;
 
 public enum PropertyType {
     HOUSE("Ház"), APARTMENT("Lakás"), PANEL("Panellakás"),
-    LAND("Telek");
+    OFFICE("Iroda");
 
     private String displayName;
 
