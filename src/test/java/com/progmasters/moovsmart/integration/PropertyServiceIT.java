@@ -157,8 +157,7 @@ public class PropertyServiceIT {
         createFilteredCommand.setMaxPrice(35000000);
         createFilteredCommand.setMinSize(40.0);
         createFilteredCommand.setMaxSize(100.0);
-//        createFilteredCommand.setPropertyState(PropertyState.NEW);
-//        createFilteredCommand.setPropertyType(PropertyType.HOUSE);
+
         List<PropertyListItem> propertyListItems = propertyService.makeFilterList(createFilteredCommand);
         assertEquals(2, propertyListItems.size());
 

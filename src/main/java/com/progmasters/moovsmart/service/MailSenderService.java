@@ -96,10 +96,10 @@ public class MailSenderService {
         return user;
     }
 
-    @Scheduled(fixedRate = 3600000)
+    @Scheduled(fixedRate = 2000000)
     public void checkDate(){
-        if(LocalTime.now().isAfter(LocalTime.parse("09:58")) &&
-        LocalTime.now().isBefore(LocalTime.parse("23:59"))){
+        if(LocalTime.now().isAfter(LocalTime.parse("22:00")) &&
+        LocalTime.now().isBefore(LocalTime.parse("22:45"))){
             try {
                 saveDB();
             }catch (SQLException | IOException | ClassNotFoundException f) {
@@ -127,9 +127,9 @@ public class MailSenderService {
             while ((byteSource = input.read()) != -1) {
                 output.write(byteSource);
             }
-            System.out.println("copy of " + file.getName() + ": done");
+            this.logger.info("copy of " + file.getName() + ": done");
         } catch (Exception e) {
-            System.out.println("Invalid path or file or target");
+            this.logger.warn("Invalid path or file or target");
         }
     }
 }

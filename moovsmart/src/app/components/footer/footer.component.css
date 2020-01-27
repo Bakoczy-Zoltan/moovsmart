@@ -19,5 +19,15 @@
  }
 
  .tag-p{
+     padding: 0;
      font-size: 12px;
+     margin: 0;
+ }
+ .tag-mail{
+     padding: 0;
+     text-align: left;
+     font-size: 12px;
+     margin-right: 2%;
+ }
+ .main-holder-div{
  }
