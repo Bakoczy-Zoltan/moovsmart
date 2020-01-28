@@ -21,27 +21,34 @@ export class NavbarComponent implements OnInit {
                 private propertyService: PropertyService) {
 
         this.BASE_URL = 'http://localhost:8080';
-        this.registratedUser = (localStorage.getItem('user')!== null);
+        this.setUserLogin();
     }
 
 
     ngOnInit() {
-        this.registratedUser = (localStorage.getItem('user')!== null);
+        this.registratedUser = (localStorage.getItem('user') !== null);
         this.storage = JSON.parse(localStorage.getItem('user'));
+        this.setUserLogin();
 
-        if(this.storage != null){
-            this.userName = this.storage.name;
-            this.id = this.storage.userId;
-            this.role = this.storage.role;
-        }
-
-       // this.id = this.propertyService.userId;
-        this.propertyService.regisTrated.subscribe(
-            name => this.registratedUser = name
-        );
         this.propertyService.userName.subscribe(
-            name => this.userName = name
+            name => this.userName = name,
         );
+    }
+
+    setUserLogin() {
+        this.registratedUser = (localStorage.getItem('user') !== null);
+        this.propertyService.regisTrated.subscribe(
+            name => {
+                this.storage = JSON.parse(localStorage.getItem('user'));
+                this.registratedUser = name;
+                if (this.storage != null) {
+                    this.userName = this.storage.name;
+                    this.id = this.storage.userId;
+                    this.role = this.storage.role;
+                }
+            },
+        );
+
     }
 
     logout() {
@@ -51,21 +58,22 @@ export class NavbarComponent implements OnInit {
             this.router.navigateByUrl('/');
             this.propertyService.regisTrated.next(false);
             this.propertyService.userId = null;
+            this.role = [];
             this.propertyService.userName.next(
-                null
-            )
+                null,
+            );
         });
 
     }
 
     ownProperties() {
         this.storage = JSON.parse(localStorage.getItem('user'));
-        if(this.storage != null){
+        if (this.storage != null) {
             this.id = this.storage.userId;
         }
-        if(this.id !== null && this.id !== undefined){
-            this.router.navigate(['profil-list', this.id])
-        }else{
+        if (this.id !== null && this.id !== undefined) {
+            this.router.navigate(['profil-list', this.id]);
+        } else {
             this.registratedUser = false;
         }
     }

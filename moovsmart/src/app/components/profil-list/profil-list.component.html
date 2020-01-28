@@ -18,13 +18,13 @@
             <div *ngFor="let property of actualPageList[actualPageNumber-1]" id="mainBoard-div">
                 <div class="mainRow">
                     <div class="container-fluid">
-                        <div class="row">
+                        <div class="row" id="img-div-holder">
                             <div class="col-sm-3" id="img-holder-row">
                                 <div *ngIf="property?.imageUrl[0]?.length < 3">
                                     <img [src]="defaultPicture" class="defaultPicture" [alt]="defaultPicture">
                                 </div>
                                 <div *ngIf="property?.imageUrl[0]?.length >= 3">
-                                    <img (click)="details(property.id)" alt="ingatlan" width="200"
+                                    <img (click)="details(property.id)" alt="ingatlan" class="defaultPicture"
                                          src="{{property?.imageUrl[0]}}"/>
                                 </div>
                             </div>

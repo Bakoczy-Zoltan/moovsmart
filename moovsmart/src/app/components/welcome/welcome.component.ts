@@ -40,7 +40,7 @@ export class WelcomeComponent implements OnInit {
         if (this.registratedUser !== true) {
             this.router.navigate(['signin']);
         } else {
-            this.router.navigate(['profil-list', this.userId]);
+            this.router.navigate(['property-form']);
         }
     }
 

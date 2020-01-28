@@ -27,7 +27,7 @@ export class PropertyFormComponent implements OnInit {
     searchPosition: string;
     geocoder: google.maps.Geocoder;
     addressToDecode: google.maps.GeocoderRequest = {};
-    actualUserName: string;
+   // actualUserName: string;
     lngCoord: number;
     latCoord: number;
     answer: string[];
@@ -43,7 +43,7 @@ export class PropertyFormComponent implements OnInit {
     propertyForm = this.formBuilder.group({
         'name': ['', Validators.compose([Validators.required, Validators.minLength(3),
             Validators.maxLength(20)])],
-        'area': ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern('^[1-9]|[[1-9][0-9]+$]')])],
+        'area': ['', Validators.compose([Validators.required, Validators.min(1), Validators.pattern('^[0-9]+$')])],
         'numberOfRooms': ['', Validators.compose([Validators.min(1), Validators.max(12), Validators.pattern('^[1-9]|[[1][0-2]]')])],
         'buildingYear': ['', Validators.compose([Validators.min(1), Validators.pattern('^[1-9]|[[1-9][0-9]+$]'),
             Validators.max(new Date().getFullYear())])],
@@ -82,13 +82,10 @@ export class PropertyFormComponent implements OnInit {
         });
         this.storage = JSON.parse(localStorage.getItem('user'));
 
-        this.actualUserName = this.propertyService.userName2;
         this.propertyService.userName.subscribe(
             (name) => {
-                this.actualUserName = name;
-                console.log('NAME' + name);
                 this.registratedUser = name !== null;
-                if (this.actualUserName == null) {
+                if (this.registratedUser === false) {
                     this.openModalDialog();
                 } else {
                     this.closeDial();
@@ -142,7 +139,6 @@ export class PropertyFormComponent implements OnInit {
     submit = () => {
         this.displayLoadingCircle = true;
         this.formData = {...this.propertyForm.value};
-        //  console.log(this.formData);
 
         this.searchPosition = this.formData.zipCode + ' ' + this.formData.street + ' ' + this.formData.city + ' ' + this.formData.streetNumber;
         this.addressToDecode.address = this.searchPosition;
@@ -213,7 +209,6 @@ export class PropertyFormComponent implements OnInit {
                 this.formData.lngCoord = this.lngCoord;
                 this.formData.latCoord = this.latCoord;
 
-                //  console.log('latlong', this.latCoord, this.lngCoord);
 
                 this.formData.isValid = true;
 

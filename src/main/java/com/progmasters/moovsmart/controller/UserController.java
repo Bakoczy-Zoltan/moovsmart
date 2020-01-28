@@ -33,6 +33,7 @@ public class UserController {
     public UserController(MailSenderService mailSenderService,
                           UserService userService,
                           RegistrationValidator registrationValidator) {
+
         this.mailSenderService = mailSenderService;
         this.userService = userService;
         this.registrationValidator = registrationValidator;

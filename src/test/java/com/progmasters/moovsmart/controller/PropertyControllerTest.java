@@ -243,14 +243,15 @@ public class PropertyControllerTest {
         UserDetails userDetails = Mockito.mock(UserDetails.class);
         Authentication authentication = Mockito.mock(Authentication.class);
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+
         when(securityContext.getAuthentication()).thenReturn(authentication);
+
         SecurityContextHolder.setContext(securityContext);
         when(authentication.getPrincipal()).thenReturn(userDetails);
 
         UserProperty user = new UserProperty();
         user.setMail("xy@xy.com");
         user.setPassword("pw");
-//        user.setId(1L);
 
         Property property1 = new Property();
         property1.setId(1L);
@@ -282,13 +283,14 @@ public class PropertyControllerTest {
         UserProperty user = new UserProperty();
         user.setMail("xy@xy.com");
         user.setPassword("pw");
-//        user.setId(1L);
 
         UserDetails userDetails = Mockito.mock(UserDetails.class);
         Authentication authentication = Mockito.mock(Authentication.class);
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+
         when(securityContext.getAuthentication()).thenReturn(authentication);
         SecurityContextHolder.setContext(securityContext);
+
         when(authentication.getPrincipal()).thenReturn(userDetails);
 
         Property updateProperty1 = new Property();
@@ -324,13 +326,14 @@ public class PropertyControllerTest {
         UserProperty user = new UserProperty();
         user.setMail("xy@xy.com");
         user.setPassword("pw");
-//        user.setId(1L);
 
         UserDetails userDetails = Mockito.mock(UserDetails.class);
         Authentication authentication = Mockito.mock(Authentication.class);
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+
         when(securityContext.getAuthentication()).thenReturn(authentication);
         SecurityContextHolder.setContext(securityContext);
+
         when(authentication.getPrincipal()).thenReturn(userDetails);
 
         Property updateProperty1 = new Property();
@@ -366,8 +369,10 @@ public class PropertyControllerTest {
         UserDetails userDetails = Mockito.mock(UserDetails.class);
         Authentication authentication = Mockito.mock(Authentication.class);
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+
         when(securityContext.getAuthentication()).thenReturn(authentication);
         SecurityContextHolder.setContext(securityContext);
+
         when(authentication.getPrincipal()).thenReturn(userDetails);
 
         when(propertyServiceMock.deleteProperty(any(Long.class), any())).thenReturn(true);
@@ -386,8 +391,10 @@ public class PropertyControllerTest {
         UserDetails userDetails = Mockito.mock(UserDetails.class);
         Authentication authentication = Mockito.mock(Authentication.class);
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+
         when(securityContext.getAuthentication()).thenReturn(authentication);
         SecurityContextHolder.setContext(securityContext);
+
         when(authentication.getPrincipal()).thenReturn(userDetails);
 
         when(propertyServiceMock.deleteProperty(any(Long.class), any())).thenReturn(false);

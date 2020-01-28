@@ -17,10 +17,8 @@ import { UserFormDataModel } from '../models/userFormData.model';
 export class PropertyService {
 
     userName = new Subject<string>();
-    userName2: string;
     userId: number;
     regisTrated = new Subject<boolean>();
-    role: string[];
 
     baseUrl = environment.apiUrl + '/properties';
     baseUserUrl = environment.apiUrl + '/user';
