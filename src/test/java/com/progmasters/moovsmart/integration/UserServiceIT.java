@@ -141,6 +141,7 @@ public class UserServiceIT {
         property1.setPropertyType(PropertyType.HOUSE);
         property1.setPropertyState(PropertyState.RENEWABLE);
         property1.setOwner(userProperty);
+        property1.setStatus(StatusOfProperty.FORBIDDEN);
         propertyRepository.save(property1);
 
         Long id = userRepository.findUserPropertiesByMail(userProperty.getMail()).get().getId();
@@ -150,7 +151,7 @@ public class UserServiceIT {
         List<Property> permittedProperties = propertyRepository.findAllByOwner(userProperty);
 
         assertTrue(permittedProperties.get(0).isValid());
-        assertEquals(StatusOfProperty.ACCEPTED, permittedProperties.get(0).getStatus());
+        assertEquals(StatusOfProperty.HOLDING, permittedProperties.get(0).getStatus());
 
     }
 

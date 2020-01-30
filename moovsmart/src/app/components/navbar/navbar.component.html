@@ -13,12 +13,12 @@
     <div class="navbar-collapse collapse" id="myNavbar">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item"><a class="nav-link" routerLink="/property-list">Ingatlanok listája</a></li>
-        <li *ngIf="registratedUser" class="nav-item"><a class="nav-link" routerLink="/property-form">Ingatlan regisztrálása</a></li>
+        <li *ngIf="registratedUser &&!role.includes('ROLE_ADMIN')" class="nav-item"><a class="nav-link" routerLink="/property-form">Ingatlan regisztrálása</a></li>
       </ul>
 
       <a *ngIf="!registratedUser" class="nav-link" routerLink="/registration">Regisztráció <i class="far fa-edit"></i></a>
       <a *ngIf="!registratedUser" class="nav-link" routerLink="/signin">Bejelentkezés <i class="fas fa-sign-in-alt"></i></a>
-      <a *ngIf="role.includes('ROLE_ADMIN') && registratedUser" class="nav-link" routerLink="/admin">Admin felület</a>
+      <a *ngIf="role.includes('ROLE_ADMIN')" class="nav-link" routerLink="/admin">Admin felület</a>
       <a *ngIf="registratedUser && !role.includes('ROLE_ADMIN')" id="profil-link" title="Saját profil" class="nav-link" (click)="ownProperties()">{{userName}}</a>
       <a *ngIf="registratedUser" class="nav-link" style="cursor: pointer" (click)="logout()">Kijelentkezés</a>
     </div>

@@ -17,16 +17,14 @@ import { UserFormDataModel } from '../models/userFormData.model';
 export class PropertyService {
 
     userName = new Subject<string>();
-    userName2: string;
     userId: number;
     regisTrated = new Subject<boolean>();
-    role: string[];
 
-    baseUrl = environment.apiUrl + '/properties';
-    baseUserUrl = environment.apiUrl + '/user';
-    baseImageUrl = environment.apiUrl + '/images';
+    baseUrl = environment.apiUrl + 'api/properties';
+    baseUserUrl = environment.apiUrl + 'api/user';
+    baseImageUrl = environment.apiUrl + 'api/images';
 
-    url = 'localhost:8080/api/properties';
+    url = (environment.apiUrl);
 
     constructor(private httpClient: HttpClient) {
     }
@@ -160,5 +158,10 @@ export class PropertyService {
         console.log(this.baseUrl + " service url");
         const imageServiceReturn = this.httpClient.post(this.baseImageUrl, uploadData);
         return imageServiceReturn;
+    }
+
+    logout() {
+        console.log(this.url);
+        return this.httpClient.post(this.url + 'logout', {});
     }
 }

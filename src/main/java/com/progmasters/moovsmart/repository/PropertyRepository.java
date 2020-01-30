@@ -60,15 +60,16 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
                                               @Param("propertyType") PropertyType propertyType, @Param("city") String city);
 
     @Query("SELECT p from Property p " +
-            "where p.status = 'HOLDING'")
+            "where p.status = 'HOLDING' order by p.id asc")
     List<Property> getAllHoldingProperty();
 
 
     @Query("SELECT p from  Property p " +
             "where p.localDateTime between :fromDate " +
             "and :toDate " +
-            "AND p.status = 'ARCHIVED' " +
-            "and p.isValid = false"
+            "and p.status = 'ARCHIVED' " +
+            "and p.isValid = false "+
+            "order by p.id desc"
     )
     List<Property> getAllArchivedPropertiesByDates(@Param("fromDate") LocalDateTime dateFrom, @Param("toDate") LocalDateTime dateTo);
 

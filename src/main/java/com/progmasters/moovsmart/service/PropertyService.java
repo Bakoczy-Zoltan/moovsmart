@@ -7,8 +7,6 @@ import com.progmasters.moovsmart.dto.*;
 import com.progmasters.moovsmart.repository.PropertyRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -108,12 +106,12 @@ public class PropertyService {
 
         if (propertyOptional.isPresent()) {
             Property property = propertyOptional.get();
-            //  System.out.println("ID PROP: " + property.getId());
             user = property.getOwner();
 
             if (!(user.getMail().equals(userMail))) {
                 return result;
             }
+
             property.setValid(false);
             property.setStatus(StatusOfProperty.ARCHIVED);
             result = true;
@@ -260,7 +258,6 @@ public class PropertyService {
         if (command.getNumberOfRooms() == null || command.getNumberOfRooms() == 0) {
             listOfFilteredProperty = getFilteredPropertiesWithoutRooms(command);
         } else {
-            System.out.println("ROOM Number " + command.getNumberOfRooms());
             listOfFilteredProperty = getFilteredProperties(command);
         }
         return listOfFilteredProperty;
@@ -297,6 +294,9 @@ public class PropertyService {
         return propertyListItemList;
 
     }
+
+    /*
+    * */
 
     public PropertyForm getPropertyDetailsForApproval(Long id) {
         Property property = findById(id);

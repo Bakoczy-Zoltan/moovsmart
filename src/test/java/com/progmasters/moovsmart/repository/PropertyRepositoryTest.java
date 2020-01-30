@@ -187,12 +187,6 @@ public class PropertyRepositoryTest {
 
         assertEquals(1, properties1.size());
 
-//        List<Property> properties2 = propertyRepository.getFilteredProperties(0.0, 0.0,
-//                0, 0, null, null,
-//                null, 5);
-//
-//        assertEquals(1, properties2.size());
-
         List<Property> properties3 = propertyRepository.getFilteredProperties(0.0, 0.0,
                 0, 0, null, null,
                 null, 1);

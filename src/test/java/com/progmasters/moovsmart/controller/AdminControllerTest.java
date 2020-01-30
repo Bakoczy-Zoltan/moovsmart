@@ -143,61 +143,6 @@ public class AdminControllerTest {
     }
 
     @Test
-    public void testGetArchivedProperties() throws Exception {
-        // given
-        Property property1 = new Property();
-        property1.setId(1L);
-        property1.setName("House1");
-        property1.setNumberOfRooms(2);
-        property1.setArea(50.0);
-        property1.setPrice(10000000);
-        property1.setPropertyType(PropertyType.HOUSE);
-        property1.setPropertyState(PropertyState.RENEWABLE);
-        property1.setCounty(County.BARANYA);
-        property1.setLocalDateTime(LocalDateTime.of(2020, Month.JANUARY,05, 11,20,0));
-
-        Property property2 = new Property();
-        property2.setId(2L);
-        property2.setName("House2");
-        property2.setNumberOfRooms(3);
-        property2.setArea(80.0);
-        property2.setPrice(30000000);
-        property2.setPropertyType(PropertyType.HOUSE);
-        property2.setPropertyState(PropertyState.NEW);
-        property2.setCounty(County.BEKES);
-        property2.setLocalDateTime(LocalDateTime.of(2020, Month.JANUARY,12, 11,20,0));
-
-        List<PropertyForm> propertyForms = Stream.of(property1, property2).map(PropertyForm::new).collect(Collectors.toList());
-
-        CreateQueryByDatesCommand createQueryByDatesCommand = new CreateQueryByDatesCommand(
-                LocalDateTime.of(2020, Month.JANUARY, 01, 19, 30, 40),
-                LocalDateTime.of(2020, Month.JANUARY, 15, 19, 30, 40));
-
-        //when
-//        when(propertyServiceMock.getArchivedProperties(createQueryByDatesCommand)).thenReturn(propertyForms);
-
-        // then
-
-//        this.mockMvc.perform(post("/api/properties/admin/getArchivedProperties")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(asJsonString(createQueryByDatesCommand)))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$", hasSize(2)))
-//                .andExpect(jsonPath("$[0].name", is("House1")))
-//                .andExpect(jsonPath("$[0].price", is(10000000)))
-//                .andExpect(jsonPath("$[0].numberOfRooms", is(2)))
-//                .andExpect(jsonPath("$[0].area", is(50.0)))
-//                .andExpect(jsonPath("$[1].name", is("House2")))
-//                .andExpect(jsonPath("$[1].price", is(30000000)))
-//                .andExpect(jsonPath("$[1].numberOfRooms", is(3)))
-//                .andExpect(jsonPath("$[1].area", is(80.0)));
-
-//        verify(propertyServiceMock, times(1)).getArchivedProperties(createQueryByDatesCommand);
-//        verifyNoMoreInteractions(propertyServiceMock);
-    }
-
-    @Test
     public void testGetPropertyListByUserMail() throws Exception {
         Property property1 = new Property();
         property1.setId(1L);

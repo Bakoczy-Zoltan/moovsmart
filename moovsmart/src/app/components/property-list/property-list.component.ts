@@ -45,14 +45,14 @@ export class PropertyListComponent implements OnInit {
     clearFilterFields() {
         this.filteredForm = new FormGroup(
             {
-                'minPrice': new FormControl(0, [Validators.min(0), Validators.pattern('^[0-9]+$')]),
-                'maxPrice': new FormControl(null, [Validators.min(0), Validators.pattern('^[0-9]+$')]),
-                'minSize': new FormControl(0, [Validators.min(0) ,Validators.pattern('^[0-9]+$')]),
-                'maxSize': new FormControl(null, [Validators.min(0), Validators.pattern('^[0-9]+$')]),
+                'minPrice': new FormControl(0, [Validators.min(0), Validators.pattern('^0$|^[1-9]+[0-9]*$')]),
+                'maxPrice': new FormControl(null, [Validators.min(0), Validators.pattern('[1-9]+[0-9]*$')]),
+                'minSize': new FormControl(0, [Validators.min(0) ,Validators.pattern('^0$|^[1-9]+[0-9]*$')]),
+                'maxSize': new FormControl(null, [Validators.min(0), Validators.pattern('[1-9]+[0-9]*$')]),
                 'propertyState': new FormControl(null),
                 'propertyType': new FormControl(null),
                 'city': new FormControl(null),
-                'numberOfRooms': new FormControl(0, [Validators.min(0), Validators.max(30), Validators.pattern('^[0-9]+$')]),
+                'numberOfRooms': new FormControl(0, [Validators.min(0), Validators.max(12), Validators.pattern('^0$|^[1-9]|[[1][0-2]]')]),
             },
         );
     }

@@ -56,6 +56,7 @@ export class ProfilListComponent implements OnInit {
         for (let i = 0; i < listSize; i++) {
             let indexMini = 1;
             const property = propertyListItemModels[i];
+
             const formatedPrice = property.price / 1000000;
             property.price = +formatedPrice.toPrecision(3);
             tempList.push(property);

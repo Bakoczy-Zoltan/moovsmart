@@ -47,9 +47,8 @@ export class SigninComponent implements OnInit {
                     storage.name
                 );
                 this.propertyService.userId = validUSer.userId;
-                this.propertyService.role = validUSer.role;
 
-                if (this.propertyService.role.includes("ROLE_ADMIN")) {
+                if (storage.role.includes("ROLE_ADMIN")) {
                     this.router.navigate(['admin']);
                 } else {
                     this.router.navigate(['profil-list', validUSer.userId]);

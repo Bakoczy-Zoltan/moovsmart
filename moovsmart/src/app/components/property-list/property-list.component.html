@@ -11,28 +11,25 @@
                         <label class="form-control-label" for="sizeMin">Méret min:</label>
                         <input type="text" formControlName="minSize" class="form-control" id="sizeMin"
                                placeholder="0">
-                        <small class="text-danger" *ngIf="filteredForm.get('minSize').errors">Méret minimum 0 kell
-                            lenni</small>
+                        <small class="text-danger" *ngIf="filteredForm.get('minSize').errors">Nem megfelelő szám</small>
                     </td>
                     <td>
                         <label class="form-control-label" for="sizeMax">Méret max:</label>
                         <input type="text" formControlName="maxSize" class="form-control" id="sizeMax"
                                placeholder="mindegy">
-                        <small class="text-danger" *ngIf="filteredForm.get('maxSize').errors">Egész számot lehet
-                            megadni</small>
+                        <small class="text-danger" *ngIf="filteredForm.get('maxSize').errors">Nem megfelelő szám</small>
                     </td>
                     <td>
                         <label class="form-control-label" for="priceMin">Ár min:</label>
                         <input type="text" formControlName="minPrice" class="form-control" id="priceMin"
                                placeholder="0">
-                        <small class="text-danger" *ngIf="filteredForm.get('minPrice').errors">Minimum ár 0 ft</small>
+                        <small class="text-danger" *ngIf="filteredForm.get('minPrice').errors">Nem megfelelő szám</small>
                     </td>
                     <td>
                         <label class="form-control-label" for="priceMax">Ár max:</label>
                         <input type="text" formControlName="maxPrice" class="form-control" id="priceMax"
                                placeholder="mindegy">
-                        <small class="text-danger" *ngIf="filteredForm.get('maxPrice').errors">Egész számot kell
-                            megadni</small>
+                        <small class="text-danger" *ngIf="filteredForm.get('maxPrice').errors">Nem megfelelő szám</small>
                     </td>
                 </tr>
                 <tr>
@@ -68,8 +65,7 @@
                         <label class="form-control-label" for="rooms">Szobák száma</label>
                         <input type="text" formControlName="numberOfRooms" class="form-control" id="rooms"
                                placeholder="mindegy">
-                        <small class="text-danger" *ngIf="filteredForm.get('numberOfRooms').errors">Csak egész számot
-                            lehet megadni</small>
+                        <small class="text-danger" *ngIf="filteredForm.get('numberOfRooms').errors">Nem megfelelő szám</small>
                     </td>
                 </tr>
             </tbody>
