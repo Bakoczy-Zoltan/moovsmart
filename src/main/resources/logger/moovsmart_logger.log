@@ -8576,3 +8576,8 @@ org.springframework.security.access.AccessDeniedException: Access is denied
 2020-03-16 15:17:33.149 DEBUG 16240 --- [http-nio-8080-exec-8] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match the requestMatcher org.springframework.security.web.header.writers.HstsHeaderWriter$SecureRequestMatcher@a086911
 2020-03-16 15:17:33.149 DEBUG 16240 --- [http-nio-8080-exec-8] o.s.s.w.a.ExceptionTranslationFilter     : Chain processed normally
 2020-03-16 15:17:33.149 DEBUG 16240 --- [http-nio-8080-exec-8] s.s.w.c.SecurityContextPersistenceFilter : SecurityContextHolder now cleared, as request processing completed
+2020-03-16 15:19:50.022  INFO 16240 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2020-03-16 15:19:50.023  INFO 16240 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-03-16 15:19:50.026  INFO 16240 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-03-16 15:19:50.030  INFO 16240 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-03-16 15:19:50.042  INFO 16240 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

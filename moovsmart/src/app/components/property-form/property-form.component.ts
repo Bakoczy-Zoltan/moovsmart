@@ -148,10 +148,8 @@ export class PropertyFormComponent implements OnInit {
     this.getGoogleMapAndFileUploadDatas();
   };
 
-
   processFile(event) {
     this.selectedFile = event.target.files[0];
-
     let reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = (event2) => {
@@ -173,7 +171,6 @@ export class PropertyFormComponent implements OnInit {
           console.log(status + ' error');
         }
         this.formData.isValid = true;
-
         if (this.selectedFile != null) {
           this.uploadFile();
         } else {
