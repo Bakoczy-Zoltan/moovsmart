@@ -32,6 +32,7 @@ export class PropertyListComponent implements OnInit {
     needFilterList: boolean;
     filterOpenMessage: string;
     storage: any;
+    emptyList: boolean;
 
     constructor(private propertyService: PropertyService,
                 private router: Router,
@@ -39,6 +40,7 @@ export class PropertyListComponent implements OnInit {
 
         this.clearFilterFields();
         this.needFilterList = false;
+        this.emptyList = false;
 
     }
 
@@ -141,6 +143,7 @@ export class PropertyListComponent implements OnInit {
         this.propertyService.getPropertyList().subscribe(
             propertyListItems => {
                 this.propertyListItemModels = propertyListItems;
+                this.emptyList = this.propertyListItemModels.length < 1;
                 this.actualPageList = this.makingActualList(this.propertyListItemModels);
 
                // console.log(this.actualPageList);

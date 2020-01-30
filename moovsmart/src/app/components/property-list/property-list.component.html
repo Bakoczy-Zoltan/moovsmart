@@ -93,7 +93,7 @@
 
     <!-- when database is empty -->
 
-    <div id="mainDiv">
+    <div id="mainDiv" *ngIf="emptyList">
         <div *ngIf="propertyListItemModels === undefined || propertyListItemModels.length === 0" id="emptydb">
             <img
                 src="https://previews.123rf.com/images/tcareob72/tcareob721801/tcareob72180100003/94128283-beautiful-atmosphere-empty-field-in-thailand-.jpg"

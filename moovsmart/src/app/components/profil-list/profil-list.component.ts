@@ -20,7 +20,9 @@ export class ProfilListComponent implements OnInit {
 
     constructor(private propertyService: PropertyService,
                 private route: ActivatedRoute,
-                private router: Router) { }
+                private router: Router) {
+        this.emptyList = false;
+    }
 
     ngOnInit() {
         this.queryStatus = true;
@@ -41,6 +43,7 @@ export class ProfilListComponent implements OnInit {
         this.propertyService.getMyPropertyList().subscribe(
             propertyListItems => {
                 this.propertyListItemModels = propertyListItems;
+                this.emptyList = this.propertyListItemModels.length < 1;
                 this.actualPageList = this.makingActualList(this.propertyListItemModels);
             },
         );

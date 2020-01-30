@@ -49,12 +49,14 @@ public class PropertyController {
     public ResponseEntity<PropertyInitFormData> getPropertyFormData() {
         PropertyInitFormData initFormData = new PropertyInitFormData(getCounties(),
                 getPropertyTypes(), getPropertyStates());
+        logger.info("Property types and States sent to the page");
         return new ResponseEntity<>(initFormData, HttpStatus.OK);
     }
 
     @GetMapping("/getCityList")
     public ResponseEntity<List<String>> getCityList() {
         List<String> cityList = this.propertyService.getCityList();
+        logger.info("City list sent to the frontend page");
         return new ResponseEntity<>(cityList, HttpStatus.OK);
     }
 
@@ -84,7 +86,7 @@ public class PropertyController {
 
     @GetMapping
     public ResponseEntity<List<PropertyListItem>> getAllProperties() {
-        logger.info("Get properties-list");
+        logger.info("Get properties-list by ANONYMUS User");
         return new ResponseEntity<>(propertyService.getProperties(), HttpStatus.OK);
     }
 
@@ -98,7 +100,7 @@ public class PropertyController {
     @GetMapping("/authUser/myHoldingList")
     public ResponseEntity<List<PropertyListItem>> getOwnHoldingProperties(Principal principal) {
         String userMail = principal.getName();
-        logger.info("Get own properties-list");
+        logger.info("Get own HOLDING properties-list");
         return new ResponseEntity<>(propertyService.getOwnHoldingProperties(userMail), HttpStatus.OK);
     }
 
