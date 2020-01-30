@@ -24,7 +24,7 @@ export class PropertyService {
     baseUserUrl = environment.apiUrl + '/user';
     baseImageUrl = environment.apiUrl + '/images';
 
-    url = 'localhost:8080/api/properties';
+    url = (environment.apiUrl).substring(0, (environment.apiUrl.length)-3);
 
     constructor(private httpClient: HttpClient) {
     }
@@ -158,5 +158,10 @@ export class PropertyService {
         console.log(this.baseUrl + " service url");
         const imageServiceReturn = this.httpClient.post(this.baseImageUrl, uploadData);
         return imageServiceReturn;
+    }
+
+    logout() {
+        console.log(this.url);
+        return this.httpClient.post(this.url + 'logout', {});
     }
 }

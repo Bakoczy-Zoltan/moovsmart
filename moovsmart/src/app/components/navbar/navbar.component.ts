@@ -53,7 +53,8 @@ export class NavbarComponent implements OnInit {
 
     logout() {
         this.registratedUser = false;
-        this.http.post(this.BASE_URL + '/logout', {}).subscribe(() => {
+        this.propertyService.logout().subscribe(
+            () => {
             localStorage.removeItem('user');
             this.router.navigateByUrl('/');
             this.propertyService.regisTrated.next(false);
@@ -63,6 +64,17 @@ export class NavbarComponent implements OnInit {
                 null,
             );
         });
+
+        // this.http.post(this.BASE_URL + '/logout', {}).subscribe(() => {
+        //     localStorage.removeItem('user');
+        //     this.router.navigateByUrl('/');
+        //     this.propertyService.regisTrated.next(false);
+        //     this.propertyService.userId = null;
+        //     this.role = [];
+        //     this.propertyService.userName.next(
+        //         null,
+        //     );
+        // });
 
     }
 
