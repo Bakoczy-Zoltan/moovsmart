@@ -59,6 +59,7 @@ a:hover {
 .buttonForDelete {
     background-color: #E7717D;
     color: white;
+    margin-bottom: 50px;
 }
 
 .confirmationButton {
@@ -80,4 +81,8 @@ a:hover {
 }
 #status-span{
     margin-left: 20%;
+}
+
+.details {
+
 }
