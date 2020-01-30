@@ -74,7 +74,7 @@
         <div id="row-last-filter">
             <button id="clear-button" class="btn btn-info" type="button" (click)="clearFilterFields()">Szűrés törlése
             </button>
-            <button id="filter-button" class="btn btn-warning" type="submit">Szűrés</button>
+            <button id="filter-button" class="btn btn-warning" type="submit" [disabled]="!filteredForm.valid">Szűrés</button>
         </div>
     </form>
 </div>
