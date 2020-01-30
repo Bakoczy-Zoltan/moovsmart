@@ -56,11 +56,13 @@ a:hover {
 .accept-button {
     background-color: #AFD275;
     color: white;
+    margin-bottom: 100px;
 }
 
 .reject-button {
     background-color: #E7717D;
     color: white;
+    margin-bottom: 100px;
 }
 #col-button{
     text-align: right;

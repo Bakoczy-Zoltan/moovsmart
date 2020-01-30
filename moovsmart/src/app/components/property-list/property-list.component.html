@@ -34,7 +34,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <label class="form-control-label" for="porpertyState">Ingatlan állapot</label>
+                        <label class="form-control-label" for="porpertyState">Ingatlan állapot:</label>
                         <select id="porpertyState" formControlName="propertyState" class="form-control">
                             <option value=null>--Mindegy--</option>
                             <option *ngFor="let state of propertyStates, let i = index"
@@ -43,7 +43,7 @@
                         </select>
                     </td>
                     <td>
-                        <label class="form-control-label" for="porpertyType">Ingatlan típusa</label>
+                        <label class="form-control-label" for="porpertyType">Ingatlan típusa:</label>
                         <select id="porpertyType" formControlName="propertyType" class="form-control">
                             <option value=null>--Mindegy--</option>
                             <option *ngFor="let typeProperty of propertyTypes, let i = index"
@@ -53,7 +53,7 @@
                     </td>
 
                     <td>
-                        <label class="form-control-label" for="city">Város</label>
+                        <label class="form-control-label" for="city">Város:</label>
                         <select id="city" formControlName="city" class="form-control">
                             <option value=null>--Mindegy--</option>
                             <option *ngFor="let city of cities, let i = index"
@@ -62,7 +62,7 @@
                         </select>
                     </td>
                     <td>
-                        <label class="form-control-label" for="rooms">Szobák száma</label>
+                        <label class="form-control-label" for="rooms">Szobák száma:</label>
                         <input type="text" formControlName="numberOfRooms" class="form-control" id="rooms"
                                placeholder="mindegy">
                         <small class="text-danger" *ngIf="filteredForm.get('numberOfRooms').errors">Nem megfelelő szám</small>

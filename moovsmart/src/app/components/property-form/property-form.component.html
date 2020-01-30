@@ -314,14 +314,14 @@
 
         <div class="form-group">
             <label
-                for="price">Kikiáltási ár</label>
+                for="price">Kikiáltási ár (Ft)</label>
             <input
                 class="form-control"
                 formControlName="price"
                 id="price"
                 placeholder=""
                 type="text"
-            />
+                style="width: 200px"/>
             <small *ngIf="propertyForm.get('price').invalid && propertyForm.get('price').touched" class="text-danger">
                 Az ár nagyobb kell legyen, mint 0 és ne használjon szóközt vagy speciális karaktert!
             </small>
