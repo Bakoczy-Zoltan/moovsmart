@@ -20,11 +20,11 @@ export class PropertyService {
     userId: number;
     regisTrated = new Subject<boolean>();
 
-    baseUrl = environment.apiUrl + '/properties';
-    baseUserUrl = environment.apiUrl + '/user';
-    baseImageUrl = environment.apiUrl + '/images';
+    baseUrl = environment.apiUrl + 'api/properties';
+    baseUserUrl = environment.apiUrl + 'api/user';
+    baseImageUrl = environment.apiUrl + 'api/images';
 
-    url = (environment.apiUrl).substring(0, (environment.apiUrl.length)-3);
+    url = (environment.apiUrl);
 
     constructor(private httpClient: HttpClient) {
     }
