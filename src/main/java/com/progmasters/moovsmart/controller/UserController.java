@@ -77,6 +77,7 @@ public class UserController {
     public ResponseEntity<AuthenticatedUser> authenticateUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         MyUserDetails user = (MyUserDetails) authentication.getPrincipal();
+        this.logger.info(user.getName() + " has signed in");
         return new ResponseEntity<>(new AuthenticatedUser(user), HttpStatus.OK);
     }
 
@@ -97,10 +98,10 @@ public class UserController {
     public ResponseEntity banUserById(@PathVariable("id")Long id){
         Boolean response = this.userService.banUserById(id);
         if(response){
-            this.logger.info("User by id of: " + id + " is banned");
+            logger.info("User by id of: " + id + " is banned");
             return new ResponseEntity(HttpStatus.OK);
         }else {
-            this.logger.warn("User by id of: " + id + " is Not Found");
+            logger.warn("User by id of: " + id + " is Not Found");
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }

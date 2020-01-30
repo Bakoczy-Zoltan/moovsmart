@@ -1,0 +1,312 @@
+2020-01-30 11:48:29.655  INFO 15520 --- [main] c.p.moovsmart.MoovsmartApplication       : Starting MoovsmartApplication on DESKTOP-3LHL7G4 with PID 15520 (C:\Users\zolta\IdeaProjects\mainProject\angular-moovsmart\target\classes started by zolta in C:\Users\zolta\IdeaProjects\mainProject\angular-moovsmart)
+2020-01-30 11:48:29.658 DEBUG 15520 --- [main] c.p.moovsmart.MoovsmartApplication       : Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2020-01-30 11:48:29.658  INFO 15520 --- [main] c.p.moovsmart.MoovsmartApplication       : No active profile set, falling back to default profiles: default
+2020-01-30 11:48:30.761  INFO 15520 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-01-30 11:48:30.857  INFO 15520 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 88ms. Found 3 JPA repository interfaces.
+2020-01-30 11:48:31.255  INFO 15520 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-30 11:48:31.555  INFO 15520 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-01-30 11:48:31.566  INFO 15520 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-01-30 11:48:31.566  INFO 15520 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.29]
+2020-01-30 11:48:31.730  INFO 15520 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-01-30 11:48:31.730  INFO 15520 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2000 ms
+2020-01-30 11:48:32.198  INFO 15520 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-01-30 11:48:32.543  INFO 15520 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-01-30 11:48:33.470  INFO 15520 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-01-30 11:48:33.525  WARN 15520 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-01-30 11:48:34.080 DEBUG 15520 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'hasRole('ROLE_ADMIN')', for Ant [pattern='/api/properties/admin']
+2020-01-30 11:48:34.083 DEBUG 15520 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'hasRole('ROLE_ADMIN')', for Ant [pattern='/api/properties/admin/**']
+2020-01-30 11:48:34.084 DEBUG 15520 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'hasAnyRole('ROLE_USER','ROLE_ADMIN')', for Ant [pattern='/api/properties/authUser']
+2020-01-30 11:48:34.084 DEBUG 15520 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'hasAnyRole('ROLE_USER','ROLE_ADMIN')', for Ant [pattern='/api/properties/authUser/**']
+2020-01-30 11:48:34.084 DEBUG 15520 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'permitAll', for Ant [pattern='/**']
+2020-01-30 11:48:34.085 DEBUG 15520 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'authenticated', for any request
+2020-01-30 11:48:34.087 DEBUG 15520 --- [main] o.s.s.w.a.i.FilterSecurityInterceptor    : Validated configuration attributes
+2020-01-30 11:48:34.091 DEBUG 15520 --- [main] o.s.s.w.a.i.FilterSecurityInterceptor    : Validated configuration attributes
+2020-01-30 11:48:34.092  INFO 15520 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@548f4f60, org.springframework.security.web.context.SecurityContextPersistenceFilter@5c16561a, org.springframework.security.web.header.HeaderWriterFilter@261609a7, org.springframework.web.filter.CorsFilter@d960561, org.springframework.security.web.authentication.logout.LogoutFilter@27bf574b, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@97cb8dc, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@f310675, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@452e2210, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3aa63b53, org.springframework.security.web.session.SessionManagementFilter@165824f5, org.springframework.security.web.access.ExceptionTranslationFilter@354e2bff, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7491cdae]
+2020-01-30 11:48:34.191  INFO 15520 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-30 11:48:34.247  INFO 15520 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [META-INF/resources/index.html]
+2020-01-30 11:48:34.313  INFO 15520 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-01-30 11:48:34.373  INFO 15520 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-01-30 11:48:34.383  INFO 15520 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-01-30 11:48:34.384 ERROR 15520 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2020-01-30 11:48:34.389  INFO 15520 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2020-01-30 11:48:34.392  INFO 15520 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-01-30 11:48:34.394  INFO 15520 --- [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-01-30 11:48:34.395  INFO 15520 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-01-30 11:48:34.409  INFO 15520 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-01-30 11:49:17.231  INFO 13248 --- [main] c.p.moovsmart.MoovsmartApplication       : Starting MoovsmartApplication on DESKTOP-3LHL7G4 with PID 13248 (C:\Users\zolta\IdeaProjects\mainProject\angular-moovsmart\target\classes started by zolta in C:\Users\zolta\IdeaProjects\mainProject\angular-moovsmart)
+2020-01-30 11:49:17.247 DEBUG 13248 --- [main] c.p.moovsmart.MoovsmartApplication       : Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2020-01-30 11:49:17.247  INFO 13248 --- [main] c.p.moovsmart.MoovsmartApplication       : No active profile set, falling back to default profiles: default
+2020-01-30 11:49:18.394  INFO 13248 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-01-30 11:49:18.495  INFO 13248 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 90ms. Found 3 JPA repository interfaces.
+2020-01-30 11:49:18.872  INFO 13248 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-30 11:49:19.184  INFO 13248 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-01-30 11:49:19.200  INFO 13248 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-01-30 11:49:19.200  INFO 13248 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.29]
+2020-01-30 11:49:19.375  INFO 13248 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-01-30 11:49:19.376  INFO 13248 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2032 ms
+2020-01-30 11:49:19.836  INFO 13248 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-01-30 11:49:20.208  INFO 13248 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-01-30 11:49:21.152  INFO 13248 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-01-30 11:49:21.218  WARN 13248 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-01-30 11:49:21.776 DEBUG 13248 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'hasRole('ROLE_ADMIN')', for Ant [pattern='/api/properties/admin']
+2020-01-30 11:49:21.776 DEBUG 13248 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'hasRole('ROLE_ADMIN')', for Ant [pattern='/api/properties/admin/**']
+2020-01-30 11:49:21.776 DEBUG 13248 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'hasAnyRole('ROLE_USER','ROLE_ADMIN')', for Ant [pattern='/api/properties/authUser']
+2020-01-30 11:49:21.782 DEBUG 13248 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'hasAnyRole('ROLE_USER','ROLE_ADMIN')', for Ant [pattern='/api/properties/authUser/**']
+2020-01-30 11:49:21.782 DEBUG 13248 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'permitAll', for Ant [pattern='/**']
+2020-01-30 11:49:21.783 DEBUG 13248 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'authenticated', for any request
+2020-01-30 11:49:21.784 DEBUG 13248 --- [main] o.s.s.w.a.i.FilterSecurityInterceptor    : Validated configuration attributes
+2020-01-30 11:49:21.784 DEBUG 13248 --- [main] o.s.s.w.a.i.FilterSecurityInterceptor    : Validated configuration attributes
+2020-01-30 11:49:21.791  INFO 13248 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6655f3cd, org.springframework.security.web.context.SecurityContextPersistenceFilter@1bb0fa38, org.springframework.security.web.header.HeaderWriterFilter@3d1b43d8, org.springframework.web.filter.CorsFilter@2484c868, org.springframework.security.web.authentication.logout.LogoutFilter@f310675, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@5f5c0eda, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@406808eb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@232b3b4c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@19d13d04, org.springframework.security.web.session.SessionManagementFilter@6dfebd2a, org.springframework.security.web.access.ExceptionTranslationFilter@5b028f58, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6e1d9b32]
+2020-01-30 11:49:21.888  INFO 13248 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-30 11:49:21.948  INFO 13248 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [META-INF/resources/index.html]
+2020-01-30 11:49:22.019  INFO 13248 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-01-30 11:49:22.071  INFO 13248 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-01-30 11:49:22.081  INFO 13248 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-01-30 11:49:22.082 ERROR 13248 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2020-01-30 11:49:22.086  INFO 13248 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2020-01-30 11:49:22.087  INFO 13248 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-01-30 11:49:22.088  INFO 13248 --- [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-01-30 11:49:22.089  INFO 13248 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-01-30 11:49:22.103  INFO 13248 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-01-30 11:53:05.460  INFO 9160 --- [main] c.p.moovsmart.MoovsmartApplication       : Starting MoovsmartApplication on DESKTOP-3LHL7G4 with PID 9160 (C:\Users\zolta\IdeaProjects\mainProject\angular-moovsmart\target\classes started by zolta in C:\Users\zolta\IdeaProjects\mainProject\angular-moovsmart)
+2020-01-30 11:53:05.476 DEBUG 9160 --- [main] c.p.moovsmart.MoovsmartApplication       : Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2020-01-30 11:53:05.476  INFO 9160 --- [main] c.p.moovsmart.MoovsmartApplication       : No active profile set, falling back to default profiles: default
+2020-01-30 11:53:06.628  INFO 9160 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-01-30 11:53:06.724  INFO 9160 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 86ms. Found 3 JPA repository interfaces.
+2020-01-30 11:53:07.102  INFO 9160 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-30 11:53:07.428  INFO 9160 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-01-30 11:53:07.440  INFO 9160 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-01-30 11:53:07.441  INFO 9160 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.29]
+2020-01-30 11:53:07.588  INFO 9160 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-01-30 11:53:07.588  INFO 9160 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1964 ms
+2020-01-30 11:53:08.090  INFO 9160 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-01-30 11:53:08.456  INFO 9160 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-01-30 11:53:09.348  INFO 9160 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-01-30 11:53:09.423  WARN 9160 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-01-30 11:53:10.010 DEBUG 9160 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'hasRole('ROLE_ADMIN')', for Ant [pattern='/api/properties/admin']
+2020-01-30 11:53:10.010 DEBUG 9160 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'hasRole('ROLE_ADMIN')', for Ant [pattern='/api/properties/admin/**']
+2020-01-30 11:53:10.010 DEBUG 9160 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'hasAnyRole('ROLE_USER','ROLE_ADMIN')', for Ant [pattern='/api/properties/authUser']
+2020-01-30 11:53:10.016 DEBUG 9160 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'hasAnyRole('ROLE_USER','ROLE_ADMIN')', for Ant [pattern='/api/properties/authUser/**']
+2020-01-30 11:53:10.016 DEBUG 9160 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'permitAll', for Ant [pattern='/**']
+2020-01-30 11:53:10.017 DEBUG 9160 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'authenticated', for any request
+2020-01-30 11:53:10.018 DEBUG 9160 --- [main] o.s.s.w.a.i.FilterSecurityInterceptor    : Validated configuration attributes
+2020-01-30 11:53:10.018 DEBUG 9160 --- [main] o.s.s.w.a.i.FilterSecurityInterceptor    : Validated configuration attributes
+2020-01-30 11:53:10.023  INFO 9160 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@72641613, org.springframework.security.web.context.SecurityContextPersistenceFilter@522fb69, org.springframework.security.web.header.HeaderWriterFilter@3ac326c0, org.springframework.web.filter.CorsFilter@4d71ec5b, org.springframework.security.web.authentication.logout.LogoutFilter@165824f5, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@bd703bb, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6dfebd2a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@729c8def, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@20e3b165, org.springframework.security.web.session.SessionManagementFilter@76673ed, org.springframework.security.web.access.ExceptionTranslationFilter@69ed96e1, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7615666e]
+2020-01-30 11:53:10.124  INFO 9160 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-30 11:53:10.183  INFO 9160 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [META-INF/resources/index.html]
+2020-01-30 11:53:10.247  INFO 9160 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-01-30 11:53:10.327  INFO 9160 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-01-30 11:53:10.344  INFO 9160 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-01-30 11:53:10.345 ERROR 9160 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2020-01-30 11:53:10.353  INFO 9160 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2020-01-30 11:53:10.355  INFO 9160 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-01-30 11:53:10.357  INFO 9160 --- [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-01-30 11:53:10.359  INFO 9160 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-01-30 11:53:10.370  INFO 9160 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-01-30 11:56:00.559  INFO 18284 --- [main] c.p.moovsmart.MoovsmartApplication       : Starting MoovsmartApplication on DESKTOP-3LHL7G4 with PID 18284 (C:\Users\zolta\IdeaProjects\mainProject\angular-moovsmart\target\classes started by zolta in C:\Users\zolta\IdeaProjects\mainProject\angular-moovsmart)
+2020-01-30 11:56:00.599 DEBUG 18284 --- [main] c.p.moovsmart.MoovsmartApplication       : Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2020-01-30 11:56:00.600  INFO 18284 --- [main] c.p.moovsmart.MoovsmartApplication       : No active profile set, falling back to default profiles: default
+2020-01-30 11:56:01.944  INFO 18284 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-01-30 11:56:02.043  INFO 18284 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 88ms. Found 3 JPA repository interfaces.
+2020-01-30 11:56:02.419  INFO 18284 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-30 11:56:02.725  INFO 18284 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-01-30 11:56:02.737  INFO 18284 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-01-30 11:56:02.737  INFO 18284 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.29]
+2020-01-30 11:56:02.904  INFO 18284 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-01-30 11:56:02.905  INFO 18284 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2222 ms
+2020-01-30 11:56:03.420  INFO 18284 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-01-30 11:56:03.808  INFO 18284 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-01-30 11:56:04.734  INFO 18284 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-01-30 11:56:04.791  WARN 18284 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-01-30 11:56:05.386 DEBUG 18284 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'hasRole('ROLE_ADMIN')', for Ant [pattern='/api/properties/admin']
+2020-01-30 11:56:05.386 DEBUG 18284 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'hasRole('ROLE_ADMIN')', for Ant [pattern='/api/properties/admin/**']
+2020-01-30 11:56:05.386 DEBUG 18284 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'hasAnyRole('ROLE_USER','ROLE_ADMIN')', for Ant [pattern='/api/properties/authUser']
+2020-01-30 11:56:05.393 DEBUG 18284 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'hasAnyRole('ROLE_USER','ROLE_ADMIN')', for Ant [pattern='/api/properties/authUser/**']
+2020-01-30 11:56:05.393 DEBUG 18284 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'permitAll', for Ant [pattern='/**']
+2020-01-30 11:56:05.394 DEBUG 18284 --- [main] edFilterInvocationSecurityMetadataSource : Adding web access control expression 'authenticated', for any request
+2020-01-30 11:56:05.395 DEBUG 18284 --- [main] o.s.s.w.a.i.FilterSecurityInterceptor    : Validated configuration attributes
+2020-01-30 11:56:05.401 DEBUG 18284 --- [main] o.s.s.w.a.i.FilterSecurityInterceptor    : Validated configuration attributes
+2020-01-30 11:56:05.402  INFO 18284 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@24a7725d, org.springframework.security.web.context.SecurityContextPersistenceFilter@10553a61, org.springframework.security.web.header.HeaderWriterFilter@720c0996, org.springframework.web.filter.CorsFilter@4fcedf83, org.springframework.security.web.authentication.logout.LogoutFilter@522fb69, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@3465edf9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1896299b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6be1f37f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@16c9f7f0, org.springframework.security.web.session.SessionManagementFilter@52fec840, org.springframework.security.web.access.ExceptionTranslationFilter@74797b90, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@c157abf]
+2020-01-30 11:56:05.501  INFO 18284 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-30 11:56:05.558  INFO 18284 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [META-INF/resources/index.html]
+2020-01-30 11:56:05.625  INFO 18284 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2020-01-30 11:56:05.714  INFO 18284 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-01-30 11:56:05.718  INFO 18284 --- [main] c.p.moovsmart.MoovsmartApplication       : Started MoovsmartApplication in 6.189 seconds (JVM running for 8.093)
+2020-01-30 11:58:22.262  INFO 18284 --- [http-nio-8080-exec-10] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-30 11:58:22.262  INFO 18284 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-01-30 11:58:22.273  INFO 18284 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
+2020-01-30 11:58:22.304 DEBUG 18284 --- [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : /api/user/me at position 1 of 12 in additional filter chain; firing Filter: 'WebAsyncManagerIntegrationFilter'
+2020-01-30 11:58:22.304 DEBUG 18284 --- [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : /api/user/me at position 2 of 12 in additional filter chain; firing Filter: 'SecurityContextPersistenceFilter'
+2020-01-30 11:58:22.304 DEBUG 18284 --- [http-nio-8080-exec-10] w.c.HttpSessionSecurityContextRepository : No HttpSession currently exists
+2020-01-30 11:58:22.304 DEBUG 18284 --- [http-nio-8080-exec-10] w.c.HttpSessionSecurityContextRepository : No SecurityContext was available from the HttpSession: null. A new one will be created.
+2020-01-30 11:58:22.304 DEBUG 18284 --- [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : /api/user/me at position 3 of 12 in additional filter chain; firing Filter: 'HeaderWriterFilter'
+2020-01-30 11:58:22.304 DEBUG 18284 --- [http-nio-8080-exec-10] o.s.security.web.FilterChainProxy        : /api/user/me at position 4 of 12 in additional filter chain; firing Filter: 'CorsFilter'
+2020-01-30 11:58:22.335 DEBUG 18284 --- [http-nio-8080-exec-10] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match the requestMatcher org.springframework.security.web.header.writers.HstsHeaderWriter$SecureRequestMatcher@7834c884
+2020-01-30 11:58:22.335 DEBUG 18284 --- [http-nio-8080-exec-10] w.c.HttpSessionSecurityContextRepository : SecurityContext is empty or contents are anonymous - context will not be stored in HttpSession.
+2020-01-30 11:58:22.335 DEBUG 18284 --- [http-nio-8080-exec-10] s.s.w.c.SecurityContextPersistenceFilter : SecurityContextHolder now cleared, as request processing completed
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : /api/user/me at position 1 of 12 in additional filter chain; firing Filter: 'WebAsyncManagerIntegrationFilter'
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : /api/user/me at position 2 of 12 in additional filter chain; firing Filter: 'SecurityContextPersistenceFilter'
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] w.c.HttpSessionSecurityContextRepository : No HttpSession currently exists
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] w.c.HttpSessionSecurityContextRepository : No SecurityContext was available from the HttpSession: null. A new one will be created.
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : /api/user/me at position 3 of 12 in additional filter chain; firing Filter: 'HeaderWriterFilter'
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : /api/user/me at position 4 of 12 in additional filter chain; firing Filter: 'CorsFilter'
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : /api/user/me at position 5 of 12 in additional filter chain; firing Filter: 'LogoutFilter'
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', GET]
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/api/user/me'; against '/logout'
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', POST]
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'GET /api/user/me' doesn't match 'POST /logout'
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', PUT]
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'GET /api/user/me' doesn't match 'PUT /logout'
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', DELETE]
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'GET /api/user/me' doesn't match 'DELETE /logout'
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.web.util.matcher.OrRequestMatcher  : No matches found
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : /api/user/me at position 6 of 12 in additional filter chain; firing Filter: 'BasicAuthenticationFilter'
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.a.www.BasicAuthenticationFilter  : Basic Authentication Authorization header found for user 'snakegod80@gmail.com'
+2020-01-30 11:58:22.355 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.authentication.ProviderManager     : Authentication attempt using org.springframework.security.authentication.dao.DaoAuthenticationProvider
+2020-01-30 11:58:22.988 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.a.www.BasicAuthenticationFilter  : Authentication success: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@49365e03: Principal: com.progmasters.moovsmart.security.MyUserDetails@d2bef57; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_USER
+2020-01-30 11:58:22.988 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : /api/user/me at position 7 of 12 in additional filter chain; firing Filter: 'RequestCacheAwareFilter'
+2020-01-30 11:58:22.988 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.s.HttpSessionRequestCache        : saved request doesn't match
+2020-01-30 11:58:22.988 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : /api/user/me at position 8 of 12 in additional filter chain; firing Filter: 'SecurityContextHolderAwareRequestFilter'
+2020-01-30 11:58:22.988 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : /api/user/me at position 9 of 12 in additional filter chain; firing Filter: 'AnonymousAuthenticationFilter'
+2020-01-30 11:58:22.988 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : SecurityContextHolder not populated with anonymous token, as it already contained: 'org.springframework.security.authentication.UsernamePasswordAuthenticationToken@49365e03: Principal: com.progmasters.moovsmart.security.MyUserDetails@d2bef57; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_USER'
+2020-01-30 11:58:22.988 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : /api/user/me at position 10 of 12 in additional filter chain; firing Filter: 'SessionManagementFilter'
+2020-01-30 11:58:22.988 DEBUG 18284 --- [http-nio-8080-exec-9] s.CompositeSessionAuthenticationStrategy : Delegating to org.springframework.security.web.authentication.session.ChangeSessionIdAuthenticationStrategy@361d8567
+2020-01-30 11:58:22.988 DEBUG 18284 --- [http-nio-8080-exec-9] w.c.HttpSessionSecurityContextRepository : HttpSession being created as SecurityContext is non-default
+2020-01-30 11:58:23.301  WARN 18284 --- [http-nio-8080-exec-9] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [313] milliseconds.
+2020-01-30 11:58:23.317 DEBUG 18284 --- [http-nio-8080-exec-9] w.c.HttpSessionSecurityContextRepository : SecurityContext 'org.springframework.security.core.context.SecurityContextImpl@49365e03: Authentication: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@49365e03: Principal: com.progmasters.moovsmart.security.MyUserDetails@d2bef57; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_USER' stored to HttpSession: 'org.apache.catalina.session.StandardSessionFacade@11c43228
+2020-01-30 11:58:23.317 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : /api/user/me at position 11 of 12 in additional filter chain; firing Filter: 'ExceptionTranslationFilter'
+2020-01-30 11:58:23.317 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : /api/user/me at position 12 of 12 in additional filter chain; firing Filter: 'FilterSecurityInterceptor'
+2020-01-30 11:58:23.317 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/api/user/me'; against '/api/properties/admin'
+2020-01-30 11:58:23.317 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/api/user/me'; against '/api/properties/admin/**'
+2020-01-30 11:58:23.317 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/api/user/me'; against '/api/properties/authUser'
+2020-01-30 11:58:23.317 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/api/user/me'; against '/api/properties/authUser/**'
+2020-01-30 11:58:23.317 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request '/api/user/me' matched by universal pattern '/**'
+2020-01-30 11:58:23.317 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.a.i.FilterSecurityInterceptor    : Secure object: FilterInvocation: URL: /api/user/me; Attributes: [permitAll]
+2020-01-30 11:58:23.317 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.a.i.FilterSecurityInterceptor    : Previously Authenticated: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@49365e03: Principal: com.progmasters.moovsmart.security.MyUserDetails@d2bef57; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_USER
+2020-01-30 11:58:23.317 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.access.vote.AffirmativeBased       : Voter: org.springframework.security.web.access.expression.WebExpressionVoter@69693232, returned: 1
+2020-01-30 11:58:23.317 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.a.i.FilterSecurityInterceptor    : Authorization successful
+2020-01-30 11:58:23.317 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.a.i.FilterSecurityInterceptor    : RunAsManager did not change Authentication object
+2020-01-30 11:58:23.317 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.security.web.FilterChainProxy        : /api/user/me reached end of additional filter chain; proceeding with original chain
+2020-01-30 11:58:23.461 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match the requestMatcher org.springframework.security.web.header.writers.HstsHeaderWriter$SecureRequestMatcher@7834c884
+2020-01-30 11:58:23.461 DEBUG 18284 --- [http-nio-8080-exec-9] w.c.HttpSessionSecurityContextRepository : SecurityContext 'org.springframework.security.core.context.SecurityContextImpl@49365e03: Authentication: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@49365e03: Principal: com.progmasters.moovsmart.security.MyUserDetails@d2bef57; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_USER' stored to HttpSession: 'org.apache.catalina.session.StandardSessionFacade@11c43228
+2020-01-30 11:58:23.467 DEBUG 18284 --- [http-nio-8080-exec-9] o.s.s.w.a.ExceptionTranslationFilter     : Chain processed normally
+2020-01-30 11:58:23.468 DEBUG 18284 --- [http-nio-8080-exec-9] s.s.w.c.SecurityContextPersistenceFilter : SecurityContextHolder now cleared, as request processing completed
+2020-01-30 11:58:23.489 DEBUG 18284 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList at position 1 of 12 in additional filter chain; firing Filter: 'WebAsyncManagerIntegrationFilter'
+2020-01-30 11:58:23.489 DEBUG 18284 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList at position 2 of 12 in additional filter chain; firing Filter: 'SecurityContextPersistenceFilter'
+2020-01-30 11:58:23.489 DEBUG 18284 --- [http-nio-8080-exec-8] w.c.HttpSessionSecurityContextRepository : No HttpSession currently exists
+2020-01-30 11:58:23.489 DEBUG 18284 --- [http-nio-8080-exec-8] w.c.HttpSessionSecurityContextRepository : No SecurityContext was available from the HttpSession: null. A new one will be created.
+2020-01-30 11:58:23.489 DEBUG 18284 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList at position 3 of 12 in additional filter chain; firing Filter: 'HeaderWriterFilter'
+2020-01-30 11:58:23.489 DEBUG 18284 --- [http-nio-8080-exec-8] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList at position 4 of 12 in additional filter chain; firing Filter: 'CorsFilter'
+2020-01-30 11:58:23.494 DEBUG 18284 --- [http-nio-8080-exec-8] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match the requestMatcher org.springframework.security.web.header.writers.HstsHeaderWriter$SecureRequestMatcher@7834c884
+2020-01-30 11:58:23.496 DEBUG 18284 --- [http-nio-8080-exec-8] w.c.HttpSessionSecurityContextRepository : SecurityContext is empty or contents are anonymous - context will not be stored in HttpSession.
+2020-01-30 11:58:23.497 DEBUG 18284 --- [http-nio-8080-exec-8] s.s.w.c.SecurityContextPersistenceFilter : SecurityContextHolder now cleared, as request processing completed
+2020-01-30 11:58:23.504 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList at position 1 of 12 in additional filter chain; firing Filter: 'WebAsyncManagerIntegrationFilter'
+2020-01-30 11:58:23.505 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList at position 2 of 12 in additional filter chain; firing Filter: 'SecurityContextPersistenceFilter'
+2020-01-30 11:58:23.506 DEBUG 18284 --- [http-nio-8080-exec-7] w.c.HttpSessionSecurityContextRepository : Obtained a valid SecurityContext from SPRING_SECURITY_CONTEXT: 'org.springframework.security.core.context.SecurityContextImpl@49365e03: Authentication: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@49365e03: Principal: com.progmasters.moovsmart.security.MyUserDetails@d2bef57; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_USER'
+2020-01-30 11:58:23.506 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList at position 3 of 12 in additional filter chain; firing Filter: 'HeaderWriterFilter'
+2020-01-30 11:58:23.506 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList at position 4 of 12 in additional filter chain; firing Filter: 'CorsFilter'
+2020-01-30 11:58:23.507 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList at position 5 of 12 in additional filter chain; firing Filter: 'LogoutFilter'
+2020-01-30 11:58:23.507 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', GET]
+2020-01-30 11:58:23.507 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/api/properties/authUser/myList'; against '/logout'
+2020-01-30 11:58:23.507 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', POST]
+2020-01-30 11:58:23.507 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'GET /api/properties/authUser/myList' doesn't match 'POST /logout'
+2020-01-30 11:58:23.507 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', PUT]
+2020-01-30 11:58:23.507 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'GET /api/properties/authUser/myList' doesn't match 'PUT /logout'
+2020-01-30 11:58:23.507 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', DELETE]
+2020-01-30 11:58:23.507 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'GET /api/properties/authUser/myList' doesn't match 'DELETE /logout'
+2020-01-30 11:58:23.507 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.web.util.matcher.OrRequestMatcher  : No matches found
+2020-01-30 11:58:23.507 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList at position 6 of 12 in additional filter chain; firing Filter: 'BasicAuthenticationFilter'
+2020-01-30 11:58:23.507 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList at position 7 of 12 in additional filter chain; firing Filter: 'RequestCacheAwareFilter'
+2020-01-30 11:58:23.508 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.w.s.HttpSessionRequestCache        : saved request doesn't match
+2020-01-30 11:58:23.508 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList at position 8 of 12 in additional filter chain; firing Filter: 'SecurityContextHolderAwareRequestFilter'
+2020-01-30 11:58:23.508 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList at position 9 of 12 in additional filter chain; firing Filter: 'AnonymousAuthenticationFilter'
+2020-01-30 11:58:23.508 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : SecurityContextHolder not populated with anonymous token, as it already contained: 'org.springframework.security.authentication.UsernamePasswordAuthenticationToken@49365e03: Principal: com.progmasters.moovsmart.security.MyUserDetails@d2bef57; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_USER'
+2020-01-30 11:58:23.508 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList at position 10 of 12 in additional filter chain; firing Filter: 'SessionManagementFilter'
+2020-01-30 11:58:23.508 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList at position 11 of 12 in additional filter chain; firing Filter: 'ExceptionTranslationFilter'
+2020-01-30 11:58:23.508 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList at position 12 of 12 in additional filter chain; firing Filter: 'FilterSecurityInterceptor'
+2020-01-30 11:58:23.508 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/api/properties/authUser/myList'; against '/api/properties/admin'
+2020-01-30 11:58:23.508 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/api/properties/authUser/myList'; against '/api/properties/admin/**'
+2020-01-30 11:58:23.508 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/api/properties/authUser/myList'; against '/api/properties/authUser'
+2020-01-30 11:58:23.508 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/api/properties/authUser/myList'; against '/api/properties/authUser/**'
+2020-01-30 11:58:23.509 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.w.a.i.FilterSecurityInterceptor    : Secure object: FilterInvocation: URL: /api/properties/authUser/myList; Attributes: [hasAnyRole('ROLE_USER','ROLE_ADMIN')]
+2020-01-30 11:58:23.509 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.w.a.i.FilterSecurityInterceptor    : Previously Authenticated: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@49365e03: Principal: com.progmasters.moovsmart.security.MyUserDetails@d2bef57; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_USER
+2020-01-30 11:58:23.509 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.access.vote.AffirmativeBased       : Voter: org.springframework.security.web.access.expression.WebExpressionVoter@69693232, returned: 1
+2020-01-30 11:58:23.511 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.w.a.i.FilterSecurityInterceptor    : Authorization successful
+2020-01-30 11:58:23.511 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.w.a.i.FilterSecurityInterceptor    : RunAsManager did not change Authentication object
+2020-01-30 11:58:23.511 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.security.web.FilterChainProxy        : /api/properties/authUser/myList reached end of additional filter chain; proceeding with original chain
+2020-01-30 11:58:23.523  INFO 18284 --- [http-nio-8080-exec-7] c.p.m.controller.PropertyController      : Get own properties-list
+2020-01-30 11:58:23.667 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match the requestMatcher org.springframework.security.web.header.writers.HstsHeaderWriter$SecureRequestMatcher@7834c884
+2020-01-30 11:58:23.671 DEBUG 18284 --- [http-nio-8080-exec-7] o.s.s.w.a.ExceptionTranslationFilter     : Chain processed normally
+2020-01-30 11:58:23.671 DEBUG 18284 --- [http-nio-8080-exec-7] s.s.w.c.SecurityContextPersistenceFilter : SecurityContextHolder now cleared, as request processing completed
+2020-01-30 12:00:49.234 DEBUG 18284 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : /logout at position 1 of 12 in additional filter chain; firing Filter: 'WebAsyncManagerIntegrationFilter'
+2020-01-30 12:00:49.234 DEBUG 18284 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : /logout at position 2 of 12 in additional filter chain; firing Filter: 'SecurityContextPersistenceFilter'
+2020-01-30 12:00:49.234 DEBUG 18284 --- [http-nio-8080-exec-4] w.c.HttpSessionSecurityContextRepository : No HttpSession currently exists
+2020-01-30 12:00:49.234 DEBUG 18284 --- [http-nio-8080-exec-4] w.c.HttpSessionSecurityContextRepository : No SecurityContext was available from the HttpSession: null. A new one will be created.
+2020-01-30 12:00:49.234 DEBUG 18284 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : /logout at position 3 of 12 in additional filter chain; firing Filter: 'HeaderWriterFilter'
+2020-01-30 12:00:49.234 DEBUG 18284 --- [http-nio-8080-exec-4] o.s.security.web.FilterChainProxy        : /logout at position 4 of 12 in additional filter chain; firing Filter: 'CorsFilter'
+2020-01-30 12:00:49.234 DEBUG 18284 --- [http-nio-8080-exec-4] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match the requestMatcher org.springframework.security.web.header.writers.HstsHeaderWriter$SecureRequestMatcher@7834c884
+2020-01-30 12:00:49.234 DEBUG 18284 --- [http-nio-8080-exec-4] w.c.HttpSessionSecurityContextRepository : SecurityContext is empty or contents are anonymous - context will not be stored in HttpSession.
+2020-01-30 12:00:49.234 DEBUG 18284 --- [http-nio-8080-exec-4] s.s.w.c.SecurityContextPersistenceFilter : SecurityContextHolder now cleared, as request processing completed
+2020-01-30 12:00:49.241 DEBUG 18284 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : /logout at position 1 of 12 in additional filter chain; firing Filter: 'WebAsyncManagerIntegrationFilter'
+2020-01-30 12:00:49.242 DEBUG 18284 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : /logout at position 2 of 12 in additional filter chain; firing Filter: 'SecurityContextPersistenceFilter'
+2020-01-30 12:00:49.243 DEBUG 18284 --- [http-nio-8080-exec-3] w.c.HttpSessionSecurityContextRepository : Obtained a valid SecurityContext from SPRING_SECURITY_CONTEXT: 'org.springframework.security.core.context.SecurityContextImpl@49365e03: Authentication: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@49365e03: Principal: com.progmasters.moovsmart.security.MyUserDetails@d2bef57; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_USER'
+2020-01-30 12:00:49.244 DEBUG 18284 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : /logout at position 3 of 12 in additional filter chain; firing Filter: 'HeaderWriterFilter'
+2020-01-30 12:00:49.244 DEBUG 18284 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : /logout at position 4 of 12 in additional filter chain; firing Filter: 'CorsFilter'
+2020-01-30 12:00:49.251 DEBUG 18284 --- [http-nio-8080-exec-3] o.s.security.web.FilterChainProxy        : /logout at position 5 of 12 in additional filter chain; firing Filter: 'LogoutFilter'
+2020-01-30 12:00:49.253 DEBUG 18284 --- [http-nio-8080-exec-3] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', GET]
+2020-01-30 12:00:49.253 DEBUG 18284 --- [http-nio-8080-exec-3] o.s.s.w.u.matcher.AntPathRequestMatcher  : Request 'POST /logout' doesn't match 'GET /logout'
+2020-01-30 12:00:49.254 DEBUG 18284 --- [http-nio-8080-exec-3] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using Ant [pattern='/logout', POST]
+2020-01-30 12:00:49.254 DEBUG 18284 --- [http-nio-8080-exec-3] o.s.s.w.u.matcher.AntPathRequestMatcher  : Checking match of request : '/logout'; against '/logout'
+2020-01-30 12:00:49.254 DEBUG 18284 --- [http-nio-8080-exec-3] o.s.s.web.util.matcher.OrRequestMatcher  : matched
+2020-01-30 12:00:49.254 DEBUG 18284 --- [http-nio-8080-exec-3] o.s.s.w.a.logout.LogoutFilter            : Logging out user 'org.springframework.security.authentication.UsernamePasswordAuthenticationToken@49365e03: Principal: com.progmasters.moovsmart.security.MyUserDetails@d2bef57; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@b364: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: null; Granted Authorities: ROLE_USER' and transferring to logout destination
+2020-01-30 12:00:49.255 DEBUG 18284 --- [http-nio-8080-exec-3] o.s.s.w.a.l.SecurityContextLogoutHandler : Invalidating session: 5818C2FE3661C2FF9E24A740334D9DDB
+2020-01-30 12:00:49.256 DEBUG 18284 --- [http-nio-8080-exec-3] o.s.s.web.util.matcher.OrRequestMatcher  : Trying to match using RequestHeaderRequestMatcher [expectedHeaderName=X-Requested-With, expectedHeaderValue=XMLHttpRequest]
+2020-01-30 12:00:49.256 DEBUG 18284 --- [http-nio-8080-exec-3] o.s.s.web.util.matcher.OrRequestMatcher  : matched
+2020-01-30 12:00:49.257 DEBUG 18284 --- [http-nio-8080-exec-3] o.s.s.w.header.writers.HstsHeaderWriter  : Not injecting HSTS header since it did not match the requestMatcher org.springframework.security.web.header.writers.HstsHeaderWriter$SecureRequestMatcher@7834c884
+2020-01-30 12:00:49.257 DEBUG 18284 --- [http-nio-8080-exec-3] w.c.HttpSessionSecurityContextRepository : SecurityContext is empty or contents are anonymous - context will not be stored in HttpSession.
+2020-01-30 12:00:49.261 DEBUG 18284 --- [http-nio-8080-exec-3] s.s.w.c.SecurityContextPersistenceFilter : SecurityContextHolder now cleared, as request processing completed
