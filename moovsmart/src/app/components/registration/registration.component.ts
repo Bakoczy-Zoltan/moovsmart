@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { PropertyFormDataModel } from '../../models/propertyFormData.model';
-import { UserFormDataModel } from '../../models/userFormData.model';
-import { PropertyService } from '../../services/property.service';
-import { validationHandler } from '../../utils/validationHandler';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {PropertyFormDataModel} from '../../models/propertyFormData.model';
+import {UserFormDataModel} from '../../models/userFormData.model';
+import {PropertyService} from '../../services/property.service';
+import {validationHandler} from '../../utils/validationHandler';
 
 @Component({
   selector: 'app-registration',
@@ -28,7 +28,10 @@ export class RegistrationComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private propertyService: PropertyService,
-              private router: Router) { }
+              private router: Router) {
+
+    console.log("regsitration comp")
+  }
 
   ngOnInit() {
   }
@@ -42,28 +45,29 @@ export class RegistrationComponent implements OnInit {
   createNewUser(data: UserFormDataModel) {
     this.openModalDialog();
     this.propertyService.registerUser(data).subscribe(
-        (mess) => console.log(mess),
-        // error => validationHandler(error, this.registrationForm),
-        error => {
-          this.closeModalDialog();
-          this.openModalDialogError()},
+      (mess) => console.log(mess),
+      // error => validationHandler(error, this.registrationForm),
+      error => {
+        this.closeModalDialog();
+        this.openModalDialogError()
+      },
     );
   }
 
-  openModalDialog(){
-    this.display='block';
+  openModalDialog() {
+    this.display = 'block';
   }
 
-  closeModalDialog(){
-    this.display='none';
+  closeModalDialog() {
+    this.display = 'none';
   }
 
-  openModalDialogError(){
-    this.displayError='block';
+  openModalDialogError() {
+    this.displayError = 'block';
   }
 
-  closeModalDialogError(){
-    this.displayError='none';
+  closeModalDialogError() {
+    this.displayError = 'none';
   }
 
   routeToPropertyList() {

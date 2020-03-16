@@ -41,6 +41,7 @@ export class PropertyListComponent implements OnInit {
         this.clearFilterFields();
         this.needFilterList = false;
         this.emptyList = false;
+        console.log("LISt comp")
 
     }
 
