@@ -8,6 +8,7 @@ import com.progmasters.moovsmart.dto.CreateUserCommand;
 import com.progmasters.moovsmart.dto.UserDetails;
 import com.progmasters.moovsmart.repository.PropertyRepository;
 import com.progmasters.moovsmart.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +28,7 @@ public class UserService {
 
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
                        PropertyRepository propertyRepository) {
@@ -144,5 +146,9 @@ public class UserService {
             userToSend = new UserDetails(user);
         }
         return userToSend;
+    }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
     }
 }

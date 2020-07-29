@@ -8,6 +8,7 @@ import com.progmasters.moovsmart.security.TokenStorage;
 import com.progmasters.moovsmart.util.DataBaseSaver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -42,6 +43,7 @@ public class MailSenderService {
     @Value("${spring.mail.username}")
     private String mailSenderAddress;
 
+    @Autowired
     public MailSenderService(JavaMailSender javaMailSender,
                              UserRepository userRepository,
                              TokenStorageRepository tokenStorage) {

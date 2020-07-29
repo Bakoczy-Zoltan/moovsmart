@@ -1,6 +1,8 @@
 package com.progmasters.moovsmart.selenium;
 
+import com.progmasters.moovsmart.domain.UserProperty;
 import com.progmasters.moovsmart.dto.CreateUserCommand;
+import com.progmasters.moovsmart.repository.UserRepository;
 import com.progmasters.moovsmart.service.UserService;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,21 +11,27 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
+@SpringBootTest
+@Transactional
+@Rollback
 public class SeleniumDemoTest {
 
     private WebDriver driver;
     private SeleniumIniter initer = new SeleniumIniter();
+    CreateUserCommand user = new CreateUserCommand();
 
-    @Autowired(required = false)
+    @Autowired
     private UserService userService;
 
 
@@ -31,7 +39,8 @@ public class SeleniumDemoTest {
     public void initTest() {
         driver = initer.getDriver();
         driver.get("http://localhost:4200/");
-        userService.makeUser(new CreateUserCommand());
+
+
     }
 
     @Test
@@ -87,6 +96,41 @@ public class SeleniumDemoTest {
 
         Assertions.assertEquals("Regisztráció ", elementSignIn.getAttribute("innerText"));
         Assertions.assertTrue(elementNameLabel.getAttribute("innerText").equals("Név"));
+    }
+
+    @Test
+    public void testRegistrationOfProperty() {
+        user.setMail("demo@demo.hu");
+        user.setUserName("John Tester");
+        user.setPassword("Demo123");
+
+        UserRepository userRepository = userService.getUserRepository();
+        UserProperty user = new UserProperty(this.user);
+
+        user.setIsActive(true);
+        userRepository.save(user);
+
+        driver.findElement(By.cssSelector("#myNavbar > a:nth-child(3)")).click();
+
+        WebElement elementMailLabel = driver.findElement(By.cssSelector("#mail"));
+        elementMailLabel.sendKeys("demo@demo.hu");
+        WebElement elementPassword = driver.findElement(By.cssSelector("#password"));
+        elementPassword.sendKeys("Demo123");
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.findElement(By.cssSelector("body > app-root > div > app-signin > div > form > button")).click();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+       driver.findElement(By.cssSelector("#myNavbar > ul > li:nth-child(2) > a")).click();
+
     }
 
     @AfterEach
